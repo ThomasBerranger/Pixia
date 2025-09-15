@@ -1,35 +1,20 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Header from "./Header.tsx";
+import Header from "./Layout/Header.tsx";
+import Footer from "./Layout/Footer.tsx";
+import {Route, Routes} from "react-router-dom";
+import Admin from "./Admin.tsx";
+import Game from "./Game.tsx";
 
 function App() {
-    const [count, setCount] = useState<number>(0)
-
     return (
         <>
             <Header/>
-            <div>
-                <a href="https://vite.dev" target="_blank">
-                    <img src={viteLogo} className="logo" alt="Vite logo"/>
-                </a>
-                <a href="https://react.dev" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo"/>
-                </a>
-            </div>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
+            <main className={'w-full bg-amber-200 flex items-center justify-center'}>
+                <Routes>
+                    <Route path="/" element={<Game/>}/>
+                    <Route path="/admin" element={<Admin/>}/>
+                </Routes>
+            </main>
+            <Footer/>
         </>
     )
 }
