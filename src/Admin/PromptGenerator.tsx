@@ -1,10 +1,13 @@
-import {useState} from "react"
-import type {ApiResponse} from "../types/apiResponse.ts"
-import * as React from "react";
+import type {ApiResponseType} from "../types/apiResponseType.ts"
+import * as React from "react"
 
-function PromptGenerator({ response, loading, onPromptSubmit }: { response: ApiResponse, loading: boolean, onPromptSubmit: (e?: React.FormEvent) => Promise<void> }) {
-    const [prompt, setPrompt] = useState<string>('')
-
+function PromptGenerator({prompt, setPrompt, loading, response, onPromptSubmit}: {
+    prompt: string,
+    setPrompt: (value: string) => void,
+    loading: boolean,
+    response: ApiResponseType,
+    onPromptSubmit: (e?: React.FormEvent) => Promise<void>
+}) {
     return <>
         <h1 className={'font-semibold'}>Création de contenu</h1>
 
@@ -30,7 +33,6 @@ function PromptGenerator({ response, loading, onPromptSubmit }: { response: ApiR
 
         <p className={'mt-2'}>Explication :</p>
         <p className={'w-full bg-white p-1 text-gray-500'}>{response.explanation ?? '/'}</p>
-
     </>
 }
 

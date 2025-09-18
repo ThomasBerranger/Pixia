@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState} from "react"
 
 function ImageGenerator({prompt}: { prompt: string | undefined }) {
     const [loading, setLoading] = useState<boolean>(false)

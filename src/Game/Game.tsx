@@ -1,11 +1,10 @@
 import {BsThreeDots} from 'react-icons/bs'
 
-
 function Game() {
     return (
         <>
             <div className="border border-purple-500 rounded p-5">
-                <img src="https://placehold.co/400x200" alt="placeholder"/>
+                <img src="http://localhost:8000/images/multivers/2025/09/18.png" alt="placeholder" className={'h-80'}/>
 
                 <div className="flex items-center justify-center space-x-1 mt-5">
                     <button>Précédent</button>

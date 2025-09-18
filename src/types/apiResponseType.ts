@@ -1,4 +1,4 @@
-export interface ApiResponse {
+export interface ApiResponseType {
     result: string | undefined;
     title: string | undefined;
     explanation: string | undefined;
