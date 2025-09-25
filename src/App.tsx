@@ -10,7 +10,7 @@ function App() {
     return (
         <>
             <Header/>
-            <main className={'w-full bg-amber-200 flex items-center justify-center'}>
+            <main className={'w-full flex items-center justify-center'}>
                 <Routes>
                     <Route path="/" element={<Game/>}/>
                     <Route path="/user" element={<User/>}/>

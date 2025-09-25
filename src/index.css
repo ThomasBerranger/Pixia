@@ -1,11 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Oswald:wght@200..700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-header, footer {
-    height: 10vh;
+html {
+    @apply bg-stone-100;
+
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+
+    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("public/background.svg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: repeat-y;
+}
+
+header {
+    height: 15vh;
 }
 
 main {
     min-height: 80vh;
+}
+
+footer {
+    height: 5vh;
+}
+
+.title {
+    font-family: "Major Mono Display", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.button-shadow {
+    @apply border;
+    @apply border-black;
+    @apply rounded-full;
+    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
 }

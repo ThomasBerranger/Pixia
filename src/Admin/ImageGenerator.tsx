@@ -1,38 +1,51 @@
 import {useState} from "react"
+import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import {useApi} from "../hooks/useApi.tsx"
+import type {GameType} from "../types/gameType.ts"
+import * as React from "react"
 
-function ImageGenerator({prompt}: { prompt: string | undefined }) {
+function ImageGenerator({game, setGame}: { game: GameType, setGame: React.Dispatch<React.SetStateAction<GameType>> }) {
+    const {apiCall} = useApi()
+
     const [loading, setLoading] = useState<boolean>(false)
-    const [image, setImage] = useState<string>('')
 
-    function handleOpenAIImage(): void {
+    async function handleOpenAIImage(): Promise<void> {
         setLoading(true)
 
-        setTimeout(() => {
-            const response = {
-                "data": [
-                    {
-                        "url": "https://imgs.search.brave.com/nTI72J0QlRf4qIsJwSSrEpw0OyBokWGFsrF4G6W4_7U/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzAyLzI3LzU4Lzk5/LzM2MF9GXzIyNzU4/OTk5Nl9zajNlbVZt/Z2g5dkRqWFRlcjZ4/RnZCZXFEV1lTVUdn/RC5qcGc"
-                    }
-                ]
-            };
+        try {
+            const response = await apiCall('open-api/generate-image', {
+                method: 'POST',
+                body: JSON.stringify({"prompt": game.prompt})
+            })
 
-            setImage(response.data[0].url)
+            setGame((prevGame: GameType): GameType => ({
+                ...prevGame,
+                image: response || undefined,
+            }));
+        } catch (err) {
+            console.error(err)
+        } finally {
             setLoading(false)
-        }, 1000)
+        }
     }
 
-    return <>
-        <p className={'my-5'}>prompt = {prompt}</p>
+    return (
+        <div className="w-full bg-white rounded-b text-center pb-5">
 
-        <button className={'w-full bg-red-100 rounded mt-5 py-1'} onClick={handleOpenAIImage}>
-            {loading ? 'Génération...' : 'Utiliser ce prompt pour générer une image'}
-        </button>
+            {game.prompt &&
+                <button disabled={loading} className={'w-3/5 button-shadow text-white bg-red-600 p-1'} onClick={handleOpenAIImage}>
+                    {loading ?
+                        <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>
+                        : 'Utiliser ce prompt pour générer une image'}
+                </button>
+            }
 
-        {image &&
-            <div className="w-full flex justify-center mt-5">
-                <img src={image} alt="Test" className="max-h-28"/>
-            </div>}
-    </>
+            {game.image &&
+                <div className="w-full flex justify-center mt-5">
+                    <img src={game.image} alt="Test" className="max-h-72"/>
+                </div>}
+        </div>
+    )
 }
 
 export default ImageGenerator

@@ -1,57 +1,69 @@
 import {useState} from 'react'
 import PromptGenerator from "./PromptGenerator.tsx"
-import type {ApiResponseType} from "../types/apiResponseType.ts"
-import * as React from "react"
+import type {GameType} from "../types/gameType.ts"
 import ImageGenerator from "./ImageGenerator.tsx"
-import {useApi} from '../hooks/useApi'
+import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import * as React from "react"
+import {useApi} from "../hooks/useApi.tsx"
 
 function Admin() {
-    const { apiCall } = useApi()
+    const {apiCall} = useApi()
 
-    const [prompt, setPrompt] = useState<string>('')
-    const [loading, setLoading] = useState<boolean>(false)
-    const [response, setResponse] = useState<ApiResponseType>({
-        result: undefined,
+    const [loading, setLoading] = React.useState<boolean>(false)
+    const [game, setGame] = useState<GameType>({
+        prompt: undefined,
         title: undefined,
         explanation: undefined,
-        hint: undefined
+        hint: undefined,
+        image: undefined,
+        date: undefined,
     })
 
-    async function handleSubmit(e?: React.FormEvent): Promise<void> {
-        e?.preventDefault()
-
-        if (prompt.length < 5) return
-
+    async function handleGameSubmit(): Promise<void> {
         setLoading(true)
 
         try {
-            const response = await apiCall('open-api/generate-content', {
+            // setGame((prevGame: GameType): GameType => ({
+            //     ...prevGame,
+            //     prompt: 'Je suis prompt',
+            //     title: 'Je suis title',
+            //     hint: 'Je suis hint',
+            //     explanation: 'Je suis explanation',
+            //     image: 'Je suis image',
+            // }));
+
+            const response = await apiCall('games', {
                 method: 'POST',
-                body: JSON.stringify({ prompt })
+                body: JSON.stringify(game)
             })
 
-            setResponse(prev => ({
-                ...prev,
-                result: response.match(/Prompt:\s*(.*?)\s*Title/)?.[1],
-                title: response.match(/Title:\s*(.*?)\s*Hint/)?.[1],
-                hint: response.match(/Hint:\s*(.*?)\s*Explanation/)?.[1],
-                explanation: response.match(/Explanation:\s*(.*)/)?.[1]
-            }))
-        } catch (err) {
-            console.error(err)
+            console.log(response)
+        } catch (error) {
+            console.error(error)
         } finally {
             setLoading(false)
         }
     }
 
     return (
-        <>
-            <div className="w-3/5 border border-purple-500 rounded p-5 my-10">
-                <PromptGenerator prompt={prompt} setPrompt={setPrompt} loading={loading} response={response}
-                                 onPromptSubmit={handleSubmit}/>
-                <ImageGenerator prompt={response.result}/>
+        <div className="w-4/5 my-5">
+            <PromptGenerator game={game} setGame={setGame}/>
+            <ImageGenerator game={game} setGame={setGame}/>
+
+            <div className={'flex justify-center align-middle gap-5 bg-white pb-5 text-xl'}>
+                <input type={"date"} value={game.date || ''} onChange={(e) => setGame(prev => ({
+                    ...prev,
+                    date: e.target.value
+                }))}/>
+
+                <button disabled={loading || !game.date} className={'w-1/5 button-shadow text-white bg-red-600 p-1'}
+                        onClick={handleGameSubmit}>
+                    {loading ?
+                        <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>
+                        : 'Sauvegarder ce jeu'}
+                </button>
             </div>
-        </>
+        </div>
     )
 }
 

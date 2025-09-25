@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <>
-        <footer className={'w-full bg-indigo-50 flex items-center justify-center'}>footer</footer>
+        <footer className={'w-full flex items-center justify-center'}></footer>
     </>
   )
 }
