@@ -1,4 +1,4 @@
-import {useAuth} from '../contexts/authContext.tsx'
+import {useAuth} from '../../contexts/authContext.tsx'
 import {useState} from "react"
 
 function UserForm() {

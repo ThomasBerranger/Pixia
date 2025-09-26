@@ -1,7 +1,7 @@
 import {useState} from "react"
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
-import {useApi} from "../hooks/useApi.tsx"
-import type {GameCreateType} from "../types/gameCreateType.ts"
+import {useApi} from "../../hooks/useApi.tsx"
+import type {GameCreateType} from "../../types/gameCreateType.ts"
 import * as React from "react"
 
 function ImageGenerator({game, setGame}: { game: GameCreateType, setGame: React.Dispatch<React.SetStateAction<GameCreateType>> }) {
@@ -30,7 +30,7 @@ function ImageGenerator({game, setGame}: { game: GameCreateType, setGame: React.
     }
 
     return (
-        <div className="w-full bg-white rounded-b text-center pb-5">
+        <div className="w-full rounded-b text-center pb-5">
 
             {game.prompt &&
                 <button disabled={loading} className={'w-3/5 button-shadow text-white bg-red-600 p-1'} onClick={handleOpenAIImage}>

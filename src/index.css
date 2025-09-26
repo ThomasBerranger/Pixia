@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Oswald:wght@200..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Oswald:wght@200..700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,7 +7,7 @@
 html {
     @apply bg-stone-100;
 
-    font-family: "Oswald", sans-serif;
+    font-family: "Roboto Flex", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 
@@ -18,15 +18,15 @@ html {
 }
 
 header {
-    min-height: 15vh;
+    height: 15vh;
 }
 
 main {
-    min-height: 80vh;
+    height: 80vh;
 }
 
 footer {
-    min-height: 5vh;
+    height: 5vh;
 }
 
 .title {
@@ -41,5 +41,10 @@ footer {
     @apply rounded-full;
     @apply tracking-wide;
 
+    font-family: "Oswald", sans-serif;
     box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
+}
+
+.font-oswald {
+    font-family: "Oswald", sans-serif;
 }

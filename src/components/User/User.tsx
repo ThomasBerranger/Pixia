@@ -1,4 +1,4 @@
-import {useAuth} from '../contexts/authContext.tsx'
+import {useAuth} from '../../contexts/authContext.tsx'
 import UserForm from "./UserForm.tsx";
 import UserDashboard from "./UserDashboard.tsx";
 

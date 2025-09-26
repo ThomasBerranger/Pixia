@@ -1,9 +1,9 @@
 import Header from "./Layout/Header.tsx"
 import Footer from "./Layout/Footer.tsx"
 import {Route, Routes} from "react-router-dom"
-import Admin from "./Admin/Admin.tsx"
-import Game from "./Game/Game.tsx"
-import User from "./User/User.tsx"
+import Admin from "./components/Admin/Admin.tsx"
+import Game from "./components/Game/Game.tsx"
+import User from "./components/User/User.tsx"
 import ProtectedRoute from "./components/ProtectedRoute.tsx"
 
 function App() {

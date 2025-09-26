@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom"
-import {useAuth} from '../contexts/authContext.tsx'
+import {useAuth} from '../../contexts/authContext.tsx'
 import {useEffect, useState} from "react"
-import {useApi} from "../hooks/useApi.tsx"
-import type {userType} from "../types/userType.ts"
+import {useApi} from "../../hooks/useApi.tsx"
+import type {userType} from "../../types/userType.ts"
 
 function UserDashboard() {
     const {apiCall} = useApi()
@@ -24,7 +24,7 @@ function UserDashboard() {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return <>
-        <div className="w-3/5 bg-white rounded p-5 my-10">
+        <div className="w-3/5 bg-white border border-black rounded p-5 my-10">
             <p>Email connecté : {user ? user.email : 'Loading'}</p>
             <p>Score du joueur : {user ? user.score : 'Loading'}</p>
             <button className={'bg-red-400 text-white rounded p-2 float-end'} onClick={logout}>Me déconnecter

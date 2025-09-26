@@ -1,10 +1,10 @@
 import {useState} from 'react'
 import PromptGenerator from "./PromptGenerator.tsx"
-import type {GameCreateType} from "../types/gameCreateType.ts"
+import type {GameCreateType} from "../../types/gameCreateType.ts"
 import ImageGenerator from "./ImageGenerator.tsx"
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
 import * as React from "react"
-import {useApi} from "../hooks/useApi.tsx"
+import {useApi} from "../../hooks/useApi.tsx"
 
 function Admin() {
     const {apiCall} = useApi()
@@ -46,7 +46,7 @@ function Admin() {
     }
 
     return (
-        <div className="w-4/5 my-5">
+        <div className="w-4/5 my-5 bg-white border border-black">
             <PromptGenerator game={game} setGame={setGame}/>
             <ImageGenerator game={game} setGame={setGame}/>
 
