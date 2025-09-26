@@ -1,10 +1,10 @@
 import * as React from "react"
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
-import type {GameType} from "../types/gameType.ts";
+import type {GameCreateType} from "../types/gameCreateType.ts";
 import {useState} from "react";
 import {useApi} from "../hooks/useApi.tsx";
 
-function PromptGenerator({game, setGame}: { game: GameType, setGame: React.Dispatch<React.SetStateAction<GameType>> }) {
+function PromptGenerator({game, setGame}: { game: GameCreateType, setGame: React.Dispatch<React.SetStateAction<GameCreateType>> }) {
     const {apiCall} = useApi()
 
     const [loading, setLoading] = useState<boolean>(false)
@@ -23,7 +23,7 @@ function PromptGenerator({game, setGame}: { game: GameType, setGame: React.Dispa
                 body: JSON.stringify({prompt})
             })
 
-            setGame((prevGame: GameType): GameType => ({
+            setGame((prevGame: GameCreateType): GameCreateType => ({
                 ...prevGame,
                 prompt: response.match(/Prompt:\s*(.*?)\s*Title/)?.[1] || undefined,
                 title: response.match(/Title:\s*(.*?)\s*Hint/)?.[1] || undefined,
@@ -77,6 +77,23 @@ function PromptGenerator({game, setGame}: { game: GameType, setGame: React.Dispa
                             <div className={'h-4 mt-0.5 bg-gray-300 rounded w-1/4'}></div>
                         </div>
                     }
+                </div>
+
+
+                <div className="mx-auto w-full max-w-sm rounded-md border border-blue-300 p-4">
+                    <div className="flex animate-pulse space-x-4">
+                        <div className="size-10 rounded-full bg-gray-200"></div>
+                        <div className="flex-1 space-y-6 py-1">
+                            <div className="h-2 rounded bg-gray-200"></div>
+                            <div className="space-y-3">
+                                <div className="grid grid-cols-3 gap-4">
+                                    <div className="col-span-2 h-2 rounded bg-gray-200"></div>
+                                    <div className="col-span-1 h-2 rounded bg-gray-200"></div>
+                                </div>
+                                <div className="h-2 rounded bg-gray-200"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

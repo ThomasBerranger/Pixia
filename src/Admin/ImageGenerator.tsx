@@ -1,10 +1,10 @@
 import {useState} from "react"
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
 import {useApi} from "../hooks/useApi.tsx"
-import type {GameType} from "../types/gameType.ts"
+import type {GameCreateType} from "../types/gameCreateType.ts"
 import * as React from "react"
 
-function ImageGenerator({game, setGame}: { game: GameType, setGame: React.Dispatch<React.SetStateAction<GameType>> }) {
+function ImageGenerator({game, setGame}: { game: GameCreateType, setGame: React.Dispatch<React.SetStateAction<GameCreateType>> }) {
     const {apiCall} = useApi()
 
     const [loading, setLoading] = useState<boolean>(false)
@@ -18,7 +18,7 @@ function ImageGenerator({game, setGame}: { game: GameType, setGame: React.Dispat
                 body: JSON.stringify({"prompt": game.prompt})
             })
 
-            setGame((prevGame: GameType): GameType => ({
+            setGame((prevGame: GameCreateType): GameCreateType => ({
                 ...prevGame,
                 image: response || undefined,
             }));
