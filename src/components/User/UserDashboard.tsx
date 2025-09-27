@@ -6,8 +6,8 @@ import type {userType} from "../../types/userType.ts"
 
 function UserDashboard() {
     const {apiCall} = useApi()
-
     const {isAdmin, logout} = useAuth()
+
     const [user, setUser] = useState<userType | null>(null)
 
     useEffect(() => {

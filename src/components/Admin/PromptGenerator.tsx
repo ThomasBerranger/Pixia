@@ -28,8 +28,8 @@ function PromptGenerator({game, setGame}: {
 
             setGame((prevGame: GameCreateType): GameCreateType => ({
                 ...prevGame,
-                prompt: response.match(/Prompt:\s*(.*?)\s*Title/)?.[1] || undefined,
-                title: response.match(/Title:\s*(.*?)\s*Hint/)?.[1] || undefined,
+                prompt: response.match(/Prompt:\s*(.*?)\s*Solution/)?.[1] || undefined,
+                solution: response.match(/Solution:\s*(.*?)\s*Hint/)?.[1] || undefined,
                 hint: response.match(/Hint:\s*(.*?)\s*Explanation/)?.[1] || undefined,
                 explanation: response.match(/Explanation:\s*(.*)/)?.[1] || undefined,
             }));
@@ -66,8 +66,8 @@ function PromptGenerator({game, setGame}: {
 
                 <div>
                     <p className={'mt-2'}>Solution :</p>
-                    {game.title ?
-                        <p className={'text-sm w-full bg-white text-gray-500'}>{game.title}</p> :
+                    {game.solution ?
+                        <p className={'text-sm w-full bg-white text-gray-500'}>{game.solution}</p> :
                         <div className={'h-4 animate-pulse bg-gray-300 rounded w-3/4'}></div>
                     }
 

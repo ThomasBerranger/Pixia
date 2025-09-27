@@ -1,14 +1,17 @@
-import type {GameShowType} from "../../types/gameShowType.ts";
-import type {GameSolutionType} from "../../types/gameSolutionType.ts";
-import {AiOutlineLoading3Quarters} from "react-icons/ai";
-import React, {useEffect, useState} from "react";
-import {useApi} from "../../hooks/useApi.tsx";
+import {AiOutlineLoading3Quarters} from "react-icons/ai"
+import React, {useState} from "react"
+import {useApi} from "../../../hooks/useApi.tsx"
+import {useAuth} from "../../../contexts/authContext.tsx"
+import type {GameType} from "../../../types/gameType.ts"
+import type {HistoryType} from "../../../types/historyType.ts"
 
-function GameFooter({game, gameSolution, setGameSolution}: {
-    game: GameShowType,
-    gameSolution: GameSolutionType,
-    setGameSolution: React.Dispatch<React.SetStateAction<GameSolutionType>>
+function GameFooter({game, setGame, history, setHistory}: {
+    game: GameType,
+    setGame: React.Dispatch<React.SetStateAction<GameType>>,
+    history: HistoryType,
+    setHistory: React.Dispatch<React.SetStateAction<HistoryType>>,
 }) {
+    const {isAuthenticated} = useAuth()
     const {apiCall} = useApi()
 
     const [hint, setHint] = useState<string>('')
@@ -16,7 +19,6 @@ function GameFooter({game, gameSolution, setGameSolution}: {
     const [answer, setAnswer] = useState<string>('')
     const [answerLoading, setAnswerLoading] = useState<boolean>(false)
     const [displayError, setDisplayError] = useState(false)
-    const [difficulty, setDifficulty] = useState<string>('')
 
     async function handleHintRequest(): Promise<void> {
         setHintLoading(true)
@@ -49,7 +51,11 @@ function GameFooter({game, gameSolution, setGameSolution}: {
                 if (!response) {
                     showErrorBriefly()
                 } else {
-                    setGameSolution(response)
+                    setGame((prevGame: GameType): GameType => ({
+                        ...prevGame,
+                        solution: response.solution || undefined,
+                        explanation: response.explanation || undefined,
+                    }));
                 }
             } catch (error) {
                 console.error('Erreur: ', error)
@@ -59,11 +65,18 @@ function GameFooter({game, gameSolution, setGameSolution}: {
         }
     }
 
-    useEffect(() => {
-        if (difficulty) {
-            console.log(difficulty)
+    const submitDifficultyVote = async (difficulty: string): Promise<void> => {
+        try {
+            const response = await apiCall(`games/${game.id}/difficulty`, {
+                method: 'POST',
+                body: JSON.stringify({difficulty: difficulty})
+            })
+
+            setHistory(prev => ({...prev, ...response}));
+        } catch (error) {
+            console.error('Erreur: ', error)
         }
-    }, [difficulty])
+    };
 
     const showErrorBriefly = () => {
         setDisplayError(true)
@@ -74,11 +87,15 @@ function GameFooter({game, gameSolution, setGameSolution}: {
     }
 
     return <div className={'relative h-[20%]'}>
+        {hint && (<div
+            className={'position w-full flex justify-center absolute top-0 origin-bottom -translate-y-full bg-white bg-opacity-70'}>
+            <p className={'w-full sm:w-3/4 xl:w-1/2 text-center'}>{hint}</p>
+        </div>)}
+
         <div
-            className={`h-full flex items-center duration-500 ${!gameSolution.title ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
+            className={`h-full flex items-center ${!history && 'duration-500'} ${!game.solution ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
 
             <form onSubmit={handleSolutionRequest} className={'w-full text-center'}>
-                {hint && (<p className={'w-3/5 mx-auto mb-5'}>{hint}</p>)}
 
                 <input value={answer} onChange={(e) => setAnswer(e.target.value)}
                        className={`w-2/3 text-center border rounded p-1 duration-300 ${displayError ? 'bg-red-200' : ''}`}
@@ -99,14 +116,14 @@ function GameFooter({game, gameSolution, setGameSolution}: {
         </div>
 
         <div
-            className={`absolute top-0 w-full h-full flex items-center duration-500 ${gameSolution.title ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
+            className={`absolute top-0 w-full h-full flex items-center ${!history && 'duration-500'} ${game.solution ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
             <div className="w-full flex justify-center gap-5">
                 <button className={'button-shadow px-5 py-2'}>Image précédente</button>
-                <select value={difficulty} onChange={(e) => setDifficulty(e.target.value)}
-                        name="difficulty" id="difficulty" className={'border border-black rounded px-4'}>
-                    <option value="EASY">SIMPLE</option>
-                    <option value="MEDIUM">TORDU</option>
-                    <option value="HARD">DIABOLIQUE</option>
+                <select disabled={!isAuthenticated} value={history?.difficulty} onChange={(e) => submitDifficultyVote(e.target.value)}
+                        name="difficulty" id="difficulty" className={`border border-black rounded px-4 ${!isAuthenticated && 'cursor-not-allowed'}`}>
+                    <option value="SIMPLE">SIMPLE</option>
+                    <option value="TORDU">TORDU</option>
+                    <option value="DIABOLIQUE">DIABOLIQUE</option>
                 </select>
                 <button className={'button-shadow px-5 py-2'}>Image suivante</button>
             </div>

@@ -12,7 +12,7 @@ function Admin() {
     const [loading, setLoading] = React.useState<boolean>(false)
     const [game, setGame] = useState<GameCreateType>({
         prompt: undefined,
-        title: undefined,
+        solution: undefined,
         explanation: undefined,
         hint: undefined,
         image: undefined,
@@ -23,21 +23,15 @@ function Admin() {
         setLoading(true)
 
         try {
-            setGame((prevGame: GameCreateType): GameCreateType => ({
-                ...prevGame,
-                prompt: 'Je suis prompt',
-                title: 'Je suis title',
-                hint: 'Je suis hint',
-                explanation: 'Je suis explanation',
-                image: 'Je suis image',
-            }));
-
             const response = await apiCall('games', {
                 method: 'POST',
                 body: JSON.stringify(game)
             })
 
-            console.log(response)
+            setGame((prevGame: GameCreateType): GameCreateType => ({
+                ...prevGame,
+                image: response.image,
+            }));
         } catch (error) {
             console.error(error)
         } finally {

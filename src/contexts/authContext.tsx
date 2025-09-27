@@ -1,7 +1,17 @@
 import {createContext, useContext, useState, type ReactNode} from 'react'
 import {jwtDecode} from 'jwt-decode'
-import type {AuthContextType} from "../types/authContextType.ts"
 import type {JWTPayloadType} from "../types/JWTPayloadType.ts"
+
+interface AuthContextType {
+    token: string | null;
+    userRoles: string[];
+    login: (token: string) => void;
+    logout: () => void;
+    hasRole: (role: string) => boolean;
+    isUser: () => boolean;
+    isAdmin: () => boolean;
+    isAuthenticated: boolean;
+}
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
