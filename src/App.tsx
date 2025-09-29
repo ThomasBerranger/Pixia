@@ -1,10 +1,13 @@
 import Header from "./Layout/Header.tsx"
 import Footer from "./Layout/Footer.tsx"
-import {Route, Routes} from "react-router-dom"
+import {Outlet, Route, Routes} from "react-router-dom"
 import Admin from "./components/Admin/Admin.tsx"
 import Game from "./components/Game/Game.tsx"
 import User from "./components/User/User.tsx"
 import ProtectedRoute from "./components/ProtectedRoute.tsx"
+import AdminGameGenerator from "./components/Admin/AdminGameGenerator.tsx"
+import AdminUserDashboard from "./components/Admin/AdminUserDashboard.tsx"
+import AdminGameDashboard from "./components/Admin/AdminGameDashboard.tsx"
 
 function App() {
     return (
@@ -14,11 +17,17 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Game/>}/>
                     <Route path="/user" element={<User/>}/>
+
                     <Route path="/admin" element={
                         <ProtectedRoute requiredRole={"ROLE_ADMIN"}>
-                            <Admin/>
+                            <Outlet/>
                         </ProtectedRoute>
-                    }/>
+                    }>
+                        <Route index element={<Admin/>}/>
+                        <Route path="user-dashboard" element={<AdminUserDashboard/>}/>
+                        <Route path="game-dashboard" element={<AdminGameDashboard/>}/>
+                        <Route path="game-generator" element={<AdminGameGenerator/>}/>
+                    </Route>
                 </Routes>
             </main>
             <Footer/>

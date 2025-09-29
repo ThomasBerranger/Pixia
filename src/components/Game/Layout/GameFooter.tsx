@@ -5,6 +5,7 @@ import {useAuth} from "../../../contexts/authContext.tsx"
 import type {GameType} from "../../../types/gameType.ts"
 import type {AchievementType} from "../../../types/achievementType.ts"
 import {PiArrowFatLineLeft, PiArrowFatLineRight} from "react-icons/pi"
+import {format} from "date-fns"
 
 function GameFooter({
                         game,
@@ -75,6 +76,8 @@ function GameFooter({
                         solution: response.solution || undefined,
                         explanation: response.explanation || undefined,
                     }));
+
+                    setAnswer('')
                 }
             } catch (error) {
                 console.error('Erreur: ', error)
@@ -121,68 +124,66 @@ function GameFooter({
         }
     }
 
-    return <div className={'relative h-[20%]'}>
+    return <div className={'relative h-[20%] flex items-center transition-opacity duration-100'}>
+
         {hint && (<div
             className={'position w-full flex justify-center absolute top-0 origin-bottom -translate-y-full bg-white bg-opacity-70'}>
             <p className={'w-full sm:w-3/4 xl:w-1/2 text-center'}>{hint}</p>
         </div>)}
 
-        <div
-            className={`h-full flex items-center ${!achievement && 'duration-500'} ${!game.solution ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
-
-            <form onSubmit={handleSolutionRequest} className={'w-full text-center'}>
+        {!game.solution ?
+            <form onSubmit={handleSolutionRequest}
+                  className={'w-full text-center'}>
 
                 <input value={answer} onChange={(e) => setAnswer(e.target.value)}
-                       className={`w-2/3 text-center border rounded p-1 duration-300 ${displayError ? 'bg-red-200' : ''}`}
+                       className={`w-11/12 sm:w-2/3 text-center border rounded p-1 duration-300 ${displayError ? 'bg-red-200' : ''}`}
                        placeholder="Titanic et Inception"/>
 
-                <div className="relative flex justify-center gap-5 mt-5">
-                    <button onClick={() => changeGame(previousGameDate)} type="button"
-                            className={'absolute left-0 bottom-0 text-3xl px-5 py-1'}>
-                        {/*animate-ping duration-1000*/}
-                        {previousGameDate && (
-                            <PiArrowFatLineLeft/>
-                        )}
+                <div className={'flex justify-center gap-3 mt-3'}>
+                    <button className={'button-shadow bg-red-600 text-white px-14 py-1'}>
+                        {!answerLoading ? "Valider" :
+                            <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>}
                     </button>
-                    <div className={'flex gap-1 items-center'}>
-                        <button className={'button-shadow bg-red-600 text-white px-14 py-1'}>
-                            {!answerLoading ? "Valider" :
-                                <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>}
-                        </button>
-                        <button type="button" onClick={handleHintRequest}
-                                className={'font-oswald bg-white px-4 py-1'}>
-                            {!hintLoading ? "Indice ?" :
-                                <AiOutlineLoading3Quarters className="animate-spin text-2xl mx-auto"/>}
-                        </button>
-                    </div>
-                    <button onClick={() => changeGame(nextGameDate)} type="button"
-                            className={'absolute right-0 bottom-0 text-3xl px-5 py-1'}>
-                        {nextGameDate && (
-                            <PiArrowFatLineRight/>
-                        )}
+                    <button type="button" onClick={handleHintRequest}
+                            className={'font-oswald bg-white px-4 py-1'}>
+                        {!hintLoading ? "Indice ?" :
+                            <AiOutlineLoading3Quarters className="animate-spin text-2xl mx-auto"/>}
                     </button>
                 </div>
             </form>
-        </div>
-
-        <div
-            className={`absolute top-0 w-full h-full flex items-center ${!achievement && 'duration-500'} ${game.solution ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
-            <div className="w-full flex justify-center gap-5">
-                <button onClick={() => changeGame(previousGameDate)} className={'button-shadow px-5 py-2'}>Image
-                    précédente
-                </button>
-                <select disabled={!isAuthenticated} value={achievement?.difficulty}
-                        onChange={(e) => submitDifficultyVote(e.target.value)}
-                        name="difficulty" id="difficulty"
-                        className={`border border-black rounded px-4 ${!isAuthenticated && 'cursor-not-allowed'}`}>
-                    <option value="SIMPLE">SIMPLE</option>
-                    <option value="TORDU">TORDU</option>
-                    <option value="DIABOLIQUE">DIABOLIQUE</option>
-                </select>
-                <button onClick={() => changeGame(nextGameDate)} className={'button-shadow px-5 py-2'}>Image suivante
-                </button>
+            :
+            <div className={'w-full text-center'}>
+                <p>
+                    J'ai trouvé cette énigme{' '}
+                    <select disabled={!isAuthenticated} value={achievement?.difficulty}
+                            onChange={(e) => submitDifficultyVote(e.target.value)}
+                            name="difficulty" id="difficulty"
+                            className="inline border-b-2 border-gray-800 bg-transparent cursor-pointer appearance-none">
+                        <option value="SIMPLE">SIMPLE</option>
+                        <option value="TORDU">TORDUE</option>
+                        <option value="DIABOLIQUE">DIABOLIQUE</option>
+                    </select>
+                </p>
             </div>
-        </div>
+        }
+
+        <button onClick={() => changeGame(previousGameDate)} type="button"
+                className={'absolute left-0 bottom-0 text-3xl p-3 z-20'}>
+            {previousGameDate && (
+                <div className={'flex items-center'}><PiArrowFatLineLeft/><p
+                    className={'text-sm font-oswald'}>{format(new Date(previousGameDate), 'dd/MM/yyyy')}</p>
+                </div>
+            )}
+        </button>
+
+        <button onClick={() => changeGame(nextGameDate)} type="button"
+                className={'absolute right-0 bottom-0 text-3xl p-3 z-20'}>
+            {nextGameDate && (
+                <div className={'flex items-center'}><p
+                    className={'text-sm font-oswald'}>{format(new Date(nextGameDate), 'dd/MM/yyyy')}</p>
+                    <PiArrowFatLineRight/></div>
+            )}
+        </button>
     </div>
 }
 

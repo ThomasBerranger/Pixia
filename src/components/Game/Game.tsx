@@ -42,7 +42,7 @@ function Game() {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return <div className={'w-10/12 md:w-2/3 border border-black bg-white rounded'}>
-        <GameHeader game={game} achievement={achievement}/>
+        <GameHeader game={game}/>
         <GameContent gameImage={game.image}/>
         <GameFooter game={game} setGame={setGame}
                     achievement={achievement} setAchievement={setAchievement}

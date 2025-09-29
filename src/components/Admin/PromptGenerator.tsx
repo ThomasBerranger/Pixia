@@ -40,67 +40,130 @@ function PromptGenerator({game, setGame}: {
         }
     }
 
-    return <>
-        <div className="w-full p-4">
+    return <div className="w-full p-3">
+        <div className={'grid grid-cols-1 md:grid-cols-2 gap-2'}>
 
-            <h1 className={'text-2xl mb-3 text-center'}>Création de contenu</h1>
+            <div className={'w-full'}>
+                <form onSubmit={handleSubmit}>
 
-            <div className={'grid grid-cols-1 md:grid-cols-2 gap-2'}>
+                    <div className="relative">
+                            <textarea
+                                id="user-prompt" value={prompt} rows={2}
+                                placeholder={'Une fusion entre les univers de Jurassic Park et Avatar'}
+                                onChange={(e) => setPrompt(e.target.value)}
+                                className="w-full border border-gray-300 rounded px-2.5 py-2.5"
+                            />
+                        <label
+                            htmlFor="name"
+                            className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
+                        >
+                            Quelle image souhaites tu générer ?
+                        </label>
+                    </div>
 
-                <div className={'w-full'}>
-                    <form onSubmit={handleSubmit}>
+                    <div className={'text-center'}>
+                        <button className={'w-4/5 button-shadow md:mt-1 p-1'}>
+                            {!loading ? "Générer le jeu" :
+                                <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>}
+                        </button>
+                    </div>
 
-                    <textarea className={'font-light w-full border border-black rounded px-2 py-1'}
-                              placeholder={"Mélange les univers de deux films connus"} rows={3}
-                              value={prompt} onChange={(e) => setPrompt(e.target.value)}/>
-
-                        <div className={'text-center'}>
-                            <button className={'w-4/5 button-shadow my-0.5 p-0.5'}>
-                                {!loading ? "Générer le jeu" :
-                                    <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>}
-                            </button>
-                        </div>
-
-                    </form>
-                </div>
-
-                <div>
-                    <p className={'mt-2'}>Solution :</p>
-                    {game.solution ?
-                        <p className={'text-sm w-full bg-white text-gray-500'}>{game.solution}</p> :
-                        <div className={'h-4 animate-pulse bg-gray-300 rounded w-3/4'}></div>
-                    }
-
-                    <p className={'mt-2'}>Indice :</p>
-                    {game.hint ?
-                        <p className={'text-sm w-full bg-white text-gray-500'}>{game.hint}</p> :
-                        <div className={'w-full flex flex-wrap gap-1 animate-pulse'}>
-                            <div className={'h-4 mt-0.5 bg-gray-300 rounded w-6/12'}></div>
-                            <div className={'h-4 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
-                            <div className={'h-4 mt-0.5 bg-gray-300 rounded w-2/12'}></div>
-                            <div className={'h-4 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
-                        </div>
-                    }
-                </div>
+                </form>
             </div>
 
-            <p className={'text-md mt-1'}>Prompt :</p>
-            {game.prompt ?
-                <p className={'w-full text-sm bg-white text-gray-500 p-0.5'}>{game.prompt}</p> :
-                <div className={'w-full flex flex-wrap gap-1 animate-pulse'}>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-2/12'}></div>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-6/12'}></div>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-3/12'}></div>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-4/12'}></div>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-3/12'}></div>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-2/12'}></div>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-2/12'}></div>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-3/12'}></div>
-                    <div className={'h-4 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
-                </div>
-            }
+            <div>
+                {game.solution ?
+                    <div className="relative">
+                        <input
+                            type="text" id="solution" value={game.solution}
+                            onChange={(e) => setGame(prev => ({...prev, solution: e.target.value}))}
+                            className="w-full border border-gray-300 rounded px-2.5 py-2.5"
+                        />
+                        <label
+                            htmlFor="solution"
+                            className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
+                        >
+                            Solution
+                        </label>
+                    </div> : <div>
+                        <label htmlFor="solution">Solution</label>
+                        <div className={'h-5 animate-pulse bg-gray-300 rounded w-3/4'}></div>
+                    </div>
+                }
+
+                {game.solution ?
+                    <div className="relative mt-4">
+                        <input
+                            type="date"
+                            id="date"
+                            value={game.date || new Date().toISOString().split('T')[0]}
+                            onChange={(e) => setGame(prev => ({...prev, date: e.target.value}))}
+                            className="w-full border border-gray-300 rounded px-2.5 py-2.5 focus:outline-none focus:border-gray-300"
+                        />
+                        <label
+                            htmlFor="date"
+                            className="absolute left-2 -top-2.5 bg-white px-1 text-sm text-gray-600"
+                        >
+                            Date du jeu
+                        </label>
+                    </div> : <div className={'mt-4'}>
+                        <label htmlFor="solution">Date du jeu</label>
+                        <div className={'h-5 animate-pulse bg-gray-300 rounded w-3/5'}></div>
+                    </div>
+                }
+            </div>
         </div>
-    </>
+
+        {game.hint ? <div className="relative mt-4">
+                        <textarea
+                            id="indice" rows={2} value={game.hint}
+                            onChange={(e) => setGame(prev => ({...prev, hint: e.target.value}))}
+                            className="w-full border border-gray-300 rounded px-2.5 py-2.5"
+                        />
+            <label
+                htmlFor="indice"
+                className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
+            >
+                Indice
+            </label>
+        </div> : <div className="mt-2">
+            <label htmlFor="solution">Indice</label>
+            <div className={'w-full flex flex-wrap gap-1 animate-pulse'}>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-6/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-2/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
+            </div>
+        </div>
+        }
+
+        {game.prompt ? <div className="relative mt-3">
+                        <textarea
+                            id="prompt" rows={3} value={game.prompt}
+                            onChange={(e) => setGame(prev => ({...prev, prompt: e.target.value}))}
+                            className="w-full border border-gray-300 rounded px-2.5 py-2.5"
+                        />
+            <label
+                htmlFor="prompt"
+                className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
+            >
+                Prompt
+            </label>
+        </div> : <div className={'mt-2'}>
+            <label htmlFor="prompt">Prompt</label>
+            <div className={'w-full flex flex-wrap gap-1 animate-pulse'}>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-2/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-6/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-3/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-4/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-1/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-4/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-3/12'}></div>
+                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
+            </div>
+        </div>
+        }
+    </div>
 }
 
 export default PromptGenerator
