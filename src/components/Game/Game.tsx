@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
 import type {GameType} from "../../types/gameType.ts"
-import type {HistoryType} from "../../types/historyType.ts"
+import type {AchievementType} from "../../types/achievementType.ts"
 import GameHeader from "./Layout/GameHeader.tsx"
 import GameContent from "./Layout/GameContent.tsx"
 import GameFooter from "./Layout/GameFooter.tsx"
@@ -11,14 +11,18 @@ function Game() {
 
     const [game, setGame] = useState<GameType>({
         id: undefined,
+        type: undefined,
         solution: undefined,
-        explanation: undefined,
         hint: undefined,
-        image: undefined,
+        explanation: undefined,
+        date: undefined,
         difficulty: undefined,
+        image: undefined,
         userDifficulty: undefined,
     })
-    const [history, setHistory] = useState<HistoryType>({difficulty: undefined})
+    const [achievement, setAchievement] = useState<AchievementType>({difficulty: undefined})
+    const [nextGameDate, setNextGameDate] = useState<string | null>(null)
+    const [previousGameDate, setPreviousGameDate] = useState<string | null>(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -26,7 +30,9 @@ function Game() {
                 const response = await apiCall('games')
 
                 setGame(response.game)
-                setHistory(response.history)
+                setAchievement(response.achievement)
+                setPreviousGameDate(response.previousGameDate)
+                setNextGameDate(response.nextGameDate)
             } catch (error) {
                 console.error('Erreur: ', error)
             }
@@ -36,9 +42,12 @@ function Game() {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return <div className={'w-10/12 md:w-2/3 border border-black bg-white rounded'}>
-        <GameHeader game={game} history={history}/>
+        <GameHeader game={game} achievement={achievement}/>
         <GameContent gameImage={game.image}/>
-        <GameFooter game={game} setGame={setGame} history={history} setHistory={setHistory}/>
+        <GameFooter game={game} setGame={setGame}
+                    achievement={achievement} setAchievement={setAchievement}
+                    previousGameDate={previousGameDate} setPreviousGameDate={setPreviousGameDate}
+                    nextGameDate={nextGameDate} setNextGameDate={setNextGameDate}/>
     </div>
 }
 

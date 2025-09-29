@@ -5,11 +5,11 @@ import UserDashboard from "./UserDashboard.tsx";
 function User() {
     const {isAuthenticated} = useAuth()
 
-    if (!isAuthenticated) {
-        return <UserForm/>
-    }
+    return <div className="w-10/12 md:w-2/3 bg-white border border-black rounded p-5 my-10">
+        <h1 className={'title text-4xl text-center py-5'}>espAce jOueuR</h1>
 
-    return <UserDashboard/>
+        {isAuthenticated ? <UserDashboard/> : <UserForm/>}
+    </div>
 }
 
 export default User

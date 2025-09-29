@@ -23,19 +23,17 @@ function UserDashboard() {
         fetchData()
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-    return <>
-        <div className="w-3/5 bg-white border border-black rounded p-5 my-10">
-            <p>Email connecté : {user ? user.email : 'Loading'}</p>
-            <p>Score du joueur : {user ? user.score : 'Loading'}</p>
-            <button className={'bg-red-400 text-white rounded p-2 float-end'} onClick={logout}>Me déconnecter
+    return <div className="mt-5">
+        <p>Email connecté : {user ? user.email : 'Loading'}</p>
+        <p>Score du joueur : {user ? user.score : 'Loading'}</p>
+        <button className={'bg-red-400 text-white rounded p-2 float-end'} onClick={logout}>Me déconnecter
+        </button>
+        {isAdmin() && (
+            <button className={'p-2 bg-white rounded float-end'}>
+                <Link to='/admin'>Admin</Link>
             </button>
-            {isAdmin() && (
-                <button className={'p-2 bg-white rounded float-end'}>
-                    <Link to='/admin'>Admin</Link>
-                </button>
-            )}
-        </div>
-    </>
+        )}
+    </div>
 }
 
 export default UserDashboard

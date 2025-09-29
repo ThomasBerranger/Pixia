@@ -1,3 +1,3 @@
-export interface HistoryType {
+export interface AchievementType {
     difficulty: string | undefined;
 }

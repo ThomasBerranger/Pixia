@@ -3,13 +3,27 @@ import React, {useState} from "react"
 import {useApi} from "../../../hooks/useApi.tsx"
 import {useAuth} from "../../../contexts/authContext.tsx"
 import type {GameType} from "../../../types/gameType.ts"
-import type {HistoryType} from "../../../types/historyType.ts"
+import type {AchievementType} from "../../../types/achievementType.ts"
+import {PiArrowFatLineLeft, PiArrowFatLineRight} from "react-icons/pi"
 
-function GameFooter({game, setGame, history, setHistory}: {
+function GameFooter({
+                        game,
+                        setGame,
+                        achievement,
+                        setAchievement,
+                        previousGameDate,
+                        setPreviousGameDate,
+                        nextGameDate,
+                        setNextGameDate
+                    }: {
     game: GameType,
     setGame: React.Dispatch<React.SetStateAction<GameType>>,
-    history: HistoryType,
-    setHistory: React.Dispatch<React.SetStateAction<HistoryType>>,
+    achievement: AchievementType,
+    setAchievement: React.Dispatch<React.SetStateAction<AchievementType>>,
+    previousGameDate: string | null,
+    setPreviousGameDate: React.Dispatch<React.SetStateAction<string | null>>,
+    nextGameDate: string | null,
+    setNextGameDate: React.Dispatch<React.SetStateAction<string | null>>,
 }) {
     const {isAuthenticated} = useAuth()
     const {apiCall} = useApi()
@@ -21,6 +35,11 @@ function GameFooter({game, setGame, history, setHistory}: {
     const [displayError, setDisplayError] = useState(false)
 
     async function handleHintRequest(): Promise<void> {
+        if (hint) {
+            setHint('')
+            return
+        }
+
         setHintLoading(true)
 
         try {
@@ -72,7 +91,7 @@ function GameFooter({game, setGame, history, setHistory}: {
                 body: JSON.stringify({difficulty: difficulty})
             })
 
-            setHistory(prev => ({...prev, ...response}));
+            setAchievement(prev => ({...prev, ...response}));
         } catch (error) {
             console.error('Erreur: ', error)
         }
@@ -86,6 +105,22 @@ function GameFooter({game, setGame, history, setHistory}: {
         }, 2000)
     }
 
+    const changeGame = async (date: string | null): Promise<void> => {
+        if (date) {
+            try {
+                const response = await apiCall(`games?date=${date}&type=${game.type}`)
+
+                setGame(response.game)
+                setAchievement(response.achievement)
+                setHint('')
+                setPreviousGameDate(response.previousGameDate)
+                setNextGameDate(response.nextGameDate)
+            } catch (error) {
+                console.error('Erreur: ', error)
+            }
+        }
+    }
+
     return <div className={'relative h-[20%]'}>
         {hint && (<div
             className={'position w-full flex justify-center absolute top-0 origin-bottom -translate-y-full bg-white bg-opacity-70'}>
@@ -93,7 +128,7 @@ function GameFooter({game, setGame, history, setHistory}: {
         </div>)}
 
         <div
-            className={`h-full flex items-center ${!history && 'duration-500'} ${!game.solution ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
+            className={`h-full flex items-center ${!achievement && 'duration-500'} ${!game.solution ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
 
             <form onSubmit={handleSolutionRequest} className={'w-full text-center'}>
 
@@ -101,31 +136,51 @@ function GameFooter({game, setGame, history, setHistory}: {
                        className={`w-2/3 text-center border rounded p-1 duration-300 ${displayError ? 'bg-red-200' : ''}`}
                        placeholder="Titanic et Inception"/>
 
-                <div className="flex justify-center gap-5 mt-5">
-                    <button className={'button-shadow bg-red-600 text-white px-10 py-1'}>
-                        {!answerLoading ? "Valider" :
-                            <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>}
+                <div className="relative flex justify-center gap-5 mt-5">
+                    <button onClick={() => changeGame(previousGameDate)} type="button"
+                            className={'absolute left-0 bottom-0 text-3xl px-5 py-1'}>
+                        {/*animate-ping duration-1000*/}
+                        {previousGameDate && (
+                            <PiArrowFatLineLeft/>
+                        )}
                     </button>
-                    <button type="button" onClick={handleHintRequest}
-                            className={'button-shadow bg-white px-4 py-1'}>
-                        {!hintLoading ? "Indice ?" :
-                            <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>}
+                    <div className={'flex gap-1 items-center'}>
+                        <button className={'button-shadow bg-red-600 text-white px-14 py-1'}>
+                            {!answerLoading ? "Valider" :
+                                <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>}
+                        </button>
+                        <button type="button" onClick={handleHintRequest}
+                                className={'font-oswald bg-white px-4 py-1'}>
+                            {!hintLoading ? "Indice ?" :
+                                <AiOutlineLoading3Quarters className="animate-spin text-2xl mx-auto"/>}
+                        </button>
+                    </div>
+                    <button onClick={() => changeGame(nextGameDate)} type="button"
+                            className={'absolute right-0 bottom-0 text-3xl px-5 py-1'}>
+                        {nextGameDate && (
+                            <PiArrowFatLineRight/>
+                        )}
                     </button>
                 </div>
             </form>
         </div>
 
         <div
-            className={`absolute top-0 w-full h-full flex items-center ${!history && 'duration-500'} ${game.solution ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
+            className={`absolute top-0 w-full h-full flex items-center ${!achievement && 'duration-500'} ${game.solution ? 'z-10 opacity-100' : '-z-10 opacity-0'}`}>
             <div className="w-full flex justify-center gap-5">
-                <button className={'button-shadow px-5 py-2'}>Image précédente</button>
-                <select disabled={!isAuthenticated} value={history?.difficulty} onChange={(e) => submitDifficultyVote(e.target.value)}
-                        name="difficulty" id="difficulty" className={`border border-black rounded px-4 ${!isAuthenticated && 'cursor-not-allowed'}`}>
+                <button onClick={() => changeGame(previousGameDate)} className={'button-shadow px-5 py-2'}>Image
+                    précédente
+                </button>
+                <select disabled={!isAuthenticated} value={achievement?.difficulty}
+                        onChange={(e) => submitDifficultyVote(e.target.value)}
+                        name="difficulty" id="difficulty"
+                        className={`border border-black rounded px-4 ${!isAuthenticated && 'cursor-not-allowed'}`}>
                     <option value="SIMPLE">SIMPLE</option>
                     <option value="TORDU">TORDU</option>
                     <option value="DIABOLIQUE">DIABOLIQUE</option>
                 </select>
-                <button className={'button-shadow px-5 py-2'}>Image suivante</button>
+                <button onClick={() => changeGame(nextGameDate)} className={'button-shadow px-5 py-2'}>Image suivante
+                </button>
             </div>
         </div>
     </div>
