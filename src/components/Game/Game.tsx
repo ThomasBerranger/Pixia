@@ -27,7 +27,7 @@ function Game() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await apiCall('games')
+                const response = await apiCall('games/daily')
 
                 setGame(response.game)
                 setAchievement(response.achievement)

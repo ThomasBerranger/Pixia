@@ -32,6 +32,7 @@ function PromptGenerator({game, setGame}: {
                 solution: response.match(/Solution:\s*(.*?)\s*Hint/)?.[1] || undefined,
                 hint: response.match(/Hint:\s*(.*?)\s*Explanation/)?.[1] || undefined,
                 explanation: response.match(/Explanation:\s*(.*)/)?.[1] || undefined,
+                date: new Date().toISOString().split('T')[0]
             }));
         } catch (err) {
             console.error(err)
@@ -96,7 +97,7 @@ function PromptGenerator({game, setGame}: {
                         <input
                             type="date"
                             id="date"
-                            value={game.date || new Date().toISOString().split('T')[0]}
+                            value={game.date}
                             onChange={(e) => setGame(prev => ({...prev, date: e.target.value}))}
                             className="w-full border border-gray-300 rounded px-2.5 py-2.5 focus:outline-none focus:border-gray-300"
                         />

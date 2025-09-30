@@ -23,12 +23,10 @@ function AdminUserDashboard() {
         setLoading(true)
 
         try {
-            const response = await apiCall('games', {
+            await apiCall('games', {
                 method: 'POST',
                 body: JSON.stringify(game)
             })
-
-            console.log('saved', response)
         } catch (error) {
             console.error(error)
         } finally {

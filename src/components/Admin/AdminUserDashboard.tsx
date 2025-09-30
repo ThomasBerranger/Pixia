@@ -1,12 +1,12 @@
 import AdminHeader from "./Layout/AdminHeader.tsx"
 import {useEffect, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
-import type {userType} from "../../types/userType.ts"
+import type {UserType} from "../../types/userType.ts"
 
 function AdminUserDashboard() {
     const {apiCall} = useApi()
 
-    const [users, setUsers] = useState<userType[]>([])
+    const [users, setUsers] = useState<UserType[]>([])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -37,7 +37,7 @@ function AdminUserDashboard() {
                     </thead>
                     <tbody>
                     {users.map(user =>
-                        <tr className="even:bg-gray-100">
+                        <tr key={user.email} className="even:bg-gray-100">
                             <td className="p-3">{user.email}</td>
                             <td className="p-3">{user.roles?.join(', ')}</td>
                             <td className="p-3">{user.score}</td>

@@ -2,13 +2,13 @@ import {Link} from "react-router-dom"
 import {useAuth} from '../../contexts/authContext.tsx'
 import {useEffect, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
-import type {userType} from "../../types/userType.ts"
+import type {UserType} from "../../types/userType.ts"
 
 function UserDashboard() {
     const {apiCall} = useApi()
     const {isAdmin, logout} = useAuth()
 
-    const [user, setUser] = useState<userType | null>(null)
+    const [user, setUser] = useState<UserType | null>(null)
 
     useEffect(() => {
         const fetchData = async () => {

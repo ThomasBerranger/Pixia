@@ -111,7 +111,7 @@ function GameFooter({
     const changeGame = async (date: string | null): Promise<void> => {
         if (date) {
             try {
-                const response = await apiCall(`games?date=${date}&type=${game.type}`)
+                const response = await apiCall(`games/daily?date=${date}&type=${game.type}`)
 
                 setGame(response.game)
                 setAchievement(response.achievement)
@@ -168,7 +168,7 @@ function GameFooter({
         }
 
         <button onClick={() => changeGame(previousGameDate)} type="button"
-                className={'absolute left-0 bottom-0 text-3xl p-3 z-20'}>
+                className={'absolute left-0 bottom-0 text-3xl p-2 z-20 hover:bg-gray-100'}>
             {previousGameDate && (
                 <div className={'flex items-center'}><PiArrowFatLineLeft/><p
                     className={'text-sm font-oswald'}>{format(new Date(previousGameDate), 'dd/MM/yyyy')}</p>
@@ -177,7 +177,7 @@ function GameFooter({
         </button>
 
         <button onClick={() => changeGame(nextGameDate)} type="button"
-                className={'absolute right-0 bottom-0 text-3xl p-3 z-20'}>
+                className={'absolute right-0 bottom-0 text-3xl p-2 z-20 hover:bg-gray-100'}>
             {nextGameDate && (
                 <div className={'flex items-center'}><p
                     className={'text-sm font-oswald'}>{format(new Date(nextGameDate), 'dd/MM/yyyy')}</p>
