@@ -5,9 +5,10 @@ import Admin from "./components/Admin/Admin.tsx"
 import Game from "./components/Game/Game.tsx"
 import User from "./components/User/User.tsx"
 import ProtectedRoute from "./components/ProtectedRoute.tsx"
-import AdminGameGenerator from "./components/Admin/AdminGameGenerator.tsx"
-import AdminUserDashboard from "./components/Admin/AdminUserDashboard.tsx"
-import AdminGameDashboard from "./components/Admin/AdminGameDashboard.tsx"
+import AdminGameGenerator from "./components/Admin/GameGenerator/AdminGameGenerator.tsx"
+import AdminUserDashboard from "./components/Admin/Dashboard/AdminUserDashboard.tsx"
+import AdminGameDashboard from "./components/Admin/Dashboard/AdminGameDashboard.tsx"
+import AdminGameEdit from "./components/Admin/AdminGameEdit.tsx";
 
 function App() {
     return (
@@ -25,8 +26,9 @@ function App() {
                     }>
                         <Route index element={<Admin/>}/>
                         <Route path="user-dashboard" element={<AdminUserDashboard/>}/>
-                        <Route path="game-dashboard" element={<AdminGameDashboard/>}/>
                         <Route path="game-generator" element={<AdminGameGenerator/>}/>
+                        <Route path="game-dashboard" element={<AdminGameDashboard/>}/>
+                        <Route path="games/:id" element={<AdminGameEdit/>}/>
                     </Route>
                 </Routes>
             </main>

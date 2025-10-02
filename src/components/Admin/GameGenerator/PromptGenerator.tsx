@@ -1,8 +1,8 @@
 import * as React from "react"
 import {AiOutlineLoading3Quarters} from "react-icons/ai";
-import type {GameCreateType} from "../../types/gameCreateType.ts";
+import type {GameCreateType} from "../../../types/gameCreateType.ts";
 import {useState} from "react";
-import {useApi} from "../../hooks/useApi.tsx";
+import {useApi} from "../../../hooks/useApi.tsx";
 
 function PromptGenerator({game, setGame}: {
     game: GameCreateType,
@@ -108,7 +108,7 @@ function PromptGenerator({game, setGame}: {
                             Date du jeu
                         </label>
                     </div> : <div className={'mt-4'}>
-                        <label htmlFor="solution">Date du jeu</label>
+                        <label htmlFor="date">Date du jeu</label>
                         <div className={'h-5 animate-pulse bg-gray-300 rounded w-3/5'}></div>
                     </div>
                 }
@@ -116,19 +116,19 @@ function PromptGenerator({game, setGame}: {
         </div>
 
         {game.hint ? <div className="relative mt-4">
-                        <textarea
-                            id="indice" rows={2} value={game.hint}
-                            onChange={(e) => setGame(prev => ({...prev, hint: e.target.value}))}
-                            className="w-full border border-gray-300 rounded px-2.5 py-2.5"
-                        />
+            <textarea
+                id="hint" rows={2} value={game.hint}
+                onChange={(e) => setGame(prev => ({...prev, hint: e.target.value}))}
+                className="w-full border border-gray-300 rounded px-2.5 py-2.5"
+            />
             <label
-                htmlFor="indice"
+                htmlFor="hint"
                 className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
             >
                 Indice
             </label>
         </div> : <div className="mt-2">
-            <label htmlFor="solution">Indice</label>
+            <label htmlFor="hint">Indice</label>
             <div className={'w-full flex flex-wrap gap-1 animate-pulse'}>
                 <div className={'h-5 mt-0.5 bg-gray-300 rounded w-6/12'}></div>
                 <div className={'h-5 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
@@ -139,11 +139,11 @@ function PromptGenerator({game, setGame}: {
         }
 
         {game.prompt ? <div className="relative mt-3">
-                        <textarea
-                            id="prompt" rows={3} value={game.prompt}
-                            onChange={(e) => setGame(prev => ({...prev, prompt: e.target.value}))}
-                            className="w-full border border-gray-300 rounded px-2.5 py-2.5"
-                        />
+            <textarea
+                id="prompt" rows={3} value={game.prompt}
+                onChange={(e) => setGame(prev => ({...prev, prompt: e.target.value}))}
+                className="w-full border border-gray-300 rounded px-2.5 py-2.5"
+            />
             <label
                 htmlFor="prompt"
                 className="absolute left-2 -top-2.5 bg-white px-1 text-sm"

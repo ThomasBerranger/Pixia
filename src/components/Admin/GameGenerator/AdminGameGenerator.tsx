@@ -1,10 +1,10 @@
-import type {GameCreateType} from "../../types/gameCreateType.ts"
+import type {GameCreateType} from "../../../types/gameCreateType.ts"
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
 import PromptGenerator from "./PromptGenerator.tsx"
 import ImageGenerator from "./ImageGenerator.tsx"
-import {useApi} from "../../hooks/useApi.tsx"
+import {useApi} from "../../../hooks/useApi.tsx"
 import React, {useState} from "react"
-import AdminHeader from "./Layout/AdminHeader.tsx"
+import AdminHeader from "../Layout/AdminHeader.tsx"
 
 function AdminUserDashboard() {
     const {apiCall} = useApi()

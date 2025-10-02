@@ -1,7 +1,7 @@
 import {useState} from "react"
 import {AiOutlineLoading3Quarters} from "react-icons/ai"
-import {useApi} from "../../hooks/useApi.tsx"
-import type {GameCreateType} from "../../types/gameCreateType.ts"
+import {useApi} from "../../../hooks/useApi.tsx"
+import type {GameCreateType} from "../../../types/gameCreateType.ts"
 import * as React from "react"
 
 function ImageGenerator({game, setGame, onGameSubmit}: {

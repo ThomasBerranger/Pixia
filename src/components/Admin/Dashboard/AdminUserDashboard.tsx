@@ -1,7 +1,7 @@
-import AdminHeader from "./Layout/AdminHeader.tsx"
+import AdminHeader from "../Layout/AdminHeader.tsx"
 import {useEffect, useState} from "react"
-import {useApi} from "../../hooks/useApi.tsx"
-import type {UserType} from "../../types/userType.ts"
+import {useApi} from "../../../hooks/useApi.tsx"
+import type {UserType} from "../../../types/userType.ts"
 
 function AdminUserDashboard() {
     const {apiCall} = useApi()
