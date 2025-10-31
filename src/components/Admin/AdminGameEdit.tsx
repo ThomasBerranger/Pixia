@@ -1,5 +1,5 @@
 import AdminHeader from "./Layout/AdminHeader.tsx"
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
 import {useParams} from "react-router-dom"
 import type {GameAdminType} from "../../types/gameAdminType.ts"
@@ -8,6 +8,8 @@ import * as React from "react";
 function AdminGameEdit() {
     const {id} = useParams()
     const {apiCall} = useApi()
+
+    const fileInputRef = useRef<HTMLInputElement>(null)
 
     const [game, setGame] = useState<GameAdminType>()
 
@@ -40,6 +42,31 @@ function AdminGameEdit() {
         }
     }
 
+    const handleImageClick = () => {
+        fileInputRef.current?.click()
+    }
+
+    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]
+        if (!file) return
+
+        try {
+            const formData = new FormData()
+            formData.append('image', file)
+
+            const response = await apiCall(`games/${id}/image`, {
+                method: 'POST',
+                body: formData
+            }, false)
+
+            if (response.image) {
+                setGame(prev => prev ? {...prev, image: response.image} : prev)
+            }
+        } catch (err) {
+            console.error('Erreur upload image:', err)
+        }
+    }
+
     return (
         <div className="w-4/5 my-5 bg-white border border-black">
             <AdminHeader/>
@@ -47,15 +74,22 @@ function AdminGameEdit() {
             <form onSubmit={handleSubmit} className={'w-full p-4'}>
 
                 <div className={'grid grid-cols-2 gap-3'}>
-                    <div>
+                    <div onClick={handleImageClick} className="cursor-pointer">
                         {game?.image ?
                             <img src={`${import.meta.env.VITE_API_URL}${game.image}`}
                                  alt="AI created image"
                                  className=""/> :
                             <img className={'h-full mx-auto'}
                                  src="https://placehold.co/600x300/EEE/31343C?font=oswald&text=Chargement"
-                                 alt="placegolder"/>
+                                 alt="placeholder"/>
                         }
+                        <input
+                            type="file"
+                            ref={fileInputRef}
+                            onChange={handleImageChange}
+                            accept="image/*"
+                            style={{display: 'none'}}
+                        />
                     </div>
 
                     <div>
