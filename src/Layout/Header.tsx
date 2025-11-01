@@ -11,11 +11,14 @@ function Header() {
             Pixia
         </Link>
 
-        <Link to="/user">
-            <button className="btn-primary px-6 py-2.5">
-                {isAuthenticated ? "MON COMPTE" : "CONNEXION"}
-            </button>
-        </Link>
+        <div className="flex items-center gap-5">
+            <Link to="/" className="hidden sm:block font-righteous text-white">Jeu du jour</Link>
+            <Link to="/user">
+                <button className="btn-primary px-6 py-2.5">
+                    {isAuthenticated ? "MON COMPTE" : "CONNEXION"}
+                </button>
+            </Link>
+        </div>
     </header>
 }
 

@@ -32,9 +32,8 @@ function App() {
                     </Route>
                 </Routes>
 
-                <div className="divider my-5 mx-[10%]"/>
-
-                <section className="pb-5">autre chose</section>
+                {/*<div className="divider my-5 mx-[10%]"/>*/}
+                {/*<section className="pb-5">autre chose</section>*/}
             </main>
             <Footer/>
         </>
