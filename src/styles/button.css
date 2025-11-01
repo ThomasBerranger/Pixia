@@ -1,0 +1,51 @@
+.btn-retro {
+    @apply px-10 py-5 font-righteous text-sm tracking-wide uppercase transition-all duration-300;
+}
+
+.btn-primary {
+    @apply btn-retro bg-gradient-to-br from-retro-primary to-retro-secondary text-retro-text border-[3px] border-retro-accent shadow-[4px_4px_0] shadow-retro-accent hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0] hover:shadow-retro-accent;
+}
+
+.btn-ghost {
+    @apply btn-retro bg-transparent text-retro-accent border-2 border-dashed border-retro-accent hover:bg-retro-accent hover:text-retro-bg;
+}
+
+.btn-pixel {
+    @apply btn-retro bg-retro-accent text-retro-bg border-none shadow-[3px_3px_0_#ff006e,6px_6px_0_#fb5607] hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[6px_6px_0_#ff006e,9px_9px_0_#fb5607];
+}
+
+.btn-pixel-no-hover-effect {
+    @apply btn-retro bg-retro-accent text-retro-bg border-none shadow-[3px_3px_0_#ff006e,6px_6px_0_#fb5607];
+}
+
+.btn-neon {
+    @apply btn-retro bg-transparent text-retro-primary border-[3px] border-retro-primary shadow-[0_0_10px_rgba(255,0,110,0.5)] hover:bg-retro-primary hover:text-retro-text hover:shadow-[0_0_30px_rgba(255,0,110,0.8)];
+}
+
+.btn-3d {
+    @apply btn-retro bg-gradient-to-b from-retro-secondary to-retro-primary text-retro-text border-2 border-retro-accent shadow-[0_6px_0_#8338ec,0_8px_20px_rgba(0,0,0,0.5)] duration-100 hover:translate-y-[3px] hover:shadow-[0_3px_0_#8338ec,0_5px_15px_rgba(0,0,0,0.5)] hover:translate-x-0;
+}
+
+.btn-icon {
+    @apply btn-retro bg-retro-muted text-retro-text border-[3px] border-retro-primary shadow-[4px_4px_0] shadow-retro-primary inline-flex items-center gap-2;
+}
+
+.btn-split {
+    @apply btn-retro text-retro-text border-[3px] border-retro-text hover:text-retro-bg hover:border-retro-primary hover:translate-x-0 hover:translate-y-0;
+    background: linear-gradient(to right, #ff006e 50%, #ffbe0b 50%);
+    background-size: 200% 100%;
+    background-position: right;
+    transition: all 0.4s;
+}
+
+.btn-split:hover {
+    background-position: left;
+}
+
+.btn-pulse {
+    @apply btn-retro bg-retro-secondary text-retro-text border-[3px] border-retro-accent animate-pulse hover:animate-none hover:shadow-[0_0_30px_rgba(251,86,7,0.8)] hover:translate-x-0 hover:translate-y-0;
+}
+
+.btn-disabled {
+    @apply btn-retro bg-retro-surface text-retro-muted border-[3px] border-retro-muted cursor-not-allowed opacity-50;
+}

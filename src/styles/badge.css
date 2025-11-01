@@ -1,0 +1,20 @@
+.badge {
+    padding: 0.5rem 1rem;
+    font-family: 'Righteous', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 2px solid;
+}
+
+.badge-pink {
+    @apply bg-retro-primary border-2 border-retro-text text-retro-text shadow-[3px_3px_0_theme(colors.retro.accent)];
+}
+
+.badge-orange {
+    @apply bg-retro-secondary border-2 border-retro-text text-retro-text shadow-[3px_3px_0_theme(colors.retro.primary)];
+}
+
+.badge-yellow {
+    @apply bg-retro-accent border-2 border-retro-bg text-retro-bg shadow-[3px_3px_0_theme(colors.retro.secondary)];
+}

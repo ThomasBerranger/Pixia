@@ -14,7 +14,7 @@ function App() {
     return (
         <>
             <Header/>
-            <main className={'w-full flex justify-center'}>
+            <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text">
                 <Routes>
                     <Route path="/" element={<Game/>}/>
                     <Route path="/user" element={<User/>}/>
@@ -31,6 +31,10 @@ function App() {
                         <Route path="games/:id" element={<AdminGameEdit/>}/>
                     </Route>
                 </Routes>
+
+                <div className="divider my-5 mx-[10%]"/>
+
+                <section className="pb-5">autre chose</section>
             </main>
             <Footer/>
         </>

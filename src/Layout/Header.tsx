@@ -4,27 +4,19 @@ import {useAuth} from "../contexts/authContext.tsx"
 function Header() {
     const {isAuthenticated} = useAuth()
 
-    return (
-        <>
-            <header className={'w-full flex justify-center py-5'}>
-                <div
-                    className="w-11/12 sm:w-3/4 md:w-3/5 flex justify-between bg-white px-5 button-shadow">
+    return <header
+        className="bg-retro-surface/80 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)] px-2 sm:px-[7%] py-4 flex justify-between items-center">
+        <Link to="/"
+              className="font-title text-5xl text-retro-primary skew-x-[-10deg] [text-shadow:0_0_10px_#ff006e,3px_2px_0_#ffbe0b]">
+            Pixia
+        </Link>
 
-                    <Link to='/' className={'title text-6xl tracking-tighter my-auto'}>PixiA</Link>
-
-                    <div className={'flex items-center justify-between gap-3 text-2xl'}>
-                        <Link to='/user'>
-                            <button
-                                className={'bg-red-600 text-white button-shadow text-lg py-2 px-4'}>
-                                {isAuthenticated ? "Mon compte" : "Connexion"}
-                            </button>
-                        </Link>
-                    </div>
-
-                </div>
-            </header>
-        </>
-    )
+        <Link to="/user">
+            <button className="btn-primary px-6 py-2.5">
+                {isAuthenticated ? "MON COMPTE" : "CONNEXION"}
+            </button>
+        </Link>
+    </header>
 }
 
 export default Header

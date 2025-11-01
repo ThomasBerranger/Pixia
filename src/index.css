@@ -1,50 +1,60 @@
-@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Oswald:wght@200..700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Righteous&display=swap');
+
+@import './styles/button.css';
+@import './styles/badge.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-html {
-    @apply bg-stone-100;
-
-    font-family: "Roboto Flex", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-
-    background-image: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), url("public/background.svg");
-    background-position: center;
-    background-size: cover;
-    background-repeat: repeat-y;
-}
-
-header {
-    height: 15vh;
-}
-
-main {
-    height: 80vh;
-}
-
-footer {
-    height: 5vh;
-}
-
-.title {
+.font-title {
     font-family: "Major Mono Display", monospace;
-    font-weight: 400;
-    font-style: normal;
+    text-transform: uppercase;
 }
 
-.button-shadow {
-    @apply border;
-    @apply border-black;
-    @apply rounded-full;
-    @apply tracking-wide;
-
-    font-family: "Oswald", sans-serif;
-    box-shadow: 2px 2px 0 0 rgba(0, 0, 0, 1);
+.font-righteous {
+    font-family: "Righteous", sans-serif;
 }
 
-.font-oswald {
-    font-family: "Oswald", sans-serif;
+.header-retro {
+    @apply bg-[#0a0e27]/80 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)] px-[5%] py-8 flex justify-between items-center;
+}
+
+.logo-retro {
+    @apply font-title text-2xl text-[#ff006e] skew-x-[-5deg] [text-shadow:0_0_10px_#ff006e,2px_2px_0_#ffbe0b];
+}
+
+.nav-link-retro {
+    @apply text-white no-underline transition-all duration-300 font-medium uppercase text-sm hover:text-[#ffbe0b] hover:[text-shadow:0_0_10px_#ffbe0b];
+}
+
+.divider {
+    @apply h-1;
+    background: linear-gradient(90deg,
+    transparent 0%,
+    theme('colors.retro.primary') 20%,
+    theme('colors.retro.accent') 50%,
+    theme('colors.retro.secondary') 80%,
+    transparent 100%
+    );
+    box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+    20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+.shake {
+    animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes border-flicker {
+    0%, 19%, 21%, 22%, 24%, 74%, 76%, 100% {
+        border-color: rgba(251, 86, 7, 1);
+    }
+    20%, 23%, 75% {
+        border-color: rgba(251, 86, 7, 0.7);
+    }
 }
