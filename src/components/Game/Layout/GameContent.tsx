@@ -27,7 +27,7 @@ function GameContent({
                 </span>
 
                 <img
-                    src={game.image ? `${import.meta.env.VITE_API_URL}${game.image}` : "http://127.0.0.1:8000/images/MULTIVERS/2025/09/29.jpg"}
+                    src={game.image ? `${import.meta.env.VITE_API_URL}${game.image}` : "https://placehold.co/800x400?text=Chargement"}
                     alt="AI created image"
                     className="h-full mx-auto object-contain"
                 />

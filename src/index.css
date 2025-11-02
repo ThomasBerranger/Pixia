@@ -2,6 +2,7 @@
 
 @import './styles/button.css';
 @import './styles/badge.css';
+@import './styles/input.css';
 
 @tailwind base;
 @tailwind components;
@@ -48,6 +49,18 @@
 
 .shake {
     animation: shake 0.6s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes neon-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow:
+                0 0 10px rgba(255, 190, 11, 0.8),
+                0 0 20px rgba(255, 190, 11, 0.6),
+                0 0 30px rgba(255, 190, 11, 0.4);
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+    }
 }
 
 @keyframes border-flicker {

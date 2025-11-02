@@ -1,0 +1,7 @@
+.label-retro {
+    @apply block font-righteous text-retro-accent text-sm uppercase mb-2 tracking-wide;
+}
+
+.input-retro {
+    @apply w-full px-4 py-3 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-accent focus:shadow-[0_0_20px_rgba(255,190,11,0.3)] placeholder:text-retro-muted;
+}

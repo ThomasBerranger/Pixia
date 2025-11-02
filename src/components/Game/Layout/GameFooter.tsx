@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import {CgSpinner} from "react-icons/cg"
-import type {GameType} from "../../../types/gameType.ts";
+import type {GameType} from "../../../types/gameType.ts"
+import {Link} from "react-router-dom"
 
 function GameFooter({game, onAnswerSubmit}: {
     game: GameType
@@ -52,6 +53,9 @@ function GameFooter({game, onAnswerSubmit}: {
                 <div className=" text-md sm:text-2xl text-retro-accent font-righteous uppercase tracking-[3px]">
                     {game.solution}
                 </div>
+                <Link to="/user">
+                    <button className="mt-3 btn-pulse">Connecte toi pour enregistrer tes parties</button>
+                </Link>
             </div>
             :
             <form

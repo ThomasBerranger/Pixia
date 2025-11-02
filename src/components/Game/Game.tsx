@@ -5,8 +5,6 @@ import GameHeader from "./Layout/GameHeader.tsx"
 import GameContent from "./Layout/GameContent.tsx"
 import GameFooter from "./Layout/GameFooter.tsx"
 
-type LoadingDirection = 'prev' | 'next' | null
-
 function Game() {
     const {apiCall} = useApi()
 
@@ -23,7 +21,7 @@ function Game() {
     })
     const [nextGameDate, setNextGameDate] = useState<string | null>(null)
     const [previousGameDate, setPreviousGameDate] = useState<string | null>(null)
-    const [loadingDirection, setLoadingDirection] = useState<LoadingDirection>(null)
+    const [loadingDirection, setLoadingDirection] = useState<'prev' | 'next' | null>(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -84,7 +82,7 @@ function Game() {
     }, [game.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <section className="min-h-screen flex flex-col justify-center px-[5%] py-10">
+        <section className="min-h-screen flex flex-col justify-center py-10">
             <GameHeader/>
 
             <GameContent
