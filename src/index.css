@@ -3,6 +3,9 @@
 @import './styles/button.css';
 @import './styles/badge.css';
 @import './styles/input.css';
+@import './styles/card.css';
+@import './styles/table.css';
+@import './styles/calendar.css';
 
 @tailwind base;
 @tailwind components;

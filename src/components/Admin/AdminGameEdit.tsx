@@ -1,4 +1,3 @@
-import AdminHeader from "./Layout/AdminHeader.tsx"
 import {useEffect, useRef, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
 import {useParams} from "react-router-dom"
@@ -69,8 +68,6 @@ function AdminGameEdit() {
 
     return (
         <div className="w-4/5 my-5 bg-white border border-black">
-            <AdminHeader/>
-
             <form onSubmit={handleSubmit} className={'w-full p-4'}>
 
                 <div className={'grid grid-cols-2 gap-3'}>

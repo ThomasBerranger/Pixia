@@ -1,23 +1,26 @@
 import {Link} from "react-router-dom"
-import AdminHeader from "./Layout/AdminHeader.tsx"
+import {FaUsersGear} from "react-icons/fa6";
+import {RiAiGenerate2} from "react-icons/ri";
+import {MdDashboard} from "react-icons/md";
 
 function Admin() {
     return (
-        <div className="w-4/5 my-5 bg-white border border-black">
-            <AdminHeader />
-
-            <div className={'w-full flex justify-evenly gap-5'}>
-                <Link to='/admin/user-dashboard' className={'p-5 rounded border border-black'}>
-                    User dashboard
+        <section className="min-h-screen flex flex-col justify-center py-10">
+            <div className="w-full flex justify-center gap-5">
+                <Link to='/admin/user-dashboard' className="card-primary-hover">
+                    <FaUsersGear className="mx-auto mb-2" size={30}/>
+                    <p className="font-righteous">User Dashboard</p>
                 </Link>
-                <Link to='/admin/game-dashboard' className={'p-5 rounded border border-black'}>
-                    Game dashboard
+                <Link to='/admin/game-dashboard' className="card-primary-hover">
+                    <MdDashboard className="mx-auto mb-2" size={30}/>
+                    <p className="font-righteous">Game dashboard</p>
                 </Link>
-                <Link to='/admin/game-generator' className={'p-5 rounded border border-black'}>
-                    Game generator
+                <Link to='/admin/game-generator' className="card-primary-hover">
+                    <RiAiGenerate2 className="mx-auto mb-2" size={30}/>
+                    <p className="font-righteous">Game generator</p>
                 </Link>
             </div>
-        </div>
+        </section>
     )
 }
 

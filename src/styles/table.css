@@ -1,0 +1,23 @@
+.table-retro {
+    @apply w-full border-collapse bg-retro-surface/80;
+}
+
+.table-retro thead {
+    @apply bg-gradient-to-r from-retro-primary via-retro-secondary to-retro-accent;
+}
+
+.table-retro th {
+    @apply font-righteous p-4 text-left uppercase text-sm tracking-wide text-retro-text;
+}
+
+.table-retro td {
+    @apply p-4 text-white font-semibold;
+}
+
+.table-retro tbody tr:nth-child(odd) {
+    @apply bg-retro-secondary/10;
+}
+
+.table-retro tbody tr:hover {
+    @apply bg-retro-accent/20;
+}

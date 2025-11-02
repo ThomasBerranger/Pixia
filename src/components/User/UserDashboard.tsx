@@ -25,7 +25,7 @@ function UserDashboard() {
 
     return <>
         <section
-            className="flex-wrap sm:flex items-center gap-8 mb-12 p-8 bg-retro-surface/80 border-[3px] border-retro-primary shadow-[4px_4px_0] shadow-retro-secondary">
+            className="flex-wrap sm:flex items-center gap-8 mb-12 card-primary">
             <div
                 className="hidden w-24 h-24 bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent border-[3px] border-retro-accent sm:flex items-center justify-center text-4xl font-righteous shadow-[3px_3px_0] shadow-black/30">
                 JD
@@ -34,7 +34,7 @@ function UserDashboard() {
                 <h1 className="font-righteous text-3xl bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent mb-2">
                     JOHN_DOE
                 </h1>
-                <div className="flex-wrap sm:flex gap-3 text-retro-muted text-sm mb-6 sm:0">
+                <div className="flex-wrap sm:flex gap-3 text-retro-muted text-sm mb-6 sm:mb-0">
                     <div className="flex items-center gap-0.5">
                         ⭐ <strong className="text-retro-accent">{user?.score ? user.score : '?'} points</strong>
                     </div>
@@ -56,7 +56,7 @@ function UserDashboard() {
             className="overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] mb-12">
             <div className="flex gap-6">
                 <div
-                    className="bg-retro-surface/80 p-6 border-[3px] border-retro-muted text-center transition-all hover:border-retro-accent hover:shadow-[0_0_30px_rgba(255,190,11,0.4)] flex-shrink-0 w-40">
+                    className="w-40 card-retro-hover-retro-accent">
                     <div className="text-5xl mb-2">⏱️</div>
                     <div className="font-righteous text-retro-accent text-sm uppercase">
                         beta gamer
@@ -64,7 +64,7 @@ function UserDashboard() {
                 </div>
 
                 <div
-                    className="bg-retro-surface/80 p-6 border-[3px] border-retro-muted text-center transition-all hover:border-retro-accent hover:shadow-[0_0_30px_rgba(255,190,11,0.4)] flex-shrink-0 w-40">
+                    className="w-40 card-retro-hover-retro-accent">
                     <div className="text-5xl mb-2">🏆</div>
                     <div className="font-righteous text-retro-accent text-sm uppercase">
                         First Win
@@ -72,7 +72,7 @@ function UserDashboard() {
                 </div>
 
                 <div
-                    className="bg-retro-surface/80 p-6 border-[3px] border-retro-muted text-center transition-all hover:border-retro-accent hover:shadow-[0_0_30px_rgba(255,190,11,0.4)] flex-shrink-0 w-40">
+                    className="w-40 card-retro-hover-retro-accent">
                     <div className="text-5xl mb-2">🎨️</div>
                     <div className="font-righteous text-retro-accent text-sm uppercase">
                         Créateur
@@ -80,7 +80,7 @@ function UserDashboard() {
                 </div>
 
                 <div
-                    className="bg-retro-surface/80 p-6 border-[3px] border-retro-muted text-center transition-all hover:border-retro-accent hover:shadow-[0_0_30px_rgba(255,190,11,0.4)] flex-shrink-0 w-40">
+                    className="w-40 card-retro-hover-retro-accent">
                     <div className="text-5xl mb-2">🔥</div>
                     <div className="font-righteous text-retro-accent text-sm uppercase">
                         Hot streak
@@ -88,7 +88,7 @@ function UserDashboard() {
                 </div>
 
                 <div
-                    className="bg-retro-surface/80 p-6 border-[3px] border-retro-muted text-center transition-all hover:border-retro-accent hover:shadow-[0_0_30px_rgba(255,190,11,0.4)] flex-shrink-0 w-40">
+                    className="w-40 card-retro-hover-retro-accent">
                     <div className="text-5xl mb-2">⭐</div>
                     <div className="font-righteous text-retro-accent text-sm uppercase">
                         100 parties
@@ -96,7 +96,7 @@ function UserDashboard() {
                 </div>
 
                 <div
-                    className="bg-retro-surface/80 p-6 border-[3px] border-retro-muted text-center opacity-30 flex-shrink-0 w-40">
+                    className="w-40 card-retro opacity-30">
                     <div className="text-5xl mb-2">👑</div>
                     <div className="font-righteous text-retro-muted text-sm uppercase">
                         Maitre
@@ -104,7 +104,7 @@ function UserDashboard() {
                 </div>
 
                 <div
-                    className="bg-retro-surface/80 p-6 border-[3px] border-retro-muted text-center opacity-30 flex-shrink-0 w-40">
+                    className="w-40 card-retro opacity-30">
                     <div className="text-5xl mb-2">💎</div>
                     <div className="font-righteous text-retro-muted text-sm uppercase">
                         Légendaire
@@ -117,7 +117,7 @@ function UserDashboard() {
 
         <section className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-12 gap-6 mb-12">
             <div
-                className="col-span-3 bg-retro-surface/80 p-8 border-[3px] border-retro-primary shadow-[4px_4px_0] shadow-retro-secondary transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0] hover:shadow-retro-accent hover:border-retro-accent">
+                className="col-span-3 card-primary-hover">
                 <div className="text-4xl mb-4">🎮</div>
                 <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
                     Parties jouées
@@ -131,7 +131,7 @@ function UserDashboard() {
             </div>
 
             <div
-                className="col-span-3 bg-retro-surface/80 p-8 border-[3px] border-retro-primary shadow-[4px_4px_0] shadow-retro-secondary transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0] hover:shadow-retro-accent hover:border-retro-accent">
+                className="col-span-3 card-primary-hover">
                 <div className="text-4xl mb-4">✓</div>
                 <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
                     Taux de réussite
@@ -145,7 +145,7 @@ function UserDashboard() {
             </div>
 
             <div
-                className="col-span-3 bg-retro-surface/80 p-8 border-[3px] border-retro-primary shadow-[4px_4px_0] shadow-retro-secondary transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0] hover:shadow-retro-accent hover:border-retro-accent">
+                className="col-span-3 card-primary-hover">
                 <div className="text-4xl mb-4">🔝</div>
                 <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
                     Classement
@@ -159,7 +159,7 @@ function UserDashboard() {
             </div>
 
             <div
-                className="col-span-3 bg-retro-surface/80 p-8 border-[3px] border-retro-primary shadow-[4px_4px_0] shadow-retro-secondary transition-all hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0] hover:shadow-retro-accent hover:border-retro-accent">
+                className="col-span-3 card-primary-hover">
                 <div className="text-4xl mb-4">⚡</div>
                 <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
                     Meilleure série
@@ -177,7 +177,7 @@ function UserDashboard() {
 
         <section className="flex gap-6 mb-12">
             <div
-                className="w-full bg-retro-surface/80 p-6 border-[3px] border-retro-muted flex justify-between items-center transition-all hover:border-retro-primary hover:shadow-[0_0_20px_rgba(255,0,110,0.3)]">
+                className="w-full card-retro-hover-primary text-left flex justify-between items-center">
                 <div>
                     <div className="text-retro-muted text-xs mb-1">02/11/2025</div>
                     <div className="font-righteous text-white text-lg">MULTIVERSE #142</div>

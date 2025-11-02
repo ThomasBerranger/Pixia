@@ -1,0 +1,27 @@
+.calendar-nav-btn {
+    @apply text-3xl p-2 text-retro-accent transition-all hover:text-retro-primary hover:scale-110;
+}
+
+.calendar-title {
+    @apply font-title text-center text-3xl bg-gradient-to-r from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent uppercase;
+}
+
+.calendar-weekdays {
+    @apply grid grid-cols-7 border-[3px] border-retro-muted;
+}
+
+.calendar-weekday {
+    @apply p-3 text-center text-sm font-righteous text-retro-accent border border-retro-muted first:border-l-0 last:border-r-0 uppercase tracking-wide;
+}
+
+.calendar-grid {
+    @apply grid grid-cols-7 border border-retro-muted;
+}
+
+.calendar-day {
+    @apply p-3 text-center text-sm border border-retro-muted transition-all min-h-[80px] flex flex-col items-center justify-start hover:bg-retro-primary/20;
+}
+
+.calendar-icon {
+    @apply text-4xl text-retro-accent/80 mx-auto mt-1;
+}

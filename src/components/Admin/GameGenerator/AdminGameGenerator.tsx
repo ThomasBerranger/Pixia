@@ -4,7 +4,6 @@ import PromptGenerator from "./PromptGenerator.tsx"
 import ImageGenerator from "./ImageGenerator.tsx"
 import {useApi} from "../../../hooks/useApi.tsx"
 import React, {useState} from "react"
-import AdminHeader from "../Layout/AdminHeader.tsx"
 
 function AdminUserDashboard() {
     const {apiCall} = useApi()
@@ -36,8 +35,6 @@ function AdminUserDashboard() {
 
     return (
         <div className="w-4/5 my-5 bg-white border border-black">
-            <AdminHeader/>
-
             <PromptGenerator game={game} setGame={setGame}/>
             <ImageGenerator game={game} setGame={setGame} onGameSubmit={handleGameSubmit}/>
 

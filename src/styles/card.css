@@ -1,0 +1,24 @@
+.card {
+    @apply bg-retro-surface/80 border-[3px] transition-all;
+}
+
+.card-retro {
+    @apply card p-6 border-retro-muted text-center;
+}
+
+.card-retro-hover-retro-accent {
+    @apply card-retro transition-all hover:border-retro-accent hover:shadow-[0_0_30px_rgba(255,190,11,0.4)] flex-shrink-0;
+}
+
+.card-retro-hover-primary {
+    @apply card-retro hover:border-retro-primary hover:shadow-[0_0_20px_rgba(255,0,110,0.3)];
+}
+
+.card-primary {
+    @apply card p-8 border-retro-primary shadow-[4px_4px_0] shadow-retro-secondary;
+}
+
+.card-primary-hover {
+    @apply card-primary hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0] hover:shadow-retro-accent hover:border-retro-accent;
+}
+

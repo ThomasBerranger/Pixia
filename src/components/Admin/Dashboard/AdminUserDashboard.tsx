@@ -1,4 +1,3 @@
-import AdminHeader from "../Layout/AdminHeader.tsx"
 import {useEffect, useState} from "react"
 import {useApi} from "../../../hooks/useApi.tsx"
 import type {UserType} from "../../../types/userType.ts"
@@ -23,30 +22,30 @@ function AdminUserDashboard() {
     }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <div className="w-4/5 my-5 bg-white border border-black">
-            <AdminHeader/>
-
-            <div className={'flex justify-center'}>
-                <table className="w-2/3 border-collapse">
-                    <thead>
-                    <tr className="border-b border-gray-300">
-                        <th className="text-left p-3">Email</th>
-                        <th className="text-left p-3">Rôles</th>
-                        <th className="text-left p-3">Score</th>
+        <section className="min-h-[90vh] max-w-3xl mx-auto w-full flex py-10">
+            <table className="table-retro">
+                <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Email</th>
+                    <th>Points</th>
+                    <th>Inscription</th>
+                </tr>
+                </thead>
+                <tbody>
+                {users.map((user: UserType) => (
+                    <tr key={user.id}>
+                        <td>John Doe</td>
+                        <td>{user.email}</td>
+                        <td>
+                            <div className="badge-yellow text-center">{user.score}</div>
+                        </td>
+                        <td>02/11/2025</td>
                     </tr>
-                    </thead>
-                    <tbody>
-                    {users.map(user =>
-                        <tr key={user.email} className="even:bg-gray-100">
-                            <td className="p-3">{user.email}</td>
-                            <td className="p-3">{user.roles?.join(', ')}</td>
-                            <td className="p-3">{user.score}</td>
-                        </tr>
-                    )}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                ))}
+                </tbody>
+            </table>
+        </section>
     )
 }
 

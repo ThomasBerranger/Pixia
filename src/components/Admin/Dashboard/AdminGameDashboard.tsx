@@ -1,4 +1,4 @@
-import AdminHeader from "../Layout/AdminHeader.tsx"
+// AdminGameDashboard.jsx
 import {useEffect, useState} from "react"
 import {useApi} from "../../../hooks/useApi.tsx"
 import type {GameAdminType} from "../../../types/gameAdminType.ts"
@@ -56,73 +56,77 @@ function AdminGameDashboard() {
     const decodedEmail = decodeJWT(localStorage.getItem("token"))?.username;
 
     return (
-        <div className="w-4/5 my-5 bg-white border border-black">
-            <AdminHeader/>
+        <section className="min-h-[90vh] max-w-5xl mx-auto w-full flex py-10 px-[10px]">
+            <div className="card-primary w-full">
 
-            <div className="bg-white rounded-lg p-6">
-
-                <div className="flex items-center justify-between mb-4">
-                    <button onClick={handlePrevMonth} className="text-2xl p-1 hover:bg-gray-100 rounded">
+                <div className="flex items-center justify-between mb-6">
+                    <button onClick={handlePrevMonth} className="calendar-nav-btn">
                         <PiArrowFatLineLeft/>
                     </button>
-                    <h2 className="text-lg font-semibold capitalize">
+                    <h2 className="calendar-title">
                         {format(currentDate, 'MMMM yyyy', {locale: fr})}
                     </h2>
-                    <button onClick={handleNextMonth} className="text-2xl p-1 hover:bg-gray-100 rounded">
+                    <button onClick={handleNextMonth} className="calendar-nav-btn">
                         <PiArrowFatLineRight/>
                     </button>
                 </div>
 
-                <div className="grid grid-cols-7 border-t border-x border-gray-200 font-oswald">
+                <div className="calendar-weekdays">
                     {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map(day => (
-                        <div key={day}
-                             className="bg-white p-2 text-center text-sm font-medium text-gray-700 border-r border-b border-gray-200 last:border-r-0">
+                        <div key={day} className="calendar-weekday">
                             {day}
                         </div>
                     ))}
                 </div>
 
-                <div className="grid grid-cols-7 bg-gray-200 border-x border-b border-gray-200">
+                <div className="calendar-grid">
                     {days.map(day => {
                         const isCurrentMonth = isSameMonth(day, currentDate)
                         const isTodayDate = isToday(day)
                         const game = getGameForDate(day)
                         const isOwnGame = game?.author.email === decodedEmail
 
+                        const dayClasses = `
+                            calendar-day
+                            ${!isCurrentMonth && 'text-retro-muted/50'}
+                            ${game ? (isOwnGame ? 'cursor-pointer' : 'cursor-not-allowed hover:bg-retro-surface') : ''}
+                        `
+
                         const content = (
                             <>
-                                <p className={isTodayDate ? 'font-bold' : ''}>{format(day, 'd')}</p>
-                                {game?.image ? (
-                                    <>
-                                        <CiImageOn className="md:hidden mx-auto"/>
-                                        <img src={`${import.meta.env.VITE_API_URL}${game.image}`}
-                                             alt="AI created image"
-                                             className="hidden md:block mt-2"/>
-                                    </>
-                                ) : game && (
-                                    <CiImageOff className="md:text-4xl mx-auto mt-0.5"/>
-                                )}
+                                <p className={`mb-2 ${isTodayDate && 'font-bold text-retro-accent'}`}>
+                                    {format(day, 'd')}
+                                </p>
+                                <div className="text-center">
+                                    {game?.image ? (
+                                        <>
+                                            <CiImageOn className="md:hidden calendar-icon calendar-icon-on"/>
+                                            <img
+                                                src={`${import.meta.env.VITE_API_URL}${game.image}`}
+                                                alt="AI created image"
+                                                className={`hidden md:block w-full mt-2 ${!isOwnGame && 'blur-sm'}`}
+                                            />
+                                        </>
+                                    ) : game && (
+                                        <CiImageOff className="calendar-icon"/>
+                                    )}
+                                </div>
                             </>
                         )
 
-                        const className = `p-2 text-center text-sm border-r border-b border-gray-200 last:border-r-0 
-                            ${isCurrentMonth ? 'bg-white hover:bg-gray-100' : 'bg-gray-50 text-gray-400'} 
-                            ${game ? isOwnGame ? 'cursor-pointer' : 'cursor-not-allowed' : 'cursor-default'}`
-
                         return isOwnGame ? (
-                            <Link key={day.toString()} to={`/admin/games/${game?.id}`} className={className}>
+                            <Link key={day.toString()} to={`/admin/games/${game?.id}`} className={dayClasses}>
                                 {content}
                             </Link>
                         ) : (
-                            <div key={day.toString()} className={className}>
+                            <div key={day.toString()} className={dayClasses}>
                                 {content}
                             </div>
                         );
                     })}
                 </div>
-
             </div>
-        </div>
+        </section>
     )
 }
 
