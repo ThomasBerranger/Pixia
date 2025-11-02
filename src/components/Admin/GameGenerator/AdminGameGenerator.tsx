@@ -1,9 +1,9 @@
 import type {GameCreateType} from "../../../types/gameCreateType.ts"
-import {AiOutlineLoading3Quarters} from "react-icons/ai"
 import PromptGenerator from "./PromptGenerator.tsx"
 import ImageGenerator from "./ImageGenerator.tsx"
 import {useApi} from "../../../hooks/useApi.tsx"
 import React, {useState} from "react"
+import {CgSpinner} from "react-icons/cg";
 
 function AdminUserDashboard() {
     const {apiCall} = useApi()
@@ -34,20 +34,25 @@ function AdminUserDashboard() {
     }
 
     return (
-        <div className="w-4/5 my-5 bg-white border border-black">
-            <PromptGenerator game={game} setGame={setGame}/>
-            <ImageGenerator game={game} setGame={setGame} onGameSubmit={handleGameSubmit}/>
+        <section className="min-h-[90vh] max-w-5xl mx-auto w-full flex py-10 px-[10px] sm:p-6">
 
-            {game.image && (
-                <div className={'flex justify-center align-middle gap-5 bg-white pb-5 text-xl'}>
-                    <button disabled={loading || !game.date} className={'w-1/5 button-shadow text-white bg-red-600 p-1'}
-                            onClick={handleGameSubmit}>
-                        {loading ?
-                            <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>
-                            : 'Sauvegarder ce jeu'}
-                    </button>
-                </div>)}
-        </div>
+            <div className="card-retro w-full">
+                <PromptGenerator game={game} setGame={setGame}/>
+                <ImageGenerator game={game} setGame={setGame} onGameSubmit={handleGameSubmit}/>
+
+                {game.image && (
+                    <div className={'flex justify-center mt-5'}>
+                        <button disabled={loading || !game.date}
+                                className={'w-3/5 btn-pulse text-white bg-red-600 py-2.5'}
+                                onClick={handleGameSubmit}>
+                            {loading ?
+                                <CgSpinner className="animate-spin mx-auto" size={20}/>
+                                : 'Enregistrer ce jeu'}
+                        </button>
+                    </div>)}
+            </div>
+
+        </section>
     )
 }
 

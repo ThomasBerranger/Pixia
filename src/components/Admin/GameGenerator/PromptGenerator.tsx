@@ -1,8 +1,8 @@
 import * as React from "react"
-import {AiOutlineLoading3Quarters} from "react-icons/ai";
 import type {GameCreateType} from "../../../types/gameCreateType.ts";
 import {useState} from "react";
 import {useApi} from "../../../hooks/useApi.tsx";
+import {CgSpinner} from "react-icons/cg";
 
 function PromptGenerator({game, setGame}: {
     game: GameCreateType,
@@ -41,129 +41,96 @@ function PromptGenerator({game, setGame}: {
         }
     }
 
-    return <div className="w-full p-3">
-        <div className={'grid grid-cols-1 md:grid-cols-2 gap-2'}>
+    return <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <div className={'w-full'}>
-                <form onSubmit={handleSubmit}>
+        <div className="w-full">
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                    <label className="label-retro">
+                        Quelle image souhaites-tu générer ?
+                    </label>
+                    <textarea
+                        id="user-prompt"
+                        value={prompt}
+                        rows={3}
+                        placeholder="Une fusion entre les univers de Jurassic Park et Avatar"
+                        onChange={(e) => setPrompt(e.target.value)}
+                        className="input-retro resize-none"
+                    />
+                </div>
 
-                    <div className="relative">
-                            <textarea
-                                id="user-prompt" value={prompt} rows={2}
-                                placeholder={'Une fusion entre les univers de Jurassic Park et Avatar'}
-                                onChange={(e) => setPrompt(e.target.value)}
-                                className="w-full border border-gray-300 rounded px-2.5 py-2.5"
-                            />
-                        <label
-                            htmlFor="name"
-                            className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
-                        >
-                            Quelle image souhaites tu générer ?
-                        </label>
-                    </div>
-
-                    <div className={'text-center'}>
-                        <button className={'w-4/5 button-shadow md:mt-1 p-1'}>
-                            {!loading ? "Générer le jeu" :
-                                <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>}
-                        </button>
-                    </div>
-
-                </form>
-            </div>
-
-            <div>
-                {game.solution ?
-                    <div className="relative">
-                        <input
-                            type="text" id="solution" value={game.solution}
-                            onChange={(e) => setGame(prev => ({...prev, solution: e.target.value}))}
-                            className="w-full border border-gray-300 rounded px-2.5 py-2.5"
-                        />
-                        <label
-                            htmlFor="solution"
-                            className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
-                        >
-                            Solution
-                        </label>
-                    </div> : <div>
-                        <label htmlFor="solution">Solution</label>
-                        <div className={'h-5 animate-pulse bg-gray-300 rounded w-3/4'}></div>
-                    </div>
-                }
-
-                {game.solution ?
-                    <div className="relative mt-4">
-                        <input
-                            type="date"
-                            id="date"
-                            value={game.date}
-                            onChange={(e) => setGame(prev => ({...prev, date: e.target.value}))}
-                            className="w-full border border-gray-300 rounded px-2.5 py-2.5 focus:outline-none focus:border-gray-300"
-                        />
-                        <label
-                            htmlFor="date"
-                            className="absolute left-2 -top-2.5 bg-white px-1 text-sm text-gray-600"
-                        >
-                            Date du jeu
-                        </label>
-                    </div> : <div className={'mt-4'}>
-                        <label htmlFor="date">Date du jeu</label>
-                        <div className={'h-5 animate-pulse bg-gray-300 rounded w-3/5'}></div>
-                    </div>
-                }
-            </div>
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className="w-full btn-3d py-2.5"
+                >
+                    {!loading ? "Générer le jeu" : <CgSpinner className="animate-spin mx-auto" size={20}/>}
+                </button>
+            </form>
         </div>
 
-        {game.hint ? <div className="relative mt-4">
-            <textarea
-                id="hint" rows={2} value={game.hint}
-                onChange={(e) => setGame(prev => ({...prev, hint: e.target.value}))}
-                className="w-full border border-gray-300 rounded px-2.5 py-2.5"
-            />
-            <label
-                htmlFor="hint"
-                className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
-            >
-                Indice
-            </label>
-        </div> : <div className="mt-2">
-            <label htmlFor="hint">Indice</label>
-            <div className={'w-full flex flex-wrap gap-1 animate-pulse'}>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-6/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-2/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
-            </div>
-        </div>
-        }
+        <div className="space-y-4">
+            {game.solution ? (
+                <div>
+                    <label className="label-retro">Solution</label>
+                    <input
+                        type="text"
+                        id="solution"
+                        value={game.solution}
+                        onChange={(e) => setGame(prev => ({...prev, solution: e.target.value}))}
+                        className="input-retro"
+                    />
+                </div>
+            ) : (
+                <div>
+                    <label className="label-retro">Solution</label>
+                    <div className="h-10 animate-pulse bg-retro-muted/20 border-[3px] border-retro-muted/30"></div>
+                </div>
+            )}
 
-        {game.prompt ? <div className="relative mt-3">
-            <textarea
-                id="prompt" rows={3} value={game.prompt}
-                onChange={(e) => setGame(prev => ({...prev, prompt: e.target.value}))}
-                className="w-full border border-gray-300 rounded px-2.5 py-2.5"
-            />
-            <label
-                htmlFor="prompt"
-                className="absolute left-2 -top-2.5 bg-white px-1 text-sm"
-            >
-                Prompt
-            </label>
-        </div> : <div className={'mt-2'}>
-            <label htmlFor="prompt">Prompt</label>
-            <div className={'w-full flex flex-wrap gap-1 animate-pulse'}>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-2/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-6/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-3/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-4/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-1/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-4/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-3/12'}></div>
-                <div className={'h-5 mt-0.5 bg-gray-300 rounded w-5/12'}></div>
-            </div>
+            {game.solution ? (
+                <div>
+                    <label className="label-retro">Date du jeu</label>
+                    <input
+                        type="date"
+                        id="date"
+                        value={game.date}
+                        onChange={(e) => setGame(prev => ({...prev, date: e.target.value}))}
+                        className="input-retro"
+                    />
+                </div>
+            ) : (
+                <div>
+                    <label className="label-retro">Date du jeu</label>
+                    <div className="h-10 animate-pulse bg-retro-muted/20 border-[3px] border-retro-muted/30"></div>
+                </div>
+            )}
         </div>
-        }
+
+        {game.prompt ? (
+            <div className="md:col-span-2">
+                <label className="label-retro">Prompt</label>
+                <textarea
+                    id="prompt"
+                    rows={3}
+                    value={game.prompt}
+                    onChange={(e) => setGame(prev => ({...prev, prompt: e.target.value}))}
+                    className="input-retro resize-none"
+                />
+            </div>
+        ) : (
+            <div className="md:col-span-2">
+                <label className="label-retro">Prompt</label>
+                <div className="flex flex-wrap gap-2 animate-pulse">
+                    <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-2/12"></div>
+                    <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-6/12"></div>
+                    <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-3/12"></div>
+                    <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-4/12"></div>
+                    <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-5/12"></div>
+                    <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-3/12"></div>
+                </div>
+            </div>
+        )}
     </div>
 }
 

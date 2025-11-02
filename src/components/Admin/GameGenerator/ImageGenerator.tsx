@@ -1,8 +1,8 @@
 import {useState} from "react"
-import {AiOutlineLoading3Quarters} from "react-icons/ai"
 import {useApi} from "../../../hooks/useApi.tsx"
 import type {GameCreateType} from "../../../types/gameCreateType.ts"
 import * as React from "react"
+import {CgSpinner} from "react-icons/cg";
 
 function ImageGenerator({game, setGame, onGameSubmit}: {
     game: GameCreateType,
@@ -33,23 +33,43 @@ function ImageGenerator({game, setGame, onGameSubmit}: {
         }
     }
 
-    return <div className="w-full rounded-b text-center pb-5">
-        {game.prompt && <div className={'w-full flex justify-center gap-2'}>
-            <button disabled={loading} className={'w-2/5 button-shadow text-white bg-red-600 p-1'}
-                    onClick={handleOpenAIImage}>
-                {loading ?
-                    <AiOutlineLoading3Quarters className="animate-spin text-2xl p-1 mx-auto"/>
-                    : 'Utiliser ce prompt pour générer une image'}
-            </button>
-            <button onClick={() => onGameSubmit()} className={'w-1/5 button-shadow p-1'}>Enregistrer sans image</button>
-        </div>
-        }
+    return (
+        <div className="mt-5">
 
-        {game.image &&
-            <div className="w-full flex justify-center mt-5">
-                <img src={game.image} alt="Test" className="max-h-72"/>
-            </div>}
-    </div>
+            {game.prompt && (
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button
+                        disabled={loading}
+                        className="flex-1 btn-primary py-2.5"
+                        onClick={handleOpenAIImage}
+                    >
+                        {loading ? (
+                            <CgSpinner className="animate-spin mx-auto" size={20}/>
+                        ) : (
+                            "Générer l'image"
+                        )}
+                    </button>
+
+                    <button
+                        onClick={() => onGameSubmit()}
+                        className="btn-ghost py-2.5"
+                    >
+                        Enregistrer sans image
+                    </button>
+                </div>
+            )}
+
+            {game.image && (
+                <div className="w-full flex justify-center mt-8">
+                    <img
+                        src={game.image}
+                        alt="Generated"
+                        className="max-h-80 border-[3px] border-retro-accent shadow-[0_0_30px_rgba(255,190,11,0.4)]"
+                    />
+                </div>
+            )}
+        </div>
+    )
 }
 
 export default ImageGenerator
