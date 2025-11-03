@@ -1,6 +1,8 @@
 export interface UserType {
-    email: string | undefined;
-    id: string | undefined;
-    roles: string[] | undefined;
-    score: number | undefined;
+    email: string;
+    id: string;
+    roles: string[];
+    score: number;
+    username: string;
+    createdAt: string;
 }

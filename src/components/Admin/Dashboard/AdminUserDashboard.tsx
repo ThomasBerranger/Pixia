@@ -35,12 +35,12 @@ function AdminUserDashboard() {
                 <tbody>
                 {users.map((user: UserType) => (
                     <tr key={user.id}>
-                        <td>John Doe</td>
+                        <td>{user.username}</td>
                         <td>{user.email}</td>
                         <td>
-                            <div className="badge-yellow text-center">{user.score}</div>
+                            <div className="badge-yellow text-center px-3 py-0.5 w-fit">{user.score}</div>
                         </td>
-                        <td>02/11/2025</td>
+                        <td className="tracking-wider">{new Date(user.createdAt).toLocaleDateString('fr-FR')}</td>
                     </tr>
                 ))}
                 </tbody>

@@ -1,4 +1,4 @@
-export const getDifficultyBackgroundPoints = (difficulty?: string) => {
+export const getDifficultyPoints = (difficulty?: string) => {
     const DIFFICULTY_COLORS = {
         'SIMPLE': 10,
         'TORDU': 25,

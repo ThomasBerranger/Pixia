@@ -1,6 +1,7 @@
 import type {GameType} from "../../../types/gameType.ts"
 import ChangeGameButton from "../ChangeGameButton.tsx"
 import {HiPlusSm} from "react-icons/hi";
+import {getDifficultyPoints} from "../../../utils/difficultyPoints.ts";
 
 function GameContent({
                          game,
@@ -23,7 +24,11 @@ function GameContent({
 
                 <span className="absolute top-5 right-5 badge badge-pink transition-all duration-300 ease-in-out
                     group-hover:translate-x-3 group-hover:-translate-y-3 group-hover:opacity-30 flex items-center">
-                    {game.solution ? <><HiPlusSm className="mb-0.5" size={16}/> 10 points</> : game.difficulty}
+                    {
+                        game.solution ?
+                            <><HiPlusSm className="mb-0.5" size={16}/> {getDifficultyPoints(game.difficulty)} points</> :
+                            game.difficulty
+                    }
                 </span>
 
                 <img

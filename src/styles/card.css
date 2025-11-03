@@ -7,7 +7,7 @@
 }
 
 .card-retro-hover-retro-accent {
-    @apply card-retro transition-all hover:border-retro-accent hover:shadow-[0_0_30px_rgba(255,190,11,0.4)] flex-shrink-0;
+    @apply card-retro transition-all hover:border-retro-accent hover:shadow-[0_0_30px_rgba(255,190,11,0.4)];
 }
 
 .card-retro-hover-primary {

@@ -1,6 +1,7 @@
 import {useAuth} from '../../contexts/authContext.tsx'
 import React, {useState} from "react"
 import {CgSpinner} from "react-icons/cg";
+import {RiAlarmWarningLine} from "react-icons/ri";
 
 function UserForm() {
     const apiUrl = import.meta.env.VITE_API_URL
@@ -12,6 +13,7 @@ function UserForm() {
     const [password, setPassword] = useState<string>('')
     const [authLoading, setAuthLoading] = useState<'login' | 'register' | null>(null)
     const [error, setError] = useState<boolean>(false)
+    const [errorViolations, setErrorViolations] = useState<string[]>([])
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -57,10 +59,15 @@ function UserForm() {
             const response = await fetch(`${apiUrl}register`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({email, password})
+                body: JSON.stringify({email, password, username})
             })
 
             const data = await response.json()
+
+            if (!response.ok) {
+                setErrorViolations(data.violations)
+                return
+            }
 
             login(data.token)
         } catch (error) {
@@ -107,12 +114,32 @@ function UserForm() {
                 <div className="flex gap-4">
                     <button disabled={email.length < 5 || password.length <= 0}
                             className="flex-1 px-6 py-3 btn-primary">{authLoading === 'login' ?
-                        <CgSpinner className="animate-spin mx-auto" size={20}/> : 'Connexion'}</button>
+                        <CgSpinner className="animate-spin mx-auto" size={20}/> : 'Se connecter'}</button>
                     <button onClick={handleRegister} type="button" className="flex-1 px-6 py-3 btn-pixel">
                         {authLoading === 'register' ?
                             <CgSpinner className="animate-spin mx-auto" size={20}/> : "S'inscrire"}
                     </button>
                 </div>
+
+                {Object.keys(errorViolations).length > 0 && (
+                    <div className="">
+                        <h3 className="font-righteous text-retro-primary text-lg uppercase mb-4 flex items-center gap-2">
+                            <RiAlarmWarningLine size={20} /> {Object.keys(errorViolations).length > 1 ? 'Erreurs détectées' : 'Erreur détectée'}
+                        </h3>
+                        <ul className="space-y-3">
+                            {Object.entries(errorViolations).map(([field, message]) => (
+                                <li
+                                    key={field}
+                                    className="flex items-start gap-3 p-3 bg-retro-primary/10 border-l-[4px] border-retro-primary"
+                                >
+                                    <p className="text-retro-muted text-sm">
+                                        {message}
+                                    </p>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
             </form>
         </div>
     )

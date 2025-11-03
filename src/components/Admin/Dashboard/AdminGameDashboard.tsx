@@ -53,7 +53,7 @@ function AdminGameDashboard() {
         });
     };
 
-    const decodedEmail = decodeJWT(localStorage.getItem("token"))?.username;
+    const decodedEmail = decodeJWT(localStorage.getItem("token"))?.email;
 
     return (
         <section className="min-h-[90vh] max-w-5xl mx-auto w-full flex py-10 px-[10px]">
@@ -84,12 +84,12 @@ function AdminGameDashboard() {
                         const isCurrentMonth = isSameMonth(day, currentDate)
                         const isTodayDate = isToday(day)
                         const game = getGameForDate(day)
-                        const isOwnGame = game?.author.email === decodedEmail
+                        const isAuthor = game?.author.email === decodedEmail
 
                         const dayClasses = `
                             calendar-day
                             ${!isCurrentMonth && 'text-retro-muted/50'}
-                            ${game ? (isOwnGame ? 'cursor-pointer' : 'cursor-not-allowed hover:bg-retro-surface') : ''}
+                            ${game ? (isAuthor ? 'cursor-pointer' : 'cursor-not-allowed hover:bg-retro-surface') : ''}
                         `
 
                         const content = (
@@ -104,7 +104,7 @@ function AdminGameDashboard() {
                                             <img
                                                 src={`${import.meta.env.VITE_API_URL}${game.image}`}
                                                 alt="AI created image"
-                                                className={`hidden md:block w-full mt-2 ${!isOwnGame && 'blur-sm'}`}
+                                                className={`hidden md:block w-full mt-2 ${!isAuthor && 'blur-sm'}`}
                                             />
                                         </>
                                     ) : game && (
@@ -114,7 +114,7 @@ function AdminGameDashboard() {
                             </>
                         )
 
-                        return isOwnGame ? (
+                        return isAuthor ? (
                             <Link key={day.toString()} to={`/admin/games/${game?.id}`} className={dayClasses}>
                                 {content}
                             </Link>
