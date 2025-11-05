@@ -1,25 +1,70 @@
 import {useModal} from "../../contexts/modalContext.tsx"
+import {RiAiGenerate2} from "react-icons/ri";
+import {IoColorPaletteOutline} from "react-icons/io5";
 
 function Footer() {
     const {openModal} = useModal()
 
     return <footer
-        className="text-center px-[5%] py-4 bg-retro-surface/80 backdrop-blur-md shadow-[0_-4px_40px_rgba(255,190,11,0.3)] text-retro-muted text-xs">
+        className="text-center font-righteous px-[5%] py-4 bg-retro-surface/80 backdrop-blur-md shadow-[0_-4px_40px_rgba(255,190,11,0.3)] text-retro-muted text-xs">
 
         <div className="flex flex-wrap justify-center items-center gap-8 my-2 text-sm">
             <button type="button" onClick={() => openModal(
-                <div>
-                    <h2 className="font-title text-retro-accent text-2xl mb-4">Titre</h2>
-                    <p>Contenu quelconque...</p>
-                    <button className="btn-primary mt-4">Action</button>
-                </div>
+                'Le concept',
+                <p className="text-white font-righteous">
+                    Pixia, c'est un jeu où tu dois deviner les 2 films qui ont servi à créer l'image du jour.
+                    <br/><br/>
+                    <p className="underline mb-1">Ta mission, si tu l'acceptes :</p>
+                    Tous les jours, une nouvelle image apparaît. Trouve quels films se cachent derrière. Crée un
+                    compte pour débloquer des récompenses et suivre tes stats. <br/><br/> Bon chance
+                </p>
             )}
-                    className="order-first hover:text-retro-accent transition-colors">À propos
+                    className="order-first hover:text-retro-accent transition-colors">Le concept
             </button>
-            <button type="button" className="order-first hover:text-retro-accent transition-colors">Règles</button>
+
+            <button type="button" onClick={() => openModal(
+                "L'équipe",
+                <p className="text-white font-righteous">
+                    Salut, moi c'est <span className="text-retro-accent">Mirage</span>, je dev solo les idées qui me passent par la tête entre deux films.
+                </p>
+            )}
+                    className="order-first hover:text-retro-accent transition-colors">L'équipe
+            </button>
+
             <p className="order-last sm:order-first font-title text-retro-accent text-lg">PIXIA</p>
-            <button type="button" className="hover:text-retro-accent transition-colors">Contact</button>
-            <button type="button" className="hover:text-retro-accent transition-colors">Mentions légales</button>
+
+            <button type="button" onClick={() => openModal(
+                <span className="flex items-center"><RiAiGenerate2 size={40} className="mr-1.5"/> & <IoColorPaletteOutline size={40} className="ml-1"/></span>,
+                <p className="text-white font-righteous">
+                    L'intelligence artificielle est au cœur de Pixia pour la génération des images. <br/>
+                    C'est un outil puissant qui permet de créer ce jeu. <br/><br/>
+                    Mais on n'oublie pas les artistes ! <br/>
+                    Pixia est pensé comme un tremplin, pas comme un remplaçant. <br/><br/>
+                    L'objectif à terme : collaborer avec des illustrateurs, graphistes et artistes pour élever le
+                    projet. <br/><br/>
+                    Si t'es créatif et que ça te parle, la porte est ouverte.
+                </p>
+            )}
+                    className="hover:text-retro-accent transition-colors">IA et Art
+            </button>
+
+            <button type="button" onClick={() => openModal(
+                "Mentions légales",
+                <p className="text-white font-righteous">
+                    <p className="underline mb-1">Hébergement</p>
+                    React : Vercel Inc. <br/> Symfony : Railway Corp.
+                    <br/><br/>
+                    <p className="underline mb-1">Propriété intellectuelle</p>
+                    Images générées par IAs. Noms de films © ayants droit respectifs. Pixia est un projet à but non
+                    lucratif.
+                    <br/><br/>
+                    <p className="underline mb-1">Données personnelles</p>
+                    On collecte ton email pour ton compte. Promis pas de spam ni de revente de données. Pour tes droits
+                    (accès, suppression), contacte-nous.
+                </p>
+            )}
+                    className="hover:text-retro-accent transition-colors">Mentions légales
+            </button>
         </div>
     </footer>
 }

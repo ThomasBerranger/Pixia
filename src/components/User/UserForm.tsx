@@ -81,8 +81,7 @@ function UserForm() {
         <div className="max-w-md mx-auto mt-12 p-8 bg-retro-surface/80 border-[3px]
         border-retro-primary shadow-[6px_6px_0] shadow-retro-secondary">
 
-            <h3 className="font-title text-center text-3xl text-retro-accent mb-6 uppercase animate-[neon-flicker_4s_infinite]
-    [text-shadow:0_0_10px_rgba(255,190,11,0.8),0_0_20px_rgba(255,190,11,0.6),0_0_30px_rgba(255,190,11,0.4)]">
+            <h3 className="text-center animated-neon-title">
                 Bienvenue
             </h3>
 
