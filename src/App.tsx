@@ -1,22 +1,25 @@
-import Header from "./Layout/Header.tsx"
-import Footer from "./Layout/Footer.tsx"
+import Header from "./components/Layouts/Header.tsx"
+import Footer from "./components/Layouts/Footer.tsx"
 import {Outlet, Route, Routes} from "react-router-dom"
 import Admin from "./components/Admin/Admin.tsx"
-import Game from "./components/Game/Game.tsx"
+import GameContainer from "./components/Game/GameContainer.tsx"
 import User from "./components/User/User.tsx"
 import ProtectedRoute from "./components/ProtectedRoute.tsx"
 import AdminGameGenerator from "./components/Admin/GameGenerator/AdminGameGenerator.tsx"
 import AdminUserDashboard from "./components/Admin/Dashboard/AdminUserDashboard.tsx"
 import AdminGameDashboard from "./components/Admin/Dashboard/AdminGameDashboard.tsx"
 import AdminGameEdit from "./components/Admin/AdminGameEdit.tsx";
+import Modal from "./components/Modal.tsx";
+import {ModalProvider} from "./contexts/modalContext.tsx";
 
 function App() {
     return (
-        <>
+        <ModalProvider>
             <Header/>
+
             <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text">
                 <Routes>
-                    <Route path="/" element={<Game/>}/>
+                    <Route path="/" element={<GameContainer/>}/>
                     <Route path="/user" element={<User/>}/>
 
                     <Route path="/admin" element={
@@ -31,12 +34,12 @@ function App() {
                         <Route path="games/:id" element={<AdminGameEdit/>}/>
                     </Route>
                 </Routes>
-
-                {/*<div className="divider my-5 mx-[10%]"/>*/}
-                {/*<section className="pb-5">autre chose</section>*/}
             </main>
+
             <Footer/>
-        </>
+
+            <Modal/>
+        </ModalProvider>
     )
 }
 

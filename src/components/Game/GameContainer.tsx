@@ -1,11 +1,11 @@
 import {useCallback, useEffect, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
 import type {GameType} from "../../types/gameType.ts"
-import GameHeader from "./Layout/GameHeader.tsx"
-import GameContent from "./Layout/GameContent.tsx"
-import GameFooter from "./Layout/GameFooter.tsx"
+import GameHeader from "./Layouts/GameHeader.tsx"
+import GameContent from "./Layouts/GameContent.tsx"
+import GameFooter from "./Layouts/GameFooter.tsx"
 
-function Game() {
+function GameContainer() {
     const {apiCall} = useApi()
 
     const [game, setGame] = useState<GameType>({
@@ -82,7 +82,7 @@ function Game() {
     }, [game.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <section className="min-h-screen flex flex-col justify-center py-10">
+        <section className="min-h-[80vh] flex flex-col justify-center px-5 sm:py-10">
             <GameHeader/>
 
             <GameContent
@@ -98,4 +98,4 @@ function Game() {
     )
 }
 
-export default Game
+export default GameContainer

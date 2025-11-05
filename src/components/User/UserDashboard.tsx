@@ -40,7 +40,7 @@ function UserDashboard() {
                 </h1>
                 <div className="flex-wrap sm:flex gap-3 text-retro-muted text-sm mb-6 sm:mb-0">
                     <div className="flex items-center gap-0.5">
-                        ⭐ <strong className="text-retro-accent">{user?.score || 0}</strong>
+                        ⭐ <strong className="text-retro-accent">{user?.score || 0} points</strong>
                     </div>
                     <div className="flex items-center gap-0.5">
                         🎯 <strong className="text-retro-accent">

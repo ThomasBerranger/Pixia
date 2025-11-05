@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom"
-import {useAuth} from "../contexts/authContext.tsx"
+import {useAuth} from "../../contexts/authContext.tsx"
 
 function Header() {
     const {isAuthenticated} = useAuth()
