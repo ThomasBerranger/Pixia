@@ -4,5 +4,6 @@ export interface GameCreateType {
     explanation: string | undefined;
     hint: string | undefined;
     image: string | undefined;
+    imageUrl: string | undefined;
     date: string | undefined;
 }

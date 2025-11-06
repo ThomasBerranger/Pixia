@@ -15,6 +15,7 @@ function AdminUserDashboard() {
         explanation: undefined,
         hint: undefined,
         image: undefined,
+        imageUrl: undefined,
         date: undefined,
     })
 
@@ -40,7 +41,7 @@ function AdminUserDashboard() {
                 <PromptGenerator game={game} setGame={setGame}/>
                 <ImageGenerator game={game} setGame={setGame} onGameSubmit={handleGameSubmit}/>
 
-                {game.image && (
+                {game.imageUrl && (
                     <div className={'flex justify-center mt-5'}>
                         <button disabled={loading || !game.date}
                                 className={'w-3/5 btn-pulse text-white bg-red-600 py-2.5'}

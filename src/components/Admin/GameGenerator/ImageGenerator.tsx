@@ -24,7 +24,7 @@ function ImageGenerator({game, setGame, onGameSubmit}: {
 
             setGame((prevGame: GameCreateType): GameCreateType => ({
                 ...prevGame,
-                image: response || undefined,
+                imageUrl: response || undefined,
             }));
         } catch (err) {
             console.error(err)
@@ -59,10 +59,10 @@ function ImageGenerator({game, setGame, onGameSubmit}: {
                 </div>
             )}
 
-            {game.image && (
+            {game.imageUrl && (
                 <div className="w-full flex justify-center mt-8">
                     <img
-                        src={game.image}
+                        src={game.imageUrl}
                         alt="Generated"
                         className="max-h-80 border-[3px] border-retro-accent shadow-[0_0_30px_rgba(255,190,11,0.4)]"
                     />

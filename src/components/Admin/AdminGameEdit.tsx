@@ -58,8 +58,8 @@ function AdminGameEdit() {
                 body: formData,
             }, false)
 
-            if (response.image) {
-                setGame(prev => prev ? {...prev, image: response.image} : prev)
+            if (response) {
+                setGame(prev => prev ? {...prev, image: response} : prev)
             }
         } catch (err) {
             console.error("Erreur upload image:", err)
