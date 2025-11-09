@@ -1,7 +1,7 @@
 import Header from "./components/Layouts/Header.tsx"
 import Footer from "./components/Layouts/Footer.tsx"
 import {Outlet, Route, Routes} from "react-router-dom"
-import Admin from "./components/Admin/Admin.tsx"
+import AdminContainer from "./components/Admin/AdminContainer.tsx"
 import GameContainer from "./components/Game/GameContainer.tsx"
 import User from "./components/User/User.tsx"
 import ProtectedRoute from "./components/ProtectedRoute.tsx"
@@ -27,7 +27,7 @@ function App() {
                             <Outlet/>
                         </ProtectedRoute>
                     }>
-                        <Route index element={<Admin/>}/>
+                        <Route index element={<AdminContainer/>}/>
                         <Route path="user-dashboard" element={<AdminUserDashboard/>}/>
                         <Route path="game-generator" element={<AdminGameGenerator/>}/>
                         <Route path="game-dashboard" element={<AdminGameDashboard/>}/>

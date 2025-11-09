@@ -1,5 +1,5 @@
 .btn-retro {
-    @apply px-10 py-5 font-righteous text-sm tracking-wide uppercase transition-all duration-300;
+    @apply font-righteous text-sm tracking-wide uppercase transition-all duration-300;
 }
 
 .btn-primary {

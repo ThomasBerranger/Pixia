@@ -11,22 +11,22 @@ function Footer() {
         <div className="flex flex-wrap justify-center items-center gap-8 my-2 text-sm">
             <button type="button" onClick={() => openModal(
                 'Le concept',
-                <p className="text-white font-righteous">
+                <span className="text-white font-righteous">
                     Pixia, c'est un jeu où tu dois deviner les 2 films qui ont servi à créer l'image du jour.
                     <br/><br/>
                     <p className="underline mb-1">Ta mission, si tu l'acceptes :</p>
                     Tous les jours, une nouvelle image apparaît. Trouve quels films se cachent derrière. Crée un
                     compte pour débloquer des récompenses et suivre tes stats. <br/><br/> Bon chance
-                </p>
+                </span>
             )}
                     className="order-first hover:text-retro-accent transition-colors">Le concept
             </button>
 
             <button type="button" onClick={() => openModal(
                 "L'équipe",
-                <p className="text-white font-righteous">
+                <span className="text-white font-righteous">
                     Salut, moi c'est <span className="text-retro-accent">Mirage</span>, je dev solo les idées qui me passent par la tête entre deux films.
-                </p>
+                </span>
             )}
                     className="order-first hover:text-retro-accent transition-colors">L'équipe
             </button>
@@ -34,8 +34,10 @@ function Footer() {
             <p className="order-last sm:order-first font-title text-retro-accent text-lg">PIXIA</p>
 
             <button type="button" onClick={() => openModal(
-                <span className="flex items-center"><RiAiGenerate2 size={40} className="mr-1.5"/> & <IoColorPaletteOutline size={40} className="ml-1"/></span>,
-                <p className="text-white font-righteous">
+                <span className="flex items-center"><RiAiGenerate2 size={40}
+                                                                   className="mr-1.5"/> & <IoColorPaletteOutline
+                    size={40} className="ml-1"/></span>,
+                <span className="text-white font-righteous">
                     L'intelligence artificielle est au cœur de Pixia pour la génération des images. <br/>
                     C'est un outil puissant qui permet de créer ce jeu. <br/><br/>
                     Mais on n'oublie pas les artistes ! <br/>
@@ -43,14 +45,14 @@ function Footer() {
                     L'objectif à terme : collaborer avec des illustrateurs, graphistes et artistes pour élever le
                     projet. <br/><br/>
                     Si t'es créatif et que ça te parle, la porte est ouverte.
-                </p>
+                </span>
             )}
                     className="hover:text-retro-accent transition-colors">IA et Art
             </button>
 
             <button type="button" onClick={() => openModal(
                 "Mentions légales",
-                <p className="text-white font-righteous">
+                <span className="text-white font-righteous">
                     <p className="underline mb-1">Hébergement</p>
                     React : Vercel Inc. <br/> Symfony : Railway Corp.
                     <br/><br/>
@@ -61,7 +63,7 @@ function Footer() {
                     <p className="underline mb-1">Données personnelles</p>
                     On collecte ton email pour ton compte. Promis pas de spam ni de revente de données. Pour tes droits
                     (accès, suppression), contacte-nous.
-                </p>
+                </span>
             )}
                     className="hover:text-retro-accent transition-colors">Mentions légales
             </button>

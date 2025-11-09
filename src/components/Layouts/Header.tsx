@@ -13,22 +13,22 @@ function Header() {
             Pixia
         </Link>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 px-2 sm:p-0">
             <Link to="/" className="hidden sm:block font-righteous text-white">Jeu du jour</Link>
             <button type="button" onClick={() => openModal(
                 'Le concept',
-                <p className="text-white font-righteous">
+                <span className="text-white font-righteous">
                     Pixia, c'est un jeu où tu dois deviner les 2 films qui ont servi à créer l'image du jour.
                     <br/><br/>
                     <p className="underline mb-1">Ta mission, si tu l'acceptes :</p>
                     Tous les jours, une nouvelle image apparaît. Trouve quels films se cachent derrière. Crée un
                     compte pour débloquer des récompenses et suivre tes stats. <br/><br/> Bon chance
-                </p>
+                </span>
             )}
                     className="hidden sm:block font-righteous text-white">Le concept
             </button>
             <Link to="/user">
-                <button className="btn-primary px-6 py-2.5">
+                <button className="btn-primary text-xs sm:text-md px-4 py-2 sm:px-6 sm:py-2.5">
                     {isAuthenticated ? "MON COMPTE" : "CONNEXION"}
                 </button>
             </Link>

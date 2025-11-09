@@ -26,12 +26,14 @@ function PromptGenerator({game, setGame}: {
                 body: JSON.stringify({prompt})
             })
 
+            const data = JSON.parse(response);
+
             setGame((prevGame: GameCreateType): GameCreateType => ({
                 ...prevGame,
-                prompt: response.match(/Prompt:\s*(.*?)\s*Solution/)?.[1] || undefined,
-                solution: response.match(/Solution:\s*(.*?)\s*Hint/)?.[1] || undefined,
-                hint: response.match(/Hint:\s*(.*?)\s*Explanation/)?.[1] || undefined,
-                explanation: response.match(/Explanation:\s*(.*)/)?.[1] || undefined,
+                prompt: data.prompt,
+                solution: data.solution,
+                hint: data.hint,
+                explanation: data.explanation,
                 date: new Date().toISOString().split('T')[0]
             }));
         } catch (err) {

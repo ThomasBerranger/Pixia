@@ -78,10 +78,9 @@ function UserForm() {
     }
 
     return (
-        <div className="max-w-md mx-auto mt-12 p-8 bg-retro-surface/80 border-[3px]
-        border-retro-primary shadow-[6px_6px_0] shadow-retro-secondary">
+        <div className="max-w-md mx-auto mt-12 p-5 sm:p-8 card-primary">
 
-            <h3 className="text-center animated-neon-title">
+            <h3 className="text-center animated-neon-title mb-8">
                 Bienvenue
             </h3>
 
@@ -91,6 +90,9 @@ function UserForm() {
                     <input type="username" placeholder="Neo"
                            className={`input-retro ${username.length >= 1 && 'border-retro-accent'}`}
                            value={username} onChange={(e) => setUsername(e.target.value)}/>
+                    <p className="text-retro-muted text-xxs sm:text-sm mt-1">
+                        Pas nécessaire pour se connecter
+                    </p>
                 </div>
 
                 <div>
@@ -98,7 +100,7 @@ function UserForm() {
                     <input type="email" placeholder="thomas.anderson@gmail.com"
                            className={`input-retro ${email.length >= 5 && 'border-retro-accent'}`}
                            value={email} onChange={(e) => setEmail(e.target.value)}/>
-                    <p className="text-retro-muted text-sm mt-1">
+                    <p className="text-retro-muted text-xxs sm:text-sm mt-1">
                         Promis aucun spam ni revente de données
                     </p>
                 </div>
@@ -110,20 +112,26 @@ function UserForm() {
                            value={password} onChange={(e) => setPassword(e.target.value)}/>
                 </div>
 
-                <div className="flex gap-4">
+                <div className="flex gap-3 items-center pt-2">
                     <button disabled={email.length < 5 || password.length <= 0}
-                            className="flex-1 px-6 py-3 btn-primary">{authLoading === 'login' ?
-                        <CgSpinner className="animate-spin mx-auto" size={20}/> : 'Se connecter'}</button>
-                    <button onClick={handleRegister} type="button" className="flex-1 px-6 py-3 btn-pixel">
+                            className={`w-full text-xxs sm:text-sm py-2.5 
+                            ${email.length >= 5 && password.length >= 5 ? 'btn-primary' : 'btn-disabled'}`}>
+                        {authLoading === 'login' ?
+                            <CgSpinner className="animate-spin mx-auto" size={20}/> : 'Se connecter'}
+                    </button>
+                    <button onClick={handleRegister} type="button"
+                            className={`w-full text-xxs sm:text-sm py-2.5 
+                            ${username.length >= 1 && email.length >= 5 && password.length >= 5 ? 'btn-pixel' : 'btn-disabled'}`}>
                         {authLoading === 'register' ?
                             <CgSpinner className="animate-spin mx-auto" size={20}/> : "S'inscrire"}
                     </button>
                 </div>
 
                 {Object.keys(errorViolations).length > 0 && (
-                    <div className="">
+                    <div>
                         <h3 className="font-righteous text-retro-primary text-lg uppercase mb-4 flex items-center gap-2">
-                            <RiAlarmWarningLine size={20} /> {Object.keys(errorViolations).length > 1 ? 'Erreurs détectées' : 'Erreur détectée'}
+                            <RiAlarmWarningLine
+                                size={20}/> {Object.keys(errorViolations).length > 1 ? 'Erreurs détectées' : 'Erreur détectée'}
                         </h3>
                         <ul className="space-y-3">
                             {Object.entries(errorViolations).map(([field, message]) => (

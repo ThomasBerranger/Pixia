@@ -1,0 +1,4 @@
+.divider {
+    @apply h-1 border-0 bg-gradient-to-r from-transparent via-retro-primary to-transparent
+    shadow-[0_0_20px_rgba(255,0,110,0.5)]
+}

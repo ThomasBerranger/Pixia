@@ -6,19 +6,12 @@
 @import './styles/card.css';
 @import './styles/table.css';
 @import './styles/calendar.css';
+@import './styles/divider.css';
+@import './styles/font.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-.font-title {
-    font-family: "Major Mono Display", monospace;
-    text-transform: uppercase;
-}
-
-.font-righteous {
-    font-family: "Righteous", sans-serif;
-}
 
 .header-retro {
     @apply bg-[#0a0e27]/80 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)] px-[5%] py-8 flex justify-between items-center;
@@ -30,18 +23,6 @@
 
 .nav-link-retro {
     @apply text-white no-underline transition-all duration-300 font-medium uppercase text-sm hover:text-[#ffbe0b] hover:[text-shadow:0_0_10px_#ffbe0b];
-}
-
-.divider {
-    @apply h-1;
-    background: linear-gradient(90deg,
-    transparent 0%,
-    theme('colors.retro.primary') 20%,
-    theme('colors.retro.accent') 50%,
-    theme('colors.retro.secondary') 80%,
-    transparent 100%
-    );
-    box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
 }
 
 @keyframes shake {

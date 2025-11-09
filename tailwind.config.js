@@ -10,7 +10,7 @@ export default {
           bg: '#03045e',
           surface: '#0a0e27',
           text: '#ffffff',
-          muted: '#8338ec',
+          muted: '#a76eff',
         },
       },
     },

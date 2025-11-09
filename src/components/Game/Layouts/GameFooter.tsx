@@ -46,22 +46,23 @@ function GameFooter({game, onAnswerSubmit}: {
     }
 
     return <>
+        {game.solution && !isAuthenticated &&
+            <Link to="/user" className="mx-auto py-2 sm:py-5 mb-5 btn-pulse text-[0.5rem] sm:text-lg">
+                Connecte toi pour enregistrer tes réponses
+            </Link>
+        }
+
         {game.solution ?
-            <div className="max-w-3xl mx-auto w-full p-8 bg-retro-surface border-[6px] border-retro-secondary
+            <div className="max-w-3xl mx-auto p-8 bg-retro-surface border-[6px] border-retro-secondary
             rounded-lg text-center relative animate-[border-flicker_4s_infinite]
             before:absolute before:inset-[10px] before:border-2 before:border-retro-accent before:opacity-50">
-                <div className="text-xs text-retro-muted uppercase tracking-[2px] mb-2">
+                <div className="text-[0.7rem] sm:text-xs text-retro-muted uppercase tracking-[2px] mb-2">
                     Bravo !
                 </div>
-                <div className=" text-md sm:text-2xl text-retro-accent font-righteous uppercase tracking-[3px]">
+                <div
+                    className="text-sm sm:text-md sm:text-2xl text-retro-accent font-righteous uppercase tracking-[3px]">
                     {game.solution}
                 </div>
-
-                {!isAuthenticated &&
-                    <Link to="/user">
-                        <button className="mt-3 btn-pulse">Connecte toi pour enregistrer tes parties</button>
-                    </Link>
-                }
             </div>
             :
             <form

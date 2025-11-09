@@ -81,8 +81,8 @@ function GameContainer() {
         }
     }, [game.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    return (
-        <section className="min-h-[80vh] flex flex-col justify-center px-5 sm:py-10">
+    return <>
+        <section className="sm:min-h-[80vh] flex flex-col justify-center px-5 py-[3vh]">
             <GameHeader/>
 
             <GameContent
@@ -95,7 +95,11 @@ function GameContainer() {
 
             <GameFooter game={game} onAnswerSubmit={handleAnswerSubmit}/>
         </section>
-    )
+        <hr className="divider max-w-5xl mx-auto sm:my-5" />
+        <section className="text-center py-5">
+            coucou bla bla
+        </section>
+    </>
 }
 
 export default GameContainer
