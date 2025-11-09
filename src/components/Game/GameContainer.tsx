@@ -5,6 +5,8 @@ import GameHeader from "./Layouts/GameHeader.tsx"
 import GameContent from "./Layouts/GameContent.tsx"
 import GameFooter from "./Layouts/GameFooter.tsx"
 import Leaderboard from "./Leaderboard.tsx"
+import type {LeaderboardUserType} from "../../types/leaderboardUserType.ts";
+import type {UserType} from "../../types/userType.ts";
 
 function GameContainer() {
     const {apiCall} = useApi()
@@ -24,21 +26,27 @@ function GameContainer() {
     const [previousGameDate, setPreviousGameDate] = useState<string | null>(null)
     const [loadingDirection, setLoadingDirection] = useState<'prev' | 'next' | null>(null)
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await apiCall('games/daily')
+    const [leaderboard, setLeaderboard] = useState<LeaderboardUserType[]>([])
+    const [currentUser, setCurrentUser] = useState<UserType>()
+    const [currentUserRank, setCurrentUserRank] = useState<number>()
 
+    useEffect(() => {
+        apiCall('games/daily')
+            .then(response => {
                 setGame(response.game)
                 setPreviousGameDate(response.previousGameDate)
                 setNextGameDate(response.nextGameDate)
-            } catch (error) {
-                console.error('Erreur: ', error)
-            }
-        }
+            })
+            .catch(console.error)
 
-        fetchData()
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+        apiCall('users/leaderboard')
+            .then(response => {
+                setLeaderboard(response.leaderboard)
+                setCurrentUser(response.currentUser)
+                setCurrentUserRank(response.currentUserRank)
+            })
+            .catch(console.error)
+    }, [])
 
     const handleGameChange = useCallback(async (date: string, isPrevious: boolean) => {
         setLoadingDirection(isPrevious ? 'prev' : 'next')
@@ -69,7 +77,13 @@ function GameContainer() {
                     solution: response.solution
                 }))
 
-                console.log(response.solution);
+                apiCall('users/leaderboard')
+                    .then(response => {
+                        setLeaderboard(response.leaderboard)
+                        setCurrentUser(response.currentUser)
+                        setCurrentUserRank(response.currentUserRank)
+                    })
+                    .catch(console.error)
 
                 return true
             }
@@ -80,7 +94,7 @@ function GameContainer() {
 
             return false
         }
-    }, [game.id]) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [game.id])
 
     return <>
         <section className="sm:min-h-[80vh] flex flex-col justify-center px-5 py-[3vh]">
@@ -99,7 +113,7 @@ function GameContainer() {
 
         <hr className="divider max-w-5xl mx-auto my-5 sm:my-10"/>
 
-       <Leaderboard/>
+        <Leaderboard leaderboard={leaderboard} currentUser={currentUser} currentUserRank={currentUserRank}/>
     </>
 }
 

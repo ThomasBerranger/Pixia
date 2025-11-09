@@ -1,30 +1,11 @@
-import {useEffect, useState} from "react"
-import {useApi} from "../../hooks/useApi.tsx"
 import type {LeaderboardUserType} from "../../types/leaderboardUserType.ts"
 import type {UserType} from "../../types/userType.ts";
 
-function Leaderboard() {
-    const {apiCall} = useApi()
-
-    const [leaderboard, setLeaderboard] = useState<LeaderboardUserType[]>([])
-    const [currentUser, setCurrentUser] = useState<UserType>()
-    const [currentUserRank, setCurrentUserRank] = useState<number>()
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await apiCall('users/leaderboard')
-
-                setLeaderboard(response.leaderboard)
-                setCurrentUser(response.currentUser)
-                setCurrentUserRank(response.currentUserRank)
-            } catch (error) {
-                console.error('Erreur: ', error)
-            }
-        }
-
-        fetchData()
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+function Leaderboard({leaderboard, currentUser, currentUserRank}: {
+    leaderboard: LeaderboardUserType[],
+    currentUser: UserType | undefined,
+    currentUserRank: number | undefined,
+}) {
 
     return <section className="max-w-3xl mx-auto pt-0.5 sm:pt-5 pb-10">
 
@@ -67,7 +48,7 @@ function Leaderboard() {
             </div>
         </div>
 
-        <div className="card-retro p-0 my-5 mx-5 sm:mx-0">
+        <div className="card-retro p-0 mt-5 mb-3 mx-5 sm:mx-0">
             {leaderboard.slice(3).map((user, key) =>
                 <div key={key}
                      className={`w-full flex gap-2 items-center px-5 py-2.5 
@@ -80,7 +61,7 @@ function Leaderboard() {
         </div>
 
         {currentUser && currentUserRank && currentUserRank > 10 &&
-            <div className="card-retro-hover-retro-accent border-retro-primary p-0 my-5 mx-5 sm:mx-0">
+            <div className="card-retro-hover-retro-accent border-retro-primary p-0 mb-5 mx-5 sm:mx-0">
                 <div className="w-full flex gap-2 items-center px-5 py-2.5">
                     <p className="font-title font-bold text-retro-primary text-3xl">{currentUserRank}</p>
                     <p className="font-righteous font-light px-4 flex-1 text-left text-lg truncate">{currentUser.username}</p>
