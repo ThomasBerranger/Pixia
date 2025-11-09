@@ -4,7 +4,7 @@ import type {GameType} from "../../types/gameType.ts"
 import GameHeader from "./Layouts/GameHeader.tsx"
 import GameContent from "./Layouts/GameContent.tsx"
 import GameFooter from "./Layouts/GameFooter.tsx"
-import LeaderBoard from "./LeaderBoard.tsx"
+import Leaderboard from "./Leaderboard.tsx"
 
 function GameContainer() {
     const {apiCall} = useApi()
@@ -99,7 +99,7 @@ function GameContainer() {
 
         <hr className="divider max-w-5xl mx-auto my-5 sm:my-10"/>
 
-       <LeaderBoard/>
+       <Leaderboard/>
     </>
 }
 
