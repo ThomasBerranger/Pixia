@@ -10,11 +10,10 @@ function Header() {
         className="bg-retro-surface/80 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)] px-2 sm:px-[7%] py-4 flex justify-between items-center">
         <Link to="/"
               className="font-title text-5xl text-retro-primary skew-x-[-10deg] [text-shadow:0_0_10px_#ff006e,3px_2px_0_#ffbe0b]">
-            Pixia
+            <h1>Pixia</h1>
         </Link>
 
         <div className="flex items-center gap-5 px-2 sm:p-0">
-            <Link to="/" className="hidden sm:block font-righteous text-white">Jeu du jour</Link>
             <button type="button" onClick={() => openModal(
                 'Le concept',
                 <span className="text-white font-righteous">
@@ -27,7 +26,7 @@ function Header() {
             )}
                     className="hidden sm:block font-righteous text-white">Le concept
             </button>
-            <Link to="/user">
+            <Link to="/me">
                 <button className="btn-primary text-xs sm:text-md px-4 py-2 sm:px-6 sm:py-2.5">
                     {isAuthenticated ? "MON COMPTE" : "CONNEXION"}
                 </button>

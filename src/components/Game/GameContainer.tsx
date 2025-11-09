@@ -4,6 +4,7 @@ import type {GameType} from "../../types/gameType.ts"
 import GameHeader from "./Layouts/GameHeader.tsx"
 import GameContent from "./Layouts/GameContent.tsx"
 import GameFooter from "./Layouts/GameFooter.tsx"
+import LeaderBoard from "./LeaderBoard.tsx"
 
 function GameContainer() {
     const {apiCall} = useApi()
@@ -95,10 +96,10 @@ function GameContainer() {
 
             <GameFooter game={game} onAnswerSubmit={handleAnswerSubmit}/>
         </section>
-        <hr className="divider max-w-5xl mx-auto sm:my-5" />
-        <section className="text-center py-5">
-            coucou bla bla
-        </section>
+
+        <hr className="divider max-w-5xl mx-auto my-5 sm:my-10"/>
+
+       <LeaderBoard/>
     </>
 }
 

@@ -20,7 +20,7 @@ function App() {
             <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text">
                 <Routes>
                     <Route path="/" element={<GameContainer/>}/>
-                    <Route path="/user" element={<User/>}/>
+                    <Route path="/me" element={<User/>}/>
 
                     <Route path="/admin" element={
                         <ProtectedRoute requiredRole={"ROLE_ADMIN"}>

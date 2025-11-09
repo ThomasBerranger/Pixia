@@ -232,7 +232,7 @@ function UserDashboard() {
                     </div>
 
                     <button
-                        className="btn-primary px-0 py-3.5 mt-1 sm:mt-7 w-full">
+                        className="btn-disabled px-0 py-3.5 mt-1 sm:mt-7 w-full"> {/*btn-primary*/}
                         Modifier
                     </button>
                 </div>

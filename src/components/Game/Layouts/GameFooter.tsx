@@ -79,12 +79,12 @@ function GameFooter({game, onAnswerSubmit}: {
                     border-retro-primary text-retro-text outline-none transition-all duration-300 
                     shadow-[0_0_20px_rgba(255,0,110,0.3)] focus:border-retro-accent
                     focus:shadow-[0_0_40px_rgba(255,190,11,0.5)] placeholder:text-retro-muted 
-                    col-span-full sm:col-span-8 ${displayError && "shake !border-retro-primary"}`}
+                    col-span-full sm:col-span-9 ${displayError && "shake !border-retro-primary"}`}
                 />
 
                 <button
                     disabled={isLoading}
-                    className="btn-primary py-2 w-full flex justify-center col-span-full sm:col-span-4"
+                    className="btn-primary py-2 w-full flex justify-center col-span-full sm:col-span-3"
                 >
                     {isLoading ? (
                         <CgSpinner className="animate-spin" size={20}/>
