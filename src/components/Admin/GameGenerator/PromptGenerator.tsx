@@ -26,14 +26,11 @@ function PromptGenerator({game, setGame}: {
                 body: JSON.stringify({prompt})
             })
 
-            const data = JSON.parse(response);
-
             setGame((prevGame: GameCreateType): GameCreateType => ({
                 ...prevGame,
-                prompt: data.prompt,
-                solution: data.solution,
-                hint: data.hint,
-                explanation: data.explanation,
+                prompt: response.prompt,
+                solution: response.solution,
+                hint: response.hint,
                 date: new Date().toISOString().split('T')[0]
             }));
         } catch (err) {
@@ -64,7 +61,7 @@ function PromptGenerator({game, setGame}: {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full btn-3d py-2.5"
+                    className={`w-full py-2.5 ${prompt.length < 5 ? 'btn-disabled' : 'btn-3d'}`}
                 >
                     {!loading ? "Générer le jeu" : <CgSpinner className="animate-spin mx-auto" size={20}/>}
                 </button>

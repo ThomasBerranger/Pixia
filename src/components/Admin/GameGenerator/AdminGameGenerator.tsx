@@ -12,7 +12,6 @@ function AdminUserDashboard() {
     const [game, setGame] = useState<GameCreateType>({
         prompt: undefined,
         solution: undefined,
-        explanation: undefined,
         hint: undefined,
         image: undefined,
         imageUrl: undefined,
@@ -42,9 +41,9 @@ function AdminUserDashboard() {
                 <ImageGenerator game={game} setGame={setGame} onGameSubmit={handleGameSubmit}/>
 
                 {game.imageUrl && (
-                    <div className={'flex justify-center mt-5'}>
+                    <div className="flex justify-center mt-5">
                         <button disabled={loading || !game.date}
-                                className={'w-3/5 btn-pulse text-white bg-red-600 py-2.5'}
+                                className="w-3/5 btn-pulse text-white bg-red-600 py-2.5"
                                 onClick={handleGameSubmit}>
                             {loading ?
                                 <CgSpinner className="animate-spin mx-auto" size={20}/>

@@ -2,7 +2,8 @@ import {useState} from "react"
 import {useApi} from "../../../hooks/useApi.tsx"
 import type {GameCreateType} from "../../../types/gameCreateType.ts"
 import * as React from "react"
-import {CgSpinner} from "react-icons/cg";
+import {CgSpinner} from "react-icons/cg"
+import {CiMoneyCheck1} from "react-icons/ci"
 
 function ImageGenerator({game, setGame, onGameSubmit}: {
     game: GameCreateType,
@@ -46,13 +47,13 @@ function ImageGenerator({game, setGame, onGameSubmit}: {
                         {loading ? (
                             <CgSpinner className="animate-spin mx-auto" size={20}/>
                         ) : (
-                            "Générer l'image"
+                            <span className="flex justify-center gap-2">Générer l'image <CiMoneyCheck1 className="text-xl" /></span>
                         )}
                     </button>
 
                     <button
                         onClick={() => onGameSubmit()}
-                        className="btn-ghost py-2.5"
+                        className="btn-ghost py-2.5 px-10"
                     >
                         Enregistrer sans image
                     </button>

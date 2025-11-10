@@ -16,7 +16,6 @@ function GameContainer() {
         type: undefined,
         solution: undefined,
         hint: undefined,
-        explanation: undefined,
         date: undefined,
         difficulty: undefined,
         image: undefined,

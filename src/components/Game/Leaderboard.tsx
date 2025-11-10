@@ -1,5 +1,5 @@
 import type {LeaderboardUserType} from "../../types/leaderboardUserType.ts"
-import type {UserType} from "../../types/userType.ts";
+import type {UserType} from "../../types/userType.ts"
 
 function Leaderboard({leaderboard, currentUser, currentUserRank}: {
     leaderboard: LeaderboardUserType[],
