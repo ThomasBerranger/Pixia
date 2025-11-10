@@ -30,21 +30,21 @@ function Leaderboard({leaderboard, currentUser, currentUserRank}: {
         <div className="sm:hidden card-primary border-retro-accent p-0 my-5 mx-5 sm:mx-0">
             <div className="w-full flex gap-2 items-center px-5 py-2.5 hover:bg-retro-accent hover:bg-opacity-10">
                 <p className="font-title font-bold text-retro-primary text-3xl">🏆</p>
-                <p className="flex-1 text-left px-4 font-righteous font-light text-lg truncate">John Doe</p>
-                <p className="font-title text-xl text-retro-accent">1205</p>
+                <p className="flex-1 text-left px-4 font-righteous font-light text-lg truncate">{leaderboard[0] && leaderboard[0].username}</p>
+                <p className="font-title text-xl text-retro-accent">{leaderboard[0] && leaderboard[0].score}</p>
             </div>
         </div>
 
         <div className="sm:hidden card-primary p-0 my-5 mx-5 sm:mx-0">
             <div className="w-full flex gap-2 items-center px-5 py-2.5 hover:bg-retro-accent hover:bg-opacity-10">
                 <p className="font-title font-bold text-retro-primary text-3xl">🥈</p>
-                <p className="flex-1 text-left px-4 font-righteous font-light text-lg truncate">John Doe</p>
-                <p className="font-title text-xl text-retro-accent">1205</p>
+                <p className="flex-1 text-left px-4 font-righteous font-light text-lg truncate">{leaderboard[1] && leaderboard[1].username}</p>
+                <p className="font-title text-xl text-retro-accent">{leaderboard[1] && leaderboard[1].score}</p>
             </div>
             <div className="w-full flex gap-2 items-center px-5 py-2.5 hover:bg-retro-accent hover:bg-opacity-10">
                 <p className="font-title font-bold text-retro-primary text-3xl">🥉</p>
-                <p className="flex-1 text-left px-4 font-righteous font-light text-lg truncate">John Doe</p>
-                <p className="font-title text-xl text-retro-accent">1205</p>
+                <p className="flex-1 text-left px-4 font-righteous font-light text-lg truncate">{leaderboard[2] && leaderboard[2].username}</p>
+                <p className="font-title text-xl text-retro-accent">{leaderboard[2] && leaderboard[2].score}</p>
             </div>
         </div>
 
