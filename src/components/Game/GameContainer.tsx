@@ -1,12 +1,13 @@
 import {useCallback, useEffect, useState} from "react"
-import {useApi} from "../../hooks/useApi.tsx"
+import {type ApiError, useApi} from "../../hooks/useApi.tsx"
 import type {GameType} from "../../types/gameType.ts"
 import GameHeader from "./Layouts/GameHeader.tsx"
 import GameContent from "./Layouts/GameContent.tsx"
 import GameFooter from "./Layouts/GameFooter.tsx"
 import Leaderboard from "./Leaderboard.tsx"
-import type {LeaderboardUserType} from "../../types/leaderboardUserType.ts";
-import type {UserType} from "../../types/userType.ts";
+import type {LeaderboardUserType} from "../../types/leaderboardUserType.ts"
+import type {UserType} from "../../types/userType.ts"
+import type {AnswerResult} from "../../types/answerResultType.ts"
 
 function GameContainer() {
     const {apiCall} = useApi()
@@ -63,7 +64,7 @@ function GameContainer() {
         }
     }, [game.type]) // eslint-disable-line react-hooks/exhaustive-deps
 
-    const handleAnswerSubmit = useCallback(async (answer: string): Promise<boolean> => {
+    const handleAnswerSubmit = useCallback(async (answer: string): Promise<AnswerResult> => {
         try {
             const response = await apiCall(`games/${game.id}/solution`, {
                 method: 'POST',
@@ -84,14 +85,21 @@ function GameContainer() {
                     })
                     .catch(console.error)
 
-                return true
+                return {success: true}
             }
 
-            return false
+            return {success: false}
         } catch (error) {
-            console.error('Erreur: ', error)
+            const apiError = error as ApiError
 
-            return false
+            if (apiError.status === 429) {
+                return {success: false, rateLimited: true, errorMessage: apiError.detail}
+            }
+
+            return {
+                success: false,
+                errorMessage: 'Une erreur est survenue.'
+            }
         }
     }, [game.id])
 

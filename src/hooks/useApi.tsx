@@ -1,5 +1,11 @@
 import {useAuth} from '../contexts/authContext'
 
+export interface ApiError extends Error {
+    status: number;
+    statusText: string;
+    detail?: string;
+}
+
 export function useApi() {
     const {token} = useAuth()
     const apiUrl = import.meta.env.VITE_API_URL
@@ -16,7 +22,15 @@ export function useApi() {
         })
 
         if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`)
+            const errorData = await response.json().catch(() => ({}))
+
+            const error = new Error(`HTTP ${response.status}: ${response.statusText}`) as ApiError
+
+            error.status = response.status
+            error.message = response.statusText
+            error.detail = errorData.detail
+
+            throw error
         }
 
         return response.json()

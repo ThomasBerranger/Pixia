@@ -3,16 +3,18 @@ import {CgSpinner} from "react-icons/cg"
 import type {GameType} from "../../../types/gameType.ts"
 import {Link} from "react-router-dom"
 import {useAuth} from "../../../contexts/authContext.tsx"
+import type {AnswerResult} from "../../../types/answerResultType.ts"
 
 function GameFooter({game, onAnswerSubmit}: {
     game: GameType
-    onAnswerSubmit: (answer: string) => Promise<boolean>
+    onAnswerSubmit: (answer: string) => Promise<AnswerResult>
 }) {
     const {isAuthenticated} = useAuth()
 
     const [answer, setAnswer] = useState<string>('')
     const [isLoading, setLoading] = useState<boolean>(false)
-    const [displayError, setDisplayError] = useState(false)
+    const [displayError, setDisplayError] = useState<boolean>(false)
+    const [displayErrorMessage, setDisplayErrorMessage] = useState<string | undefined>('')
 
     async function handleSolutionRequest(e: React.FormEvent): Promise<void> {
         e.preventDefault()
@@ -25,11 +27,16 @@ function GameFooter({game, onAnswerSubmit}: {
         setLoading(true)
 
         try {
-            const success = await onAnswerSubmit(answer)
+            const response: AnswerResult = await onAnswerSubmit(answer)
 
-            if (success) {
+            if (response.success) {
                 setAnswer('')
             } else {
+
+                if (response.rateLimited) {
+                    setDisplayErrorMessage(response.errorMessage)
+                }
+
                 showErrorBriefly()
             }
         } catch (error) {
@@ -67,20 +74,26 @@ function GameFooter({game, onAnswerSubmit}: {
             :
             <form
                 onSubmit={handleSolutionRequest}
-                className="max-w-3xl mx-auto w-full grid grid-cols-1 sm:grid-cols-12 gap-4"
+                className="max-w-3xl mx-auto w-full grid grid-cols-1 sm:grid-cols-12 gap-4 items-start"
             >
-                <input
-                    type="text"
-                    placeholder="Titanic et Inception"
-                    autoComplete="off"
-                    value={answer}
-                    onChange={(e) => setAnswer(e.target.value)}
-                    className={`flex-1 min-w-full sm:min-w-0 pl-2 py-2 bg-retro-surface/80 border-[3px] 
+                <div className="col-span-full sm:col-span-9">
+                    <input
+                        type="text"
+                        placeholder="Titanic et Inception"
+                        autoComplete="off"
+                        value={answer}
+                        onChange={(e) => setAnswer(e.target.value)}
+                        className={`flex-1 w-full pl-2 py-2 bg-retro-surface/80 border-[3px] 
                     border-retro-primary text-retro-text outline-none transition-all duration-300 
                     shadow-[0_0_20px_rgba(255,0,110,0.3)] focus:border-retro-accent
                     focus:shadow-[0_0_40px_rgba(255,190,11,0.5)] placeholder:text-retro-muted 
-                    col-span-full sm:col-span-9 ${displayError && "shake !border-retro-primary"}`}
-                />
+                    ${displayError && "shake !border-retro-primary"}`}
+                    />
+
+                    {displayErrorMessage &&
+                        <p className="text-sm">Trop de tentatives, fais une petite pause ou essaie une autre image.</p>
+                    }
+                </div>
 
                 <button
                     disabled={isLoading}
