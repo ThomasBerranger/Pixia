@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
 import {useParams} from "react-router-dom"
-import type {GameAdminType} from "../../types/gameAdminType.ts"
+import type {GameAdminType} from "../../types/Game/gameAdminType.ts"
 import * as React from "react"
 import {CgSpinner} from "react-icons/cg"
 

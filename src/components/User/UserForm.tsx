@@ -1,7 +1,7 @@
 import {useAuth} from '../../contexts/authContext.tsx'
-import React, {useState} from "react"
-import {CgSpinner} from "react-icons/cg";
-import {RiAlarmWarningLine} from "react-icons/ri";
+import React, {useEffect, useState} from "react"
+import {CgSpinner} from "react-icons/cg"
+import {RiAlarmWarningLine} from "react-icons/ri"
 
 function UserForm() {
     const apiUrl = import.meta.env.VITE_API_URL
@@ -14,6 +14,10 @@ function UserForm() {
     const [authLoading, setAuthLoading] = useState<'login' | 'register' | null>(null)
     const [error, setError] = useState<boolean>(false)
     const [errorViolations, setErrorViolations] = useState<string[]>([])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault()

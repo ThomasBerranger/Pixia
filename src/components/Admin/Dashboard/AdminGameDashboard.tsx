@@ -1,7 +1,7 @@
 // AdminGameDashboard.jsx
 import {useEffect, useState} from "react"
 import {useApi} from "../../../hooks/useApi.tsx"
-import type {GameAdminType} from "../../../types/gameAdminType.ts"
+import type {GameAdminType} from "../../../types/Game/gameAdminType.ts"
 import {
     startOfMonth,
     endOfMonth,

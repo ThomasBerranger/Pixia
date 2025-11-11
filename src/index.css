@@ -8,6 +8,7 @@
 @import './styles/calendar.css';
 @import './styles/divider.css';
 @import './styles/font.css';
+@import './styles/alert.css';
 
 @tailwind base;
 @tailwind components;

@@ -1,0 +1,20 @@
+.alert-retro {
+    @apply fixed top-[11.5vh] right-5 sm:right-10 z-30 transition-all duration-300 overflow-hidden cursor-pointer;
+}
+
+.alert-retro-accent-content {
+    @apply flex gap-2 items-center w-[90vw] sm:w-auto sm:min-w-[50vw] bg-retro-accent text-retro-bg p-2.5;
+}
+
+.alert-retro-accent-loader {
+    @apply h-[10px] bg-retro-accent;
+}
+
+@keyframes loader {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(+100%);
+    }
+}

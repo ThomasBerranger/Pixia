@@ -1,15 +1,17 @@
 import React, {useState} from "react"
-import {CgSpinner} from "react-icons/cg"
-import type {GameType} from "../../../types/gameType.ts"
-import {Link} from "react-router-dom"
 import {useAuth} from "../../../contexts/authContext.tsx"
+import {useAlert} from "../../../contexts/alertContext.tsx"
+import type {GameType} from "../../../types/Game/gameType.ts"
 import type {AnswerResult} from "../../../types/answerResultType.ts"
+import {CgSpinner} from "react-icons/cg"
+import {ROUTES} from "../../../constants/routes.ts"
 
 function GameFooter({game, onAnswerSubmit}: {
     game: GameType
     onAnswerSubmit: (answer: string) => Promise<AnswerResult>
 }) {
     const {isAuthenticated} = useAuth()
+    const {showAlert} = useAlert()
 
     const [answer, setAnswer] = useState<string>('')
     const [isLoading, setLoading] = useState<boolean>(false)
@@ -31,6 +33,15 @@ function GameFooter({game, onAnswerSubmit}: {
 
             if (response.success) {
                 setAnswer('')
+
+                if (!isAuthenticated) {
+                    showAlert(
+                        "Réponse non enregistrée",
+                        "Clique ici pour te créer un compte et sauvegarder tes parties.",
+                        'warning', 5000, ROUTES.USER
+                    )
+                }
+
             } else {
 
                 if (response.rateLimited) {
@@ -53,12 +64,6 @@ function GameFooter({game, onAnswerSubmit}: {
     }
 
     return <>
-        {game.solution && !isAuthenticated &&
-            <Link to="/me" className="text-center sm:mx-auto py-2 sm:py-5 sm:px-5 mb-5 btn-pulse text-[0.5rem] sm:text-lg">
-                Connecte toi pour enregistrer tes réponses
-            </Link>
-        }
-
         {game.solution ?
             <div className="max-w-3xl mx-auto p-8 bg-retro-surface border-[6px] border-retro-secondary
             rounded-lg text-center relative animate-[border-flicker_4s_infinite]

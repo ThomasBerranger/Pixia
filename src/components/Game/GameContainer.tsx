@@ -1,12 +1,12 @@
 import {useCallback, useEffect, useState} from "react"
 import {type ApiError, useApi} from "../../hooks/useApi.tsx"
-import type {GameType} from "../../types/gameType.ts"
+import type {GameType} from "../../types/Game/gameType.ts"
 import GameHeader from "./Layouts/GameHeader.tsx"
 import GameContent from "./Layouts/GameContent.tsx"
 import GameFooter from "./Layouts/GameFooter.tsx"
 import Leaderboard from "./Leaderboard.tsx"
-import type {LeaderboardUserType} from "../../types/leaderboardUserType.ts"
-import type {UserType} from "../../types/userType.ts"
+import type {LeaderboardUserType} from "../../types/User/leaderboardUserType.ts"
+import type {UserType} from "../../types/User/userType.ts"
 import type {AnswerResult} from "../../types/answerResultType.ts"
 
 function GameContainer() {

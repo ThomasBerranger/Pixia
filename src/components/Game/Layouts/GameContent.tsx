@@ -1,4 +1,4 @@
-import type {GameType} from "../../../types/gameType.ts"
+import type {GameType} from "../../../types/Game/gameType.ts"
 import ChangeGameButton from "../Components/ChangeGameButton.tsx"
 import {HiPlusSm} from "react-icons/hi";
 import {getDifficultyPoints} from "../../../utils/difficultyPoints.ts";

@@ -1,5 +1,5 @@
 import * as React from "react"
-import type {GameCreateType} from "../../../types/gameCreateType.ts";
+import type {GameCreateType} from "../../../types/Game/gameCreateType.ts";
 import {useState} from "react";
 import {useApi} from "../../../hooks/useApi.tsx";
 import {CgSpinner} from "react-icons/cg";

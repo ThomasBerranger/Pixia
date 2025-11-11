@@ -1,4 +1,4 @@
-import type {GameCreateType} from "../../../types/gameCreateType.ts"
+import type {GameCreateType} from "../../../types/Game/gameCreateType.ts"
 import PromptGenerator from "./PromptGenerator.tsx"
 import ImageGenerator from "./ImageGenerator.tsx"
 import {useApi} from "../../../hooks/useApi.tsx"

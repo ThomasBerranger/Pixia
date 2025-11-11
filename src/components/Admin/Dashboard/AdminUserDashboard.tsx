@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
 import {useApi} from "../../../hooks/useApi.tsx"
-import type {UserType} from "../../../types/userType.ts"
+import type {UserType} from "../../../types/User/userType.ts"
 
 function AdminUserDashboard() {
     const {apiCall} = useApi()

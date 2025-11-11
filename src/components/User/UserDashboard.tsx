@@ -2,7 +2,7 @@ import {Link} from "react-router-dom"
 import {useAuth} from '../../contexts/authContext.tsx'
 import {useEffect, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
-import type {UserType} from "../../types/userType.ts"
+import type {UserType} from "../../types/User/userType.ts"
 import {formatDistanceToNow} from "date-fns";
 import {fr} from "date-fns/locale";
 import {MdConstruction} from "react-icons/md";

@@ -1,6 +1,6 @@
 import {useState} from "react"
 import {useApi} from "../../../hooks/useApi.tsx"
-import type {GameCreateType} from "../../../types/gameCreateType.ts"
+import type {GameCreateType} from "../../../types/Game/gameCreateType.ts"
 import * as React from "react"
 import {CgSpinner} from "react-icons/cg"
 import {CiMoneyCheck1} from "react-icons/ci"
