@@ -1,13 +1,15 @@
 import {useEffect, useRef, useState} from "react"
-import {useApi} from "../../hooks/useApi.tsx"
-import {useParams} from "react-router-dom"
-import type {GameAdminType} from "../../types/Game/gameAdminType.ts"
 import * as React from "react"
+import {useParams} from "react-router-dom"
+import {useApi} from "../../hooks/useApi.tsx"
+import {useAlert} from "../../contexts/alertContext.tsx"
+import type {GameAdminType} from "../../types/Game/gameAdminType.ts"
 import {CgSpinner} from "react-icons/cg"
 
 function AdminGameEdit() {
     const {id} = useParams()
     const {apiCall} = useApi()
+    const {showAlert} = useAlert()
 
     const fileInputRef = useRef<HTMLInputElement>(null)
     const [loading, setLoading] = useState<boolean>(false)
@@ -31,11 +33,12 @@ function AdminGameEdit() {
         setLoading(true)
 
         try {
-            const response = await apiCall(`games/${game?.id}`, {
+            await apiCall(`games/${game?.id}`, {
                 method: "PATCH",
                 body: JSON.stringify(game),
             })
-            console.log(response)
+
+            showAlert('Jeu mis à jour', "Les informations du jeu ont bien été modifiées.", 'success')
         } catch (err) {
             console.error(err)
         } finally {
@@ -60,6 +63,8 @@ function AdminGameEdit() {
 
             if (response) {
                 setGame(prev => prev ? {...prev, image: response} : prev)
+
+                showAlert('Image modifiée', "L'image du jeu a bien été modifiée.", 'success')
             }
         } catch (err) {
             console.error("Erreur upload image:", err)

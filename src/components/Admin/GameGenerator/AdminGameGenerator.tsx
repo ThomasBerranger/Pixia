@@ -4,9 +4,12 @@ import ImageGenerator from "./ImageGenerator.tsx"
 import {useApi} from "../../../hooks/useApi.tsx"
 import React, {useState} from "react"
 import {CgSpinner} from "react-icons/cg";
+import {useAlert} from "../../../contexts/alertContext.tsx"
+import {ROUTES} from "../../../constants/routes.ts";
 
 function AdminUserDashboard() {
     const {apiCall} = useApi()
+    const {showAlert} = useAlert()
 
     const [loading, setLoading] = React.useState<boolean>(false)
     const [game, setGame] = useState<GameCreateType>({
@@ -22,11 +25,15 @@ function AdminUserDashboard() {
         setLoading(true)
 
         try {
-            await apiCall('games', {
+            const createdGame = await apiCall('games', {
                 method: 'POST',
                 body: JSON.stringify(game)
             })
+
+            showAlert('Nouveau jeu créé', "Félicitation, votre jeu a été ajouté à Pixia. Clique ici pour le modifier", 'success', 5000, ROUTES.ADMIN_GAME_EDIT(createdGame.id))
         } catch (error) {
+            showAlert('Aïe, on a un problème', "Malheureusement ton jeu n'a pas été créé.", 'error')
+
             console.error(error)
         } finally {
             setLoading(false)
