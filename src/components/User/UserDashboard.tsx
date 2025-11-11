@@ -3,9 +3,10 @@ import {useAuth} from '../../contexts/authContext.tsx'
 import {useEffect, useState} from "react"
 import {useApi} from "../../hooks/useApi.tsx"
 import type {UserType} from "../../types/User/userType.ts"
-import {formatDistanceToNow} from "date-fns";
-import {fr} from "date-fns/locale";
-import {MdConstruction} from "react-icons/md";
+import {formatDistanceToNow} from "date-fns"
+import {fr} from "date-fns/locale"
+import {MdConstruction} from "react-icons/md"
+import {ROUTES} from "../../constants/routes.ts"
 
 function UserDashboard() {
     const {apiCall} = useApi()
@@ -50,7 +51,7 @@ function UserDashboard() {
                 </div>
             </div>
             {isAdmin() && (
-                <Link to='/admin' className="btn-ghost px-6 py-3 sm:ml-auto sm:mt-0">
+                <Link to={ROUTES.ADMIN} className="btn-ghost px-6 py-3 sm:ml-auto sm:mt-0">
                     ⚙️ Admin
                 </Link>
             )}

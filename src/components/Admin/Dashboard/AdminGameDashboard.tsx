@@ -1,4 +1,3 @@
-// AdminGameDashboard.jsx
 import {useEffect, useState} from "react"
 import {useApi} from "../../../hooks/useApi.tsx"
 import type {GameAdminType} from "../../../types/Game/gameAdminType.ts"
@@ -13,12 +12,13 @@ import {
     isToday,
     addMonths,
     subMonths
-} from 'date-fns';
-import {fr} from 'date-fns/locale';
-import {PiArrowFatLineLeft, PiArrowFatLineRight} from "react-icons/pi";
-import {CiImageOff, CiImageOn} from "react-icons/ci";
-import {Link} from "react-router-dom";
-import {decodeJWT} from "../../../utils/jwt.ts";
+} from 'date-fns'
+import {fr} from 'date-fns/locale'
+import {PiArrowFatLineLeft, PiArrowFatLineRight} from "react-icons/pi"
+import {CiImageOff, CiImageOn} from "react-icons/ci"
+import {Link} from "react-router-dom"
+import {decodeJWT} from "../../../utils/jwt.ts"
+import {ROUTES} from "../../../constants/routes.ts"
 
 function AdminGameDashboard() {
     const {apiCall} = useApi()
@@ -114,8 +114,8 @@ function AdminGameDashboard() {
                             </>
                         )
 
-                        return isAuthor ? (
-                            <Link key={day.toString()} to={`/admin/games/${game?.id}`} className={dayClasses}>
+                        return isAuthor && game?.id ? (
+                            <Link key={day.toString()} to={ROUTES.ADMIN_GAME_EDIT(game.id)} className={dayClasses}>
                                 {content}
                             </Link>
                         ) : (
