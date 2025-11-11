@@ -54,7 +54,7 @@ function GameFooter({game, onAnswerSubmit}: {
 
     return <>
         {game.solution && !isAuthenticated &&
-            <Link to="/user" className="mx-auto py-2 sm:py-5 mb-5 btn-pulse text-[0.5rem] sm:text-lg">
+            <Link to="/me" className="text-center sm:mx-auto py-2 sm:py-5 sm:px-5 mb-5 btn-pulse text-[0.5rem] sm:text-lg">
                 Connecte toi pour enregistrer tes réponses
             </Link>
         }
