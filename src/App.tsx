@@ -13,12 +13,16 @@ import Modal from "./components/Shared/Modal.tsx"
 import {ModalProvider} from "./contexts/modalContext.tsx"
 import Alert from "./components/Shared/Alert.tsx"
 import {AlertProvider} from "./contexts/alertContext.tsx"
+import { Analytics } from "@vercel/analytics/react"
+import {SpeedInsights} from "@vercel/speed-insights/react";
 
 function App() {
     return (
 
         <AlertProvider>
             <ModalProvider>
+                <Analytics />
+                <SpeedInsights />
 
                 <Header/>
 
