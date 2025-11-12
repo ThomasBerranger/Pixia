@@ -1,16 +1,21 @@
 import {useCallback, useEffect, useState} from "react"
+import {useAuth} from "../../contexts/authContext.tsx"
+import {useAlert} from "../../contexts/alertContext.tsx"
 import {type ApiError, useApi} from "../../hooks/useApi.tsx"
 import type {GameType} from "../../types/Game/gameType.ts"
+import type {LeaderboardUserType} from "../../types/User/leaderboardUserType.ts"
+import type {UserType} from "../../types/User/userType.ts"
+import type {AnswerResult} from "../../types/answerResultType.ts"
 import GameHeader from "./Layouts/GameHeader.tsx"
 import GameContent from "./Layouts/GameContent.tsx"
 import GameFooter from "./Layouts/GameFooter.tsx"
 import Leaderboard from "./Leaderboard.tsx"
-import type {LeaderboardUserType} from "../../types/User/leaderboardUserType.ts"
-import type {UserType} from "../../types/User/userType.ts"
-import type {AnswerResult} from "../../types/answerResultType.ts"
+import {ROUTES} from "../../constants/routes.ts";
 
 function GameContainer() {
     const {apiCall} = useApi()
+    const {isAuthenticated} = useAuth()
+    const {showAlert} = useAlert()
 
     const [game, setGame] = useState<GameType>({
         id: undefined,
@@ -49,6 +54,12 @@ function GameContainer() {
     }, [])
 
     const handleGameChange = useCallback(async (date: string, isPrevious: boolean) => {
+        if (!isPrevious && date > new Date().toISOString().split('T')[0] && !isAuthenticated) {
+            showAlert("Connecte toi pour prendre de l'avance", "Clique ici pour te connecter et voir les images suivantes.", 'error', 5000, ROUTES.USER)
+
+            return
+        }
+
         setLoadingDirection(isPrevious ? 'prev' : 'next')
 
         try {
