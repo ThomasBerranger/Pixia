@@ -17,7 +17,7 @@ function UserDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const currentUser = await apiCall('users/me')
+                const currentUser = await apiCall('me')
 
                 setUser(currentUser)
             } catch (error) {

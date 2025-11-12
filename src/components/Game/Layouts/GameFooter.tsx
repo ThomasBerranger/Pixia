@@ -16,7 +16,7 @@ function GameFooter({game, onAnswerSubmit}: {
     const [answer, setAnswer] = useState<string>('')
     const [isLoading, setLoading] = useState<boolean>(false)
     const [displayError, setDisplayError] = useState<boolean>(false)
-    const [displayErrorMessage, setDisplayErrorMessage] = useState<string | undefined>('')
+    const [errorMessage, setErrorMessage] = useState<string | undefined>('')
 
     async function handleSolutionRequest(e: React.FormEvent): Promise<void> {
         e.preventDefault()
@@ -45,7 +45,9 @@ function GameFooter({game, onAnswerSubmit}: {
             } else {
 
                 if (response.rateLimited) {
-                    setDisplayErrorMessage(response.errorMessage)
+                    setErrorMessage(response.errorMessage)
+                } else {
+                    setErrorMessage('')
                 }
 
                 showErrorBriefly()
@@ -95,8 +97,8 @@ function GameFooter({game, onAnswerSubmit}: {
                     ${displayError && "shake !border-retro-primary"}`}
                     />
 
-                    {displayErrorMessage &&
-                        <p className="text-sm">Trop de tentatives, fais une petite pause ou essaie une autre image.</p>
+                    {errorMessage &&
+                        <p className="text-sm">{errorMessage}</p>
                     }
                 </div>
 
