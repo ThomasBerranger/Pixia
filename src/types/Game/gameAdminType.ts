@@ -1,4 +1,4 @@
-import type {UserType} from "../User/userType.ts";
+import type { UserType } from '../User/userType.ts';
 
 export interface GameAdminType {
     id: string;

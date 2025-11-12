@@ -1,120 +1,126 @@
-import React, {useState} from "react"
-import {useAuth} from "../../../contexts/authContext.tsx"
-import {useAlert} from "../../../contexts/alertContext.tsx"
-import type {GameType} from "../../../types/Game/gameType.ts"
-import type {AnswerResult} from "../../../types/answerResultType.ts"
-import {CgSpinner} from "react-icons/cg"
-import {ROUTES} from "../../../constants/routes.ts"
+import React, { useState } from 'react';
+import { useAuth } from '../../../contexts/authContext.tsx';
+import type { GameType } from '../../../types/Game/gameType.ts';
+import type { AnswerResult } from '../../../types/answerResultType.ts';
+import { CgSpinner } from 'react-icons/cg';
+import { ROUTES } from '../../../constants/routes.ts';
+import { useAlert } from '../../../contexts/useAlert.ts';
 
-function GameFooter({game, onAnswerSubmit}: {
-    game: GameType
-    onAnswerSubmit: (answer: string) => Promise<AnswerResult>
+function GameFooter({
+    game,
+    onAnswerSubmit,
+}: {
+    game: GameType;
+    onAnswerSubmit: (answer: string) => Promise<AnswerResult>;
 }) {
-    const {isAuthenticated} = useAuth()
-    const {showAlert} = useAlert()
+    const { isAuthenticated } = useAuth();
+    const { showAlert } = useAlert();
 
-    const [answer, setAnswer] = useState<string>('')
-    const [isLoading, setLoading] = useState<boolean>(false)
-    const [displayError, setDisplayError] = useState<boolean>(false)
-    const [errorMessage, setErrorMessage] = useState<string | undefined>('')
+    const [answer, setAnswer] = useState<string>('');
+    const [isLoading, setLoading] = useState<boolean>(false);
+    const [displayError, setDisplayError] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string | undefined>('');
 
     async function handleSolutionRequest(e: React.FormEvent): Promise<void> {
-        e.preventDefault()
+        e.preventDefault();
 
         if (answer.length <= 5) {
-            showErrorBriefly()
-            return
+            showErrorBriefly();
+            return;
         }
 
-        setLoading(true)
+        setLoading(true);
 
         try {
-            const response: AnswerResult = await onAnswerSubmit(answer)
+            const response: AnswerResult = await onAnswerSubmit(answer);
 
             if (response.success) {
-                setAnswer('')
+                setAnswer('');
 
                 if (!isAuthenticated) {
                     showAlert(
-                        "Réponse non enregistrée",
-                        "Clique ici pour te créer un compte et sauvegarder tes parties.",
-                        'warning', 5000, ROUTES.USER
-                    )
+                        'Réponse non enregistrée',
+                        'Clique ici pour te créer un compte et sauvegarder tes parties.',
+                        'warning',
+                        5000,
+                        ROUTES.USER
+                    );
                 }
-
             } else {
-
                 if (response.rateLimited) {
-                    setErrorMessage(response.errorMessage)
+                    setErrorMessage(response.errorMessage);
                 } else {
-                    setErrorMessage('')
+                    setErrorMessage('');
                 }
 
-                showErrorBriefly()
+                showErrorBriefly();
             }
         } catch (error) {
-            console.error('Erreur: ', error)
-            showErrorBriefly()
+            console.error('Erreur: ', error);
+            showErrorBriefly();
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
     const showErrorBriefly = () => {
-        setDisplayError(true)
-        setTimeout(() => setDisplayError(false), 500)
-    }
+        setDisplayError(true);
+        setTimeout(() => setDisplayError(false), 500);
+    };
 
-    return <>
-        {game.solution ?
-            <div className="max-w-3xl mx-auto p-8 bg-retro-surface border-[6px] border-retro-secondary
-            rounded-lg text-center relative animate-[border-flicker_4s_infinite]
-            before:absolute before:inset-[10px] before:border-2 before:border-retro-accent before:opacity-50">
-                <div className="text-[0.7rem] sm:text-xs text-retro-muted uppercase tracking-[2px] mb-2">
-                    Bravo !
-                </div>
+    return (
+        <>
+            {game.solution ? (
                 <div
-                    className="text-sm sm:text-md sm:text-2xl text-retro-accent font-righteous uppercase tracking-[3px]">
-                    {game.solution}
+                    className="max-w-3xl mx-auto p-8 bg-retro-surface border-[6px] border-retro-secondary
+            rounded-lg text-center relative animate-[border-flicker_4s_infinite]
+            before:absolute before:inset-[10px] before:border-2 before:border-retro-accent before:opacity-50"
+                >
+                    <div className="text-[0.7rem] sm:text-xs text-retro-muted uppercase tracking-[2px] mb-2">
+                        Bravo !
+                    </div>
+                    <div className="text-sm sm:text-md sm:text-2xl text-retro-accent font-righteous uppercase tracking-[3px]">
+                        {game.solution}
+                    </div>
                 </div>
-            </div>
-            :
-            <form
-                onSubmit={handleSolutionRequest}
-                className="max-w-3xl mx-auto w-full grid grid-cols-1 sm:grid-cols-12 gap-4 items-start"
-            >
-                <div className="col-span-full sm:col-span-9">
-                    <input
-                        type="text"
-                        placeholder="Titanic et Inception"
-                        autoComplete="off"
-                        value={answer}
-                        onChange={(e) => setAnswer(e.target.value)}
-                        className={`flex-1 w-full pl-2 py-2 bg-retro-surface/80 border-[3px] 
+            ) : (
+                <form
+                    onSubmit={handleSolutionRequest}
+                    className="max-w-3xl mx-auto w-full grid grid-cols-1 sm:grid-cols-12 gap-4 items-start"
+                >
+                    <div className="col-span-full sm:col-span-9">
+                        <input
+                            type="text"
+                            placeholder="Titanic et Inception"
+                            autoComplete="off"
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
+                            className={`flex-1 w-full pl-2 py-2 bg-retro-surface/80 border-[3px] 
                     border-retro-primary text-retro-text outline-none transition-all duration-300 
                     shadow-[0_0_20px_rgba(255,0,110,0.3)] focus:border-retro-accent
                     focus:shadow-[0_0_40px_rgba(255,190,11,0.5)] placeholder:text-retro-muted 
-                    ${displayError && "shake !border-retro-primary"}`}
-                    />
+                    ${displayError && 'shake !border-retro-primary'}`}
+                        />
 
-                    {errorMessage &&
-                        <p className="text-sm">{errorMessage}</p>
-                    }
-                </div>
+                        {errorMessage && (
+                            <p className="text-sm">{errorMessage}</p>
+                        )}
+                    </div>
 
-                <button
-                    disabled={isLoading}
-                    className="btn-primary py-2 w-full flex justify-center col-span-full sm:col-span-3"
-                >
-                    {isLoading ? (
-                        <CgSpinner className="animate-spin" size={20}/>
-                    ) : (
-                        <>Vérifier</>
-                    )}
-                </button>
-            </form>
-        }
-    </>
+                    <button
+                        disabled={isLoading}
+                        className="btn-primary py-2 w-full flex justify-center col-span-full sm:col-span-3"
+                    >
+                        {isLoading ? (
+                            <CgSpinner className="animate-spin" size={20} />
+                        ) : (
+                            <>Vérifier</>
+                        )}
+                    </button>
+                </form>
+            )}
+        </>
+    );
 }
 
-export default GameFooter
+export default GameFooter;

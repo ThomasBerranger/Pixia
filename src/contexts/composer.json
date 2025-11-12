@@ -1,0 +1,14 @@
+{
+  "name": "vendor_name/contexts",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "tberr",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+  }
+}

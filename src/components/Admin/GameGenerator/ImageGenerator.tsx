@@ -1,42 +1,47 @@
-import {useState} from "react"
-import {useApi} from "../../../hooks/useApi.tsx"
-import type {GameCreateType} from "../../../types/Game/gameCreateType.ts"
-import * as React from "react"
-import {CgSpinner} from "react-icons/cg"
-import {CiMoneyCheck1} from "react-icons/ci"
+import { useState } from 'react';
+import { useApi } from '../../../hooks/useApi.tsx';
+import type { GameCreateType } from '../../../types/Game/gameCreateType.ts';
+import * as React from 'react';
+import { CgSpinner } from 'react-icons/cg';
+import { CiMoneyCheck1 } from 'react-icons/ci';
 
-function ImageGenerator({game, setGame, onGameSubmit}: {
-    game: GameCreateType,
-    setGame: React.Dispatch<React.SetStateAction<GameCreateType>>
-    onGameSubmit: () => Promise<void>
+function ImageGenerator({
+    game,
+    setGame,
+    onGameSubmit,
+}: {
+    game: GameCreateType;
+    setGame: React.Dispatch<React.SetStateAction<GameCreateType>>;
+    onGameSubmit: () => Promise<void>;
 }) {
-    const {apiCall} = useApi()
+    const { apiCall } = useApi();
 
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false);
 
     async function handleOpenAIImage(): Promise<void> {
-        setLoading(true)
+        setLoading(true);
 
         try {
             const response = await apiCall('open-api/generate-image', {
                 method: 'POST',
-                body: JSON.stringify({"prompt": game.prompt})
-            })
+                body: JSON.stringify({ prompt: game.prompt }),
+            });
 
-            setGame((prevGame: GameCreateType): GameCreateType => ({
-                ...prevGame,
-                imageUrl: response || undefined,
-            }));
+            setGame(
+                (prevGame: GameCreateType): GameCreateType => ({
+                    ...prevGame,
+                    imageUrl: response || undefined,
+                })
+            );
         } catch (err) {
-            console.error(err)
+            console.error(err);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
     return (
         <div className="mt-5">
-
             {game.prompt && (
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <button
@@ -45,9 +50,15 @@ function ImageGenerator({game, setGame, onGameSubmit}: {
                         onClick={handleOpenAIImage}
                     >
                         {loading ? (
-                            <CgSpinner className="animate-spin mx-auto" size={20}/>
+                            <CgSpinner
+                                className="animate-spin mx-auto"
+                                size={20}
+                            />
                         ) : (
-                            <span className="flex justify-center gap-2">Générer l'image <CiMoneyCheck1 className="text-xl" /></span>
+                            <span className="flex justify-center gap-2">
+                                Générer l'image{' '}
+                                <CiMoneyCheck1 className="text-xl" />
+                            </span>
                         )}
                     </button>
 
@@ -70,7 +81,7 @@ function ImageGenerator({game, setGame, onGameSubmit}: {
                 </div>
             )}
         </div>
-    )
+    );
 }
 
-export default ImageGenerator
+export default ImageGenerator;

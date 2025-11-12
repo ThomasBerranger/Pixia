@@ -5,5 +5,5 @@ export const ROUTES = {
     ADMIN_USERS: '/admin/user-dashboard',
     ADMIN_GAMES: '/admin/game-dashboard',
     ADMIN_GENERATOR: '/admin/game-generator',
-    ADMIN_GAME_EDIT: (id: string) => `/admin/games/${id}`
-} as const
+    ADMIN_GAME_EDIT: (id: string) => `/admin/games/${id}`,
+} as const;

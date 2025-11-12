@@ -1,13 +1,15 @@
-import {useAuth} from '../../contexts/authContext.tsx'
-import UserForm from "./UserForm.tsx";
-import UserDashboard from "./UserDashboard.tsx";
+import { useAuth } from '../../contexts/authContext.tsx';
+import UserForm from './UserForm.tsx';
+import UserDashboard from './UserDashboard.tsx';
 
 function User() {
-    const {isAuthenticated} = useAuth()
+    const { isAuthenticated } = useAuth();
 
-    return <section className="min-h-screen py-10 px-[5%] sm:px-[10%]">
-        {isAuthenticated ? <UserDashboard/> : <UserForm/>}
-    </section>
+    return (
+        <section className="min-h-screen py-10 px-[5%] sm:px-[10%]">
+            {isAuthenticated ? <UserDashboard /> : <UserForm />}
+        </section>
+    );
 }
 
-export default User
+export default User;

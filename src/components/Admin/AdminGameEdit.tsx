@@ -1,82 +1,94 @@
-import {useEffect, useRef, useState} from "react"
-import * as React from "react"
-import {useParams} from "react-router-dom"
-import {useApi} from "../../hooks/useApi.tsx"
-import {useAlert} from "../../contexts/alertContext.tsx"
-import type {GameAdminType} from "../../types/Game/gameAdminType.ts"
-import {CgSpinner} from "react-icons/cg"
+import { useEffect, useRef, useState } from 'react';
+import * as React from 'react';
+import { useParams } from 'react-router-dom';
+import { useApi } from '../../hooks/useApi.tsx';
+import type { GameAdminType } from '../../types/Game/gameAdminType.ts';
+import { CgSpinner } from 'react-icons/cg';
+import { useAlert } from '../../contexts/useAlert.ts';
 
 function AdminGameEdit() {
-    const {id} = useParams()
-    const {apiCall} = useApi()
-    const {showAlert} = useAlert()
+    const { id } = useParams();
+    const { apiCall } = useApi();
+    const { showAlert } = useAlert();
 
-    const fileInputRef = useRef<HTMLInputElement>(null)
-    const [loading, setLoading] = useState<boolean>(false)
-    const [game, setGame] = useState<GameAdminType>()
+    const fileInputRef = useRef<HTMLInputElement>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [game, setGame] = useState<GameAdminType>();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await apiCall(`games/${id}`)
-                setGame(response)
+                const response = await apiCall(`games/${id}`);
+                setGame(response);
             } catch (error) {
-                console.error("Erreur: ", error)
+                console.error('Erreur: ', error);
             }
-        }
+        };
 
-        fetchData()
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+        fetchData();
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     async function handleSubmit(e?: React.FormEvent): Promise<void> {
-        e?.preventDefault()
-        setLoading(true)
+        e?.preventDefault();
+        setLoading(true);
 
         try {
             await apiCall(`games/${game?.id}`, {
-                method: "PATCH",
+                method: 'PATCH',
                 body: JSON.stringify(game),
-            })
+            });
 
-            showAlert('Jeu mis à jour', "Les informations du jeu ont bien été modifiées.", 'success')
+            showAlert(
+                'Jeu mis à jour',
+                'Les informations du jeu ont bien été modifiées.',
+                'success'
+            );
         } catch (err) {
-            console.error(err)
+            console.error(err);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
     }
 
-    const handleImageClick = () => fileInputRef.current?.click()
+    const handleImageClick = () => fileInputRef.current?.click();
 
-    const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0]
-        if (!file) return
+    const handleImageChange = async (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
 
         try {
-            const formData = new FormData()
-            formData.append("image", file)
+            const formData = new FormData();
+            formData.append('image', file);
 
-            const response = await apiCall(`games/${id}/image`, {
-                method: "POST",
-                body: formData,
-            }, false)
+            const response = await apiCall(
+                `games/${id}/image`,
+                {
+                    method: 'POST',
+                    body: formData,
+                },
+                false
+            );
 
             if (response) {
-                setGame(prev => prev ? {...prev, image: response} : prev)
+                setGame((prev) => (prev ? { ...prev, image: response } : prev));
 
-                showAlert('Image modifiée', "L'image du jeu a bien été modifiée.", 'success')
+                showAlert(
+                    'Image modifiée',
+                    "L'image du jeu a bien été modifiée.",
+                    'success'
+                );
             }
         } catch (err) {
-            console.error("Erreur upload image:", err)
+            console.error('Erreur upload image:', err);
         }
-    }
+    };
 
     return (
         <section className="min-h-[90vh] max-w-5xl mx-auto w-full flex py-10 px-[10px] sm:p-6">
-
             <div className="card-retro w-full">
                 <form onSubmit={handleSubmit} className="space-y-6">
-
                     <div
                         onClick={handleImageClick}
                         className="cursor-pointer w-full flex justify-center p-2 bg-retro-muted/10 hover:bg-retro-muted/20 transition"
@@ -99,50 +111,88 @@ function AdminGameEdit() {
                             ref={fileInputRef}
                             onChange={handleImageChange}
                             accept="image/*"
-                            style={{display: "none"}}
+                            style={{ display: 'none' }}
                         />
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label htmlFor="solution" className="label-retro">Solution</label>
+                            <label htmlFor="solution" className="label-retro">
+                                Solution
+                            </label>
                             <input
                                 id="solution"
                                 type="text"
-                                value={game?.solution || ""}
-                                onChange={(e) => setGame(prev => prev ? ({...prev, solution: e.target.value}) : prev)}
+                                value={game?.solution || ''}
+                                onChange={(e) =>
+                                    setGame((prev) =>
+                                        prev
+                                            ? {
+                                                  ...prev,
+                                                  solution: e.target.value,
+                                              }
+                                            : prev
+                                    )
+                                }
                                 className="input-retro"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="date" className="label-retro">Date</label>
+                            <label htmlFor="date" className="label-retro">
+                                Date
+                            </label>
                             <input
                                 type="date"
                                 id="date"
-                                value={game?.date?.split("T")[0] || ""}
-                                onChange={(e) => setGame(prev => prev ? ({...prev, date: e.target.value}) : prev)}
+                                value={game?.date?.split('T')[0] || ''}
+                                onChange={(e) =>
+                                    setGame((prev) =>
+                                        prev
+                                            ? { ...prev, date: e.target.value }
+                                            : prev
+                                    )
+                                }
                                 className="input-retro"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="indice" className="label-retro">Indice</label>
+                            <label htmlFor="indice" className="label-retro">
+                                Indice
+                            </label>
                             <textarea
                                 id="indice"
                                 rows={2}
-                                value={game?.hint || ""}
-                                onChange={(e) => setGame(prev => prev ? ({...prev, hint: e.target.value}) : prev)}
+                                value={game?.hint || ''}
+                                onChange={(e) =>
+                                    setGame((prev) =>
+                                        prev
+                                            ? { ...prev, hint: e.target.value }
+                                            : prev
+                                    )
+                                }
                                 className="input-retro resize-none"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="difficulty" className="label-retro">Difficulté</label>
+                            <label htmlFor="difficulty" className="label-retro">
+                                Difficulté
+                            </label>
                             <select
                                 id="difficulty"
-                                value={game?.difficulty || ""}
-                                onChange={(e) => setGame(prev => prev ? ({...prev, difficulty: e.target.value}) : prev)}
+                                value={game?.difficulty || ''}
+                                onChange={(e) =>
+                                    setGame((prev) =>
+                                        prev
+                                            ? {
+                                                  ...prev,
+                                                  difficulty: e.target.value,
+                                              }
+                                            : prev
+                                    )
+                                }
                                 className="input-retro"
                             >
                                 <option value="SIMPLE">SIMPLE</option>
@@ -152,21 +202,28 @@ function AdminGameEdit() {
                         </div>
 
                         <div>
-                            <label htmlFor="type" className="label-retro">Type</label>
+                            <label htmlFor="type" className="label-retro">
+                                Type
+                            </label>
                             <input
                                 disabled
                                 id="type"
-                                value={game?.type || ""}
+                                value={game?.type || ''}
                                 className="input-retro cursor-not-allowed"
                             />
                         </div>
 
                         <div>
-                            <label htmlFor="author" className="label-retro">Auteur</label>
+                            <label htmlFor="author" className="label-retro">
+                                Auteur
+                            </label>
                             <input
                                 disabled
                                 id="author"
-                                value={game && `${game.author.email} AKA ${game.author.username}`}
+                                value={
+                                    game &&
+                                    `${game.author.email} AKA ${game.author.username}`
+                                }
                                 className="input-retro cursor-not-allowed"
                             />
                         </div>
@@ -179,16 +236,19 @@ function AdminGameEdit() {
                             className="btn-3d py-2.5 px-6 min-w-[160px]"
                         >
                             {loading ? (
-                                <CgSpinner className="animate-spin mx-auto" size={22}/>
+                                <CgSpinner
+                                    className="animate-spin mx-auto"
+                                    size={22}
+                                />
                             ) : (
-                                "Enregistrer"
+                                'Enregistrer'
                             )}
                         </button>
                     </div>
                 </form>
             </div>
         </section>
-    )
+    );
 }
 
-export default AdminGameEdit
+export default AdminGameEdit;
