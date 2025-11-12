@@ -1,17 +1,19 @@
 import * as React from 'react';
-import type { GameCreateType } from '../../../types/Game/gameCreateType.ts';
-import { useState } from 'react';
-import { useApi } from '../../../hooks/useApi.tsx';
-import { CgSpinner } from 'react-icons/cg';
+import type {GameCreateType} from '../../../types/Game/gameCreateType.ts';
+import {useState} from 'react';
+import {useApi} from '../../../hooks/useApi.tsx';
+import {useAlert} from "../../../contexts/useAlert.ts";
+import {CgSpinner} from 'react-icons/cg';
 
 function PromptGenerator({
-    game,
-    setGame,
-}: {
+                             game,
+                             setGame,
+                         }: {
     game: GameCreateType;
     setGame: React.Dispatch<React.SetStateAction<GameCreateType>>;
 }) {
-    const { apiCall } = useApi();
+    const {apiCall} = useApi();
+    const {showAlert} = useAlert();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [prompt, setPrompt] = useState<string>('');
@@ -24,9 +26,17 @@ function PromptGenerator({
         setLoading(true);
 
         try {
+            const gameSolutionExist: boolean = await apiCall(`admin/game-solution-exist?solution=${prompt}`)
+
+            if (gameSolutionExist) {
+                showAlert('Cette image a déjà été générée', "Quelqu'un a eu cette idée avant toi, mais essaie autre chose !", 'info')
+
+                return
+            }
+
             const response = await apiCall('open-api/generate-content', {
                 method: 'POST',
-                body: JSON.stringify({ prompt }),
+                body: JSON.stringify({prompt}),
             });
 
             setGame(
@@ -56,7 +66,7 @@ function PromptGenerator({
                         <textarea
                             id="user-prompt"
                             value={prompt}
-                            rows={3}
+                            rows={2}
                             placeholder="Une fusion entre les univers de Jurassic Park et Avatar"
                             onChange={(e) => setPrompt(e.target.value)}
                             className="input-retro resize-none"
@@ -85,6 +95,7 @@ function PromptGenerator({
                     <div>
                         <label className="label-retro">Solution</label>
                         <input
+                            disabled
                             type="text"
                             id="solution"
                             value={game.solution}
@@ -94,7 +105,7 @@ function PromptGenerator({
                                     solution: e.target.value,
                                 }))
                             }
-                            className="input-retro"
+                            className="input-retro cursor-not-allowed"
                         />
                     </div>
                 ) : (
