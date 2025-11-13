@@ -28,8 +28,13 @@ function PromptGenerator({
         setLoading(true);
 
         try {
+            const response = await apiCall('open-api/generate-content', {
+                method: 'POST',
+                body: JSON.stringify({ prompt }),
+            });
+
             const gameSolutionExist: boolean = await apiCall(
-                `admin/game-solution-exist?solution=${prompt}`
+                `admin/game-solution-exist?solution=${response.solution}`
             );
 
             if (gameSolutionExist) {
@@ -42,21 +47,6 @@ function PromptGenerator({
                 return;
             }
 
-            const response = await apiCall('open-api/generate-content', {
-                method: 'POST',
-                body: JSON.stringify({ prompt }),
-            });
-
-            setGame(
-                (prevGame: GameCreateType): GameCreateType => ({
-                    ...prevGame,
-                    prompt: response.prompt,
-                    solution: response.solution,
-                    hint: response.hint,
-                    date: new Date().toISOString().split('T')[0],
-                })
-            );
-
             const games = await apiCall(`games?fields=date`);
 
             const unavailableDates = games.map(
@@ -64,6 +54,24 @@ function PromptGenerator({
             );
 
             setUnavailableDates(unavailableDates);
+
+            const nextAvailableDate = new Date();
+            let dateStr = nextAvailableDate.toISOString().split('T')[0];
+
+            while (unavailableDates.includes(dateStr)) {
+                nextAvailableDate.setDate(nextAvailableDate.getDate() + 1);
+                dateStr = nextAvailableDate.toISOString().split('T')[0];
+            }
+
+            setGame(
+                (prevGame: GameCreateType): GameCreateType => ({
+                    ...prevGame,
+                    prompt: response.prompt,
+                    solution: response.solution,
+                    hint: response.hint,
+                    date: dateStr,
+                })
+            );
         } catch (err) {
             console.error(err);
         } finally {
