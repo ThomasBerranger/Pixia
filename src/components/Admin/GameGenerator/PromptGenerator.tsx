@@ -1,22 +1,24 @@
 import * as React from 'react';
-import type {GameCreateType} from '../../../types/Game/gameCreateType.ts';
-import {useState} from 'react';
-import {useApi} from '../../../hooks/useApi.tsx';
-import {useAlert} from "../../../contexts/useAlert.ts";
-import {CgSpinner} from 'react-icons/cg';
+import type { GameCreateType } from '../../../types/Game/gameCreateType.ts';
+import { useState } from 'react';
+import { useApi } from '../../../hooks/useApi.tsx';
+import { useAlert } from '../../../contexts/useAlert.ts';
+import { CgSpinner } from 'react-icons/cg';
+import { DatePicker } from '../../Game/Components/DatePicker.tsx';
 
 function PromptGenerator({
-                             game,
-                             setGame,
-                         }: {
+    game,
+    setGame,
+}: {
     game: GameCreateType;
     setGame: React.Dispatch<React.SetStateAction<GameCreateType>>;
 }) {
-    const {apiCall} = useApi();
-    const {showAlert} = useAlert();
+    const { apiCall } = useApi();
+    const { showAlert } = useAlert();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [prompt, setPrompt] = useState<string>('');
+    const [unavailableDates, setUnavailableDates] = useState<string[]>([]);
 
     async function handleSubmit(e?: React.FormEvent): Promise<void> {
         e?.preventDefault();
@@ -26,17 +28,23 @@ function PromptGenerator({
         setLoading(true);
 
         try {
-            const gameSolutionExist: boolean = await apiCall(`admin/game-solution-exist?solution=${prompt}`)
+            const gameSolutionExist: boolean = await apiCall(
+                `admin/game-solution-exist?solution=${prompt}`
+            );
 
             if (gameSolutionExist) {
-                showAlert('Cette image a déjà été générée', "Quelqu'un a eu cette idée avant toi, mais essaie autre chose !", 'info')
+                showAlert(
+                    'Cette image a déjà été générée',
+                    "Quelqu'un a eu cette idée avant toi, mais essaie autre chose !",
+                    'info'
+                );
 
-                return
+                return;
             }
 
             const response = await apiCall('open-api/generate-content', {
                 method: 'POST',
-                body: JSON.stringify({prompt}),
+                body: JSON.stringify({ prompt }),
             });
 
             setGame(
@@ -48,6 +56,14 @@ function PromptGenerator({
                     date: new Date().toISOString().split('T')[0],
                 })
             );
+
+            const games = await apiCall(`games?fields=date`);
+
+            const unavailableDates = games.map(
+                (game: { date: string }) => game.date.split('T')[0]
+            );
+
+            setUnavailableDates(unavailableDates);
         } catch (err) {
             console.error(err);
         } finally {
@@ -115,20 +131,17 @@ function PromptGenerator({
                     </div>
                 )}
 
-                {game.solution ? (
+                {game.date ? (
                     <div>
                         <label className="label-retro">Date du jeu</label>
-                        <input
-                            type="date"
-                            id="date"
-                            value={game.date}
-                            onChange={(e) =>
-                                setGame((prev) => ({
-                                    ...prev,
-                                    date: e.target.value,
-                                }))
+                        <DatePicker
+                            value={game?.date?.split('T')[0] || ''}
+                            onChange={(date) =>
+                                setGame((prev) =>
+                                    prev ? { ...prev, date } : prev
+                                )
                             }
-                            className="input-retro"
+                            unavailableDates={unavailableDates}
                         />
                     </div>
                 ) : (

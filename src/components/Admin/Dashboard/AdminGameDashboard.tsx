@@ -28,7 +28,7 @@ function AdminGameDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await apiCall('games');
+                const response = await apiCall('games?fields=type,image,date');
                 setGames(response);
             } catch (error) {
                 console.error('Erreur: ', error);
@@ -120,7 +120,9 @@ function AdminGameDashboard() {
                                         </>
                                     ) : (
                                         game && (
-                                            <CiImageOff className="calendar-icon" />
+                                            <CiImageOff
+                                                className={`calendar-icon ${!isAuthor && 'blur-sm'}`}
+                                            />
                                         )
                                     )}
                                 </div>

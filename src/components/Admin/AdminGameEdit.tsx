@@ -5,6 +5,7 @@ import { useApi } from '../../hooks/useApi.tsx';
 import type { GameAdminType } from '../../types/Game/gameAdminType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useAlert } from '../../contexts/useAlert.ts';
+import { DatePicker } from '../Game/Components/DatePicker.tsx';
 
 function AdminGameEdit() {
     const { id } = useParams();
@@ -14,12 +15,22 @@ function AdminGameEdit() {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [game, setGame] = useState<GameAdminType>();
+    const [unavailableDates, setUnavailableDates] = useState<string[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await apiCall(`games/${id}`);
+
                 setGame(response);
+
+                const games = await apiCall(`games?fields=date`);
+
+                const unavailableDates = games.map(
+                    (game: { date: string }) => game.date.split('T')[0]
+                );
+
+                setUnavailableDates(unavailableDates);
             } catch (error) {
                 console.error('Erreur: ', error);
             }
@@ -142,18 +153,15 @@ function AdminGameEdit() {
                             <label htmlFor="date" className="label-retro">
                                 Date
                             </label>
-                            <input
-                                type="date"
-                                id="date"
+                            <DatePicker
                                 value={game?.date?.split('T')[0] || ''}
-                                onChange={(e) =>
+                                initialDate={game?.date?.split('T')[0]}
+                                onChange={(date) =>
                                     setGame((prev) =>
-                                        prev
-                                            ? { ...prev, date: e.target.value }
-                                            : prev
+                                        prev ? { ...prev, date } : prev
                                     )
                                 }
-                                className="input-retro"
+                                unavailableDates={unavailableDates}
                             />
                         </div>
 
@@ -221,8 +229,9 @@ function AdminGameEdit() {
                                 disabled
                                 id="author"
                                 value={
-                                    game &&
-                                    `${game.author.email} AKA ${game.author.username}`
+                                    game?.author
+                                        ? `${game.author.email} AKA ${game.author.username}`
+                                        : ''
                                 }
                                 className="input-retro cursor-not-allowed"
                             />
