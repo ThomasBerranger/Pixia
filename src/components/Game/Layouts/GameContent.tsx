@@ -25,11 +25,9 @@ function GameContent({
                 badge badge-pink sm:py-2.5 sm:px-5 transition-all duration-300 ease-in-out
                 group-hover:translate-x-1.5 group-hover:-translate-y-2 sm:group-hover:translate-x-2.5 sm:group-hover:-translate-y-3 group-hover:opacity-40"
                 >
-                    {game.difficulty ? (
+                    {game.difficulty && DIFFICULTIES[game.difficulty]  ? (
                         <>
-                            <HiPlusSm className="text-xs sm:text-lg" />{' '}
-                            {game.difficulty && DIFFICULTIES[game.difficulty]}{' '}
-                            points
+                            <HiPlusSm className="text-xs sm:text-lg" />{game.difficulty && `${DIFFICULTIES[game.difficulty]} points`}
                         </>
                     ) : (
                         game.difficulty
