@@ -24,7 +24,7 @@ function GameContainer() {
         solution: undefined,
         hint: undefined,
         date: undefined,
-        difficulty: undefined,
+        difficulty: 'SIMPLE',
         image: undefined,
         userDifficulty: undefined,
     });
