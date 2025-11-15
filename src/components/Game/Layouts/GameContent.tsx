@@ -1,7 +1,7 @@
 import type { GameType } from '../../../types/Game/gameType.ts';
 import ChangeGameButton from '../Components/ChangeGameButton.tsx';
 import { HiPlusSm } from 'react-icons/hi';
-import { getDifficultyPoints } from '../../../utils/difficultyPoints.ts';
+import { DIFFICULTIES } from '../../../constants/difficultyPoints.ts';
 import MobilChangeGameButton from '../Components/MobilChangeGameButton.tsx';
 
 function GameContent({
@@ -28,7 +28,8 @@ function GameContent({
                     {game.solution ? (
                         <>
                             <HiPlusSm className="text-xs sm:text-lg" />{' '}
-                            {getDifficultyPoints(game.difficulty)} points
+                            {game.difficulty && DIFFICULTIES[game.difficulty]}{' '}
+                            points
                         </>
                     ) : (
                         game.difficulty
@@ -42,7 +43,8 @@ function GameContent({
                             : 'https://placehold.co/800x400?text=Chargement'
                     }
                     alt="AI created image"
-                    className="h-full mx-auto object-contain"
+                    className="h-auto max-h-full w-full mx-auto object-contain"
+                    style={{ alignSelf: 'flex-start' }}
                 />
 
                 {previousGameDate && (

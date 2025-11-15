@@ -1,5 +1,5 @@
 import { IoClose } from 'react-icons/io5';
-import { useModal } from '../../contexts/useModal.tsx';
+import { useModal } from '../contexts/useModal.tsx';
 
 function Modal() {
     const { isOpen, header, content, closeModal } = useModal();

@@ -9,9 +9,9 @@ import AdminGameGenerator from './components/Admin/GameGenerator/AdminGameGenera
 import AdminUserDashboard from './components/Admin/Dashboard/AdminUserDashboard.tsx';
 import AdminGameDashboard from './components/Admin/Dashboard/AdminGameDashboard.tsx';
 import AdminGameEdit from './components/Admin/AdminGameEdit.tsx';
-import Modal from './components/Shared/Modal.tsx';
+import Modal from './components/Modal.tsx';
 import { ModalProvider } from './contexts/modalContext.tsx';
-import Alert from './components/Shared/Alert.tsx';
+import Alert from './components/Alert.tsx';
 import { AlertProvider } from './contexts/alertContext.tsx';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';

@@ -7,6 +7,7 @@ import { CgSpinner } from 'react-icons/cg';
 import { useAlert } from '../../contexts/useAlert.ts';
 import { DatePicker } from '../Game/Components/DatePicker.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
+import { DIFFICULTIES } from '../../constants/difficultyPoints.ts';
 
 function AdminGameEdit() {
     const { id } = useParams<{ id: string }>();
@@ -215,9 +216,11 @@ function AdminGameEdit() {
                                 }
                                 className="input-retro"
                             >
-                                <option value="SIMPLE">SIMPLE</option>
-                                <option value="TORDU">TORDU</option>
-                                <option value="DIABOLIQUE">DIABOLIQUE</option>
+                                {Object.entries(DIFFICULTIES).map(([key]) => (
+                                    <option key={key} value={key}>
+                                        {key}
+                                    </option>
+                                ))}
                             </select>
                         </div>
 
