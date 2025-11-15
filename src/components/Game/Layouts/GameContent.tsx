@@ -1,16 +1,16 @@
-import type { GameType } from '../../../types/Game/gameType.ts';
+import type {GameType} from '../../../types/Game/gameType.ts';
 import ChangeGameButton from '../Components/ChangeGameButton.tsx';
-import { HiPlusSm } from 'react-icons/hi';
-import { DIFFICULTIES } from '../../../constants/difficultyPoints.ts';
+import {HiPlusSm} from 'react-icons/hi';
+import {DIFFICULTIES} from '../../../constants/difficultyPoints.ts';
 import MobilChangeGameButton from '../Components/MobilChangeGameButton.tsx';
 
 function GameContent({
-    game,
-    onGameChange,
-    previousGameDate,
-    nextGameDate,
-    loadingDirection,
-}: {
+                         game,
+                         onGameChange,
+                         previousGameDate,
+                         nextGameDate,
+                         loadingDirection,
+                     }: {
     game: GameType;
     onGameChange: (date: string, isPrevious: boolean) => void;
     previousGameDate: string | null;
@@ -25,12 +25,13 @@ function GameContent({
                 badge badge-pink sm:py-2.5 sm:px-5 transition-all duration-300 ease-in-out
                 group-hover:translate-x-1.5 group-hover:-translate-y-2 sm:group-hover:translate-x-2.5 sm:group-hover:-translate-y-3 group-hover:opacity-40"
                 >
-                    {game.difficulty && DIFFICULTIES[game.difficulty]  ? (
-                        <>
-                            <HiPlusSm className="text-xs sm:text-lg" />{game.difficulty && `${DIFFICULTIES[game.difficulty]} points`}
-                        </>
-                    ) : (
-                        game.difficulty
+                    {game.difficulty && (
+                        game.solution ? (
+                            <>
+                                <HiPlusSm className="text-xs sm:text-lg" />
+                                {DIFFICULTIES[game.difficulty]} points
+                            </>
+                        ) : game.difficulty
                     )}
                 </span>
 
@@ -42,7 +43,7 @@ function GameContent({
                     }
                     alt="AI created image"
                     className="h-auto max-h-full w-full mx-auto object-contain"
-                    style={{ alignSelf: 'flex-start' }}
+                    style={{alignSelf: 'flex-start'}}
                 />
 
                 {previousGameDate && (
