@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { ROUTES } from '../../../constants/routes.ts';
 import { useAlert } from '../../../contexts/useAlert.ts';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
 
 function AdminUserDashboard() {
     const { apiCall } = useApi();
@@ -25,7 +26,7 @@ function AdminUserDashboard() {
         setLoading(true);
 
         try {
-            const createdGame = await apiCall('games', {
+            const createdGame = await apiCall(ENDPOINTS.ADMIN_GAME_CREATE, {
                 method: 'POST',
                 body: JSON.stringify(game),
             });

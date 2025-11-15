@@ -6,9 +6,10 @@ import type { GameAdminType } from '../../types/Game/gameAdminType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useAlert } from '../../contexts/useAlert.ts';
 import { DatePicker } from '../Game/Components/DatePicker.tsx';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
 
 function AdminGameEdit() {
-    const { id } = useParams();
+    const { id } = useParams<{ id: string }>();
     const { apiCall } = useApi();
     const { showAlert } = useAlert();
 
@@ -18,13 +19,19 @@ function AdminGameEdit() {
     const [unavailableDates, setUnavailableDates] = useState<string[]>([]);
 
     useEffect(() => {
+        if (!id) {
+            return;
+        }
+
         const fetchData = async () => {
             try {
-                const response = await apiCall(`games/${id}`);
+                const response = await apiCall(ENDPOINTS.ADMIN_GAME_UPDATE(id));
 
                 setGame(response);
 
-                const games = await apiCall(`games?fields=date`);
+                const games = await apiCall(
+                    `${ENDPOINTS.ADMIN_GAME_INDEX}?fields=date`
+                );
 
                 const unavailableDates = games.map(
                     (game: { date: string }) => game.date.split('T')[0]
@@ -41,10 +48,15 @@ function AdminGameEdit() {
 
     async function handleSubmit(e?: React.FormEvent): Promise<void> {
         e?.preventDefault();
+
+        if (!id) {
+            return;
+        }
+
         setLoading(true);
 
         try {
-            await apiCall(`games/${game?.id}`, {
+            await apiCall(ENDPOINTS.ADMIN_GAME_EDIT(id), {
                 method: 'PATCH',
                 body: JSON.stringify(game),
             });
@@ -67,14 +79,14 @@ function AdminGameEdit() {
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
         const file = e.target.files?.[0];
-        if (!file) return;
+        if (!file || !id) return;
 
         try {
             const formData = new FormData();
             formData.append('image', file);
 
             const response = await apiCall(
-                `games/${id}/image`,
+                ENDPOINTS.ADMIN_GAME_IMAGE_EDIT(id),
                 {
                     method: 'POST',
                     body: formData,
@@ -229,8 +241,8 @@ function AdminGameEdit() {
                                 disabled
                                 id="author"
                                 value={
-                                    game?.author
-                                        ? `${game.author.email} AKA ${game.author.username}`
+                                    game?.author && game?.author
+                                        ? game.author.username
                                         : ''
                                 }
                                 className="input-retro cursor-not-allowed"

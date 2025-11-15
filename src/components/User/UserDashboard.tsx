@@ -7,6 +7,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { MdConstruction } from 'react-icons/md';
 import { ROUTES } from '../../constants/routes.ts';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
 
 function UserDashboard() {
     const { apiCall } = useApi();
@@ -17,7 +18,7 @@ function UserDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const currentUser = await apiCall('me');
+                const currentUser = await apiCall(ENDPOINTS.ME);
 
                 setUser(currentUser);
             } catch (error) {

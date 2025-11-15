@@ -4,6 +4,7 @@ import type { GameCreateType } from '../../../types/Game/gameCreateType.ts';
 import * as React from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { CiMoneyCheck1 } from 'react-icons/ci';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
 
 function ImageGenerator({
     game,
@@ -22,7 +23,7 @@ function ImageGenerator({
         setLoading(true);
 
         try {
-            const response = await apiCall('open-api/generate-image', {
+            const response = await apiCall(ENDPOINTS.OPEN_AI_GENERATE_IMAGE, {
                 method: 'POST',
                 body: JSON.stringify({ prompt: game.prompt }),
             });

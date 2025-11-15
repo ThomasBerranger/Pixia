@@ -5,6 +5,7 @@ import { useApi } from '../../../hooks/useApi.tsx';
 import { useAlert } from '../../../contexts/useAlert.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { DatePicker } from '../../Game/Components/DatePicker.tsx';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
 
 function PromptGenerator({
     game,
@@ -28,13 +29,13 @@ function PromptGenerator({
         setLoading(true);
 
         try {
-            const response = await apiCall('open-api/generate-content', {
+            const response = await apiCall(ENDPOINTS.OPEN_AI_GENERATE_CONTENT, {
                 method: 'POST',
                 body: JSON.stringify({ prompt }),
             });
 
             const gameSolutionExist: boolean = await apiCall(
-                `admin/game-solution-exist?solution=${response.solution}`
+                ENDPOINTS.ADMIN_GAME_SOLUTION_EXIST(response.solution)
             );
 
             if (gameSolutionExist) {
@@ -47,7 +48,9 @@ function PromptGenerator({
                 return;
             }
 
-            const games = await apiCall(`games?fields=date`);
+            const games = await apiCall(
+                `${ENDPOINTS.ADMIN_GAME_INDEX}?fields=date`
+            );
 
             const unavailableDates = games.map(
                 (game: { date: string }) => game.date.split('T')[0]

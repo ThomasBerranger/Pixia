@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useApi } from '../../../hooks/useApi.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
 
 function AdminUserDashboard() {
     const { apiCall } = useApi();
@@ -10,7 +11,7 @@ function AdminUserDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await apiCall('users');
+                const response = await apiCall(ENDPOINTS.ADMIN_USERS);
 
                 setUsers(response);
             } catch (error) {

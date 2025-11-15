@@ -11,6 +11,7 @@ import GameContent from './Layouts/GameContent.tsx';
 import GameFooter from './Layouts/GameFooter.tsx';
 import Leaderboard from './Leaderboard.tsx';
 import { ROUTES } from '../../constants/routes.ts';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
 
 function GameContainer() {
     const { apiCall } = useApi();
@@ -40,7 +41,7 @@ function GameContainer() {
     const [currentUserRank, setCurrentUserRank] = useState<number>();
 
     useEffect(() => {
-        apiCall('games/daily')
+        apiCall(ENDPOINTS.DAILY())
             .then((response) => {
                 setGame(response.game);
                 setPreviousGameDate(response.previousGameDate);
@@ -48,7 +49,7 @@ function GameContainer() {
             })
             .catch(console.error);
 
-        apiCall('users/leaderboard')
+        apiCall(ENDPOINTS.LEADERBOARD)
             .then((response) => {
                 setLeaderboard(response.leaderboard);
                 setCurrentUser(response.currentUser);
@@ -78,9 +79,7 @@ function GameContainer() {
             setLoadingDirection(isPrevious ? 'prev' : 'next');
 
             try {
-                const response = await apiCall(
-                    `games/daily?date=${date}&type=${game.type}`
-                );
+                const response = await apiCall(ENDPOINTS.DAILY(date));
 
                 setGame(response.game);
                 setPreviousGameDate(response.previousGameDate);
@@ -91,16 +90,19 @@ function GameContainer() {
                 setLoadingDirection(null);
             }
         },
-        [apiCall, game.type, isAuthenticated, showAlert]
+        [apiCall, isAuthenticated, showAlert]
     );
 
     const handleAnswerSubmit = useCallback(
         async (answer: string): Promise<AnswerResult> => {
             try {
-                const response = await apiCall(`games/${game.id}/solution`, {
-                    method: 'POST',
-                    body: JSON.stringify({ answer: answer }),
-                });
+                const response = await apiCall(
+                    ENDPOINTS.GAME_SOLUTION(game.id ?? ''),
+                    {
+                        method: 'POST',
+                        body: JSON.stringify({ answer: answer }),
+                    }
+                );
 
                 if (response?.solution) {
                     setGame(
@@ -110,7 +112,7 @@ function GameContainer() {
                         })
                     );
 
-                    apiCall('users/leaderboard')
+                    apiCall(ENDPOINTS.LEADERBOARD)
                         .then((response) => {
                             setLeaderboard(response.leaderboard);
                             setCurrentUser(response.currentUser);

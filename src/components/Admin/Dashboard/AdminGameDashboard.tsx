@@ -19,6 +19,7 @@ import { CiImageOff, CiImageOn } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { decodeJWT } from '../../../utils/jwt.ts';
 import { ROUTES } from '../../../constants/routes.ts';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
 
 function AdminGameDashboard() {
     const { apiCall } = useApi();
@@ -28,7 +29,10 @@ function AdminGameDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await apiCall('games?fields=type,image,date');
+                const response = await apiCall(
+                    `${ENDPOINTS.ADMIN_GAME_INDEX}?fields=type,image,date`
+                );
+
                 setGames(response);
             } catch (error) {
                 console.error('Erreur: ', error);
