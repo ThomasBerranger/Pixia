@@ -1,7 +1,6 @@
 export interface UserType {
+    id: string; // todo: que sur AdminUserType
     email: string;
-    id: string;
-    roles: string[];
     score: number;
     username: string;
     createdAt: string;

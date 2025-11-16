@@ -2,48 +2,59 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext.tsx';
 import { useEffect, useState } from 'react';
 import { useApi } from '../../hooks/useApi.tsx';
-import type { UserType } from '../../types/User/userType.ts';
-import { formatDistanceToNow } from 'date-fns';
+import { format, formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { MdConstruction } from 'react-icons/md';
 import { ROUTES } from '../../constants/routes.ts';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
+import type { UserDashboardType } from '../../types/User/userDashboardType.ts';
+import type { AchievementType } from '../../types/Achievement/achievementType.ts';
 
 function UserDashboard() {
     const { apiCall } = useApi();
     const { isAdmin, logout } = useAuth();
 
-    const [user, setUser] = useState<UserType | null>(null);
+    const [userDashboard, setUserDashboard] = useState<
+        UserDashboardType | undefined
+    >();
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const currentUser = await apiCall(ENDPOINTS.ME);
+                const userDashboard: UserDashboardType = await apiCall(
+                    ENDPOINTS.ME
+                );
 
-                setUser(currentUser);
+                console.log(userDashboard.history);
+
+                setUserDashboard(userDashboard);
             } catch (error) {
                 console.error('Erreur: ', error);
             }
         };
 
         fetchData();
-    }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [apiCall]);
 
     return (
         <>
             <section className="flex-wrap sm:flex items-center gap-8 mb-12 card-primary">
                 <div className="hidden uppercase w-24 h-24 bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent border-[3px] border-retro-accent sm:flex items-center justify-center text-4xl font-righteous shadow-[3px_3px_0] shadow-black/30">
-                    {user ? user.username[0] + user.username.slice(-1) : 'XX'}
+                    {userDashboard
+                        ? userDashboard.user.username[0] +
+                          userDashboard.user.username.slice(-1)
+                        : 'XX'}
                 </div>
                 <div>
                     <h1 className="font-righteous text-3xl bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent mb-2">
-                        {user ? user.username : 'Xxx'}
+                        {userDashboard ? userDashboard.user.username : 'Xxx'}
                     </h1>
                     <div className="flex-wrap sm:flex gap-3 text-retro-muted text-sm mb-6 sm:mb-0">
                         <div className="flex items-center gap-0.5">
                             ⭐{' '}
                             <strong className="text-retro-accent">
-                                {user?.score || 0} points
+                                {userDashboard ? userDashboard.user.score : 0}{' '}
+                                points
                             </strong>
                         </div>
                         <div className="flex items-center gap-0.5">
@@ -52,7 +63,9 @@ function UserDashboard() {
                                 Membre depuis{' '}
                                 {formatDistanceToNow(
                                     new Date(
-                                        user ? user.createdAt : Date.now()
+                                        userDashboard
+                                            ? userDashboard.user.createdAt
+                                            : Date.now()
                                     ),
                                     { locale: fr }
                                 )}
@@ -133,10 +146,6 @@ function UserDashboard() {
 
             <h2 className="font-title text-retro-accent text-3xl mb-5 flex-wrap sm:flex items-center">
                 Statistiques
-                <div className="text-xs font-righteous badge-yellow px-2 py-1 sm:ml-2 flex items-center">
-                    <MdConstruction className="mr-0.5" size={14} /> En cours de
-                    dev
-                </div>
             </h2>
 
             <section className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-12 gap-6 mb-12">
@@ -146,10 +155,11 @@ function UserDashboard() {
                         Parties jouées
                     </h3>
                     <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
-                        142
+                        {userDashboard && userDashboard.success}
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        Total games
+                        {userDashboard &&
+                            `Il t'en reste ${userDashboard.games - userDashboard.success}`}
                     </div>
                 </div>
 
@@ -159,10 +169,15 @@ function UserDashboard() {
                         Taux de réussite
                     </h3>
                     <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
-                        78%
+                        {userDashboard &&
+                            (
+                                (userDashboard.success / userDashboard.games) *
+                                100
+                            ).toFixed(1)}
+                        %
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        Taux de réussite
+                        Peut mieux faire
                     </div>
                 </div>
 
@@ -172,20 +187,20 @@ function UserDashboard() {
                         Classement
                     </h3>
                     <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
-                        7
+                        {userDashboard && userDashboard.rank}
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        Meilleur joueur
+                        Point faible, trop fort.e
                     </div>
                 </div>
 
-                <div className="col-span-3 card-primary-hover">
+                <div className="col-span-3 card-primary opacity-30 cursor-not-allowed">
                     <div className="text-4xl mb-4">⚡</div>
                     <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
                         Meilleure série
                     </h3>
                     <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
-                        23
+                        15
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
                         Victoires
@@ -193,29 +208,37 @@ function UserDashboard() {
                 </div>
             </section>
 
-            <h2 className="font-title text-retro-accent text-3xl mb-5 flex-wrap sm:flex items-center">
-                Historique récent
-                <div className="text-xs font-righteous badge-yellow px-2 py-1 sm:ml-2 flex items-center">
-                    <MdConstruction className="mr-0.5" size={14} /> En cours de
-                    dev
-                </div>
-            </h2>
+            {userDashboard && userDashboard.history.length > 0 && (
+                <>
+                    <h2 className="font-title text-retro-accent text-3xl mb-5 flex-wrap sm:flex items-center">
+                        Historique récent
+                    </h2>
 
-            <section className="flex gap-6 mb-12">
-                <div className="w-full card-retro-hover-primary text-left flex justify-between items-center">
-                    <div>
-                        <div className="text-retro-muted text-xs mb-1">
-                            02/11/2025
-                        </div>
-                        <div className="font-righteous text-white text-lg">
-                            MULTIVERSE #142
-                        </div>
-                    </div>
-                    <span className="bg-retro-accent text-retro-bg px-3 py-1 text-xs font-righteous uppercase border-2 border-retro-bg">
-                        ✓ Réussi
-                    </span>
-                </div>
-            </section>
+                    <section className="mb-12">
+                        {userDashboard.history.map(
+                            (achievement: AchievementType) => (
+                                <div className="card-retro-hover-primary text-left flex gap-2 justify-between items-center mb-3">
+                                    <div>
+                                        <div className="text-retro-muted text-xs mb-1 capitalize">
+                                            {format(
+                                                new Date(achievement.date),
+                                                'EEEE dd yyyy',
+                                                { locale: fr }
+                                            )}
+                                        </div>
+                                        <div className="font-righteous text-white text-lg">
+                                            {achievement.game.solution}
+                                        </div>
+                                    </div>
+                                    <span className="bg-retro-accent text-retro-bg px-3 py-1 text-xs font-righteous uppercase border-2 border-retro-bg">
+                                        ✓ Réussi
+                                    </span>
+                                </div>
+                            )
+                        )}
+                    </section>
+                </>
+            )}
 
             <section>
                 <div className="p-8 bg-retro-surface/80 border-[3px] border-retro-primary">
@@ -230,7 +253,9 @@ function UserDashboard() {
                             </h3>
                             <input
                                 type="email"
-                                placeholder={user?.username}
+                                placeholder={
+                                    userDashboard && userDashboard.user.username
+                                }
                                 className="w-full px-4 py-3 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-primary placeholder:text-retro-muted"
                             />
                         </div>
@@ -242,7 +267,10 @@ function UserDashboard() {
                             <div className="flex-wrap sm:flex gap-4">
                                 <input
                                     type="email"
-                                    placeholder={user?.email}
+                                    placeholder={
+                                        userDashboard &&
+                                        userDashboard.user.email
+                                    }
                                     className="w-full px-4 py-3 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-primary placeholder:text-retro-muted"
                                 />
                             </div>
