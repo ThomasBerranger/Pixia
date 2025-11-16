@@ -209,7 +209,8 @@ function AdminGameEdit() {
                                         prev
                                             ? {
                                                   ...prev,
-                                                  difficulty: e.target.value,
+                                                  difficulty: e.target
+                                                      .value as keyof typeof DIFFICULTIES,
                                               }
                                             : prev
                                     )

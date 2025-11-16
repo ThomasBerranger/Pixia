@@ -1,4 +1,5 @@
 import type { UserType } from '../User/userType.ts';
+import type { DIFFICULTIES } from '../../constants/difficultyPoints.ts';
 
 export interface GameAdminType {
     id: string;
@@ -6,7 +7,7 @@ export interface GameAdminType {
     solution: string;
     hint: string;
     date: string;
-    difficulty: string;
-    image: string | undefined;
+    difficulty: keyof typeof DIFFICULTIES;
+    image?: string;
     author: UserType;
 }

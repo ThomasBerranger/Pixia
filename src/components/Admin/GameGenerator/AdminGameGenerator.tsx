@@ -1,4 +1,4 @@
-import type { GameCreateType } from '../../../types/Game/gameCreateType.ts';
+import type { GameAdminCreateType } from '../../../types/Game/gameAdminCreateType.ts';
 import PromptGenerator from './PromptGenerator.tsx';
 import ImageGenerator from './ImageGenerator.tsx';
 import { useApi } from '../../../hooks/useApi.tsx';
@@ -13,7 +13,7 @@ function AdminUserDashboard() {
     const { showAlert } = useAlert();
 
     const [loading, setLoading] = React.useState<boolean>(false);
-    const [game, setGame] = useState<GameCreateType>({
+    const [game, setGame] = useState<GameAdminCreateType>({
         prompt: undefined,
         solution: undefined,
         hint: undefined,

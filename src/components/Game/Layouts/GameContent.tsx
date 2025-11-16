@@ -1,17 +1,18 @@
-import type {GameType} from '../../../types/Game/gameType.ts';
+import type { GameType } from '../../../types/Game/gameType.ts';
 import ChangeGameButton from '../Components/ChangeGameButton.tsx';
-import {HiPlusSm} from 'react-icons/hi';
-import {DIFFICULTIES} from '../../../constants/difficultyPoints.ts';
+import { HiPlusSm } from 'react-icons/hi';
+import { DIFFICULTIES } from '../../../constants/difficultyPoints.ts';
 import MobilChangeGameButton from '../Components/MobilChangeGameButton.tsx';
+import { CgSpinner } from 'react-icons/cg';
 
 function GameContent({
-                         game,
-                         onGameChange,
-                         previousGameDate,
-                         nextGameDate,
-                         loadingDirection,
-                     }: {
-    game: GameType;
+    game,
+    onGameChange,
+    previousGameDate,
+    nextGameDate,
+    loadingDirection,
+}: {
+    game: GameType | undefined;
     onGameChange: (date: string, isPrevious: boolean) => void;
     previousGameDate: string | null;
     nextGameDate: string | null;
@@ -25,25 +26,29 @@ function GameContent({
                 badge badge-pink sm:py-2.5 sm:px-5 transition-all duration-300 ease-in-out
                 group-hover:translate-x-1.5 group-hover:-translate-y-2 sm:group-hover:translate-x-2.5 sm:group-hover:-translate-y-3 group-hover:opacity-40"
                 >
-                    {game.difficulty && (
+                    {game && game.difficulty ? (
                         game.solution ? (
                             <>
                                 <HiPlusSm className="text-xs sm:text-lg" />
                                 {DIFFICULTIES[game.difficulty]} points
                             </>
-                        ) : game.difficulty
+                        ) : (
+                            game.difficulty
+                        )
+                    ) : (
+                        <CgSpinner className="animate-spin" size={16} />
                     )}
                 </span>
 
                 <img
                     src={
-                        game.image
+                        game && game.image
                             ? `${import.meta.env.VITE_API_URL}${game.image}`
                             : 'https://placehold.co/800x400?text=Chargement'
                     }
                     alt="AI created image"
                     className="h-auto max-h-full w-full mx-auto object-contain"
-                    style={{alignSelf: 'flex-start'}}
+                    style={{ alignSelf: 'flex-start' }}
                 />
 
                 {previousGameDate && (

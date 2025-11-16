@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { GameCreateType } from '../../../types/Game/gameCreateType.ts';
+import type { GameAdminCreateType } from '../../../types/Game/gameAdminCreateType.ts';
 import { useState } from 'react';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { useAlert } from '../../../contexts/useAlert.ts';
@@ -11,8 +11,8 @@ function PromptGenerator({
     game,
     setGame,
 }: {
-    game: GameCreateType;
-    setGame: React.Dispatch<React.SetStateAction<GameCreateType>>;
+    game: GameAdminCreateType;
+    setGame: React.Dispatch<React.SetStateAction<GameAdminCreateType>>;
 }) {
     const { apiCall } = useApi();
     const { showAlert } = useAlert();
@@ -67,7 +67,7 @@ function PromptGenerator({
             }
 
             setGame(
-                (prevGame: GameCreateType): GameCreateType => ({
+                (prevGame: GameAdminCreateType): GameAdminCreateType => ({
                     ...prevGame,
                     prompt: response.prompt,
                     solution: response.solution,

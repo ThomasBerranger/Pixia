@@ -1,12 +1,11 @@
 import type { DIFFICULTIES } from '../../constants/difficultyPoints.ts';
 
 export interface GameType {
-    id: string | undefined;
-    type: string | undefined;
-    solution: string | undefined;
-    hint: string | undefined;
-    date: string | undefined;
+    id: string;
+    type: string;
+    solution?: string;
+    hint?: string;
+    date: string;
     difficulty: keyof typeof DIFFICULTIES;
-    image: string | undefined;
-    userDifficulty: string | undefined;
+    image?: string;
 }

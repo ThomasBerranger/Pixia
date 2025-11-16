@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useApi } from '../../../hooks/useApi.tsx';
-import type { GameCreateType } from '../../../types/Game/gameCreateType.ts';
+import type { GameAdminCreateType } from '../../../types/Game/gameAdminCreateType.ts';
 import * as React from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { CiMoneyCheck1 } from 'react-icons/ci';
@@ -11,8 +11,8 @@ function ImageGenerator({
     setGame,
     onGameSubmit,
 }: {
-    game: GameCreateType;
-    setGame: React.Dispatch<React.SetStateAction<GameCreateType>>;
+    game: GameAdminCreateType;
+    setGame: React.Dispatch<React.SetStateAction<GameAdminCreateType>>;
     onGameSubmit: () => Promise<void>;
 }) {
     const { apiCall } = useApi();
@@ -29,7 +29,7 @@ function ImageGenerator({
             });
 
             setGame(
-                (prevGame: GameCreateType): GameCreateType => ({
+                (prevGame: GameAdminCreateType): GameAdminCreateType => ({
                     ...prevGame,
                     imageUrl: response || undefined,
                 })

@@ -18,16 +18,7 @@ function GameContainer() {
     const { isAuthenticated } = useAuth();
     const { showAlert } = useAlert();
 
-    const [game, setGame] = useState<GameType>({
-        id: undefined,
-        type: undefined,
-        solution: undefined,
-        hint: undefined,
-        date: undefined,
-        difficulty: 'SIMPLE',
-        image: undefined,
-        userDifficulty: undefined,
-    });
+    const [game, setGame] = useState<GameType | undefined>();
     const [nextGameDate, setNextGameDate] = useState<string | null>(null);
     const [previousGameDate, setPreviousGameDate] = useState<string | null>(
         null
@@ -41,21 +32,30 @@ function GameContainer() {
     const [currentUserRank, setCurrentUserRank] = useState<number>();
 
     useEffect(() => {
-        apiCall(ENDPOINTS.DAILY())
-            .then((response) => {
-                setGame(response.game);
-                setPreviousGameDate(response.previousGameDate);
-                setNextGameDate(response.nextGameDate);
-            })
-            .catch(console.error);
+        const fetchData = async () => {
+            const [dailyResult, leaderboardResult] = await Promise.allSettled([
+                apiCall(ENDPOINTS.DAILY()),
+                apiCall(ENDPOINTS.LEADERBOARD),
+            ]);
 
-        apiCall(ENDPOINTS.LEADERBOARD)
-            .then((response) => {
-                setLeaderboard(response.leaderboard);
-                setCurrentUser(response.currentUser);
-                setCurrentUserRank(response.currentUserRank);
-            })
-            .catch(console.error);
+            if (dailyResult.status === 'fulfilled') {
+                setGame(dailyResult.value.game);
+                setPreviousGameDate(dailyResult.value.previousGameDate);
+                setNextGameDate(dailyResult.value.nextGameDate);
+            } else {
+                console.error(dailyResult.reason);
+            }
+
+            if (leaderboardResult.status === 'fulfilled') {
+                setLeaderboard(leaderboardResult.value.leaderboard);
+                setCurrentUser(leaderboardResult.value.currentUser);
+                setCurrentUserRank(leaderboardResult.value.currentUserRank);
+            } else {
+                console.error(leaderboardResult.reason);
+            }
+        };
+
+        fetchData();
     }, [apiCall]);
 
     const handleGameChange = useCallback(
@@ -95,35 +95,38 @@ function GameContainer() {
 
     const handleAnswerSubmit = useCallback(
         async (answer: string): Promise<AnswerResult> => {
+            if (!game) {
+                return { success: false };
+            }
+
             try {
-                const response = await apiCall(
-                    ENDPOINTS.GAME_SOLUTION(game.id ?? ''),
+                const response: { solution: string } | false = await apiCall(
+                    ENDPOINTS.GAME_SOLUTION(game.id),
                     {
                         method: 'POST',
-                        body: JSON.stringify({ answer: answer }),
+                        body: JSON.stringify({ answer }),
                     }
                 );
 
-                if (response?.solution) {
-                    setGame(
-                        (prevGame: GameType): GameType => ({
-                            ...prevGame,
-                            solution: response.solution,
-                        })
-                    );
-
-                    apiCall(ENDPOINTS.LEADERBOARD)
-                        .then((response) => {
-                            setLeaderboard(response.leaderboard);
-                            setCurrentUser(response.currentUser);
-                            setCurrentUserRank(response.currentUserRank);
-                        })
-                        .catch(console.error);
-
-                    return { success: true };
+                if (!response) {
+                    return { success: false };
                 }
 
-                return { success: false };
+                setGame((prevGame) =>
+                    prevGame
+                        ? { ...prevGame, solution: response.solution }
+                        : prevGame
+                );
+
+                const leaderboardResponse = await apiCall(
+                    ENDPOINTS.LEADERBOARD
+                );
+
+                setLeaderboard(leaderboardResponse.leaderboard);
+                setCurrentUser(leaderboardResponse.currentUser);
+                setCurrentUserRank(leaderboardResponse.currentUserRank);
+
+                return { success: true };
             } catch (error) {
                 const apiError = error as ApiError;
 
@@ -141,7 +144,7 @@ function GameContainer() {
                 };
             }
         },
-        [apiCall, game.id]
+        [apiCall, game]
     );
 
     return (

@@ -10,7 +10,7 @@ function GameFooter({
     game,
     onAnswerSubmit,
 }: {
-    game: GameType;
+    game: GameType | undefined;
     onAnswerSubmit: (answer: string) => Promise<AnswerResult>;
 }) {
     const { isAuthenticated } = useAuth();
@@ -19,7 +19,7 @@ function GameFooter({
     const [answer, setAnswer] = useState<string>('');
     const [isLoading, setLoading] = useState<boolean>(false);
     const [displayError, setDisplayError] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState<string | undefined>('');
+    const [errorMessage, setErrorMessage] = useState<string | undefined>();
 
     async function handleSolutionRequest(e: React.FormEvent): Promise<void> {
         e.preventDefault();
@@ -70,7 +70,7 @@ function GameFooter({
 
     return (
         <>
-            {game.solution ? (
+            {game && game.solution ? (
                 <div
                     className="max-w-3xl mx-auto p-8 bg-retro-surface border-[6px] border-retro-secondary
             rounded-lg text-center relative animate-[border-flicker_4s_infinite]
