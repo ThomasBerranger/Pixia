@@ -26,8 +26,10 @@ function Header() {
                                 <p className="text-lg">
                                     🎉 Ton Espace Perso est là !
                                 </p>
-                                <p className="my-3">Découvre ton tout nouveau tableau de bord pour
-                                    suivre ta progression sur Pixia !</p>
+                                <p className="my-3">
+                                    Découvre ton tout nouveau tableau de bord
+                                    pour suivre ta progression sur Pixia !
+                                </p>
                                 <ul className="space-y-2 my-5">
                                     <li>
                                         🔝 Vois où tu te situes parmi les autres
@@ -46,7 +48,8 @@ function Header() {
                                     </li>
                                 </ul>
                                 <p className="mb-2 text-lg">
-                                    Et surtout, débloque de nombreux badges 🐣🔝👑💎
+                                    Et surtout, débloque de nombreux badges
+                                    🐣🔝👑💎
                                 </p>
                             </span>
                         )
