@@ -1,0 +1,74 @@
+export default function UserDashboardStatistic({
+    success,
+    games,
+    rank,
+}: {
+    success: number | undefined;
+    games: number | undefined;
+    rank: number | undefined;
+}) {
+    return (
+        <>
+            <h2 className="font-title text-retro-accent text-3xl mb-5 flex-wrap sm:flex items-center">
+                Statistiques
+            </h2>
+
+            <section className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-12 gap-6 mb-12">
+                <div className="col-span-3 card-primary-hover">
+                    <div className="text-4xl mb-4">🎮</div>
+                    <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                        Parties jouées
+                    </h3>
+                    <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+                        {success}
+                    </div>
+                    <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
+                        {success && games && `Il t'en reste ${games - success}`}
+                    </div>
+                </div>
+
+                <div className="col-span-3 card-primary-hover">
+                    <div className="text-4xl mb-4">✓</div>
+                    <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                        Taux de réussite
+                    </h3>
+                    <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+                        {success &&
+                            games &&
+                            ((success / games) * 100).toFixed(0)}
+                        %
+                    </div>
+                    <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
+                        Peut mieux faire
+                    </div>
+                </div>
+
+                <div className="col-span-3 card-primary-hover">
+                    <div className="text-4xl mb-4">🔝</div>
+                    <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                        Classement
+                    </h3>
+                    <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+                        {rank}
+                    </div>
+                    <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
+                        Point faible, trop fort.e
+                    </div>
+                </div>
+
+                <div className="col-span-3 card-primary opacity-30 cursor-not-allowed">
+                    <div className="text-4xl mb-4">⚡</div>
+                    <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                        Meilleure série
+                    </h3>
+                    <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+                        7
+                    </div>
+                    <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
+                        Victoires
+                    </div>
+                </div>
+            </section>
+        </>
+    );
+}
