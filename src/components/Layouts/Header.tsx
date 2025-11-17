@@ -21,6 +21,42 @@ function Header() {
                     type="button"
                     onClick={() =>
                         openModal(
+                            'Nouveautés',
+                            <span className="text-white font-righteous font-light">
+                                <p className="mb-2 text-lg">
+                                    🎉 Ton Espace Perso est là !
+                                </p>
+                                Découvre ton tout nouveau tableau de bord pour
+                                suivre ta progression sur Pixia !
+                                <ul className="space-y-2 mt-1">
+                                    <li>
+                                        🔝 Vois où tu te situes parmi les autres
+                                        joueurs
+                                    </li>
+                                    <li>
+                                        🎮 Découvre ton nombre de parties jouées
+                                        et restantes
+                                    </li>
+                                    <li className="ml-1.5">
+                                        ✓ &nbsp;Améliore ton taux de réussite
+                                    </li>
+                                    <li>
+                                        📅 Retrouve ton historique avec tes
+                                        dernières images devinées
+                                    </li>
+                                </ul>
+                            </span>
+                        )
+                    }
+                    className="hidden sm:block font-righteous text-white"
+                >
+                    Nouveautés
+                </button>
+
+                <button
+                    type="button"
+                    onClick={() =>
+                        openModal(
                             'Le concept',
                             <span className="text-white font-righteous">
                                 Pixia, c'est un jeu où tu dois deviner les 2
@@ -42,6 +78,7 @@ function Header() {
                 >
                     Le concept
                 </button>
+
                 <Link to={ROUTES.USER}>
                     <button className="btn-primary text-xs sm:text-md px-4 py-2 sm:px-6 sm:py-2.5">
                         {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}

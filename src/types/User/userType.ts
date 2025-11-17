@@ -1,5 +1,5 @@
 export interface UserType {
-    id: string; // todo: que sur AdminUserType
+    id: string;
     email: string;
     score: number;
     username: string;

@@ -25,8 +25,6 @@ function UserDashboard() {
                     ENDPOINTS.ME
                 );
 
-                console.log(userDashboard.history);
-
                 setUserDashboard(userDashboard);
             } catch (error) {
                 console.error('Erreur: ', error);
@@ -217,7 +215,10 @@ function UserDashboard() {
                     <section className="mb-12">
                         {userDashboard.history.map(
                             (achievement: AchievementType) => (
-                                <div className="card-retro-hover-primary text-left flex gap-2 justify-between items-center mb-3">
+                                <div
+                                    key={achievement.id}
+                                    className="card-retro-hover-primary text-left flex gap-2 justify-between items-center mb-3"
+                                >
                                     <div>
                                         <div className="text-retro-muted text-xs mb-1 capitalize">
                                             {format(
@@ -277,7 +278,6 @@ function UserDashboard() {
                         </div>
 
                         <button className="btn-disabled px-0 py-3.5 mt-1 sm:mt-7 w-full">
-                            {' '}
                             {/*btn-primary*/}
                             Modifier
                         </button>
