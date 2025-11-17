@@ -171,7 +171,7 @@ function UserDashboard() {
                             (
                                 (userDashboard.success / userDashboard.games) *
                                 100
-                            ).toFixed(1)}
+                            ).toFixed(0)}
                         %
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
