@@ -23,12 +23,12 @@ function Header() {
                         openModal(
                             'Nouveautés',
                             <span className="text-white font-righteous font-light">
-                                <p className="mb-2 text-lg">
+                                <p className="text-lg">
                                     🎉 Ton Espace Perso est là !
                                 </p>
-                                Découvre ton tout nouveau tableau de bord pour
-                                suivre ta progression sur Pixia !
-                                <ul className="space-y-2 mt-1">
+                                <p className="my-3">Découvre ton tout nouveau tableau de bord pour
+                                    suivre ta progression sur Pixia !</p>
+                                <ul className="space-y-2 my-5">
                                     <li>
                                         🔝 Vois où tu te situes parmi les autres
                                         joueurs
@@ -45,6 +45,9 @@ function Header() {
                                         dernières images devinées
                                     </li>
                                 </ul>
+                                <p className="mb-2 text-lg">
+                                    Et surtout, débloque de nombreux badges 🐣🔝👑💎
+                                </p>
                             </span>
                         )
                     }
