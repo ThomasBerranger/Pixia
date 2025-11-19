@@ -39,7 +39,20 @@ export default function UserDashboardStatistic({
                         %
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        Peut mieux faire
+                        {success &&
+                            games &&
+                            (parseInt(((success / games) * 100).toFixed(0)) >=
+                            90
+                                ? 'Machine de guerre'
+                                : parseInt(
+                                        ((success / games) * 100).toFixed(0)
+                                    ) >= 75
+                                  ? 'Champion·ne'
+                                  : parseInt(
+                                          ((success / games) * 100).toFixed(0)
+                                      ) >= 50
+                                    ? "Y'a du potentiel"
+                                    : 'Courage, ça va venir')}
                     </div>
                 </div>
 
@@ -52,7 +65,14 @@ export default function UserDashboardStatistic({
                         {rank}
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        Point faible, trop fort.e
+                        {rank &&
+                            (rank <= 3
+                                ? 'Légende Vivante'
+                                : rank <= 10
+                                  ? 'Point faible, trop fort·e'
+                                  : rank <= 20
+                                    ? 'Aux portes du top'
+                                    : 'Prometteur')}
                     </div>
                 </div>
 
