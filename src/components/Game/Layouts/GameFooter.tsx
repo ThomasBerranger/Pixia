@@ -127,7 +127,7 @@ function GameFooter({
                             ) : isHintAsked && isAuthenticated ? (
                                 '⚠️ Demander un indice diminue le nombre de points gagnés.'
                             ) : isHintAsked ? (
-                                '⚠️ Seul les joueurs connectés peuvent obtenir un indice.'
+                                '⚠️ Connecte toi pour obtenir un indice.'
                             ) : (
                                 ''
                             )}
