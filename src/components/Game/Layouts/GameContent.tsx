@@ -15,18 +15,22 @@ function GameContent({
     previousGameDate,
     nextGameDate,
     loadingDirection,
+    isImageLoading,
+    onImageLoadEnd,
 }: {
     game: GameType | undefined;
     onGameChange: (date: string, isPrevious: boolean) => void;
     previousGameDate: string | null;
     nextGameDate: string | null;
     loadingDirection: 'prev' | 'next' | null;
+    isImageLoading: boolean;
+    onImageLoadEnd: () => void;
 }) {
     return (
         <div className="max-w-3xl mx-auto sm:mb-8">
-            <div className="relative shadow-[0_0px_60px_rgba(0,0,0,0.6)] shadow-retro-accent group rounded">
+            <div className="relative group rounded">
                 <p
-                    className="absolute flex items-center text-[0.6rem] sm:text-xs top-3 right-3 sm:top-5 sm:right-5
+                    className="absolute flex items-center text-[0.6rem] sm:text-xs top-3 right-3 sm:top-5 sm:right-5 z-10
                 badge badge-pink sm:py-2.5 sm:px-5 transition-all duration-300 ease-in-out
                 group-hover:translate-x-1.5 group-hover:-translate-y-2 sm:group-hover:translate-x-2.5 sm:group-hover:-translate-y-3 group-hover:opacity-40"
                 >
@@ -60,8 +64,9 @@ function GameContent({
                             ? `${import.meta.env.VITE_API_URL}${game.image}`
                             : 'https://placehold.co/800x400?text=Chargement'
                     }
+                    onLoad={onImageLoadEnd}
                     alt="AI created image"
-                    className="h-auto max-h-full w-full mx-auto object-contain"
+                    className={`h-auto shadow-[0_0px_60px_rgba(0,0,0,0.6)] shadow-retro-accent max-h-full w-full mx-auto object-contain transition-all duration-300 ${isImageLoading && 'blur-sm'}`}
                     style={{ alignSelf: 'flex-start' }}
                 />
 

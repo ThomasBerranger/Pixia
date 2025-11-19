@@ -21,10 +21,10 @@ function GameContainer() {
     const [loadingDirection, setLoadingDirection] = useState<
         'prev' | 'next' | null
     >(null);
-
     const [leaderboard, setLeaderboard] = useState<LeaderboardUserType[]>([]);
     const [currentUser, setCurrentUser] = useState<UserType>();
     const [currentUserRank, setCurrentUserRank] = useState<number>();
+    const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -56,6 +56,7 @@ function GameContainer() {
     const handleGameChange = useCallback(
         async (date: string, isPrevious: boolean) => {
             setLoadingDirection(isPrevious ? 'prev' : 'next');
+            setIsImageLoading(true);
 
             try {
                 const response = await apiCall(ENDPOINTS.DAILY(date));
@@ -137,6 +138,8 @@ function GameContainer() {
                     previousGameDate={previousGameDate}
                     nextGameDate={nextGameDate}
                     loadingDirection={loadingDirection}
+                    isImageLoading={isImageLoading}
+                    onImageLoadEnd={() => setIsImageLoading(false)}
                 />
 
                 <GameFooter game={game} onAnswerSubmit={handleAnswerSubmit} />

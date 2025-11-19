@@ -41,7 +41,6 @@ export default function UserDashboardDangerZone({
                     </div>
 
                     <button className="btn-disabled px-0 py-3.5 mt-1 sm:mt-7 w-full">
-                        {/*btn-primary*/}
                         Modifier
                     </button>
                 </div>
@@ -57,18 +56,6 @@ export default function UserDashboardDangerZone({
                         >
                             👋 A bientôt
                         </button>
-                    </div>
-
-                    <div>
-                        <h3 className="font-righteous text-retro-primary text-sm uppercase mb-2">
-                            Supprimer le compte
-                        </h3>
-                        <button className="px-6 py-3 btn-ghost mb-2">
-                            ⚠️ Supprimer le compte
-                        </button>
-                        <p className="text-retro-muted text-sm">
-                            Attention ! Cette action est irréversible.
-                        </p>
                     </div>
                 </div>
             </div>
