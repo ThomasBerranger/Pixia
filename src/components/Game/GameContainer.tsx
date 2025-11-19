@@ -127,6 +127,10 @@ function GameContainer() {
         [apiCall, game]
     );
 
+    function handleHintRequested(hint: string): void {
+        setGame((prevGame) => (prevGame ? { ...prevGame, hint } : undefined));
+    }
+
     return (
         <>
             <section className="sm:min-h-[80vh] flex flex-col justify-center px-5 py-[3vh]">
@@ -142,7 +146,11 @@ function GameContainer() {
                     onImageLoadEnd={() => setIsImageLoading(false)}
                 />
 
-                <GameFooter game={game} onAnswerSubmit={handleAnswerSubmit} />
+                <GameFooter
+                    game={game}
+                    onAnswerSubmit={handleAnswerSubmit}
+                    onHintRequest={handleHintRequested}
+                />
             </section>
 
             <hr className="divider max-w-5xl mx-auto my-5 sm:my-10" />

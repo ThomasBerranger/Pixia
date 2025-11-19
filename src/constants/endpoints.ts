@@ -5,6 +5,7 @@ export const ENDPOINTS = {
     LEADERBOARD: 'users/leaderboard',
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
+    GAME_HINT: (id: string) => `games/${id}/hint`,
     GAME_SOLUTION: (id: string) => `games/${id}/solution`,
     // ADMIN
     ADMIN_USERS: 'admin/users',

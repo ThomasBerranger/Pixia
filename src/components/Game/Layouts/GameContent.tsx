@@ -1,7 +1,5 @@
 import type { GameType } from '../../../types/Game/gameType.ts';
 import ChangeGameButton from '../Components/ChangeGameButton.tsx';
-import { HiPlusSm } from 'react-icons/hi';
-import { DIFFICULTIES } from '../../../constants/difficultyPoints.ts';
 import MobilChangeGameButton from '../Components/MobilChangeGameButton.tsx';
 import { CgSpinner } from 'react-icons/cg';
 import { format, parseISO } from 'date-fns';
@@ -41,8 +39,6 @@ function GameContent({
                                 {format(parseISO(game.date), 'd MMMM', {
                                     locale: fr,
                                 })}
-                                <HiPlusSm className="text-xs sm:text-lg -mr-0.5" />
-                                {DIFFICULTIES[game.difficulty]} points
                             </>
                         ) : (
                             <>
