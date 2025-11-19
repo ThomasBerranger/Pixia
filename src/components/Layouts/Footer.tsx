@@ -46,6 +46,12 @@ function Footer() {
                                 </span>
                                 , je dev solo les idées qui me passent par la
                                 tête entre deux films.
+                                <br/><br/>
+                                Si jamais tu souhaites me contacter pour un bug ou autre, envoie moi un mail à{' '}
+                                <span className="text-retro-accent">
+                                    mirage.pixia@gmail.com
+                                </span>
+                                , je te répondrai aussi vite que possible.
                             </span>
                         )
                     }
