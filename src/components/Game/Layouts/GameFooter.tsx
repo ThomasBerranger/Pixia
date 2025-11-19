@@ -91,11 +91,11 @@ function GameFooter({
                     <div className="col-span-full sm:col-span-9">
                         <input
                             type="text"
-                            placeholder="Titanic et Inception"
+                            placeholder="Entrez les 2 films : Titanic et Inception"
                             autoComplete="off"
                             value={answer}
                             onChange={(e) => setAnswer(e.target.value)}
-                            className={`flex-1 w-full pl-2 py-2 bg-retro-surface/80 border-[3px] 
+                            className={`flex-1 w-full text-lg pl-2 py-2 bg-retro-surface/80 border-[3px] 
                     border-retro-primary text-retro-text outline-none transition-all duration-300 
                     shadow-[0_0_20px_rgba(255,0,110,0.3)] focus:border-retro-accent
                     focus:shadow-[0_0_40px_rgba(255,190,11,0.5)] placeholder:text-retro-muted 
@@ -109,7 +109,7 @@ function GameFooter({
 
                     <button
                         disabled={isLoading}
-                        className="btn-primary py-2 w-full flex justify-center col-span-full sm:col-span-3"
+                        className="btn-primary py-2.5 w-full flex justify-center col-span-full sm:col-span-3"
                     >
                         {isLoading ? (
                             <CgSpinner className="animate-spin" size={20} />

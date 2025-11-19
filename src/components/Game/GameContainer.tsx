@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useState } from 'react';
-import { useAuth } from '../../contexts/authContext.tsx';
-import { useAlert } from '../../contexts/useAlert.ts';
 import { type ApiError, useApi } from '../../hooks/useApi.tsx';
 import type { GameType } from '../../types/Game/gameType.ts';
 import type { LeaderboardUserType } from '../../types/User/leaderboardUserType.ts';
@@ -10,13 +8,10 @@ import GameHeader from './Layouts/GameHeader.tsx';
 import GameContent from './Layouts/GameContent.tsx';
 import GameFooter from './Layouts/GameFooter.tsx';
 import Leaderboard from './Leaderboard.tsx';
-import { ROUTES } from '../../constants/routes.ts';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 
 function GameContainer() {
     const { apiCall } = useApi();
-    const { isAuthenticated } = useAuth();
-    const { showAlert } = useAlert();
 
     const [game, setGame] = useState<GameType | undefined>();
     const [nextGameDate, setNextGameDate] = useState<string | null>(null);
@@ -60,22 +55,6 @@ function GameContainer() {
 
     const handleGameChange = useCallback(
         async (date: string, isPrevious: boolean) => {
-            if (
-                !isPrevious &&
-                date > new Date().toISOString().split('T')[0] &&
-                !isAuthenticated
-            ) {
-                showAlert(
-                    "Connecte toi pour prendre de l'avance",
-                    'Clique ici pour te connecter et voir les images suivantes.',
-                    'error',
-                    5000,
-                    ROUTES.USER
-                );
-
-                return;
-            }
-
             setLoadingDirection(isPrevious ? 'prev' : 'next');
 
             try {
@@ -90,7 +69,7 @@ function GameContainer() {
                 setLoadingDirection(null);
             }
         },
-        [apiCall, isAuthenticated, showAlert]
+        [apiCall]
     );
 
     const handleAnswerSubmit = useCallback(

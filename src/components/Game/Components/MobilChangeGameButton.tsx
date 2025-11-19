@@ -1,12 +1,16 @@
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import { useLayoutEffect, useRef, useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
+import { format, parseISO } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 function ChangeGameButton({
+    date,
     isNext,
     isLoading,
     onClick,
 }: {
+    date: string;
     isNext: boolean;
     isLoading: boolean;
     onClick: () => void;
@@ -32,11 +36,13 @@ function ChangeGameButton({
                 <CgSpinner className="animate-spin" size={16} />
             ) : isNext ? (
                 <>
-                    suivant <BiSolidRightArrow size={12} className="ml-1" />
+                    {format(parseISO(date), 'd MMMM', { locale: fr })}{' '}
+                    <BiSolidRightArrow size={14} className="ml-1.5" />
                 </>
             ) : (
                 <>
-                    <BiSolidLeftArrow size={12} className="mr-1" /> précédent
+                    <BiSolidLeftArrow size={14} className="mr-1.5" />{' '}
+                    {format(parseISO(date), 'd MMMM', { locale: fr })}
                 </>
             )}
         </button>
