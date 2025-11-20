@@ -17,7 +17,7 @@ export default function UserDashboardStatistic({
                 <div className="col-span-3 card-primary-hover">
                     <div className="text-4xl mb-4">🎮</div>
                     <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
-                        Parties jouées
+                        Parties gagnées
                     </h3>
                     <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
                         {success}
