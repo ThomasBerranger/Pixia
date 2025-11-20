@@ -1,9 +1,9 @@
-import type {BadgeType} from '../../../types/Badge/badgeType.ts';
-import {BADGES} from '../../../constants/badges.ts';
+import type { BadgeType } from '../../../types/Badge/badgeType.ts';
+import { BADGES } from '../../../constants/badges.ts';
 
 export default function UserDashboardBadge({
-                                               badges,
-                                           }: {
+    badges,
+}: {
     badges: BadgeType[] | undefined;
 }) {
     const userBadgeNames = badges?.map((b) => b.name) || [];
@@ -26,7 +26,8 @@ export default function UserDashboardBadge({
 
             <section
                 className="overflow-x-auto mb-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
-                md:[&::-webkit-scrollbar]:block md:[-ms-overflow-style:auto] [&::-webkit-scrollbar-thumb]:bg-retro-primary md:[scrollbar-width:auto] [&::-webkit-scrollbar]:h-1.5">
+                md:[&::-webkit-scrollbar]:block md:[-ms-overflow-style:auto] [&::-webkit-scrollbar-thumb]:bg-retro-primary md:[scrollbar-width:auto] [&::-webkit-scrollbar]:h-1.5"
+            >
                 <div className="flex gap-6 pb-0 sm:pb-5">
                     {sortedBadges.map(([key, badge]) => {
                         const hasBadge = userBadgeNames.includes(

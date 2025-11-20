@@ -29,7 +29,7 @@ function GameContent({
             <div className="relative group rounded">
                 <p
                     className="absolute flex items-center text-[0.6rem] sm:text-xs top-3 right-3 sm:top-5 sm:right-5 z-10
-                badge badge-pink sm:py-2.5 sm:px-5 transition-all duration-300 ease-in-out
+                badge badge-primary sm:py-2.5 sm:px-5 transition-all duration-300 ease-in-out
                 group-hover:translate-x-1.5 group-hover:-translate-y-2 sm:group-hover:translate-x-2.5 sm:group-hover:-translate-y-3 group-hover:opacity-40"
                 >
                     {game && game.difficulty ? (

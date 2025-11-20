@@ -13,20 +13,42 @@ function Footer() {
                     onClick={() =>
                         openModal(
                             'Le concept',
-                            <span className="text-white font-righteous">
-                                Pixia, c'est un jeu où tu dois deviner les 2
-                                films qui ont servi à créer l'image du jour.
-                                <br />
-                                <br />
+                            <div className="text-white font-righteous">
+                                <p className="mb-4">
+                                    Pixia, c'est un jeu où tu dois deviner les 2
+                                    films qui ont servi à créer l'image du jour.
+                                </p>
                                 <p className="underline mb-1">
                                     Ta mission, si tu l'acceptes :
                                 </p>
-                                Tous les jours, une nouvelle image apparaît.
-                                Trouve quels films se cachent derrière. Crée un
-                                compte pour débloquer des récompenses et suivre
-                                tes stats. <br />
-                                <br /> Bon chance
-                            </span>
+                                <p className="mb-4">
+                                    Tous les jours, une nouvelle image apparaît.
+                                    Trouve quels films se cachent derrière. Crée
+                                    un compte pour débloquer des récompenses et
+                                    suivre tes stats.
+                                </p>
+                                <p className="mb-4">
+                                    <div className="flex items-center">
+                                        <p className="badge badge-primary text-xxs mr-2.5">
+                                            SIMPLE
+                                        </p>{' '}
+                                        10 points
+                                    </div>
+                                    <div className="flex items-center my-2">
+                                        <p className="badge badge-primary text-xxs mr-2.5">
+                                            TORDU
+                                        </p>{' '}
+                                        25 points
+                                    </div>
+                                    <div className="flex items-center">
+                                        <p className="badge badge-primary text-xxs mr-2.5">
+                                            DIABOLIQUE
+                                        </p>{' '}
+                                        50 points
+                                    </div>
+                                </p>
+                                <p>Bon chance</p>
+                            </div>
                         )
                     }
                     className="order-first hover:text-retro-accent transition-colors"

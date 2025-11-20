@@ -1,13 +1,8 @@
 .badge {
-    @apply py-1 px-2.5;
-    font-family: 'Righteous', sans-serif;
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    border: 2px solid;
+    @apply py-1 px-2.5 uppercase tracking-wider font-righteous;
 }
 
-.badge-pink {
+.badge-primary {
     @apply bg-retro-primary border-2 border-retro-text text-retro-text shadow-[3px_3px_0_theme(colors.retro.accent)];
 }
 
