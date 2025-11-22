@@ -9,6 +9,7 @@ import GameContent from './Layouts/GameContent.tsx';
 import GameFooter from './Layouts/GameFooter.tsx';
 import Leaderboard from './Leaderboard.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
+import {fireConfetti} from "../../utils/confetti.ts";
 
 function GameContainer() {
     const { apiCall } = useApi();
@@ -91,6 +92,8 @@ function GameContainer() {
                 if (!response) {
                     return { success: false };
                 }
+
+                fireConfetti();
 
                 setGame((prevGame) =>
                     prevGame
