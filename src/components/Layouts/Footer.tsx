@@ -1,6 +1,8 @@
 import { RiAiGenerate2 } from 'react-icons/ri';
 import { IoColorPaletteOutline } from 'react-icons/io5';
 import { useModal } from '../../contexts/useModal';
+import { FaXTwitter } from 'react-icons/fa6';
+import { PiInstagramLogoFill } from 'react-icons/pi';
 
 function Footer() {
     const { openModal } = useModal();
@@ -84,9 +86,25 @@ function Footer() {
                     L'équipe
                 </button>
 
+                <a
+                    target="_blank"
+                    href="https://www.instagram.com/pixia.mirage/"
+                    className="order-first text-lg"
+                >
+                    <PiInstagramLogoFill />
+                </a>
+
                 <p className="order-last sm:order-first font-title text-retro-accent text-lg">
                     PIXIA
                 </p>
+
+                <a
+                    target="_blank"
+                    href="https://x.com/pixia_mirage"
+                    className="text-lg"
+                >
+                    <FaXTwitter />
+                </a>
 
                 <button
                     type="button"
