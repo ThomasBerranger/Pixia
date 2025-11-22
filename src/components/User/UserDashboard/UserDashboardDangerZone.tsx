@@ -1,12 +1,54 @@
 import { useAuth } from '../../../contexts/authContext.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
+import React, { useState } from 'react';
+import { useApi } from '../../../hooks/useApi.tsx';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
+import { CgSpinner } from 'react-icons/cg';
+import { useAlert } from '../../../contexts/useAlert.ts';
 
 export default function UserDashboardDangerZone({
     user,
 }: {
     user: UserType | undefined;
 }) {
-    const { logout } = useAuth();
+    const { apiCall } = useApi();
+    const { login, logout } = useAuth();
+    const { showAlert } = useAlert();
+
+    const [username, setUsername] = useState<string | undefined>();
+    const [email, setEmail] = useState<string | undefined>();
+    const [updateLoading, setUpdateLoading] = useState<boolean>(false);
+
+    async function handleUpdate(e?: React.FormEvent): Promise<void> {
+        e?.preventDefault();
+
+        setUpdateLoading(true);
+
+        try {
+            const response = await apiCall(ENDPOINTS.USER_UPDATE, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    ...(username !== undefined && { username }),
+                    ...(email !== undefined && { email }),
+                }),
+            });
+
+            login(response.token);
+
+            showAlert(
+                'Données mis à jour',
+                'Tes informations ont été modifiées avec succès.',
+                'success'
+            );
+
+            setUsername('');
+            setEmail('');
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setUpdateLoading(false);
+        }
+    }
 
     return (
         <section>
@@ -15,15 +57,20 @@ export default function UserDashboardDangerZone({
                     DANGER ZONE
                 </h2>
 
-                <div className="grid grid-cols-1 sm:grid-cols-5 gap-5 mb-6">
+                <form
+                    className="grid grid-cols-1 sm:grid-cols-5 gap-5 mb-6"
+                    onSubmit={handleUpdate}
+                >
                     <div className="sm:col-span-2">
                         <h3 className="font-righteous text-retro-accent text-sm uppercase mb-2">
                             Changer de pseudo
                         </h3>
                         <input
-                            type="email"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                             placeholder={user?.username}
-                            className="w-full px-4 py-3 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-primary placeholder:text-retro-muted"
+                            className="w-full px-4 py-2.5 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-primary placeholder:text-retro-muted"
                         />
                     </div>
 
@@ -33,17 +80,34 @@ export default function UserDashboardDangerZone({
                         </h3>
                         <div className="flex-wrap sm:flex gap-4">
                             <input
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                                 type="email"
                                 placeholder={user?.email}
-                                className="w-full px-4 py-3 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-primary placeholder:text-retro-muted"
+                                className="w-full px-4 py-2.5 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-primary placeholder:text-retro-muted"
                             />
                         </div>
                     </div>
 
-                    <button className="btn-disabled px-0 py-3.5 mt-1 sm:mt-7 w-full">
-                        Modifier
+                    <button
+                        disabled={
+                            !(
+                                (username && username.length > 1) ||
+                                (email && email.length > 1)
+                            )
+                        }
+                        className={`px-0 py-2.5 mt-1 sm:mt-7 w-full ${!((username && username.length > 1) || (email && email.length > 1)) ? 'btn-disabled' : 'btn-primary'}`}
+                    >
+                        {updateLoading ? (
+                            <CgSpinner
+                                className="animate-spin mx-auto"
+                                size={20}
+                            />
+                        ) : (
+                            'Modifier'
+                        )}
                     </button>
-                </div>
+                </form>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
                     <div>

@@ -1,8 +1,11 @@
 export const ENDPOINTS = {
     // Authentification
+    REGISTER: 'register',
+    LOGIN: 'login',
     ME: 'me',
     // USER
     LEADERBOARD: 'users/leaderboard',
+    USER_UPDATE: 'users/update',
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
     GAME_HINT: (id: string) => `games/${id}/hint`,

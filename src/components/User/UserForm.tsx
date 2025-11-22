@@ -2,10 +2,13 @@ import { useAuth } from '../../contexts/authContext.tsx';
 import React, { useEffect, useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { RiAlarmWarningLine } from 'react-icons/ri';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
+import { useApi } from '../../hooks/useApi.tsx';
 
 function UserForm() {
     const apiUrl = import.meta.env.VITE_API_URL;
 
+    const { apiCall } = useApi();
     const { login } = useAuth();
 
     const [username, setUsername] = useState<string>('');
@@ -27,20 +30,12 @@ function UserForm() {
         setAuthLoading('login');
 
         try {
-            const response = await fetch(`${apiUrl}login`, {
+            const response = await apiCall(ENDPOINTS.LOGIN, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
 
-            if (!response.ok) {
-                showErrorBriefly();
-                return;
-            }
-
-            const data = await response.json();
-
-            login(data.token);
+            login(response.token);
         } catch (error) {
             console.error('Login error:', error);
 
@@ -50,19 +45,11 @@ function UserForm() {
         }
     };
 
-    const showErrorBriefly = () => {
-        setError(true);
-
-        setTimeout(() => {
-            setError(false);
-        }, 2000);
-    };
-
     const handleRegister = async () => {
         setAuthLoading('register');
 
         try {
-            const response = await fetch(`${apiUrl}register`, {
+            const response = await fetch(`${apiUrl}${ENDPOINTS.REGISTER}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password, username }),
@@ -81,6 +68,14 @@ function UserForm() {
         } finally {
             setAuthLoading(null);
         }
+    };
+
+    const showErrorBriefly = () => {
+        setError(true);
+
+        setTimeout(() => {
+            setError(false);
+        }, 2000);
     };
 
     return (
