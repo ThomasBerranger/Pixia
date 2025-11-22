@@ -5,6 +5,7 @@ export interface ApiError extends Error {
     status: number;
     statusText: string;
     detail?: string;
+    violations?: Record<string, string>;
 }
 
 export function useApi() {
@@ -31,12 +32,16 @@ export function useApi() {
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
+
                 const error = new Error(
                     `HTTP ${response.status}: ${response.statusText}`
                 ) as ApiError;
+
                 error.status = response.status;
                 error.message = response.statusText;
                 error.detail = errorData.detail;
+                error.violations = errorData.violations;
+
                 throw error;
             }
 

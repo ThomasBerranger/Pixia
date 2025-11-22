@@ -1,7 +1,7 @@
 import { useAuth } from '../../../contexts/authContext.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
 import React, { useState } from 'react';
-import { useApi } from '../../../hooks/useApi.tsx';
+import { type ApiError, useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useAlert } from '../../../contexts/useAlert.ts';
@@ -28,8 +28,9 @@ export default function UserDashboardDangerZone({
             const response = await apiCall(ENDPOINTS.USER_UPDATE, {
                 method: 'PATCH',
                 body: JSON.stringify({
-                    ...(username !== undefined && { username }),
-                    ...(email !== undefined && { email }),
+                    ...(username !== undefined &&
+                        username !== '' && { username }),
+                    ...(email !== undefined && email !== '' && { email }),
                 }),
             });
 
@@ -44,7 +45,15 @@ export default function UserDashboardDangerZone({
             setUsername('');
             setEmail('');
         } catch (error) {
-            console.log(error);
+            const apiError = error as ApiError;
+
+            showAlert(
+                'Problème rencontré',
+                apiError.violations
+                    ? Object.values(apiError.violations).join(' ')
+                    : 'Une erreur est survenue',
+                'error'
+            );
         } finally {
             setUpdateLoading(false);
         }

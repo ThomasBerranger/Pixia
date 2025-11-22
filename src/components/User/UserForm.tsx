@@ -3,11 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { RiAlarmWarningLine } from 'react-icons/ri';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
-import { useApi } from '../../hooks/useApi.tsx';
+import { type ApiError, useApi } from '../../hooks/useApi.tsx';
 
 function UserForm() {
-    const apiUrl = import.meta.env.VITE_API_URL;
-
     const { apiCall } = useApi();
     const { login } = useAuth();
 
@@ -49,21 +47,19 @@ function UserForm() {
         setAuthLoading('register');
 
         try {
-            const response = await fetch(`${apiUrl}${ENDPOINTS.REGISTER}`, {
+            const response = await apiCall(ENDPOINTS.REGISTER, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password, username }),
             });
 
-            const data = await response.json();
-
-            if (!response.ok) {
-                setErrorViolations(data.violations);
-                return;
-            }
-
-            login(data.token);
+            login(response.token);
         } catch (error) {
+            const apiError = error as ApiError;
+
+            setErrorViolations(
+                apiError.violations ? Object.values(apiError.violations) : []
+            );
+
             console.error('Register error:', error);
         } finally {
             setAuthLoading(null);
