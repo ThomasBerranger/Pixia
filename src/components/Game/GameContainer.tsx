@@ -9,9 +9,13 @@ import GameContent from './Layouts/GameContent.tsx';
 import GameFooter from './Layouts/GameFooter.tsx';
 import Leaderboard from './Leaderboard.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
-import {fireConfetti} from "../../utils/confetti.ts";
+import { fireConfetti } from '../../utils/confetti.ts';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function GameContainer() {
+    const navigate = useNavigate();
+
+    const { date } = useParams<{ date?: string }>();
     const { apiCall } = useApi();
 
     const [game, setGame] = useState<GameType | undefined>();
@@ -29,8 +33,18 @@ function GameContainer() {
 
     useEffect(() => {
         const fetchData = async () => {
+            if (date) {
+                const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                const today = new Date().toISOString().split('T')[0];
+
+                if (!dateRegex.test(date) || date > today) {
+                    navigate(ENDPOINTS.NOT_FOUND);
+                    return;
+                }
+            }
+
             const [dailyResult, leaderboardResult] = await Promise.allSettled([
-                apiCall(ENDPOINTS.DAILY()),
+                apiCall(ENDPOINTS.DAILY(date)),
                 apiCall(ENDPOINTS.LEADERBOARD),
             ]);
 
@@ -49,29 +63,20 @@ function GameContainer() {
             } else {
                 console.error(leaderboardResult.reason);
             }
+
+            setLoadingDirection(null);
         };
 
         fetchData();
-    }, [apiCall]);
+    }, [apiCall, date, navigate]);
 
     const handleGameChange = useCallback(
-        async (date: string, isPrevious: boolean) => {
+        async (newDate: string, isPrevious: boolean) => {
             setLoadingDirection(isPrevious ? 'prev' : 'next');
             setIsImageLoading(true);
-
-            try {
-                const response = await apiCall(ENDPOINTS.DAILY(date));
-
-                setGame(response.game);
-                setPreviousGameDate(response.previousGameDate);
-                setNextGameDate(response.nextGameDate);
-            } catch (error) {
-                console.error('Erreur: ', error);
-            } finally {
-                setLoadingDirection(null);
-            }
+            navigate(`/${newDate}`);
         },
-        [apiCall]
+        [navigate]
     );
 
     const handleAnswerSubmit = useCallback(

@@ -22,4 +22,6 @@ export const ENDPOINTS = {
     // OPEN_AI
     OPEN_AI_GENERATE_CONTENT: 'open-api/generate-content',
     OPEN_AI_GENERATE_IMAGE: 'open-api/generate-image',
+    // OPEN_AI
+    NOT_FOUND: '404',
 } as const;

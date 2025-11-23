@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import type { GameType } from '../../../types/Game/gameType.ts';
 import type { AnswerResult } from '../../../types/answerResultType.ts';
@@ -30,6 +30,13 @@ function GameFooter({
     const [errorMessage, setErrorMessage] = useState<string | undefined>();
     const [isHintAsked, setIsHintAsked] = useState<boolean>(false);
     const [isHintLoading, setIsHintLoading] = useState<boolean>(false);
+
+    useEffect(() => {
+        setAnswer('');
+        setIsHintAsked(false);
+        setDisplayError(false);
+        setErrorMessage(undefined);
+    }, [game?.id]);
 
     async function handleSolutionRequest(e: React.FormEvent): Promise<void> {
         e.preventDefault();

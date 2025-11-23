@@ -15,6 +15,7 @@ import Alert from './components/Alert.tsx';
 import { AlertProvider } from './contexts/alertContext.tsx';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
+import NotFound from './components/NotFound.tsx';
 
 function App() {
     return (
@@ -30,6 +31,8 @@ function App() {
 
                     <Routes>
                         <Route path="/" element={<GameContainer />} />
+                        <Route path="/:date" element={<GameContainer />} />
+
                         <Route path="/me" element={<User />} />
 
                         <Route
@@ -58,6 +61,8 @@ function App() {
                                 element={<AdminGameEdit />}
                             />
                         </Route>
+
+                        <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
 
