@@ -13,13 +13,15 @@ export default function UserDashboardStatistic({
                 Statistiques
             </h2>
 
-            <section className="grid grid-cols-3 sm:grid-cols-6 md:grid-cols-12 gap-6 mb-12">
-                <div className="col-span-3 card-primary-hover">
-                    <div className="text-4xl mb-4">🎮</div>
-                    <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
-                        Parties gagnées
-                    </h3>
-                    <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+            <section className="grid grid-cols-6 lg:grid-cols-12 gap-6 mb-14">
+                <div className="col-span-3 card-primary-hover p-6">
+                    <div className="flex items-center gap-2">
+                        <div className="hidden sm:block text-4xl mb-4">🎮</div>
+                        <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                            Parties gagnées
+                        </h3>
+                    </div>
+                    <div className="text-4xl sm:text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
                         {success}
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
@@ -27,12 +29,14 @@ export default function UserDashboardStatistic({
                     </div>
                 </div>
 
-                <div className="col-span-3 card-primary-hover">
-                    <div className="text-4xl mb-4">✓</div>
-                    <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
-                        Taux de réussite
-                    </h3>
-                    <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+                <div className="col-span-3 card-primary-hover p-6">
+                    <div className="flex items-center gap-2">
+                        <div className="hidden sm:block text-4xl mb-4">✓</div>
+                        <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                            Taux de réussite
+                        </h3>
+                    </div>
+                    <div className="text-4xl sm:text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
                         {success &&
                             games &&
                             ((success / games) * 100).toFixed(0)}
@@ -56,12 +60,14 @@ export default function UserDashboardStatistic({
                     </div>
                 </div>
 
-                <div className="col-span-3 card-primary-hover">
-                    <div className="text-4xl mb-4">🔝</div>
-                    <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
-                        Classement
-                    </h3>
-                    <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+                <div className="col-span-3 card-primary-hover p-6">
+                    <div className="flex items-center gap-2">
+                        <div className="hidden sm:block text-4xl mb-4">🔝</div>
+                        <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                            Classement
+                        </h3>
+                    </div>
+                    <div className="text-4xl sm:text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
                         {rank}
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
@@ -76,12 +82,14 @@ export default function UserDashboardStatistic({
                     </div>
                 </div>
 
-                <div className="col-span-3 card-primary opacity-30 cursor-not-allowed">
-                    <div className="text-4xl mb-4">⚡</div>
-                    <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
-                        Meilleure série
-                    </h3>
-                    <div className="text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+                <div className="col-span-3 card-primary p-6 opacity-30 cursor-not-allowed">
+                    <div className="flex items-center gap-2">
+                        <div className="hidden sm:block text-4xl mb-4">⚡</div>
+                        <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                            Meilleure série
+                        </h3>
+                    </div>
+                    <div className="text-4xl sm:text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
                         7
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">

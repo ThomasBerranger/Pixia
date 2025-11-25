@@ -136,6 +136,11 @@ function UserForm() {
                     <button
                         onClick={handleRegister}
                         type="button"
+                        disabled={
+                            username.length < 2 ||
+                            email.length < 5 ||
+                            password.length < 5
+                        }
                         className={`w-full text-xxs sm:text-sm py-2.5 
                             ${username.length >= 1 && email.length >= 5 && password.length >= 5 ? 'btn-pixel' : 'btn-disabled'}`}
                     >

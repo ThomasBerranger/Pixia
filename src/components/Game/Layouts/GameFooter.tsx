@@ -1,27 +1,27 @@
-import React, {useEffect, useState} from 'react';
-import {useAuth} from '../../../contexts/authContext.tsx';
-import type {GameType} from '../../../types/Game/gameType.ts';
-import type {AnswerResult} from '../../../types/answerResultType.ts';
-import {CgSpinner} from 'react-icons/cg';
-import {ROUTES} from '../../../constants/routes.ts';
-import {useAlert} from '../../../contexts/useAlert.ts';
-import {FaCheck, FaQuestion} from 'react-icons/fa';
-import {useApi} from '../../../hooks/useApi.tsx';
-import {ENDPOINTS} from '../../../constants/endpoints.ts';
-import {useNavigate} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../../contexts/authContext.tsx';
+import type { GameType } from '../../../types/Game/gameType.ts';
+import type { AnswerResult } from '../../../types/answerResultType.ts';
+import { CgSpinner } from 'react-icons/cg';
+import { ROUTES } from '../../../constants/routes.ts';
+import { useAlert } from '../../../contexts/useAlert.ts';
+import { FaCheck, FaQuestion } from 'react-icons/fa';
+import { useApi } from '../../../hooks/useApi.tsx';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
+import { useNavigate } from 'react-router-dom';
 
 function GameFooter({
-                        game,
-                        onAnswerSubmit,
-                        onHintRequest,
-                    }: {
+    game,
+    onAnswerSubmit,
+    onHintRequest,
+}: {
     game: GameType | undefined;
     onAnswerSubmit: (answer: string) => Promise<AnswerResult>;
     onHintRequest: (hint: string) => void;
 }) {
-    const {isAuthenticated} = useAuth();
-    const {showAlert} = useAlert();
-    const {apiCall} = useApi();
+    const { isAuthenticated } = useAuth();
+    const { showAlert } = useAlert();
+    const { apiCall } = useApi();
     const navigate = useNavigate();
 
     const [answer, setAnswer] = useState<string>('');
@@ -123,8 +123,7 @@ function GameFooter({
                     <div className="text-[0.7rem] sm:text-xs text-retro-muted uppercase tracking-[2px] mb-2">
                         Bravo !
                     </div>
-                    <div
-                        className="text-sm sm:text-md sm:text-2xl text-retro-accent font-righteous uppercase tracking-[3px]">
+                    <div className="text-sm sm:text-md sm:text-2xl text-retro-accent font-righteous uppercase tracking-[3px]">
                         {game.solution}
                     </div>
                 </div>
@@ -134,13 +133,18 @@ function GameFooter({
                         <div className="max-w-3xl mx-auto w-full my-4 pl-2 border-l-4 border-retro-primary">
                             <p>
                                 {isHintLoading ? (
-                                    <CgSpinner className="animate-spin" size={20} />
+                                    <CgSpinner
+                                        className="animate-spin"
+                                        size={20}
+                                    />
                                 ) : game?.hint ? (
                                     game.hint
                                 ) : isHintAsked ? (
-                                    isAuthenticated
-                                        ? '⚠️ Demander un indice diminue le nombre de points gagnés.'
-                                        : '⚠️ Connecte-toi pour obtenir un indice.'
+                                    isAuthenticated ? (
+                                        '⚠️ Demander un indice diminue le nombre de points gagnés.'
+                                    ) : (
+                                        '⚠️ Connecte-toi pour obtenir un indice.'
+                                    )
                                 ) : null}
                             </p>
                         </div>
@@ -155,9 +159,9 @@ function GameFooter({
                             onClick={() => hintRequest()}
                         >
                             {isHintAsked && !game?.hint ? (
-                                <FaCheck size={18} className="mx-auto"/>
+                                <FaCheck size={18} className="mx-auto" />
                             ) : (
-                                <FaQuestion size={18} className="mx-auto"/>
+                                <FaQuestion size={18} className="mx-auto" />
                             )}
                         </button>
                         <div className="col-span-full sm:col-span-8 order-1">
@@ -184,7 +188,7 @@ function GameFooter({
                             className="btn-primary py-1.5 sm:py-2.5 w-full flex justify-center col-span-2 sm:col-span-3 order-3"
                         >
                             {isLoading ? (
-                                <CgSpinner className="animate-spin" size={20}/>
+                                <CgSpinner className="animate-spin" size={20} />
                             ) : (
                                 <>Vérifier</>
                             )}

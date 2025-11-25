@@ -6,6 +6,7 @@ export const ENDPOINTS = {
     // USER
     LEADERBOARD: 'users/leaderboard',
     USER_UPDATE: 'users/update',
+    USER_CONTRIBUTION: 'contributions',
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
     GAME_HINT: (id: string) => `games/${id}/hint`,

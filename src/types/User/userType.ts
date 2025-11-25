@@ -1,4 +1,5 @@
 import type { BadgeType } from '../Badge/badgeType.ts';
+import type { ContributionType } from '../Contribution/contributionType.ts';
 
 export interface UserType {
     id: string;
@@ -7,4 +8,5 @@ export interface UserType {
     username: string;
     createdAt: string;
     badges: BadgeType[];
+    contributions: ContributionType[];
 }

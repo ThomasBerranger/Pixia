@@ -61,7 +61,7 @@ export default function UserDashboardDangerZone({
 
     return (
         <section>
-            <div className="p-8 bg-retro-surface/80 border-[3px] border-retro-primary">
+            <div className="mt-14 p-8 bg-retro-surface/80 border-[3px] border-retro-primary">
                 <h2 className="font-title text-2xl text-retro-primary mb-6 uppercase">
                     DANGER ZONE
                 </h2>
@@ -79,7 +79,7 @@ export default function UserDashboardDangerZone({
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder={user?.username}
-                            className="w-full px-4 py-2.5 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-primary placeholder:text-retro-muted"
+                            className="input-retro"
                         />
                     </div>
 
@@ -93,7 +93,7 @@ export default function UserDashboardDangerZone({
                                 onChange={(e) => setEmail(e.target.value)}
                                 type="email"
                                 placeholder={user?.email}
-                                className="w-full px-4 py-2.5 bg-retro-surface border-[3px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-primary placeholder:text-retro-muted"
+                                className="input-retro"
                             />
                         </div>
                     </div>

@@ -1,0 +1,4 @@
+export const CONTRIBUTION_TYPES = {
+    GAME_SUGGESTION: 'GAME_SUGGESTION',
+    BUG_DETECTED: 'BUG_DETECTED',
+} as const;
