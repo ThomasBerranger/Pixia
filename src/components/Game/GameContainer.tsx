@@ -11,6 +11,7 @@ import Leaderboard from './Leaderboard.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { fireConfetti } from '../../utils/confetti.ts';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes.ts';
 
 function GameContainer() {
     const navigate = useNavigate();
@@ -74,7 +75,7 @@ function GameContainer() {
         async (newDate: string, isPrevious: boolean) => {
             setLoadingDirection(isPrevious ? 'prev' : 'next');
             setIsImageLoading(true);
-            navigate(`/${newDate}`);
+            navigate(ROUTES.GAME_BY_DATE(newDate));
         },
         [navigate]
     );

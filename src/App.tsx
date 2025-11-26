@@ -16,6 +16,8 @@ import { AlertProvider } from './contexts/alertContext.tsx';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import NotFound from './components/NotFound.tsx';
+import Contribution from './components/Admin/Contribution/Contribution.tsx';
+import { ROUTES } from './constants/routes.ts';
 
 function App() {
     return (
@@ -30,13 +32,16 @@ function App() {
                     <Alert />
 
                     <Routes>
-                        <Route path="/" element={<GameContainer />} />
-                        <Route path="/:date" element={<GameContainer />} />
+                        <Route path={ROUTES.HOME} element={<GameContainer />} />
+                        <Route
+                            path={ROUTES.GAME_BY_DATE()}
+                            element={<GameContainer />}
+                        />
 
-                        <Route path="/me" element={<User />} />
+                        <Route path={ROUTES.USER} element={<User />} />
 
                         <Route
-                            path="/admin"
+                            path={ROUTES.ADMIN}
                             element={
                                 <ProtectedRoute requiredRole={'ROLE_ADMIN'}>
                                     <Outlet />
@@ -45,20 +50,24 @@ function App() {
                         >
                             <Route index element={<AdminContainer />} />
                             <Route
-                                path="user-dashboard"
+                                path={ROUTES.ADMIN_USERS}
                                 element={<AdminUserDashboard />}
                             />
                             <Route
-                                path="game-generator"
+                                path={ROUTES.ADMIN_GENERATOR}
                                 element={<AdminGameGenerator />}
                             />
                             <Route
-                                path="game-dashboard"
+                                path={ROUTES.ADMIN_GAMES}
                                 element={<AdminGameDashboard />}
                             />
                             <Route
-                                path="games/:id"
+                                path={ROUTES.ADMIN_GAME_EDIT()}
                                 element={<AdminGameEdit />}
+                            />
+                            <Route
+                                path={ROUTES.ADMIN_CONTRIBUTIONS}
+                                element={<Contribution />}
                             />
                         </Route>
 

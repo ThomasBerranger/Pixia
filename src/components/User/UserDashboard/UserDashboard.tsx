@@ -39,7 +39,7 @@ function UserDashboard() {
         type: string
     ): Promise<void> => {
         const newContribution: ContributionType = await apiCall(
-            ENDPOINTS.USER_CONTRIBUTION,
+            ENDPOINTS.USER_CONTRIBUTION_INDEX,
             {
                 method: 'POST',
                 body: JSON.stringify({

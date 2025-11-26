@@ -3,30 +3,38 @@ import { ROUTES } from '../../constants/routes.ts';
 import { FaUsersGear } from 'react-icons/fa6';
 import { RiAiGenerate2 } from 'react-icons/ri';
 import { MdDashboard } from 'react-icons/md';
+import { FaHandsHelping } from 'react-icons/fa';
 
 function AdminContainer() {
     return (
-        <section className="min-h-[90vh] flex flex-col justify-center gap-4 px-10">
+        <section className="min-h-[90vh] flex flex-col sm:flex-row justify-center items-center gap-4 p-4">
             <Link
                 to={ROUTES.ADMIN_USERS}
-                className="card-primary-hover text-center"
+                className="card-primary-hover text-center w-4/5 sm:w-1/5"
             >
                 <FaUsersGear className="mx-auto mb-2" size={30} />
-                <p className="font-righteous">User Dashboard</p>
+                <p className="font-righteous whitespace-nowrap">Joueurs</p>
             </Link>
             <Link
                 to={ROUTES.ADMIN_GAMES}
-                className="card-primary-hover text-center"
+                className="card-primary-hover text-center w-4/5 sm:w-1/5"
             >
                 <MdDashboard className="mx-auto mb-2" size={30} />
-                <p className="font-righteous">Game dashboard</p>
+                <p className="font-righteous whitespace-nowrap">Parties</p>
             </Link>
             <Link
                 to={ROUTES.ADMIN_GENERATOR}
-                className="card-primary-hover text-center"
+                className="card-primary-hover text-center w-4/5 sm:w-1/5"
             >
                 <RiAiGenerate2 className="mx-auto mb-2" size={30} />
-                <p className="font-righteous">Game generator</p>
+                <p className="font-righteous whitespace-nowrap">Création</p>
+            </Link>
+            <Link
+                to={ROUTES.ADMIN_CONTRIBUTIONS}
+                className="card-primary-hover text-center w-4/5 sm:w-1/5"
+            >
+                <FaHandsHelping className="mx-auto mb-2" size={30} />
+                <p className="font-righteous whitespace-nowrap">Contribution</p>
             </Link>
         </section>
     );

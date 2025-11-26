@@ -11,7 +11,7 @@ function AdminUserDashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await apiCall(ENDPOINTS.ADMIN_USERS);
+                const response = await apiCall(ENDPOINTS.ADMIN_USER_INDEX);
 
                 setUsers(response);
             } catch (error) {
