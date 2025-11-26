@@ -39,7 +39,7 @@ const ContributionForm = ({
                 'Le trio déjanté se réveille sur Tatooine avec une énorme gueule de bois et le sabre laser de Mace Windu dans la poche.',
             buttonText: 'Propose ton idée',
             helperText:
-                'Les meilleures fusions sont intégrées au jeu. Si la tienne est validée : +10 points !',
+                'Les meilleures idées sont intégrées au jeu. Si la tienne est validée : +10 points !',
         },
         bug: {
             titlePlaceholder: 'Nombre de parties restantes',

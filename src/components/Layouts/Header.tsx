@@ -2,10 +2,11 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext.tsx';
 import { ROUTES } from '../../constants/routes.ts';
 import { useModal } from '../../contexts/useModal.tsx';
+import { RxDotFilled } from 'react-icons/rx';
 
 function Header() {
     const { isAuthenticated } = useAuth();
-    const { openModal } = useModal();
+    const { openModal, closeModal } = useModal();
 
     return (
         <header className="bg-retro-surface/80 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)] px-2 sm:px-[7%] py-4 flex justify-between items-center">
@@ -26,36 +27,34 @@ function Header() {
                                 <p className="text-lg">
                                     🎉 Ton Espace Perso est là !
                                 </p>
-                                <p className="my-3">
-                                    Découvre ton tout nouveau tableau de bord
-                                    pour suivre ta progression sur Pixia !
+                                <p className="my-3 text-sm">
+                                    Découvre ton tout tableau de bord et
+                                    débloque de nombreux badges 🐣🔝👑💎
                                 </p>
-                                <ul className="space-y-2 my-5">
-                                    <li>
-                                        🔝 Vois où tu te situes parmi les autres
-                                        joueurs
-                                    </li>
-                                    <li>
-                                        🎮 Découvre ton nombre de parties jouées
-                                        et restantes
-                                    </li>
-                                    <li className="ml-1.5">
-                                        ✓ &nbsp;Améliore ton taux de réussite
-                                    </li>
-                                    <li>
-                                        📅 Retrouve ton historique avec tes
-                                        dernières images devinées
-                                    </li>
-                                </ul>
-                                <p className="mb-2 text-lg">
-                                    Et surtout, débloque de nombreux badges
-                                    🐣🔝👑💎
+                                <p className="text-lg my-3">
+                                    💡Une idée ? 🪲 Un bug ?
+                                </p>
+                                <p className="text-sm">
+                                    Contribue à l'amélioration de Pixia et gagne
+                                    des points et des badges depuis l'espace{' '}
+                                    <Link
+                                        to={ROUTES.USER}
+                                        onClick={() => closeModal()}
+                                        className="font-title text-retro-accent"
+                                    >
+                                        Suggestions
+                                    </Link>{' '}
+                                    ton tableau de bord
                                 </p>
                             </span>
                         )
                     }
-                    className="hidden sm:block font-righteous text-white"
+                    className="hidden sm:flex font-righteous text-white items-center"
                 >
+                    <RxDotFilled
+                        size={20}
+                        className="text-retro-primary animate-pulse"
+                    />{' '}
                     Nouveautés
                 </button>
 
