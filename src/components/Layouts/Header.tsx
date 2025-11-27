@@ -49,7 +49,7 @@ function Header() {
                                         Les avatars sont arrivés dans Pixia !
                                         <br />
                                         <span className="text-sm">
-                                            Va vite customiser le tiens !
+                                            Va vite customiser le tien !
                                         </span>
                                     </p>
                                 </div>
