@@ -37,12 +37,18 @@ export default function UserDashboardBadge({
                         return (
                             <div
                                 key={key}
-                                className={`min-w-36 flex-shrink-0 ${
+                                className={`min-w-36 flex-shrink-0 relative ${
                                     hasBadge
-                                        ? 'card-retro-hover-retro-accent'
-                                        : 'card-retro opacity-40'
+                                        ? 'card-retro'
+                                        : 'card-retro opacity-50'
                                 }`}
                             >
+                                <div
+                                    className="absolute top-0 right-0 w-full h-full bg-retro-bg z-10 font-righteous
+                                opacity-0 bg-opacity-0 hover:bg-opacity-80 hover:opacity-100 flex justify-center items-center"
+                                >
+                                    {badge.description}
+                                </div>
                                 <div className="text-5xl mb-3.5">
                                     {badge.icon}
                                 </div>

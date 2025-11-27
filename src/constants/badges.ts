@@ -1,16 +1,67 @@
 export const BADGES = {
-    BETA_TESTER: { name: 'Bêta-Testeur', icon: '⏱️' },
-    TOP_10_REACHED: { name: 'Top 10', icon: '🔝' },
-    GAME_SUGGESTION: { name: 'Génie', icon: '💡' },
-    BUG_DETECTED: { name: 'Débugger', icon: '🪲' },
-    WINS_1: { name: 'Débutant', icon: '🐣' },
-    WINS_10: { name: 'Cinéphile', icon: '🎬' },
-    WINS_50: { name: 'Expert', icon: '🎓' },
-    WINS_100: { name: 'Maître', icon: '👑' },
-    WINS_300: { name: 'Légendaire', icon: '💎' },
-    CREATOR: { name: 'Créateur', icon: '🎨' },
-    // todo: implémenter ces badges
-    STREAK_10: { name: 'En Feu', icon: '🔥' },
-    STREAK_20: { name: 'Inarrêtable', icon: '⚡' },
-    STREAK_30: { name: 'Perfectionniste', icon: '💫' },
+    BETA_TESTER: {
+        name: 'Bêta-Testeur',
+        icon: '⏱️',
+        description: "Merci d'être là depuis le début",
+    },
+    TOP_10_REACHED: {
+        name: 'Top 10',
+        icon: '🔝',
+        description: "Bienvenue parmi l'élite",
+    },
+    GAME_SUGGESTION: {
+        name: 'Génie',
+        icon: '💡',
+        description: 'Eurêka ! Quelle belle suggestion',
+    },
+    BUG_DETECTED: {
+        name: 'Débugger',
+        icon: '🪲',
+        description: 'Le code te remercie',
+    },
+    WINS_1: {
+        name: 'Débutant',
+        icon: '🐣',
+        description: "L'aventure commence ici",
+    },
+    WINS_10: {
+        name: 'Cinéphile',
+        icon: '🎬',
+        description: 'Le rythme est lancé',
+    },
+    WINS_50: {
+        name: 'Expert',
+        icon: '🎓',
+        description: 'Plus aucun doute sur ton talent',
+    },
+    WINS_100: {
+        name: 'Maître',
+        icon: '👑',
+        description: 'Souverain du 7ème art',
+    },
+    WINS_300: {
+        name: 'Légendaire',
+        icon: '💎',
+        description: 'Ta légende est éternelle',
+    },
+    CREATOR: {
+        name: 'Créateur',
+        icon: '🎨',
+        description: "Picasso du pixel, chapeau l'artiste",
+    },
+    STREAK_10: {
+        name: 'En Feu',
+        icon: '🔥',
+        description: 'Enchaînement diabolique',
+    },
+    STREAK_30: {
+        name: 'Inarrêtable',
+        icon: '⚡',
+        description: 'Ta foudre frappe sans relâche',
+    },
+    STREAK_60: {
+        name: 'Perfectionniste',
+        icon: '💫',
+        description: 'Régularité stellaire',
+    },
 } as const;
