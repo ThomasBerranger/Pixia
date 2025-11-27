@@ -1,10 +1,10 @@
-import { formatDistanceToNow } from 'date-fns';
-import { fr } from 'date-fns/locale';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes.ts';
 import type { UserType } from '../../../types/User/userType.ts';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import { CgSpinner } from 'react-icons/cg';
+import { useState } from 'react';
+import AvatarCustomizer from './AvatarCustomizer.tsx';
 
 export default function UserDashboardHeader({
     user,
@@ -13,45 +13,75 @@ export default function UserDashboardHeader({
 }) {
     const { isAdmin } = useAuth();
 
+    const [displayAvatarEdit, setDisplayAvatarEdit] = useState(false);
+    const [isAvatarLoading, setIsAvatarLoading] = useState(true);
+
     return (
-        <section className="flex-wrap sm:flex items-center gap-8 mb-12 card-primary">
-            <div className="hidden uppercase w-24 h-24 bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent border-[3px] border-retro-accent sm:flex items-center justify-center text-4xl font-righteous shadow-[3px_3px_0] shadow-black/30">
+        <>
+            <section className="flex flex-wrap items-center gap-4 mb-12 card-primary px-3 py-4 sm:p-5 sm:pt-4">
                 {user ? (
-                    user.username[0] + user.username.slice(-1)
-                ) : (
-                    <CgSpinner className="animate-spin mx-auto" size={50} />
-                )}
-            </div>
-            <div>
-                <h1 className="font-righteous text-3xl bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent mb-2">
-                    {user?.username}
-                </h1>
-                <div className="flex-wrap sm:flex gap-3 text-retro-muted text-sm mb-6 sm:mb-0">
-                    <div className="flex items-center gap-0.5">
-                        <strong className="text-retro-accent">
-                            ⭐ {user?.score} points
-                        </strong>
-                    </div>
-                    <div className="flex items-center gap-0.5">
-                        {user && (
-                            <strong className="text-retro-accent">
-                                🎯 Membre depuis{' '}
-                                {formatDistanceToNow(new Date(user.createdAt), {
-                                    locale: fr,
-                                })}
-                            </strong>
+                    <>
+                        <div
+                            className="cursor-pointer hover:opacity-80 flex items-center justify-center"
+                            onClick={() =>
+                                setDisplayAvatarEdit(!displayAvatarEdit)
+                            }
+                        >
+                            <img
+                                onLoad={() => {
+                                    setIsAvatarLoading(false);
+                                }}
+                                src={
+                                    user.avatarUrl ??
+                                    `${import.meta.env.VITE_DICE_URL}${user.username}`
+                                }
+                                alt="Avatar"
+                                className={`h-28 w-28 transition-all duration-300${isAvatarLoading ? ' blur-md' : ''}`}
+                            />
+                        </div>
+                        <div className="flex-shrink-0">
+                            <h1 className="font-righteous text-4xl bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent">
+                                {user?.username}
+                            </h1>
+                            <div>
+                                <div className="flex flex-shrink-0 items-center gap-0.5 text-xs sm:text-sm">
+                                    <strong className="text-retro-accent">
+                                        ⭐ {user?.score} points
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                        {isAdmin() && (
+                            <Link
+                                to={ROUTES.ADMIN}
+                                className="btn-ghost px-6 py-3 sm:ml-auto sm:mt-0 text-xs"
+                            >
+                                ⚙️ Admin
+                            </Link>
                         )}
-                    </div>
-                </div>
-            </div>
-            {isAdmin() && (
-                <Link
-                    to={ROUTES.ADMIN}
-                    className="btn-ghost px-6 py-3 sm:ml-auto sm:mt-0"
-                >
-                    ⚙️ Admin
-                </Link>
-            )}
-        </section>
+                    </>
+                ) : (
+                    <CgSpinner
+                        className="animate-spin text-retro-primary mx-auto"
+                        size={40}
+                    />
+                )}
+            </section>
+
+            <section
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    displayAvatarEdit
+                        ? 'max-h-[2000px] opacity-100 mb-12'
+                        : 'max-h-0 opacity-0'
+                }`}
+            >
+                {user && (
+                    <AvatarCustomizer
+                        username={user.username}
+                        avatarUrl={user.avatarUrl}
+                    />
+                )}
+            </section>
+        </>
     );
 }

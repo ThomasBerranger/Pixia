@@ -3,5 +3,6 @@
 }
 
 .input-retro {
-    @apply w-full px-4 py-3 bg-retro-surface border-[2px] border-retro-muted text-retro-text outline-none transition-all focus:border-retro-accent focus:shadow-[0_0_20px_rgba(255,190,11,0.3)] placeholder:text-retro-muted;
+    @apply w-full px-4 py-3 bg-retro-surface border-[2px] border-retro-muted text-retro-text outline-none transition-all
+    focus:border-retro-accent focus:shadow-[0_0_20px_rgba(255,190,11,0.3)] placeholder:text-retro-muted;
 }

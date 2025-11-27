@@ -9,4 +9,5 @@ export interface UserType {
     createdAt: string;
     badges: BadgeType[];
     contributions: ContributionType[];
+    avatarUrl?: string;
 }

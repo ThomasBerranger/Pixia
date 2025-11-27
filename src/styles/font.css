@@ -10,3 +10,10 @@
 .text-xxs {
     font-size: 0.6rem;
 }
+
+.text-fade-end {
+    overflow: hidden;
+    white-space: nowrap;
+    mask-image: linear-gradient(to right, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, black 80%, transparent 100%);
+}

@@ -8,7 +8,7 @@ import UserDashboardStatistic from './UserDashboardStatistic.tsx';
 import UserDashboardHistory from './UserDashboardHistory.tsx';
 import UserDashboardDangerZone from './UserDashboardDangerZone.tsx';
 import UserDashboardHeader from './UserDashboardHeader.tsx';
-import UserDashboardSuggestion from './UserDashboardSuggestion.tsx';
+import UserDashboardContribution from './UserDashboardSuggestion.tsx';
 
 function UserDashboard() {
     const { apiCall } = useApi();
@@ -16,7 +16,7 @@ function UserDashboard() {
     const [userDashboard, setUserDashboard] = useState<
         UserDashboardType | undefined
     >();
-    const [displayHistorique, setDisplayHistorique] = useState(false);
+    const [displayHistorique, setDisplayHistorique] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -129,7 +129,7 @@ function UserDashboard() {
                         }`}
                     >
                         {!displayHistorique && userDashboard && (
-                            <UserDashboardSuggestion
+                            <UserDashboardContribution
                                 contributions={userDashboard.user.contributions}
                                 onSubmitContribution={handleSubmitContribution}
                             />
