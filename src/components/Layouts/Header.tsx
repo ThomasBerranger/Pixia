@@ -24,13 +24,6 @@ function Header() {
                         openModal(
                             'Nouveautés',
                             <span className="text-white font-righteous font-light">
-                                <p className="text-lg">
-                                    🎉 Ton Espace Perso est là !
-                                </p>
-                                <p className="my-3 text-sm">
-                                    Découvre ton tout tableau de bord et
-                                    débloque de nombreux badges 🐣🔝👑💎
-                                </p>
                                 <p className="text-lg my-3">
                                     💡Une idée ? 🪲 Un bug ?
                                 </p>
@@ -46,6 +39,20 @@ function Header() {
                                     </Link>{' '}
                                     ton tableau de bord
                                 </p>
+                                <div className="flex mt-5">
+                                    <img
+                                        src="https://api.dicebear.com/9.x/avataaars/svg?seed=Mirage&accessories=prescription02&accessoriesColor=262e33&clothesColor=e6e6e6&clothing=overall&clothingGraphic=bear&eyebrows=defaultNatural&eyes=side&facialHair=beardLight&facialHairColor=ecdcbf&hairColor=c93305&hatColor=3c4f5c&mouth=serious&skinColor=d08b5b&top=frizzle&accessoriesProbability=100&facialHairProbability=100"
+                                        alt="avatar"
+                                        className="h-24"
+                                    />
+                                    <p className="text-sm">
+                                        Les avatars sont arrivés dans Pixia !
+                                        <br />
+                                        <span className="text-sm">
+                                            Va vite customiser le tiens !
+                                        </span>
+                                    </p>
+                                </div>
                             </span>
                         )
                     }
