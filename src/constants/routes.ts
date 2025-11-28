@@ -2,6 +2,7 @@ export const ROUTES = {
     HOME: '/',
     GAME_BY_DATE: (date?: string) => (date ? `/${date}` : '/:date'),
     USER: '/me',
+    USER_SHOW: (slug?: string) => (slug ? `/users/${slug}` : '/users/:slug'),
     ADMIN: '/admin',
     ADMIN_USERS: '/admin/user-dashboard',
     ADMIN_GAMES: '/admin/game-dashboard',
@@ -9,4 +10,5 @@ export const ROUTES = {
     ADMIN_GAME_EDIT: (id?: string) =>
         id ? `/admin/games/${id}` : '/admin/games/:id',
     ADMIN_CONTRIBUTIONS: '/admin/contributions',
+    NOT_FOUND: '/404',
 } as const;

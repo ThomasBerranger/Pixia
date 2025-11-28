@@ -2,7 +2,7 @@ import { useAuth } from '../../contexts/authContext.tsx';
 import UserForm from './UserForm.tsx';
 import UserDashboard from './UserDashboard/UserDashboard.tsx';
 
-function User() {
+function UserContainer() {
     const { isAuthenticated } = useAuth();
 
     return (
@@ -12,4 +12,4 @@ function User() {
     );
 }
 
-export default User;
+export default UserContainer;

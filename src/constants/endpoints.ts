@@ -7,6 +7,8 @@ export const ENDPOINTS = {
     LEADERBOARD: 'users/leaderboard',
     USER_UPDATE: 'users',
     USER_CONTRIBUTION_INDEX: 'contributions',
+    USER_SHOW: (slug: string) => `users/${slug}`,
+    // GAME
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
     GAME_HINT: (id: string) => `games/${id}/hint`,
@@ -16,7 +18,6 @@ export const ENDPOINTS = {
     ADMIN_GAME_INDEX: 'admin/games',
     ADMIN_GAME_CREATE: 'admin/games',
     ADMIN_GAME_UPDATE: (id: string) => `admin/games/${id}`,
-    ADMIN_GAME_EDIT: (id: string) => `admin/games/${id}`,
     ADMIN_GAME_IMAGE_EDIT: (id: string) => `admin/games/${id}/image`,
     ADMIN_GAME_SOLUTION_EXIST: (solution: string) =>
         `admin/games/solution-exist?solution=${solution}`,
@@ -25,6 +26,4 @@ export const ENDPOINTS = {
     // OPEN_AI
     OPEN_AI_GENERATE_CONTENT: 'open-api/generate-content',
     OPEN_AI_GENERATE_IMAGE: 'open-api/generate-image',
-    // OPEN_AI
-    NOT_FOUND: '404',
 } as const;

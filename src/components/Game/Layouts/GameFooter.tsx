@@ -116,7 +116,7 @@ function GameFooter({
         <>
             {game && game.solution ? (
                 <div
-                    className="max-w-3xl mx-auto p-8 bg-retro-surface border-[6px] border-retro-secondary
+                    className="max-w-3xl mx-auto py-8 px-6 sm:p-8 bg-retro-surface border-[6px] border-retro-secondary
                     rounded-lg text-center relative animate-[border-flicker_4s_infinite]
                     before:absolute before:inset-[10px] before:border-2 before:border-retro-accent before:opacity-50"
                 >

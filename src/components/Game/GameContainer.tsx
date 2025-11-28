@@ -39,7 +39,7 @@ function GameContainer() {
                 const today = new Date().toISOString().split('T')[0];
 
                 if (!dateRegex.test(date) || date > today) {
-                    navigate(ENDPOINTS.NOT_FOUND);
+                    navigate(ROUTES.NOT_FOUND);
                     return;
                 }
             }

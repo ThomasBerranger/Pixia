@@ -3,7 +3,7 @@ import Footer from './components/Layouts/Footer.tsx';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import AdminContainer from './components/Admin/AdminContainer.tsx';
 import GameContainer from './components/Game/GameContainer.tsx';
-import User from './components/User/User.tsx';
+import UserContainer from './components/User/UserContainer.tsx';
 import ProtectedRoute from './components/ProtectedRoute.tsx';
 import AdminGameGenerator from './components/Admin/GameGenerator/AdminGameGenerator.tsx';
 import AdminUserDashboard from './components/Admin/Dashboard/AdminUserDashboard.tsx';
@@ -18,6 +18,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import NotFound from './components/NotFound.tsx';
 import Contribution from './components/Admin/Contribution/Contribution.tsx';
 import { ROUTES } from './constants/routes.ts';
+import UserDetails from './components/User/UserDetails.tsx';
 
 function App() {
     return (
@@ -32,13 +33,18 @@ function App() {
                     <Alert />
 
                     <Routes>
+                        <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
                         <Route path={ROUTES.HOME} element={<GameContainer />} />
                         <Route
                             path={ROUTES.GAME_BY_DATE()}
                             element={<GameContainer />}
                         />
 
-                        <Route path={ROUTES.USER} element={<User />} />
+                        <Route path={ROUTES.USER} element={<UserContainer />} />
+                        <Route
+                            path={ROUTES.USER_SHOW()}
+                            element={<UserDetails />}
+                        />
 
                         <Route
                             path={ROUTES.ADMIN}

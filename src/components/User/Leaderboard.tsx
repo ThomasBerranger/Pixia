@@ -1,7 +1,9 @@
 import type { LeaderboardUserType } from '../../types/User/leaderboardUserType.ts';
 import type { UserType } from '../../types/User/userType.ts';
 import { BADGES } from '../../constants/badges.ts';
-import {shuffle} from "../../utils/array.ts";
+import { shuffle } from '../../utils/array.ts';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes.ts';
 
 function Leaderboard({
     leaderboard,
@@ -15,7 +17,10 @@ function Leaderboard({
     return (
         <section className="max-w-3xl mx-auto pt-0.5 sm:pt-5 pb-10">
             <div className="hidden sm:grid grid-cols-3 gap-8 items-end">
-                <div className="card-primary-hover px-0 pt-2 pb-2">
+                <Link
+                    to={ROUTES.USER_SHOW(leaderboard[1]?.slug)}
+                    className="card-primary-hover px-0 pt-2 pb-2"
+                >
                     <div className="flex justify-between items-center pl-3 pb-2">
                         <div className="pl-1 flex-1 overflow-hidden">
                             <p className="font-righteous font-light text-2xl whitespace-nowrap text-fade-end">
@@ -53,9 +58,12 @@ function Leaderboard({
                             </p>
                         </div>
                     </div>
-                </div>
+                </Link>
 
-                <div className="card-primary-hover px-0 py-2 border-retro-accent">
+                <Link
+                    to={ROUTES.USER_SHOW(leaderboard[0]?.slug)}
+                    className="card-primary-hover px-0 py-2 border-retro-accent"
+                >
                     <div className="flex justify-between items-center pl-3 pb-4">
                         <div className="flex-1 overflow-hidden">
                             <p className="font-righteous font-light text-2xl whitespace-nowrap text-fade-end">
@@ -93,8 +101,12 @@ function Leaderboard({
                             </p>
                         </div>
                     </div>
-                </div>
-                <div className="card-primary-hover px-0 py-2">
+                </Link>
+
+                <Link
+                    to={ROUTES.USER_SHOW(leaderboard[2]?.slug)}
+                    className="card-primary-hover px-0 py-2"
+                >
                     <div className="flex justify-between items-center pl-3">
                         <div className="flex-1 overflow-hidden">
                             <p className="font-righteous font-light text-2xl whitespace-nowrap text-fade-end">
@@ -132,11 +144,14 @@ function Leaderboard({
                             </p>
                         </div>
                     </div>
-                </div>
+                </Link>
             </div>
 
             <div className="sm:hidden card-primary border-retro-accent p-0 my-5 mx-5 sm:mx-0">
-                <div className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5">
+                <Link
+                    to={ROUTES.USER_SHOW(leaderboard[0]?.slug)}
+                    className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
+                >
                     <p className="text-2xl -mr-3.5">🏆</p>
                     <img
                         src={
@@ -152,11 +167,14 @@ function Leaderboard({
                     <p className="font-title text-xl text-retro-accent">
                         {leaderboard[0]?.score}
                     </p>
-                </div>
+                </Link>
             </div>
 
             <div className="sm:hidden card-primary p-0 my-5 mx-5 sm:mx-0">
-                <div className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5">
+                <Link
+                    to={ROUTES.USER_SHOW(leaderboard[1]?.slug)}
+                    className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
+                >
                     <p className="text-2xl -mr-3.5">🥈</p>
                     <img
                         src={
@@ -172,9 +190,12 @@ function Leaderboard({
                     <p className="font-title text-xl text-retro-accent">
                         {leaderboard[1]?.score}
                     </p>
-                </div>
+                </Link>
 
-                <div className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5">
+                <Link
+                    to={ROUTES.USER_SHOW(leaderboard[2]?.slug)}
+                    className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
+                >
                     <p className="text-2xl -mr-3.5">🥉</p>
                     <img
                         src={
@@ -190,12 +211,13 @@ function Leaderboard({
                     <p className="font-title text-xl text-retro-accent">
                         {leaderboard[2]?.score}
                     </p>
-                </div>
+                </Link>
             </div>
 
             <div className="card-retro p-0 mt-5 mb-3 mx-5 sm:mx-0">
                 {leaderboard.slice(3).map((user, key) => (
-                    <div
+                    <Link
+                        to={ROUTES.USER_SHOW(user.slug)}
                         key={key}
                         className={`w-full flex gap-2 items-center px-3 sm:px-5 py-2.5 
                      ${key + 4 === currentUserRank ? 'bg-retro-accent bg-opacity-10' : 'hover:bg-retro-accent hover:bg-opacity-10'}`}
@@ -228,13 +250,16 @@ function Leaderboard({
                         <p className="font-title text-2xl text-retro-accent">
                             {user.score}
                         </p>
-                    </div>
+                    </Link>
                 ))}
             </div>
 
             {currentUser && (
                 <div className="card-retro-hover-retro-accent border-retro-primary p-0 mb-5 mx-5 sm:mx-0">
-                    <div className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5">
+                    <Link
+                        to={ROUTES.USER_SHOW(currentUser.slug)}
+                        className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
+                    >
                         <p className="font-title font-bold text-retro-primary text-2xl sm:text-4xl">
                             {currentUserRank}
                         </p>
@@ -263,7 +288,7 @@ function Leaderboard({
                         <p className="font-title text-xl text-retro-accent">
                             {currentUser.score}
                         </p>
-                    </div>
+                    </Link>
                 </div>
             )}
         </section>

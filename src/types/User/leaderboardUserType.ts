@@ -4,5 +4,6 @@ export interface LeaderboardUserType {
     username: string;
     avatarUrl?: string;
     score: string;
+    slug: string;
     badges: BadgeType[];
 }

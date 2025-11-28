@@ -57,7 +57,7 @@ function AdminGameEdit() {
         setLoading(true);
 
         try {
-            await apiCall(ENDPOINTS.ADMIN_GAME_EDIT(id), {
+            await apiCall(ENDPOINTS.ADMIN_GAME_UPDATE(id), {
                 method: 'PATCH',
                 body: JSON.stringify(game),
             });

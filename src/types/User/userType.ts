@@ -10,4 +10,5 @@ export interface UserType {
     badges: BadgeType[];
     contributions: ContributionType[];
     avatarUrl?: string;
+    slug: string;
 }

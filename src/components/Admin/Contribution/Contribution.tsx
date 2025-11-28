@@ -1,17 +1,17 @@
-import {useEffect, useState} from 'react';
-import {useApi} from '../../../hooks/useApi.tsx';
-import {ENDPOINTS} from '../../../constants/endpoints.ts';
-import type {ContributionType} from '../../../types/Contribution/contributionType.ts';
-import {CONTRIBUTION_TYPES} from '../../../constants/contributionTypes.ts';
-import {RxDotFilled} from 'react-icons/rx';
+import { useEffect, useState } from 'react';
+import { useApi } from '../../../hooks/useApi.tsx';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
+import type { ContributionType } from '../../../types/Contribution/contributionType.ts';
+import { CONTRIBUTION_TYPES } from '../../../constants/contributionTypes.ts';
+import { RxDotFilled } from 'react-icons/rx';
 import {
     CONTRIBUTION_STATUS_CONFIG,
     CONTRIBUTION_STATUSES,
 } from '../../../constants/contributionStatuses.ts';
-import {CgSpinner} from 'react-icons/cg';
+import { CgSpinner } from 'react-icons/cg';
 
 export default function Contribution() {
-    const {apiCall} = useApi();
+    const { apiCall } = useApi();
 
     const [contributions, setContributions] = useState<ContributionType[]>();
     const [contributionLoadingId, setContributionLoadingId] = useState<
@@ -38,14 +38,14 @@ export default function Contribution() {
                 ENDPOINTS.ADMIN_CONTRIBUTION_UPDATE(contributionId),
                 {
                     method: 'PATCH',
-                    body: JSON.stringify({status}),
+                    body: JSON.stringify({ status }),
                 }
             );
 
             setContributions((prev) =>
                 prev?.map((contrib) =>
                     contrib.id === contributionId
-                        ? {...contrib, status: contributionUpdated.status}
+                        ? { ...contrib, status: contributionUpdated.status }
                         : contrib
                 )
             );
@@ -56,11 +56,11 @@ export default function Contribution() {
         }
     }
 
-    return <section className="min-h-[90vh] max-w-5xl mx-auto flex py-10 px-[10px]">
-        <div className="card-primary w-full h-fit grid grid-cols-3 gap-8 font-righteous">
-            {contributions &&
-                contributions
-                    .map((contribution: ContributionType) => (
+    return (
+        <section className="min-h-[90vh] max-w-5xl mx-auto flex py-10 px-[10px]">
+            <div className="card-primary w-full h-fit grid grid-cols-3 gap-8 font-righteous">
+                {contributions &&
+                    contributions.map((contribution: ContributionType) => (
                         <div
                             key={contribution.id}
                             className="border-l-4 border-retro-primary h-fit pl-3 pb-2"
@@ -72,7 +72,7 @@ export default function Contribution() {
                                     : '🪲 Bug détecté'}
                             </p>
                             <p className="flex items-center">
-                                <RxDotFilled size={20} className="mr-1.5"/>{' '}
+                                <RxDotFilled size={20} className="mr-1.5" />{' '}
                                 {contribution.author?.username}
                             </p>
 
@@ -89,7 +89,7 @@ export default function Contribution() {
                                     className="mt-3 animate-spin"
                                 />
                             ) : contribution.status ===
-                            CONTRIBUTION_STATUSES.PENDING ? (
+                              CONTRIBUTION_STATUSES.PENDING ? (
                                 <select
                                     id="status"
                                     value={contribution.status}
@@ -115,18 +115,19 @@ export default function Contribution() {
                                         const Icon =
                                             CONTRIBUTION_STATUS_CONFIG[
                                                 contribution.status
-                                                ].icon;
-                                        return <Icon className="-mr-0.5"/>;
+                                            ].icon;
+                                        return <Icon className="-mr-0.5" />;
                                     })()}
                                     {
                                         CONTRIBUTION_STATUS_CONFIG[
                                             contribution.status
-                                            ].label
+                                        ].label
                                     }
                                 </p>
                             )}
                         </div>
                     ))}
-        </div>
-    </section>;
+            </div>
+        </section>
+    );
 }
