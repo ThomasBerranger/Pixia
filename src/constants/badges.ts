@@ -1,65 +1,78 @@
 export const BADGES = {
     BETA_TESTER: {
+        key: 'BETA_TESTER',
         name: 'Bêta-Testeur',
         icon: '⏱️',
         description: "Merci d'être là depuis le début",
     },
     TOP_10_REACHED: {
+        key: 'TOP_10_REACHED',
         name: 'Top 10',
         icon: '🔝',
         description: "Bienvenue parmi l'élite",
     },
     GAME_SUGGESTION: {
+        key: 'GAME_SUGGESTION',
         name: 'Génie',
         icon: '💡',
         description: 'Eurêka ! Quelle belle suggestion',
     },
     BUG_DETECTED: {
+        key: 'BUG_DETECTED',
         name: 'Débugger',
         icon: '🪲',
         description: 'Le code te remercie',
     },
     WINS_1: {
+        key: 'WINS_1',
         name: 'Débutant',
         icon: '🐣',
         description: "L'aventure commence ici",
     },
     WINS_10: {
+        key: 'WINS_10',
         name: 'Cinéphile',
         icon: '🎬',
         description: 'Le rythme est lancé',
     },
     WINS_50: {
+        key: 'WINS_50',
         name: 'Expert',
         icon: '🎓',
         description: 'Plus aucun doute sur ton talent',
     },
     WINS_100: {
+        key: 'WINS_100',
         name: 'Maître',
         icon: '👑',
         description: 'Souverain du 7ème art',
     },
     WINS_300: {
+        key: 'WINS_300',
         name: 'Légendaire',
         icon: '💎',
         description: 'Ta légende est éternelle',
     },
     CREATOR: {
+        key: 'CREATOR',
         name: 'Créateur',
         icon: '🎨',
         description: "Picasso du pixel, chapeau l'artiste",
     },
     STREAK_10: {
+        key: 'STREAK_10',
         name: 'En Feu',
         icon: '🔥',
         description: 'Enchaînement diabolique',
     },
     STREAK_30: {
+        key: 'STREAK_30',
         name: 'Inarrêtable',
         icon: '⚡',
         description: 'Ta foudre frappe sans relâche',
     },
     STREAK_60: {
+        key: 'STREAK_60',
         name: 'Perfectionniste',
         icon: '💫',
         description: 'Régularité stellaire',

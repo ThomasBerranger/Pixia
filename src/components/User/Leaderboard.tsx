@@ -1,6 +1,7 @@
 import type { LeaderboardUserType } from '../../types/User/leaderboardUserType.ts';
 import type { UserType } from '../../types/User/userType.ts';
 import { BADGES } from '../../constants/badges.ts';
+import {shuffle} from "../../utils/array.ts";
 
 function Leaderboard({
     leaderboard,
@@ -38,7 +39,7 @@ function Leaderboard({
                             </p>
                             <p className="text-lg">
                                 {leaderboard[1] &&
-                                    leaderboard[1].badges?.map(
+                                    shuffle(leaderboard[1].badges).map(
                                         (badge, index) => (
                                             <span key={index}>
                                                 {
@@ -78,7 +79,7 @@ function Leaderboard({
                             </p>
                             <p className="text-lg">
                                 {leaderboard[0] &&
-                                    leaderboard[0].badges?.map(
+                                    shuffle(leaderboard[0].badges).map(
                                         (badge, index) => (
                                             <span key={index}>
                                                 {
@@ -117,7 +118,7 @@ function Leaderboard({
                             </p>
                             <p className="text-lg">
                                 {leaderboard[2] &&
-                                    leaderboard[2].badges?.map(
+                                    shuffle(leaderboard[2].badges).map(
                                         (badge, index) => (
                                             <span key={index}>
                                                 {
@@ -214,7 +215,7 @@ function Leaderboard({
                             {user.username}
                         </p>
                         <p className="hidden sm:block">
-                            {user.badges?.map((badge, index) => (
+                            {shuffle(user.badges).map((badge, index) => (
                                 <span key={index}>
                                     {
                                         BADGES[
@@ -249,7 +250,7 @@ function Leaderboard({
                             {currentUser.username}
                         </p>
                         <p className="hidden sm:block">
-                            {currentUser.badges?.map((badge, index) => (
+                            {shuffle(currentUser.badges).map((badge, index) => (
                                 <span key={index}>
                                     {
                                         BADGES[

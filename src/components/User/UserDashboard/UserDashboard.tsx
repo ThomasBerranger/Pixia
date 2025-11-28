@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useApi } from '../../../hooks/useApi.tsx';
-import { ENDPOINTS } from '../../../constants/endpoints.ts';
-import type { UserDashboardType } from '../../../types/User/userDashboardType.ts';
-import type { ContributionType } from '../../../types/Contribution/contributionType.ts';
+import {useEffect, useState} from 'react';
+import {useApi} from '../../../hooks/useApi.tsx';
+import {ENDPOINTS} from '../../../constants/endpoints.ts';
+import type {UserDashboardType} from '../../../types/User/userDashboardType.ts';
+import type {ContributionType} from '../../../types/Contribution/contributionType.ts';
 import UserDashboardBadge from './UserDashboardBadge.tsx';
 import UserDashboardStatistic from './UserDashboardStatistic.tsx';
 import UserDashboardHistory from './UserDashboardHistory.tsx';
 import UserDashboardDangerZone from './UserDashboardDangerZone.tsx';
 import UserDashboardHeader from './UserDashboardHeader.tsx';
 import UserDashboardContribution from './UserDashboardSuggestion.tsx';
+import {BADGES} from "../../../constants/badges.ts";
+import {hasBadge} from "../../../utils/user.ts";
 
 function UserDashboard() {
-    const { apiCall } = useApi();
+    const {apiCall} = useApi();
 
     const [userDashboard, setUserDashboard] = useState<
         UserDashboardType | undefined
@@ -68,9 +70,9 @@ function UserDashboard() {
 
     return (
         <>
-            <UserDashboardHeader user={userDashboard?.user} />
+            <UserDashboardHeader user={userDashboard?.user}/>
 
-            <UserDashboardBadge badges={userDashboard?.user.badges} />
+            <UserDashboardBadge badges={userDashboard?.user.badges}/>
 
             <UserDashboardStatistic
                 success={userDashboard?.success}
@@ -95,9 +97,11 @@ function UserDashboard() {
                     <h2 className="font-title text-retro-accent text-3xl">
                         SUGGESTIONS
                     </h2>
-                    <p className="badge badge-primary text-xxs ml-2.5 px-2 py-1.5">
-                        10 points
-                    </p>
+                    {userDashboard?.user && !hasBadge(userDashboard.user.badges, BADGES.BUG_DETECTED.key, BADGES.GAME_SUGGESTION.key) &&
+                        <p className="badge badge-primary text-xxs ml-2.5 px-2 py-1.5">
+                            10 points
+                        </p>
+                    }
                 </div>
 
                 <div className="order-2 sm:order-3 col-span-2 overflow-hidden">
@@ -138,7 +142,7 @@ function UserDashboard() {
                 </div>
             </section>
 
-            <UserDashboardDangerZone user={userDashboard?.user} />
+            <UserDashboardDangerZone user={userDashboard?.user}/>
         </>
     );
 }
