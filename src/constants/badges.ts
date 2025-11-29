@@ -44,7 +44,7 @@ export const BADGES = {
     WINS_100: {
         key: 'WINS_100',
         name: 'Maître',
-        icon: '👑',
+        icon: '💯',
         description: 'Souverain du 7ème art',
     },
     WINS_300: {

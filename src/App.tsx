@@ -45,6 +45,10 @@ function App() {
                             path={ROUTES.USER_SHOW()}
                             element={<UserDetails />}
                         />
+                        <Route
+                            path={ROUTES.USER_SPONSOR()}
+                            element={<UserContainer />}
+                        />
 
                         <Route
                             path={ROUTES.ADMIN}

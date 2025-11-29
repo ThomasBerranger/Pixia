@@ -496,7 +496,7 @@ const AvatarCustomizer: React.FC<{
                             disabled={isDisabled}
                             className={`input-retro text-sm p-1 sm:p-2 w-full ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            <option value="none">Surprise</option>
+                            <option value="none">Défaut</option>
                             {values.map((value: string) => (
                                 <option key={value} value={value}>
                                     {isColorOption

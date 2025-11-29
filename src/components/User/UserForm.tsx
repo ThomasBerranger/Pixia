@@ -4,8 +4,9 @@ import { CgSpinner } from 'react-icons/cg';
 import { RiAlarmWarningLine } from 'react-icons/ri';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { type ApiError, useApi } from '../../hooks/useApi.tsx';
+import type { UserType } from '../../types/User/userType.ts';
 
-function UserForm() {
+function UserForm({ slug }: { slug?: string }) {
     const { apiCall } = useApi();
     const { login } = useAuth();
 
@@ -17,10 +18,25 @@ function UserForm() {
     );
     const [error, setError] = useState<boolean>(false);
     const [errorViolations, setErrorViolations] = useState<string[]>([]);
+    const [sponsor, setSponsor] = useState<UserType>();
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+
+        if (slug) {
+            const fetchData = async () => {
+                try {
+                    const sponsor = await apiCall(ENDPOINTS.USER_SHOW(slug));
+
+                    setSponsor(sponsor.user);
+                } catch (error) {
+                    console.error(error);
+                }
+            };
+
+            fetchData();
+        }
+    }, [apiCall, slug]);
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -49,7 +65,7 @@ function UserForm() {
         try {
             const response = await apiCall(ENDPOINTS.REGISTER, {
                 method: 'POST',
-                body: JSON.stringify({ email, password, username }),
+                body: JSON.stringify({ email, password, username, slug }),
             });
 
             login(response.token);
@@ -117,6 +133,35 @@ function UserForm() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                 </div>
+
+                {slug && (
+                    <>
+                        <div className="flex justify-between">
+                            <div className="w-full">
+                                <label className="label-retro">
+                                    Ton·ta pote adoré·e
+                                </label>
+                                <input
+                                    type="sponsor"
+                                    disabled
+                                    className="input-retro cursor-not-allowed"
+                                    value={sponsor?.username}
+                                    onChange={(e) =>
+                                        setUsername(e.target.value)
+                                    }
+                                />
+                            </div>
+                            <img
+                                src={
+                                    sponsor?.avatarUrl ??
+                                    `${import.meta.env.VITE_DICE_URL}${sponsor?.username}`
+                                }
+                                alt="avatar"
+                                className="h-20 pl-2"
+                            />
+                        </div>
+                    </>
+                )}
 
                 <div className="flex gap-3 items-center pt-2">
                     <button

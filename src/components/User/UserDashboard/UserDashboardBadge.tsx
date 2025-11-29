@@ -45,7 +45,7 @@ export default function UserDashboardBadge({
                             >
                                 <div
                                     className="absolute top-0 right-0 w-full h-full bg-retro-bg z-10 font-righteous
-                                opacity-0 bg-opacity-0 hover:bg-opacity-80 hover:opacity-100 flex justify-center items-center"
+                                opacity-0 bg-opacity-0 hover:bg-opacity-80 hover:opacity-100 flex justify-center items-center p-1"
                                 >
                                     {badge.description}
                                 </div>
