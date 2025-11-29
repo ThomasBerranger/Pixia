@@ -26,7 +26,7 @@ function GameContent({
 }) {
     return (
         <div className="max-w-3xl mx-auto sm:mb-8">
-            <p className="flex sm:hidden items-center text-xs float-right z-10 badge badge-primary py-1.5 px-5 w-fit mb-4">
+            <p className="flex sm:hidden items-center text-xxs float-right z-10 badge badge-primary py-1 px-5 w-fit mb-4">
                 {game && game.difficulty ? (
                     game.solution ? (
                         <>
