@@ -26,9 +26,31 @@ function GameContent({
 }) {
     return (
         <div className="max-w-3xl mx-auto sm:mb-8">
+            <p className="flex sm:hidden items-center text-xs float-right z-10 badge badge-primary py-1.5 px-5 w-fit mb-4">
+                {game && game.difficulty ? (
+                    game.solution ? (
+                        <>
+                            <FaCheck className="text-xs mr-1" />
+                            {format(parseISO(game.date), 'd MMMM', {
+                                locale: fr,
+                            })}
+                        </>
+                    ) : (
+                        <>
+                            {format(parseISO(game.date), 'd MMMM', {
+                                locale: fr,
+                            })}{' '}
+                            <RxDotFilled size={20} /> Niveau {game.difficulty}
+                        </>
+                    )
+                ) : (
+                    <CgSpinner className="animate-spin" size={16} />
+                )}
+            </p>
+
             <div className="relative group rounded">
                 <p
-                    className="absolute flex items-center text-[0.6rem] sm:text-xs top-3 right-3 sm:top-5 sm:right-5 z-10
+                    className="absolute hidden sm:flex items-center text-xs top-5 right-5 z-10
                 badge badge-primary sm:py-2.5 sm:px-5 transition-all duration-300 ease-in-out
                 group-hover:translate-x-1.5 group-hover:-translate-y-2 sm:group-hover:translate-x-2.5 sm:group-hover:-translate-y-3 group-hover:opacity-40"
                 >
