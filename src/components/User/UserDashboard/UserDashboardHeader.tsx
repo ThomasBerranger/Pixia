@@ -46,7 +46,7 @@ export default function UserDashboardHeader({
 
         try {
             await navigator.share({
-                title: 'À toi de jouer 🎬',
+                title: 'À toi de jouer !',
                 text: 'Tu connais ton ciné ?',
                 url: `${import.meta.env.VITE_URL}${ROUTES.USER_SPONSOR(user.slug)}`,
             });

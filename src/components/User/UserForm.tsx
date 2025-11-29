@@ -19,6 +19,7 @@ function UserForm({ slug }: { slug?: string }) {
     const [error, setError] = useState<boolean>(false);
     const [errorViolations, setErrorViolations] = useState<string[]>([]);
     const [sponsor, setSponsor] = useState<UserType>();
+    const [isSponsorLoading, setIsSponsorLoading] = useState<boolean>(true);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -65,7 +66,12 @@ function UserForm({ slug }: { slug?: string }) {
         try {
             const response = await apiCall(ENDPOINTS.REGISTER, {
                 method: 'POST',
-                body: JSON.stringify({ email, password, username, slug }),
+                body: JSON.stringify({
+                    email,
+                    password,
+                    username,
+                    sponsor: slug,
+                }),
             });
 
             login(response.token);
@@ -145,20 +151,25 @@ function UserForm({ slug }: { slug?: string }) {
                                     type="sponsor"
                                     disabled
                                     className="input-retro cursor-not-allowed"
-                                    value={sponsor?.username}
+                                    value={sponsor?.username ?? ''}
                                     onChange={(e) =>
                                         setUsername(e.target.value)
                                     }
                                 />
                             </div>
-                            <img
-                                src={
-                                    sponsor?.avatarUrl ??
-                                    `${import.meta.env.VITE_DICE_URL}${sponsor?.username}`
-                                }
-                                alt="avatar"
-                                className="h-20 pl-2"
-                            />
+                            {sponsor && (
+                                <img
+                                    src={
+                                        sponsor.avatarUrl ??
+                                        `${import.meta.env.VITE_DICE_URL}${sponsor.username}`
+                                    }
+                                    alt="avatar"
+                                    onLoad={() => {
+                                        setIsSponsorLoading(false);
+                                    }}
+                                    className={`h-20 pl-2 ${isSponsorLoading && 'blur-md'} transition-all duration-500`}
+                                />
+                            )}
                         </div>
                     </>
                 )}

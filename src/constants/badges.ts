@@ -11,6 +11,18 @@ export const BADGES = {
         icon: '🔝',
         description: "Bienvenue parmi l'élite",
     },
+    SPONSOR: {
+        key: 'SPONSOR',
+        name: 'Ambassadeur',
+        icon: '🤝',
+        description: 'Ton premier filleul te dit merci',
+    },
+    SPONSOR_5: {
+        key: 'SPONSOR_5',
+        name: 'Influenceur',
+        icon: '📣',
+        description: "Merci d'agrandir la famille Pixia",
+    },
     GAME_SUGGESTION: {
         key: 'GAME_SUGGESTION',
         name: 'Génie',
@@ -58,12 +70,6 @@ export const BADGES = {
         name: 'Créateur',
         icon: '🎨',
         description: "Picasso du pixel, chapeau l'artiste",
-    },
-    STREAK_10: {
-        key: 'STREAK_10',
-        name: 'En Feu',
-        icon: '🔥',
-        description: 'Enchaînement diabolique',
     },
     STREAK_30: {
         key: 'STREAK_30',
