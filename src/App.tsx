@@ -19,6 +19,7 @@ import NotFound from './components/NotFound.tsx';
 import Contribution from './components/Admin/Contribution/Contribution.tsx';
 import { ROUTES } from './constants/routes.ts';
 import UserDetails from './components/User/UserDetails/UserDetails.tsx';
+import InstallPWA from './components/InstallPWA.tsx';
 
 function App() {
     return (
@@ -26,6 +27,8 @@ function App() {
             <ModalProvider>
                 {import.meta.env.PROD && <Analytics />}
                 {import.meta.env.PROD && <SpeedInsights />}
+
+                <InstallPWA />
 
                 <Header />
 
