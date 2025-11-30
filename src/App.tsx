@@ -18,7 +18,7 @@ import { SpeedInsights } from '@vercel/speed-insights/react';
 import NotFound from './components/NotFound.tsx';
 import Contribution from './components/Admin/Contribution/Contribution.tsx';
 import { ROUTES } from './constants/routes.ts';
-import UserDetails from './components/User/UserDetails.tsx';
+import UserDetails from './components/User/UserDetails/UserDetails.tsx';
 
 function App() {
     return (

@@ -1,5 +1,6 @@
 import type { BadgeType } from '../Badge/badgeType.ts';
 import type { ContributionType } from '../Contribution/contributionType.ts';
+import type { AchievementType } from '../Achievement/achievementType.ts';
 
 export interface UserType {
     id: string;
@@ -11,4 +12,5 @@ export interface UserType {
     contributions: ContributionType[];
     avatarUrl?: string;
     slug: string;
+    achievements?: AchievementType[];
 }
