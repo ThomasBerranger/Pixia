@@ -1,16 +1,15 @@
-import {Link} from 'react-router-dom';
-import {useAuth} from '../../contexts/authContext.tsx';
-import {ROUTES} from '../../constants/routes.ts';
-import {useModal} from '../../contexts/useModal.tsx';
-import {RxDotFilled} from 'react-icons/rx';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../contexts/authContext.tsx';
+import { ROUTES } from '../../constants/routes.ts';
+import { useModal } from '../../contexts/useModal.tsx';
+import { RxDotFilled } from 'react-icons/rx';
 
 function Header() {
-    const {isAuthenticated} = useAuth();
-    const {openModal, closeModal} = useModal();
+    const { isAuthenticated } = useAuth();
+    const { openModal, closeModal } = useModal();
 
     return (
-        <header
-            className="bg-retro-surface/80 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)] px-2 sm:px-[7%] py-4 flex justify-between items-center">
+        <header className="bg-retro-surface/80 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)] px-2 sm:px-[7%] py-4 flex justify-between items-center">
             <Link
                 to={ROUTES.HOME}
                 className="font-title text-5xl text-retro-primary skew-x-[-10deg] [text-shadow:0_0_10px_#ff006e,3px_2px_0_#ffbe0b]"
@@ -48,20 +47,23 @@ function Header() {
                                     />
                                     <p className="text-sm">
                                         Les avatars sont arrivés dans Pixia !
-                                        <br/>
+                                        <br />
                                         <span className="text-sm">
                                             Va vite customiser le tien !
                                         </span>
                                     </p>
                                 </div>
-                                 <p className="text-lg mt-5 mb-2">
+                                <p className="text-lg mt-5 mb-2">
                                     🤝Le parrainage est arrivé !
                                 </p>
                                 <p className="text-sm">
-                                    Utilise ton lien de parrainage accessible depuis ton espace pour inviter tes amis !
+                                    Utilise ton lien de parrainage accessible
+                                    depuis ton espace pour inviter tes amis !
                                 </p>
                                 <p className="text-sm">
-                                    Tu peux aussi partager ton profil et aller voir celui des autres pour surveiller leur avancé
+                                    Tu peux aussi partager ton profil et aller
+                                    voir celui des autres pour surveiller leur
+                                    avancé
                                 </p>
                             </span>
                         )

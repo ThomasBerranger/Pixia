@@ -1,7 +1,6 @@
 import type { LeaderboardUserType } from '../../types/User/leaderboardUserType.ts';
 import type { UserType } from '../../types/User/userType.ts';
 import { BADGES } from '../../constants/badges.ts';
-import { shuffle } from '../../utils/array.ts';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes.ts';
 
@@ -44,14 +43,10 @@ function Leaderboard({
                             </p>
                             <p className="text-lg">
                                 {leaderboard[1] &&
-                                    shuffle(leaderboard[1].badges).map(
+                                    leaderboard[1].badges.map(
                                         (badge, index) => (
                                             <span key={index}>
-                                                {
-                                                    BADGES[
-                                                        badge.name as keyof typeof BADGES
-                                                    ]?.icon
-                                                }
+                                                {BADGES[badge.name].icon}
                                             </span>
                                         )
                                     )}
@@ -87,14 +82,10 @@ function Leaderboard({
                             </p>
                             <p className="text-lg">
                                 {leaderboard[0] &&
-                                    shuffle(leaderboard[0].badges).map(
+                                    leaderboard[0].badges.map(
                                         (badge, index) => (
                                             <span key={index}>
-                                                {
-                                                    BADGES[
-                                                        badge.name as keyof typeof BADGES
-                                                    ]?.icon
-                                                }
+                                                {BADGES[badge.name].icon}
                                             </span>
                                         )
                                     )}
@@ -130,14 +121,10 @@ function Leaderboard({
                             </p>
                             <p className="text-lg">
                                 {leaderboard[2] &&
-                                    shuffle(leaderboard[2].badges).map(
+                                    leaderboard[2].badges.map(
                                         (badge, index) => (
                                             <span key={index}>
-                                                {
-                                                    BADGES[
-                                                        badge.name as keyof typeof BADGES
-                                                    ]?.icon
-                                                }
+                                                {BADGES[badge.name].icon}
                                             </span>
                                         )
                                     )}
@@ -147,10 +134,10 @@ function Leaderboard({
                 </Link>
             </div>
 
-            <div className="sm:hidden card-primary border-retro-accent p-0 my-5 mx-5 sm:mx-0">
+            <div className="sm:hidden card-primary border-retro-accent p-0 m-5">
                 <Link
                     to={ROUTES.USER_SHOW(leaderboard[0]?.slug)}
-                    className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
+                    className="w-full flex gap-2 items-center px-3 py-2.5"
                 >
                     <p className="text-2xl -mr-3.5">🏆</p>
                     <img
@@ -161,8 +148,14 @@ function Leaderboard({
                         alt="Avatar"
                         className="h-16"
                     />
-                    <p className="font-righteous font-light flex-1 text-left text-lg text-fade-end">
+                    <p className="flex-1 text-left font-righteous font-light text-fade-end">
                         {leaderboard[0]?.username}
+                        <br />
+                        {leaderboard[0]?.badges.map((badge, index) => (
+                            <span key={index} className="text-sm">
+                                {BADGES[badge.name].icon}
+                            </span>
+                        ))}
                     </p>
                     <p className="font-title text-xl text-retro-accent">
                         {leaderboard[0]?.score}
@@ -170,10 +163,10 @@ function Leaderboard({
                 </Link>
             </div>
 
-            <div className="sm:hidden card-primary p-0 my-5 mx-5 sm:mx-0">
+            <div className="sm:hidden card-primary p-0 m-5">
                 <Link
                     to={ROUTES.USER_SHOW(leaderboard[1]?.slug)}
-                    className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
+                    className="w-full flex gap-2 items-center px-3 py-2.5"
                 >
                     <p className="text-2xl -mr-3.5">🥈</p>
                     <img
@@ -184,8 +177,14 @@ function Leaderboard({
                         alt="Avatar"
                         className="h-16"
                     />
-                    <p className="font-righteous font-light flex-1 text-left text-lg text-fade-end">
+                    <p className="flex-1 text-left font-righteous font-light text-fade-end">
                         {leaderboard[1]?.username}
+                        <br />
+                        {leaderboard[1]?.badges.map((badge, index) => (
+                            <span key={index} className="text-sm">
+                                {BADGES[badge.name].icon}
+                            </span>
+                        ))}
                     </p>
                     <p className="font-title text-xl text-retro-accent">
                         {leaderboard[1]?.score}
@@ -194,7 +193,7 @@ function Leaderboard({
 
                 <Link
                     to={ROUTES.USER_SHOW(leaderboard[2]?.slug)}
-                    className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
+                    className="w-full flex gap-2 items-center px-3 py-2.5"
                 >
                     <p className="text-2xl -mr-3.5">🥉</p>
                     <img
@@ -205,8 +204,14 @@ function Leaderboard({
                         alt="Avatar"
                         className="h-16"
                     />
-                    <p className="font-righteous font-light flex-1 text-left text-lg text-fade-end">
+                    <p className="flex-1 text-left font-righteous font-light text-fade-end">
                         {leaderboard[2]?.username}
+                        <br />
+                        {leaderboard[2]?.badges.map((badge, index) => (
+                            <span key={index} className="text-sm">
+                                {BADGES[badge.name].icon}
+                            </span>
+                        ))}
                     </p>
                     <p className="font-title text-xl text-retro-accent">
                         {leaderboard[2]?.score}
@@ -235,15 +240,10 @@ function Leaderboard({
                         />
                         <p className="flex-1 text-left font-righteous font-light sm:text-lg text-fade-end">
                             {user.username}
-                        </p>
-                        <p className="hidden sm:block">
-                            {shuffle(user.badges).map((badge, index) => (
+                            <br />
+                            {user.badges.map((badge, index) => (
                                 <span key={index}>
-                                    {
-                                        BADGES[
-                                            badge.name as keyof typeof BADGES
-                                        ]?.icon
-                                    }
+                                    {BADGES[badge.name].icon}
                                 </span>
                             ))}
                         </p>
@@ -271,17 +271,12 @@ function Leaderboard({
                             alt="Avatar"
                             className="h-16"
                         />
-                        <p className="font-righteous font-light flex-1 text-left text-lg text-fade-end">
+                        <p className="flex-1 text-left font-righteous font-light sm:text-lg text-fade-end">
                             {currentUser.username}
-                        </p>
-                        <p className="hidden sm:block">
-                            {shuffle(currentUser.badges).map((badge, index) => (
+                            <br />
+                            {currentUser.badges.map((badge, index) => (
                                 <span key={index}>
-                                    {
-                                        BADGES[
-                                            badge.name as keyof typeof BADGES
-                                        ]?.icon
-                                    }
+                                    {BADGES[badge.name].icon}
                                 </span>
                             ))}
                         </p>
