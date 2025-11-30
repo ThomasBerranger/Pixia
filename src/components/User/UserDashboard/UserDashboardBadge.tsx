@@ -39,7 +39,7 @@ export default function UserDashboardBadge({
                                         'font-righteous text-sm uppercase text-retro-accent'
                                     }
                                 >
-                                    {badge.name}
+                                    {BADGES[badge.name].name}
                                 </div>
                             </div>
                         );
