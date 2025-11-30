@@ -46,7 +46,7 @@ export default function UserDetailsBattle({
             );
 
             if (existingIndex !== -1) {
-                history.slice(existingIndex, 1);
+                history.splice(existingIndex, 1);
             } else {
                 history.push({
                     date: achievement.game.date,
@@ -103,8 +103,8 @@ export default function UserDetailsBattle({
 
             <div className="sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {battleHistory.length === 0 ? (
-                    <p className="text-center text-gray-400">
-                        Aucune bataille pour le moment
+                    <p className="mx-auto font-righteous col-span-full text-lg">
+                        Égalité parfaite : qui brisera l'équilibre ?
                     </p>
                 ) : (
                     battleHistory.map((history, index) => (
