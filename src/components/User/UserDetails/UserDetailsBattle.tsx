@@ -160,7 +160,7 @@ export default function UserDetailsBattle({
                                     onLoad={() => setIsUserAvatarLoading(false)}
                                     src={
                                         user?.avatarUrl ??
-                                        `${import.meta.env.VITE_DICE_URL}${currentUser?.username}`
+                                        `${import.meta.env.VITE_DICE_URL}${user?.username}`
                                     }
                                     alt="Avatar"
                                     className={`hidden sm:block h-1/2 pb-2 transition-all duration-300${isUserAvatarLoading ? ' blur-md' : ''}`}
