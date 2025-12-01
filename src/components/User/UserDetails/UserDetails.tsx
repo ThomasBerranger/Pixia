@@ -68,7 +68,7 @@ function UserDashboard() {
                         </div>
                         <div className="flex flex-wrap justify-center sm:grid sm:grid-flow-col sm:grid-rows-2 sm:gap-1">
                             {user?.badges.map((badge) => (
-                                <p className="text-3xl">
+                                <p className="text-3xl px-1">
                                     {BADGES[badge.name].icon}
                                 </p>
                             ))}

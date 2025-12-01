@@ -16,7 +16,7 @@ export default function UserDashboardBadge({
                 className="overflow-x-auto mb-12 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
                 md:[&::-webkit-scrollbar]:block md:[-ms-overflow-style:auto] [&::-webkit-scrollbar-thumb]:bg-retro-primary md:[scrollbar-width:auto] [&::-webkit-scrollbar]:h-1.5"
             >
-                <div className="flex gap-6 pb-0 sm:pb-5">
+                <div className="flex gap-3 sm:gap-6 pb-0 sm:pb-5">
                     {badges?.map((badge) => {
                         return (
                             <div

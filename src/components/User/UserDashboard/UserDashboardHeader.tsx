@@ -61,7 +61,7 @@ export default function UserDashboardHeader({
 
     return (
         <>
-            <section className="flex flex-wrap justify-center items-center gap-4 mb-12 card-primary px-3 py-4 sm:p-5 sm:pt-4">
+            <section className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 mb-12 card-primary px-3 py-4 sm:p-5 sm:pt-4">
                 {user ? (
                     <>
                         <div

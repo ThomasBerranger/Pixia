@@ -13,7 +13,7 @@ export default function UserDashboardStatistic({
                 Statistiques
             </h2>
 
-            <section className="grid grid-cols-6 lg:grid-cols-12 gap-6 mb-14">
+            <section className="grid grid-cols-6 lg:grid-cols-12 gap-4 sm:gap-6 mb-14">
                 <div className="col-span-3 card-primary-hover p-6">
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl mb-4">🎮</div>
