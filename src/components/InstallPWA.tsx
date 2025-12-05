@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IoIosShareAlt } from 'react-icons/io';
+import { TbShare2 } from 'react-icons/tb';
 
 interface BeforeInstallPromptEvent extends Event {
     prompt: () => Promise<void>;
@@ -134,9 +134,8 @@ const InstallPWA: React.FC = () => {
                             )}
                             {isIOS && (
                                 <p className="text-white/90 text-sm leading-tight font-medium">
-                                    Tape sur{' '}
-                                    <IoIosShareAlt className="inline text-lg" />{' '}
-                                    en bas puis "Ajouter à l'écran"
+                                    Tape sur <TbShare2 className="inline" /> en
+                                    bas puis "Ajouter à l'écran"
                                 </p>
                             )}
                         </div>
