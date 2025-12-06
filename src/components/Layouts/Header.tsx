@@ -59,7 +59,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                                         derrière. Crée un compte pour débloquer
                                         des récompenses et suivre tes stats.
                                     </p>
-                                    <p className="mb-4">
+                                    <div className="mb-4">
                                         <div className="flex items-center">
                                             <p className="badge badge-primary text-xxs mr-2.5">
                                                 SIMPLE
@@ -78,7 +78,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                                             </p>{' '}
                                             50 points
                                         </div>
-                                    </p>
+                                    </div>
                                     <p>Bon chance</p>
                                 </div>
                             )
