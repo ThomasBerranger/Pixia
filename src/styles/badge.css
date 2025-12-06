@@ -13,3 +13,7 @@
 .badge-yellow {
     @apply bg-retro-accent border-2 border-retro-bg text-retro-bg shadow-[3px_3px_0_theme(colors.retro.secondary)];
 }
+
+.badge-accent-no-border {
+    @apply bg-retro-accent text-retro-bg px-3 py-1 text-xxs font-righteous uppercase whitespace-nowrap flex items-center gap-0.5;
+}

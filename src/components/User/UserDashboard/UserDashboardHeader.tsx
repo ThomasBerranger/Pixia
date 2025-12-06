@@ -1,21 +1,21 @@
-import {Link} from 'react-router-dom';
-import {ROUTES} from '../../../constants/routes.ts';
-import type {UserType} from '../../../types/User/userType.ts';
-import {useAuth} from '../../../contexts/authContext.tsx';
-import {CgSpinner} from 'react-icons/cg';
-import {useState} from 'react';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../../constants/routes.ts';
+import type { UserType } from '../../../types/User/userType.ts';
+import { useAuth } from '../../../contexts/authContext.tsx';
+import { CgSpinner } from 'react-icons/cg';
+import { useState } from 'react';
 import AvatarCustomizer from './AvatarCustomizer.tsx';
-import {PiHandHeartBold, PiShareNetworkBold} from 'react-icons/pi';
-import {useModal} from '../../../contexts/useModal.tsx';
-import {FaUserEdit} from "react-icons/fa";
+import { PiHandHeartBold, PiShareNetworkBold } from 'react-icons/pi';
+import { useModal } from '../../../contexts/useModal.tsx';
+import { FaUserEdit } from 'react-icons/fa';
 
 export default function UserDashboardHeader({
-                                                user,
-                                            }: {
+    user,
+}: {
     user: UserType | undefined;
 }) {
-    const {isAdmin} = useAuth();
-    const {openModal} = useModal();
+    const { isAdmin } = useAuth();
+    const { openModal } = useModal();
 
     const [displayAvatarEdit, setDisplayAvatarEdit] = useState(false);
     const [isAvatarLoading, setIsAvatarLoading] = useState(true);
@@ -62,8 +62,7 @@ export default function UserDashboardHeader({
 
     return (
         <>
-            <section
-                className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 mb-12 card-primary px-3 py-4 sm:p-5 sm:pt-4">
+            <section className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 mb-8 card-primary px-3 py-4 sm:p-5 sm:pt-4">
                 {user ? (
                     <>
                         <div
@@ -83,11 +82,13 @@ export default function UserDashboardHeader({
                                 alt="Avatar"
                                 className={`h-28 w-28 transition-all duration-300${isAvatarLoading ? ' blur-md' : ''}`}
                             />
-                            <button className="absolute right-2 bottom-0 rounded-tl-2xl bg-retro-surface pl-2 pt-1"
-                                    onClick={() =>
-                                        setDisplayAvatarEdit(!displayAvatarEdit)
-                                    }>
-                                <FaUserEdit className=" text-2xl text-retro-accent"/>
+                            <button
+                                className="absolute right-2 bottom-0 rounded-tl-3xl bg-retro-surface pl-3 pt-1.5"
+                                onClick={() =>
+                                    setDisplayAvatarEdit(!displayAvatarEdit)
+                                }
+                            >
+                                <FaUserEdit className=" text-2xl text-retro-accent" />
                             </button>
                         </div>
                         <div className="flex-shrink-0">
@@ -107,7 +108,7 @@ export default function UserDashboardHeader({
                                 className="btn-ghost px-6 py-1 sm:py-2.5"
                                 onClick={handleShare}
                             >
-                                <PiShareNetworkBold className="mx-auto mb-0.5 text-2xl"/>
+                                <PiShareNetworkBold className="mx-auto mb-0.5 text-2xl" />
                                 <p className="text-xs sm:text-sm">Partager</p>
                             </button>
 
@@ -152,7 +153,7 @@ export default function UserDashboardHeader({
                                                     className="btn-ghost mt-6 mx-auto px-10 py-1.5 sm:py-1.5"
                                                     onClick={handleSponsor}
                                                 >
-                                                    <PiHandHeartBold className="mx-auto my-1.5 text-3xl"/>
+                                                    <PiHandHeartBold className="mx-auto my-1.5 text-3xl" />
                                                     <p>Parrainer</p>
                                                 </button>
                                             </div>
@@ -160,7 +161,7 @@ export default function UserDashboardHeader({
                                     }
                                     className="btn-ghost h-full px-6 py-1 sm:py-1.5"
                                 >
-                                    <PiHandHeartBold className="mx-auto mb-0.5 text-2xl"/>
+                                    <PiHandHeartBold className="mx-auto mb-0.5 text-2xl" />
                                     <p className="text-xs sm:text-sm">
                                         Parrainer
                                     </p>

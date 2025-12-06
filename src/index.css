@@ -10,6 +10,7 @@
 @import './styles/font.css';
 @import './styles/alert.css';
 @import './styles/animation.css';
+@import './styles/border.css';
 
 @tailwind base;
 @tailwind components;

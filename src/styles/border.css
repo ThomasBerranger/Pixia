@@ -1,0 +1,27 @@
+.border-retro-line-muted {
+    @apply relative pl-4 flex items-center;
+}
+
+.border-retro-line-muted .line-muted {
+    @apply absolute bg-retro-muted rounded-md;
+    top: 10px;
+    bottom: 10px;
+    width: 3px;
+    left: 1px;
+}
+
+.border-retro-line-muted::before {
+    content: '';
+    width: 5px;
+    height: 5px;
+    @apply absolute top-0 bg-retro-muted rounded-full;
+    left: 0;
+}
+
+.border-retro-line-muted::after {
+    content: '';
+    width: 5px;
+    height: 5px;
+    @apply absolute bottom-0 bg-retro-muted rounded-full;
+    left: 0;
+}

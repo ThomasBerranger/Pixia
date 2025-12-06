@@ -1,7 +1,7 @@
 import type { AchievementType } from '../../../types/Achievement/achievementType.ts';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { TbSeparator } from 'react-icons/tb';
+import { FaCheck } from 'react-icons/fa';
 
 export default function UserDashboardHistory({
     history,
@@ -9,17 +9,14 @@ export default function UserDashboardHistory({
     history: AchievementType[];
 }) {
     return (
-        <section className="mt-3">
+        <>
             {history.map((achievement: AchievementType) => (
                 <div
                     key={achievement.id}
                     className="text-left flex gap-2 justify-between items-center py-2"
                 >
-                    <div className="flex items-center -ml-4">
-                        <TbSeparator
-                            size={40}
-                            className="rotate-90 text-retro-muted"
-                        />
+                    <div className="flex items-center border-retro-line-muted">
+                        <div className="line-muted"></div>
                         <div>
                             <div className="text-retro-muted text-xs mb-1 capitalize">
                                 {format(
@@ -28,16 +25,16 @@ export default function UserDashboardHistory({
                                     { locale: fr }
                                 )}
                             </div>
-                            <div className="font-righteous text-white text-lg">
+                            <div className="font-righteous text-sm sm:text-base text-white">
                                 {achievement.game.solution}
                             </div>
                         </div>
                     </div>
-                    <span className="bg-retro-accent text-retro-bg px-3 py-1 text-xs font-righteous uppercase">
-                        ✓ Réussi
+                    <span className="badge-accent-no-border sm:text-xs">
+                        <FaCheck /> Réussi
                     </span>
                 </div>
             ))}
-        </section>
+        </>
     );
 }

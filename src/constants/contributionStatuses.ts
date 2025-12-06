@@ -19,7 +19,7 @@ export const CONTRIBUTION_STATUS_CONFIG = {
         icon: FaCheck,
     },
     ALREADY_EXISTS: {
-        label: 'Déjà présent',
+        label: 'Déjà traité',
         icon: PiEyesFill,
     },
     REJECTED: {

@@ -80,21 +80,31 @@ function UserDashboard() {
                 rank={userDashboard?.rank}
             />
 
-            <section className="grid grid-cols-1 sm:grid-cols-2">
+            <section className="grid sm:grid-cols-2 mb-10 sm:mb-8">
                 <div
-                    className={`${displayHistorique ? 'bg-retro-muted bg-opacity-30' : 'cursor-pointer'} p-5 text-center duration-500 transition-all order-1`}
+                    className={`${displayHistorique ? 'sm:bg-retro-muted sm:bg-opacity-30' : 'cursor-pointer'} 
+                    mb-5 text-center duration-500 transition-all order-1`}
                     onClick={() => setDisplayHistorique(true)}
                 >
-                    <h2 className="font-title text-retro-accent text-3xl">
-                        Historique récent
+                    <h2 className="text-left sm:text-center sm:p-2 font-title text-retro-accent text-3xl">
+                        Historique
                     </h2>
                 </div>
 
                 <div
-                    className={`${!displayHistorique ? 'bg-retro-muted bg-opacity-30' : 'cursor-pointer'} p-5 flex items-center justify-center duration-500 transition-all order-3 sm:order-2`}
+                    className={`order-2 sm:order-3 col-span-2 overflow-hidden mb-8 sm:mb-0 ${!displayHistorique && 'sm:hidden'}`}
+                >
+                    {userDashboard && userDashboard.history.length > 0 && (
+                        <UserDashboardHistory history={userDashboard.history} />
+                    )}
+                </div>
+
+                <div
+                    className={`${!displayHistorique ? 'sm:bg-retro-muted sm:bg-opacity-30' : 'cursor-pointer'} 
+                    mb-5 duration-500 transition-all order-3 sm:order-2 flex flex-wrap sm:justify-center items-center`}
                     onClick={() => setDisplayHistorique(false)}
                 >
-                    <h2 className="font-title text-retro-accent text-3xl">
+                    <h2 className="w-full sm:w-auto text-left sm:p-2 font-title text-retro-accent text-3xl">
                         SUGGESTIONS
                     </h2>
                     {userDashboard?.user &&
@@ -103,47 +113,21 @@ function UserDashboard() {
                             BADGES.BUG_DETECTED.key,
                             BADGES.GAME_SUGGESTION.key
                         ) && (
-                            <p className="badge badge-primary text-xxs ml-2.5 px-2 py-1.5">
+                            <span className="badge badge-primary text-xxs shrink-0 ml-0 mt-1 sm:ml-2.5 ml-0 px-2 py-1.5">
                                 10 points
-                            </p>
+                            </span>
                         )}
                 </div>
 
-                <div className="order-2 sm:order-3 col-span-2 overflow-hidden">
-                    <div
-                        className={`transition-all duration-1000 ease-in-out ${
-                            displayHistorique &&
-                            userDashboard &&
-                            userDashboard.history.length > 0
-                                ? 'max-h-[2000px] opacity-100 translate-y-0'
-                                : 'max-h-0 opacity-0 -translate-y-4'
-                        }`}
-                    >
-                        {displayHistorique &&
-                            userDashboard &&
-                            userDashboard.history.length > 0 && (
-                                <UserDashboardHistory
-                                    history={userDashboard.history}
-                                />
-                            )}
-                    </div>
-                </div>
-
-                <div className="col-span-2 order-last overflow-hidden">
-                    <div
-                        className={`transition-all duration-1000 ease-in-out ${
-                            !displayHistorique
-                                ? 'max-h-[2000px] opacity-100 translate-y-0'
-                                : 'max-h-0 opacity-0 -translate-y-4'
-                        }`}
-                    >
-                        {!displayHistorique && userDashboard && (
-                            <UserDashboardContribution
-                                contributions={userDashboard.user.contributions}
-                                onSubmitContribution={handleSubmitContribution}
-                            />
-                        )}
-                    </div>
+                <div
+                    className={`col-span-2 order-4 ${displayHistorique && 'sm:hidden'}`}
+                >
+                    {userDashboard && (
+                        <UserDashboardContribution
+                            contributions={userDashboard.user.contributions}
+                            onSubmitContribution={handleSubmitContribution}
+                        />
+                    )}
                 </div>
             </section>
 

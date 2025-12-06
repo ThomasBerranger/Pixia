@@ -58,7 +58,7 @@ export default function Contribution() {
 
     return (
         <section className="min-h-[90vh] max-w-5xl mx-auto flex py-10 px-[10px]">
-            <div className="card-primary w-full h-fit grid grid-cols-3 gap-8 font-righteous">
+            <div className="card-primary w-full h-fit grid sm:grid-cols-3 gap-8 font-righteous">
                 {contributions &&
                     contributions.map((contribution: ContributionType) => (
                         <div

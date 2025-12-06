@@ -1,153 +1,13 @@
-import { TbSeparator } from 'react-icons/tb';
 import type { ContributionType } from '../../../types/Contribution/contributionType.ts';
 import { CONTRIBUTION_TYPES } from '../../../constants/contributionTypes.ts';
 import {
     CONTRIBUTION_STATUSES,
     CONTRIBUTION_STATUS_CONFIG,
 } from '../../../constants/contributionStatuses.ts';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
-
-type ContributionFormData = {
-    title?: string;
-    description?: string;
-};
-
-const ContributionForm = ({
-    formData,
-    setFormData,
-    onSubmit,
-    isLoading,
-    type,
-}: {
-    formData: ContributionFormData | undefined;
-    setFormData: React.Dispatch<
-        React.SetStateAction<ContributionFormData | undefined>
-    >;
-    onSubmit: (e: React.FormEvent) => void;
-    isLoading: boolean;
-    type: 'suggestion' | 'bug';
-}) => {
-    const isFormValid =
-        (formData?.title?.length ?? 0) > 2 &&
-        (formData?.description?.length ?? 0) > 2;
-
-    const config = {
-        suggestion: {
-            titlePlaceholder: 'Star Wars et Very Bad Trip',
-            descriptionPlaceholder:
-                'Le trio déjanté se réveille sur Tatooine avec une énorme gueule de bois et le sabre laser de Mace Windu dans la poche.',
-            buttonText: 'Propose ton idée',
-            helperText:
-                'Les meilleures idées sont intégrées au jeu. Si la tienne est validée : +10 points !',
-        },
-        bug: {
-            titlePlaceholder: 'Nombre de parties restantes',
-            descriptionPlaceholder:
-                "J'ai remarqué que mon nombre de parties restantes n'était pas correcte. J'en vois 3 sur mon profil alors qu'il ne m'en reste que 2.",
-            buttonText: 'Signale le problème',
-            helperText:
-                'Chaque bug signalé est vérifié. Si le tien est confirmé : +10 points !',
-        },
-    }[type];
-
-    return (
-        <>
-            <form className="grid grid-cols-12 gap-2" onSubmit={onSubmit}>
-                <input
-                    type="text"
-                    value={formData?.title || ''}
-                    onChange={(e) =>
-                        setFormData((prev) => ({
-                            ...prev,
-                            title: e.target.value,
-                        }))
-                    }
-                    className="input-retro col-span-12 sm:col-span-4"
-                    placeholder={config.titlePlaceholder}
-                />
-                <textarea
-                    className="input-retro p-2 col-span-12 sm:col-span-6 text-sm"
-                    name="description"
-                    value={formData?.description || ''}
-                    onChange={(e) =>
-                        setFormData((prev) => ({
-                            ...prev,
-                            description: e.target.value,
-                        }))
-                    }
-                    placeholder={config.descriptionPlaceholder}
-                />
-                <button
-                    disabled={isLoading || !isFormValid}
-                    className={`col-span-12 sm:col-span-2 py-1.5 sm:p-1 text-xs flex justify-center items-center 
-                    ${isFormValid ? 'btn-3d' : 'btn-disabled'}`}
-                >
-                    {isLoading ? (
-                        <CgSpinner className="animate-spin text-sm sm:text-xl" />
-                    ) : (
-                        config.buttonText
-                    )}
-                </button>
-            </form>
-            <p className="text-retro-muted text-xxs sm:text-sm mt-3 sm:mt-1">
-                {config.helperText}
-            </p>
-        </>
-    );
-};
-
-const PendingMessage = ({ message }: { message: string }) => (
-    <div className="h-10 bg-retro-muted/20 flex justify-center items-center">
-        <p className="font-righteous">{message}</p>
-    </div>
-);
-
-const ContributionList = ({
-    contributions,
-    type,
-}: {
-    contributions: ContributionType[];
-    type: string;
-}) => (
-    <>
-        {contributions
-            .filter(
-                (contribution: ContributionType) => contribution.type === type
-            )
-            .sort(
-                (a, b) =>
-                    new Date(b.createdAt).getTime() -
-                    new Date(a.createdAt).getTime()
-            )
-            .map((contribution: ContributionType) => {
-                const statusConfig =
-                    CONTRIBUTION_STATUS_CONFIG[contribution.status];
-                const StatusIcon = statusConfig.icon;
-
-                return (
-                    <div
-                        key={contribution.id}
-                        className="flex items-center -ml-4 mt-3"
-                    >
-                        <TbSeparator
-                            size={40}
-                            className="rotate-90 text-retro-muted"
-                        />
-                        <p className="font-righteous text-xs sm:text-sm">
-                            {contribution.title}
-                        </p>
-                        <span
-                            className={`badge-yellow text-xs ml-2 py-0.5 px-2 font-righteous flex items-center uppercase`}
-                        >
-                            <StatusIcon className="mr-1.5" />
-                            {statusConfig.label}
-                        </span>
-                    </div>
-                );
-            })}
-    </>
-);
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 export default function UserDashboardSuggestion({
     contributions,
@@ -159,41 +19,40 @@ export default function UserDashboardSuggestion({
         type: string
     ) => Promise<void>;
 }) {
-    const [suggestion, setSuggestion] = useState<ContributionFormData>();
-    const [isSuggestionLoading, setIsSuggestionLoading] =
-        useState<boolean>(false);
-    const [bugReport, setBugReport] = useState<ContributionFormData>();
-    const [isBugReportLoading, setIsBugReportLoading] =
-        useState<boolean>(false);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [loadingSuggestion, setLoadingSuggestion] = useState(false);
+    const [loadingBug, setLoadingBug] = useState(false);
 
-    const handleSubmit = async (
-        e: React.FormEvent,
-        formData: ContributionFormData | undefined,
-        type: string,
-        setLoading: React.Dispatch<React.SetStateAction<boolean>>,
-        resetForm: React.Dispatch<
-            React.SetStateAction<ContributionFormData | undefined>
-        >
-    ) => {
-        e.preventDefault();
+    const suggestionPending = contributions.some(
+        (c) =>
+            c.type === CONTRIBUTION_TYPES.GAME_SUGGESTION &&
+            c.status === CONTRIBUTION_STATUSES.PENDING
+    );
+    const bugPending = contributions.some(
+        (c) =>
+            c.type === CONTRIBUTION_TYPES.BUG_DETECTED &&
+            c.status === CONTRIBUTION_STATUSES.PENDING
+    );
 
-        if (
-            !formData?.title ||
-            !formData?.description ||
-            formData.title.length < 2 ||
-            formData.description.length < 2
-        ) {
-            return;
-        }
+    const isFormValid = title.length > 2 && description.length > 2;
+
+    const handleSubmit = async (type: 'suggestion' | 'bug') => {
+        if (!isFormValid) return;
+
+        const setLoading =
+            type === 'suggestion' ? setLoadingSuggestion : setLoadingBug;
 
         setLoading(true);
-
         try {
-            await onSubmitContribution(
-                { title: formData.title, description: formData.description },
-                type
-            );
-            resetForm(undefined);
+            const apiType =
+                type === 'suggestion'
+                    ? CONTRIBUTION_TYPES.GAME_SUGGESTION
+                    : CONTRIBUTION_TYPES.BUG_DETECTED;
+
+            await onSubmitContribution({ title, description }, apiType);
+            setTitle('');
+            setDescription('');
         } catch (error) {
             console.error(error);
         } finally {
@@ -201,91 +60,147 @@ export default function UserDashboardSuggestion({
         }
     };
 
-    const submitSuggestion = (e: React.FormEvent) =>
-        handleSubmit(
-            e,
-            suggestion,
-            CONTRIBUTION_TYPES.GAME_SUGGESTION,
-            setIsSuggestionLoading,
-            setSuggestion
+    const PendingMessage = ({
+        contributionType,
+    }: {
+        contributionType: (typeof CONTRIBUTION_TYPES)[keyof typeof CONTRIBUTION_TYPES];
+    }) => {
+        return (
+            <div className="h-full w-full bg-retro-muted/20 flex items-center text-center text-xxs font-righteous p-1">
+                {contributionType === CONTRIBUTION_TYPES.GAME_SUGGESTION ? (
+                    <p>Super idée ! On check si elle n'est pas déjà en ligne</p>
+                ) : (
+                    <p>Aîe foutu bug ! On vérifie de notre côté</p>
+                )}
+            </div>
         );
-
-    const submitBugReport = (e: React.FormEvent) =>
-        handleSubmit(
-            e,
-            bugReport,
-            CONTRIBUTION_TYPES.BUG_DETECTED,
-            setIsBugReportLoading,
-            setBugReport
-        );
-
-    const getLastContribution = (
-        type: string
-    ): ContributionType | undefined => {
-        return contributions
-            .filter((c: ContributionType) => c.type === type)
-            .sort(
-                (a, b) =>
-                    new Date(b.createdAt).getTime() -
-                    new Date(a.createdAt).getTime()
-            )[0];
     };
 
-    const lastGameSuggestion = getLastContribution(
-        CONTRIBUTION_TYPES.GAME_SUGGESTION
-    );
-    const lastBugReport = getLastContribution(CONTRIBUTION_TYPES.BUG_DETECTED);
+    const ContributionList = ({
+        contributions,
+    }: {
+        contributions: ContributionType[];
+    }) => {
+        return (
+            <>
+                {contributions
+                    .sort(
+                        (a, b) =>
+                            new Date(b.createdAt).getTime() -
+                            new Date(a.createdAt).getTime()
+                    )
+                    .map((contribution) => {
+                        const statusConfig =
+                            CONTRIBUTION_STATUS_CONFIG[contribution.status];
+                        const StatusIcon = statusConfig.icon;
+                        const emoji =
+                            contribution.type ===
+                            CONTRIBUTION_TYPES.GAME_SUGGESTION
+                                ? '💡'
+                                : '🪲';
 
-    const canSubmitGameSuggestion =
-        !lastGameSuggestion ||
-        lastGameSuggestion.status !== CONTRIBUTION_STATUSES.PENDING;
-    const canSubmitBugReport =
-        !lastBugReport ||
-        lastBugReport.status !== CONTRIBUTION_STATUSES.PENDING;
+                        return (
+                            <div
+                                key={contribution.id}
+                                className="flex justify-between items-center mt-3"
+                            >
+                                <div className="flex items-center border-retro-line-muted">
+                                    <div className="line-muted"></div>
+
+                                    <div>
+                                        <div className="text-retro-muted text-xs mb-1 capitalize">
+                                            {format(
+                                                new Date(
+                                                    contribution.createdAt
+                                                ),
+                                                'EEEE dd yyyy',
+                                                { locale: fr }
+                                            )}
+                                        </div>
+
+                                        <p className="font-righteous text-sm">
+                                            {emoji} {contribution.title}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <span className="badge-accent-no-border">
+                                    <StatusIcon /> {statusConfig.label}
+                                </span>
+                            </div>
+                        );
+                    })}
+            </>
+        );
+    };
 
     return (
-        <section className="mt-5">
-            <h3 className="font-righteous text-retro-accent text-left text-sm uppercase mb-4">
-                💡Tu as une idée de fusion ?
+        <>
+            <h3 className="font-righteous text-retro-accent text-left text-xs uppercase mb-2">
+                Propose une idée ou signale un bug
             </h3>
 
-            {canSubmitGameSuggestion ? (
-                <ContributionForm
-                    formData={suggestion}
-                    setFormData={setSuggestion}
-                    onSubmit={submitSuggestion}
-                    isLoading={isSuggestionLoading}
-                    type="suggestion"
+            <div className="grid grid-cols-12 gap-2">
+                <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="input-retro p-2 col-span-12 text-sm"
+                    placeholder="Une fusion de films ou un bug"
                 />
-            ) : (
-                <PendingMessage message="Super idée ! On check si elle n'est pas déjà en ligne" />
-            )}
-
-            <ContributionList
-                contributions={contributions}
-                type={CONTRIBUTION_TYPES.GAME_SUGGESTION}
-            />
-
-            <h3 className="font-righteous text-retro-accent text-left text-sm uppercase my-4">
-                🪲 Tu as remarqué un bug ?
-            </h3>
-
-            {canSubmitBugReport ? (
-                <ContributionForm
-                    formData={bugReport}
-                    setFormData={setBugReport}
-                    onSubmit={submitBugReport}
-                    isLoading={isBugReportLoading}
-                    type="bug"
+                <textarea
+                    className="input-retro p-2 col-span-12 text-sm"
+                    value={description}
+                    rows={3}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Décris la scène géniale que tu as en tête ou le bug que tu as rencontré"
                 />
-            ) : (
-                <PendingMessage message="Aîe foutu bug ! On vérifie de notre côté" />
-            )}
-
-            <ContributionList
-                contributions={contributions}
-                type={CONTRIBUTION_TYPES.BUG_DETECTED}
-            />
-        </section>
+                <div className="col-span-full flex gap-2">
+                    {suggestionPending ? (
+                        <PendingMessage
+                            contributionType={
+                                CONTRIBUTION_TYPES.GAME_SUGGESTION
+                            }
+                        />
+                    ) : (
+                        <button
+                            type="button"
+                            onClick={() => handleSubmit('suggestion')}
+                            disabled={loadingSuggestion || !isFormValid}
+                            className={`py-1.5 px-1 text-xs text-center w-full ${
+                                isFormValid ? 'btn-3d' : 'btn-disabled'
+                            }`}
+                        >
+                            {loadingSuggestion ? (
+                                <CgSpinner className="animate-spin text-2xl mx-auto" />
+                            ) : (
+                                'Propose ton idée 💡'
+                            )}
+                        </button>
+                    )}
+                    {bugPending ? (
+                        <PendingMessage
+                            contributionType={CONTRIBUTION_TYPES.BUG_DETECTED}
+                        />
+                    ) : (
+                        <button
+                            type="button"
+                            onClick={() => handleSubmit('bug')}
+                            disabled={loadingBug || !isFormValid}
+                            className={`py-1.5 sm:p-1 text-xs text-center w-full ${
+                                isFormValid ? 'btn-3d' : 'btn-disabled'
+                            }`}
+                        >
+                            {loadingBug ? (
+                                <CgSpinner className="animate-spin text-2xl mx-auto" />
+                            ) : (
+                                'Signale le problème 🪲'
+                            )}
+                        </button>
+                    )}
+                </div>
+            </div>
+            <ContributionList contributions={contributions} />
+        </>
     );
 }

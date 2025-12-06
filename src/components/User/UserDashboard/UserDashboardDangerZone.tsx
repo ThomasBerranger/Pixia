@@ -61,8 +61,8 @@ export default function UserDashboardDangerZone({
 
     return (
         <section>
-            <div className="mt-14 p-8 bg-retro-surface/80 border-[3px] border-retro-primary">
-                <h2 className="font-title text-2xl text-retro-primary mb-6 uppercase">
+            <div className="p-8 bg-retro-surface/80 border-[3px] border-retro-primary">
+                <h2 className="font-title text-center sm:text-left text-2xl text-retro-primary mb-6 uppercase">
                     DANGER ZONE
                 </h2>
 
