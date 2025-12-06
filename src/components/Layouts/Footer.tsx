@@ -3,12 +3,14 @@ import { IoColorPaletteOutline } from 'react-icons/io5';
 import { useModal } from '../../contexts/useModal';
 import { FaXTwitter } from 'react-icons/fa6';
 import { PiInstagramLogoFill } from 'react-icons/pi';
+import { ROUTES } from '../../constants/routes.ts';
+import { Link } from 'react-router-dom';
 
 function Footer() {
     const { openModal } = useModal();
 
     return (
-        <footer className="text-center font-righteous px-[5%] py-4 bg-retro-surface/80 backdrop-blur-md shadow-[0_-4px_40px_rgba(255,190,11,0.3)] text-retro-muted text-xs">
+        <footer className="text-center font-righteous px-[5%] py-4 bg-retro-surface/95 shadow-[0_-4px_40px_rgba(255,190,11,0.3)] text-retro-muted text-xs">
             <div className="flex flex-wrap justify-center items-center gap-8 my-2 text-sm">
                 <button
                     type="button"
@@ -94,9 +96,12 @@ function Footer() {
                     <PiInstagramLogoFill />
                 </a>
 
-                <p className="order-last sm:order-first font-title text-retro-accent text-lg">
+                <Link
+                    to={ROUTES.HOME}
+                    className="order-last skew-x-[-10deg] sm:order-first font-title text-retro-accent text-lg"
+                >
                     PIXIA
-                </p>
+                </Link>
 
                 <a
                     target="_blank"

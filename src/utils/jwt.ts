@@ -1,12 +1,6 @@
-interface JWTPayload {
-    email: string;
-    roles: string[];
-    exp?: number;
-    iat?: number;
-    username?: string;
-}
+import type { JWTPayloadType } from '../types/JWTPayloadType.ts';
 
-export function decodeJWT(token: string | null): JWTPayload | undefined {
+export function decodeJWT(token: string | null): JWTPayloadType | undefined {
     if (!token) {
         return;
     }

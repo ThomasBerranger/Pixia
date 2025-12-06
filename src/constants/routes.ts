@@ -15,6 +15,7 @@ export const ROUTES = {
     ADMIN_GAME_EDIT: (id?: string) =>
         id ? `/admin/games/${id}` : '/admin/games/:id',
     ADMIN_CONTRIBUTIONS: '/admin/contributions',
-
+    // STATIC
+    NEWS: '/news',
     NOT_FOUND: '/404',
 } as const;

@@ -1,7 +1,5 @@
-import { Link } from 'react-router-dom';
 import { ROUTES } from '../../../constants/routes.ts';
 import type { UserType } from '../../../types/User/userType.ts';
-import { useAuth } from '../../../contexts/authContext.tsx';
 import { CgSpinner } from 'react-icons/cg';
 import { useState } from 'react';
 import AvatarCustomizer from './AvatarCustomizer.tsx';
@@ -14,7 +12,6 @@ export default function UserDashboardHeader({
 }: {
     user: UserType | undefined;
 }) {
-    const { isAdmin } = useAuth();
     const { openModal } = useModal();
 
     const [displayAvatarEdit, setDisplayAvatarEdit] = useState(false);
@@ -171,15 +168,6 @@ export default function UserDashboardHeader({
                                     10 points
                                 </p>
                             </div>
-                            {isAdmin() && (
-                                <Link
-                                    to={ROUTES.ADMIN}
-                                    className="btn-ghost px-10 sm:px-6 py-1 sm:py-1.5 text-center"
-                                >
-                                    <p className="mx-auto mb-0.5 text-xl">⚙️</p>
-                                    <p className="text-xs sm:text-sm">Admin</p>
-                                </Link>
-                            )}
                         </div>
                     </>
                 ) : (

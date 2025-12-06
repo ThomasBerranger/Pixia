@@ -23,14 +23,14 @@ function AdminUserDashboard() {
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     return (
-        <section className="min-h-[90vh] max-w-3xl mx-auto w-full flex py-10">
+        <section className="min-h-[90vh] max-w-3xl mx-auto w-full flex py-10 px-3">
             <table className="table-retro">
                 <thead>
                     <tr>
                         <th>Pseudo</th>
                         <th>Email</th>
                         <th>Points</th>
-                        <th>Inscription</th>
+                        {/*<th>Inscription</th>*/}
                     </tr>
                 </thead>
                 <tbody>
@@ -43,11 +43,11 @@ function AdminUserDashboard() {
                                     {user.score}
                                 </div>
                             </td>
-                            <td className="tracking-wider">
-                                {new Date(user.createdAt).toLocaleDateString(
-                                    'fr-FR'
-                                )}
-                            </td>
+                            {/*<td className="tracking-wider">*/}
+                            {/*    {new Date(user.createdAt).toLocaleDateString(*/}
+                            {/*        'fr-FR'*/}
+                            {/*    )}*/}
+                            {/*</td>*/}
                         </tr>
                     ))}
                 </tbody>

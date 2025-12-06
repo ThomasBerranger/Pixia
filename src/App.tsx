@@ -20,8 +20,13 @@ import Contribution from './components/Admin/Contribution/Contribution.tsx';
 import { ROUTES } from './constants/routes.ts';
 import UserDetails from './components/User/UserDetails/UserDetails.tsx';
 import InstallPWA from './components/InstallPWA.tsx';
+import { useState } from 'react';
+import Sidebar from './components/Layouts/SideBar.tsx';
+import News from './components/News.tsx';
 
 function App() {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
     return (
         <AlertProvider>
             <ModalProvider>
@@ -30,9 +35,17 @@ function App() {
 
                 <InstallPWA />
 
-                <Header />
+                <Header
+                    isSidebarOpen={isSidebarOpen}
+                    setIsSidebarOpen={setIsSidebarOpen}
+                />
 
-                <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text">
+                <Sidebar
+                    isOpen={isSidebarOpen}
+                    onClose={() => setIsSidebarOpen(false)}
+                />
+
+                <main className="pt-[9vh] bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text">
                     <Alert />
 
                     <Routes>
@@ -84,6 +97,7 @@ function App() {
                             />
                         </Route>
 
+                        <Route path={ROUTES.NEWS} element={<News />} />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>
