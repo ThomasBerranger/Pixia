@@ -21,7 +21,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     return (
         <aside
             className={`
-                fixed top-[9vh] right-0 h-[93vh] w-full bg-retro-surface/95
+                fixed top-[11vh] right-0 h-[93vh] w-full bg-retro-surface/95
                 flex items-center justify-center border-t-2 border-retro-accent
                 transform transition-transform duration-300 ease-in-out z-50
                 ${isOpen ? 'translate-x-0' : 'translate-x-full'}
