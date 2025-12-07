@@ -27,7 +27,7 @@ export const BADGES = {
         key: 'GAME_SUGGESTION',
         name: 'Génie',
         icon: '💡',
-        description: 'Eurêka ! Quelle belle suggestion',
+        description: 'Eurêka ! Quelle belle idée',
     },
     BUG_DETECTED: {
         key: 'BUG_DETECTED',

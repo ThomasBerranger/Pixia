@@ -147,7 +147,7 @@ function GameContainer() {
                 };
             }
         },
-        [apiCall, game]
+        [apiCall, game, isAuthenticated, setHasUnreadNotification]
     );
 
     function handleHintRequested(hint: string): void {
