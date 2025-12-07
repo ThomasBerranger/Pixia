@@ -69,14 +69,16 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     </Link>
                 )}
 
-                <Link
-                    to={ROUTES.CHANGELOG}
-                    onClick={onClose}
-                    className="text-white flex items-center text-xl"
-                >
-                    <LuFileCode2 className="mr-2 text-3xl" />
-                    Mise à jour
-                </Link>
+                {isAuthenticated && (
+                    <Link
+                        to={ROUTES.CHANGELOG}
+                        onClick={onClose}
+                        className="text-white flex items-center text-xl"
+                    >
+                        <LuFileCode2 className="mr-2 text-3xl" />
+                        Mise à jour
+                    </Link>
+                )}
 
                 {isAdmin() && (
                     <Link

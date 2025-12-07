@@ -13,12 +13,13 @@ import { fireConfetti } from '../../utils/confetti.ts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes.ts';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
+import { useAuth } from '../../contexts/authContext.tsx';
 
 function GameContainer() {
     const navigate = useNavigate();
-
     const { date } = useParams<{ date?: string }>();
     const { apiCall } = useApi();
+    const { isAuthenticated } = useAuth();
 
     const setHasUnreadNotification = useNotificationStore(
         (state) => state.setHasUnread
@@ -112,19 +113,21 @@ function GameContainer() {
                         : prevGame
                 );
 
-                const leaderboardResponse = await apiCall(
-                    ENDPOINTS.LEADERBOARD
-                );
+                if (isAuthenticated) {
+                    const leaderboardResponse = await apiCall(
+                        ENDPOINTS.LEADERBOARD
+                    );
 
-                setLeaderboard(leaderboardResponse.leaderboard);
-                setCurrentUser(leaderboardResponse.currentUser);
-                setCurrentUserRank(leaderboardResponse.currentUserRank);
+                    setLeaderboard(leaderboardResponse.leaderboard);
+                    setCurrentUser(leaderboardResponse.currentUser);
+                    setCurrentUserRank(leaderboardResponse.currentUserRank);
 
-                const hasUnreadNotification = await apiCall(
-                    ENDPOINTS.HAS_UNREAD_NOTIFICATION
-                );
+                    const hasUnreadNotification = await apiCall(
+                        ENDPOINTS.HAS_UNREAD_NOTIFICATION
+                    );
 
-                setHasUnreadNotification(hasUnreadNotification);
+                    setHasUnreadNotification(hasUnreadNotification);
+                }
 
                 return { success: true };
             } catch (error) {
