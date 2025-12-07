@@ -4,7 +4,7 @@ import type { GameType } from '../../../types/Game/gameType.ts';
 import type { AnswerResult } from '../../../types/answerResultType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { ROUTES } from '../../../constants/routes.ts';
-import { useAlert } from '../../../contexts/useAlert.ts';
+import { useAlert } from '../../../hooks/useAlert.ts';
 import { FaCheck, FaQuestion } from 'react-icons/fa';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';

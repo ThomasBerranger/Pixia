@@ -5,7 +5,7 @@ import { useApi } from '../../../hooks/useApi.tsx';
 import React, { useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { ROUTES } from '../../../constants/routes.ts';
-import { useAlert } from '../../../contexts/useAlert.ts';
+import { useAlert } from '../../../hooks/useAlert.ts';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 
 function AdminUserDashboard() {

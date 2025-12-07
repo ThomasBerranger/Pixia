@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useApi } from '../../hooks/useApi.tsx';
 import type { GameAdminType } from '../../types/Game/gameAdminType.ts';
 import { CgSpinner } from 'react-icons/cg';
-import { useAlert } from '../../contexts/useAlert.ts';
+import { useAlert } from '../../hooks/useAlert.ts';
 import { DatePicker } from '../Game/Components/DatePicker.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { DIFFICULTIES } from '../../constants/difficultyPoints.ts';

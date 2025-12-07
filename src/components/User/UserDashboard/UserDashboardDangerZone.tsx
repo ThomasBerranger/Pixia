@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { type ApiError, useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { CgSpinner } from 'react-icons/cg';
-import { useAlert } from '../../../contexts/useAlert.ts';
+import { useAlert } from '../../../hooks/useAlert.ts';
 
 export default function UserDashboardDangerZone({
     user,

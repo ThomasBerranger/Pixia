@@ -8,7 +8,7 @@ import {
     MdOutlineNotificationsActive,
 } from 'react-icons/md';
 import { LuFileCode2 } from 'react-icons/lu';
-import { useEffect } from 'react';
+import { useNotificationStore } from '../../stores/notificationStore.ts';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -19,13 +19,11 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     const { isAuthenticated } = useAuth();
     const { isAdmin } = useAuth();
 
+    const hasUnread = useNotificationStore((state) => state.hasUnread);
+
     const decodedJwt: JWTPayloadType | undefined = decodeJWT(
         localStorage.getItem('token')
     );
-
-    useEffect(() => {
-        console.log('notif');
-    }, []);
 
     return (
         <aside
@@ -36,7 +34,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 ${isOpen ? 'translate-x-0' : 'translate-x-full'}
             `}
         >
-            <nav className="text-white font-righteous flex flex-col items-center gap-6">
+            <nav className="text-white font-righteous flex flex-col items-center gap-8">
                 {(decodedJwt?.avatarUrl || decodedJwt?.username) && (
                     <Link to={ROUTES.USER} onClick={onClose}>
                         <img
@@ -60,10 +58,13 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     <Link
                         to={ROUTES.USER_NOTIFICATIONS}
                         onClick={onClose}
-                        className="text-white flex items-center text-xl animate-pulse"
+                        className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
                     >
-                        <MdOutlineNotifications className="mr-2 text-3xl" />
-                        <MdOutlineNotificationsActive className="text-retro-primary mr-2 text-3xl" />
+                        {hasUnread ? (
+                            <MdOutlineNotificationsActive className="text-retro-primary mr-2 text-3xl" />
+                        ) : (
+                            <MdOutlineNotifications className=" mr-2 text-3xl" />
+                        )}
                         Notifications
                     </Link>
                 )}

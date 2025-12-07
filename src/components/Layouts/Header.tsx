@@ -1,7 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext.tsx';
 import { ROUTES } from '../../constants/routes.ts';
-import { useModal } from '../../contexts/useModal.tsx';
+import { useModal } from '../../hooks/useModal.tsx';
+import { useEffect } from 'react';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
+import { useApi } from '../../hooks/useApi.tsx';
+import { MdOutlineNotificationsActive } from 'react-icons/md';
+import { useNotificationStore } from '../../stores/notificationStore.ts';
 
 interface HeaderProps {
     isSidebarOpen: boolean;
@@ -11,6 +16,32 @@ interface HeaderProps {
 function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
     const { isAuthenticated } = useAuth();
     const { openModal } = useModal();
+    const { apiCall } = useApi();
+
+    const hasUnreadNotification = useNotificationStore(
+        (state) => state.hasUnread
+    );
+    const setHasUnreadNotification = useNotificationStore(
+        (state) => state.setHasUnread
+    );
+
+    useEffect(() => {
+        if (!isAuthenticated) return;
+
+        const fetchData = async () => {
+            try {
+                const hasUnreadNotification = await apiCall(
+                    ENDPOINTS.HAS_UNREAD_NOTIFICATION
+                );
+
+                setHasUnreadNotification(hasUnreadNotification);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchData();
+    }, [apiCall, isAuthenticated, setHasUnreadNotification]);
 
     return (
         <>
@@ -26,19 +57,22 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                     <h1>Pixia</h1>
                 </Link>
 
-                <button
-                    className={`sm:hidden hamburger hamburger--collapse pt-4 pr-2 ${isSidebarOpen && 'is-active'}`}
-                    type="button"
-                    onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                >
-                    <span className="hamburger-box">
-                        <span className="hamburger-inner"></span>
-                    </span>
-                </button>
+                <div className="flex sm:hidden items-baseline">
+                    {hasUnreadNotification && (
+                        <MdOutlineNotificationsActive className="text-retro-primary pt-2 text-4xl animate-pulse" />
+                    )}
+                    <button
+                        className={`hamburger hamburger--collapse pt-4 pr-2 ${isSidebarOpen && 'is-active'}`}
+                        type="button"
+                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                    >
+                        <span className="hamburger-box">
+                            <span className="hamburger-inner"></span>
+                        </span>
+                    </button>
+                </div>
 
-                <div className="hidden sm:flex items-center gap-5 px-2 sm:p-0">
-                    <Link to={ROUTES.CHANGELOG}>Nouveautés</Link>
-
+                <div className="hidden sm:flex items-center gap-5 font-righteous">
                     <button
                         type="button"
                         onClick={() =>
@@ -83,10 +117,22 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                                 </div>
                             )
                         }
-                        className="hidden sm:block font-righteous text-white"
+                        className="hidden sm:block text-white"
                     >
                         Le concept
                     </button>
+
+                    {isAuthenticated && (
+                        <Link
+                            to={ROUTES.USER_NOTIFICATIONS}
+                            className={`flex items-center ${hasUnreadNotification ? 'text-retro-primary animate-pulse' : 'text-white'}`}
+                        >
+                            {hasUnreadNotification && (
+                                <MdOutlineNotificationsActive className="text-retro-primary mr-2 text-3xl" />
+                            )}
+                            Notifications
+                        </Link>
+                    )}
 
                     <Link to={ROUTES.USER}>
                         <button className="btn-primary text-xs sm:text-md px-4 py-2 sm:px-6 sm:py-2.5">

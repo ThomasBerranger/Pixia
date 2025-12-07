@@ -1,6 +1,6 @@
 import { RiAiGenerate2 } from 'react-icons/ri';
 import { IoColorPaletteOutline } from 'react-icons/io5';
-import { useModal } from '../../contexts/useModal';
+import { useModal } from '../../hooks/useModal.tsx';
 import { FaXTwitter } from 'react-icons/fa6';
 import { PiInstagramLogoFill } from 'react-icons/pi';
 import { ROUTES } from '../../constants/routes.ts';

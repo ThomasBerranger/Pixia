@@ -9,6 +9,7 @@ export const ENDPOINTS = {
     USER_CONTRIBUTION_INDEX: 'contributions',
     USER_SHOW: (slug: string) => `users/${slug}`,
     NOTIFICATION: 'notifications',
+    HAS_UNREAD_NOTIFICATION: 'notifications/has-unread',
     // GAME
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',

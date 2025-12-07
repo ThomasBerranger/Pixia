@@ -12,12 +12,17 @@ import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { fireConfetti } from '../../utils/confetti.ts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes.ts';
+import { useNotificationStore } from '../../stores/notificationStore.ts';
 
 function GameContainer() {
     const navigate = useNavigate();
 
     const { date } = useParams<{ date?: string }>();
     const { apiCall } = useApi();
+
+    const setHasUnreadNotification = useNotificationStore(
+        (state) => state.setHasUnread
+    );
 
     const [game, setGame] = useState<GameType | undefined>();
     const [nextGameDate, setNextGameDate] = useState<string | null>(null);
@@ -114,6 +119,12 @@ function GameContainer() {
                 setLeaderboard(leaderboardResponse.leaderboard);
                 setCurrentUser(leaderboardResponse.currentUser);
                 setCurrentUserRank(leaderboardResponse.currentUserRank);
+
+                const hasUnreadNotification = await apiCall(
+                    ENDPOINTS.HAS_UNREAD_NOTIFICATION
+                );
+
+                setHasUnreadNotification(hasUnreadNotification);
 
                 return { success: true };
             } catch (error) {

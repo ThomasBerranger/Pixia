@@ -2,7 +2,7 @@ import * as React from 'react';
 import type { GameAdminCreateType } from '../../../types/Game/gameAdminCreateType.ts';
 import { useState } from 'react';
 import { useApi } from '../../../hooks/useApi.tsx';
-import { useAlert } from '../../../contexts/useAlert.ts';
+import { useAlert } from '../../../hooks/useAlert.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { DatePicker } from '../../Game/Components/DatePicker.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';

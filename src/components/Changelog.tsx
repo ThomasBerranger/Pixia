@@ -4,8 +4,8 @@ import { ROUTES } from '../constants/routes.ts';
 function Changelog() {
     return (
         <section className="min-h-[91vh] flex flex-col justify-center items-center gap-6 px-10">
-            <h1 className="font-title text-retro-primary text-4xl">
-                Nouveautés
+            <h1 className="font-title text-retro-accent text-4xl">
+                Mise à jour
             </h1>
             <div className="font-righteous">
                 <p className="text-lg my-3">💡Une idée ? 🪲 Un bug ?</p>

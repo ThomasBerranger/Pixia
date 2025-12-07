@@ -4,7 +4,7 @@ import { CgSpinner } from 'react-icons/cg';
 import { useState } from 'react';
 import AvatarCustomizer from './AvatarCustomizer.tsx';
 import { PiHandHeartBold, PiShareNetworkBold } from 'react-icons/pi';
-import { useModal } from '../../../contexts/useModal.tsx';
+import { useModal } from '../../../hooks/useModal.tsx';
 import { FaUserEdit } from 'react-icons/fa';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import { Link } from 'react-router-dom';
