@@ -6,6 +6,8 @@ import AvatarCustomizer from './AvatarCustomizer.tsx';
 import { PiHandHeartBold, PiShareNetworkBold } from 'react-icons/pi';
 import { useModal } from '../../../contexts/useModal.tsx';
 import { FaUserEdit } from 'react-icons/fa';
+import { useAuth } from '../../../contexts/authContext.tsx';
+import { Link } from 'react-router-dom';
 
 export default function UserDashboardHeader({
     user,
@@ -13,6 +15,7 @@ export default function UserDashboardHeader({
     user: UserType | undefined;
 }) {
     const { openModal } = useModal();
+    const { isAdmin } = useAuth();
 
     const [displayAvatarEdit, setDisplayAvatarEdit] = useState(false);
     const [isAvatarLoading, setIsAvatarLoading] = useState(true);
@@ -168,6 +171,16 @@ export default function UserDashboardHeader({
                                     10 points
                                 </p>
                             </div>
+
+                            {isAdmin() && (
+                                <Link
+                                    to={ROUTES.ADMIN}
+                                    className="hidden sm:block btn-ghost px-10 sm:px-6 py-1 sm:py-1.5 text-center"
+                                >
+                                    <p className="mx-auto mb-0.5 text-xl">⚙️</p>
+                                    <p className="text-xs sm:text-sm">Admin</p>
+                                </Link>
+                            )}
                         </div>
                     </>
                 ) : (
