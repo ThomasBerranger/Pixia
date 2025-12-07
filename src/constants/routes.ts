@@ -4,6 +4,7 @@ export const ROUTES = {
     GAME_BY_DATE: (date?: string) => (date ? `/${date}` : '/:date'),
     // USER
     USER: '/me',
+    USER_NOTIFICATIONS: '/notifications',
     USER_SHOW: (slug?: string) => (slug ? `/users/${slug}` : '/users/:slug'),
     USER_SPONSOR: (slug?: string) =>
         slug ? `/users/${slug}/sponsor` : '/users/:slug/sponsor',
@@ -16,6 +17,6 @@ export const ROUTES = {
         id ? `/admin/games/${id}` : '/admin/games/:id',
     ADMIN_CONTRIBUTIONS: '/admin/contributions',
     // STATIC
-    NEWS: '/news',
+    CHANGELOG: '/changelog',
     NOT_FOUND: '/404',
 } as const;

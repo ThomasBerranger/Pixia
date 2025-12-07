@@ -1,0 +1,60 @@
+/* Timeline container */
+.timeline-retro {
+    position: relative;
+    padding-left: 50px;
+}
+
+/* Timeline item */
+.timeline-retro-item {
+    position: relative;
+    margin-bottom: 40px;
+}
+
+/* Segment après chaque item */
+.timeline-retro-item::after {
+    content: '';
+    position: absolute;
+    left: -35px;
+    top: 24px;
+    width: 4px;
+    height: calc(100% + 16px);
+}
+
+.timeline-retro-item-read {
+    @apply timeline-retro-item;
+}
+
+.timeline-retro-item-read::after {
+    @apply bg-retro-muted;
+}
+
+.timeline-retro-item-unread {
+    @apply timeline-retro-item;
+}
+
+.timeline-retro-item-unread::after {
+    @apply bg-retro-primary;
+}
+
+/* Timeline dot */
+.timeline-retro-dot {
+    position: absolute;
+    left: -45px;
+    top: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 3px solid;
+    @apply bg-retro-bg;
+}
+
+.timeline-retro-dot-unread {
+    @apply timeline-retro-dot;
+    border-color: #ff006e;
+    box-shadow: 0 0 15px rgba(255, 0, 110, 0.6);
+}
+
+.timeline-retro-dot-read {
+    @apply timeline-retro-dot;
+    border-color: #a76eff;
+}

@@ -6,11 +6,11 @@
     @apply bg-retro-primary border-2 border-retro-text text-retro-text shadow-[3px_3px_0_theme(colors.retro.accent)];
 }
 
-.badge-orange {
+.badge-secondary {
     @apply bg-retro-secondary border-2 border-retro-text text-retro-text shadow-[3px_3px_0_theme(colors.retro.primary)];
 }
 
-.badge-yellow {
+.badge-accent {
     @apply bg-retro-accent border-2 border-retro-bg text-retro-bg shadow-[3px_3px_0_theme(colors.retro.secondary)];
 }
 

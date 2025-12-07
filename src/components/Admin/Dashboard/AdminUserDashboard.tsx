@@ -39,7 +39,7 @@ function AdminUserDashboard() {
                             <td>{user.username}</td>
                             <td>{user.email}</td>
                             <td>
-                                <div className="badge-yellow text-center px-3 py-0.5 w-fit">
+                                <div className="badge-accent text-center px-3 py-0.5 w-fit">
                                     {user.score}
                                 </div>
                             </td>

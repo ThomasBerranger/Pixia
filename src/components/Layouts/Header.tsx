@@ -37,7 +37,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                 </button>
 
                 <div className="hidden sm:flex items-center gap-5 px-2 sm:p-0">
-                    <Link to={ROUTES.NEWS}>Nouveautés</Link>
+                    <Link to={ROUTES.CHANGELOG}>Nouveautés</Link>
 
                     <button
                         type="button"

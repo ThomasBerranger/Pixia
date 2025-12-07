@@ -1,9 +1,14 @@
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../../constants/routes.ts';
 import { useAuth } from '../../contexts/authContext.tsx';
-import { RxDotFilled } from 'react-icons/rx';
 import { decodeJWT } from '../../utils/jwt.ts';
 import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
+import {
+    MdOutlineNotifications,
+    MdOutlineNotificationsActive,
+} from 'react-icons/md';
+import { LuFileCode2 } from 'react-icons/lu';
+import { useEffect } from 'react';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -17,6 +22,10 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     const decodedJwt: JWTPayloadType | undefined = decodeJWT(
         localStorage.getItem('token')
     );
+
+    useEffect(() => {
+        console.log('notif');
+    }, []);
 
     return (
         <aside
@@ -36,36 +45,43 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                                 `${import.meta.env.VITE_DICE_URL}${decodedJwt.username}`
                             }
                             alt="Avatar"
-                            className={`h-28 w-28`}
+                            className={`h-32 w-32`}
                         />
                     </Link>
                 )}
 
                 <Link to={ROUTES.USER} onClick={onClose}>
-                    <button className="btn-primary text-xs sm:text-md px-5 py-2">
+                    <button className="btn-primary text-sm px-8 py-2.5">
                         {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}
                     </button>
                 </Link>
 
                 {isAuthenticated && (
                     <Link
-                        to={ROUTES.NEWS}
+                        to={ROUTES.USER_NOTIFICATIONS}
                         onClick={onClose}
-                        className="text-white flex items-center"
+                        className="text-white flex items-center text-xl animate-pulse"
                     >
-                        <RxDotFilled
-                            size={20}
-                            className="text-retro-primary animate-pulse"
-                        />{' '}
+                        <MdOutlineNotifications className="mr-2 text-3xl" />
+                        <MdOutlineNotificationsActive className="text-retro-primary mr-2 text-3xl" />
                         Notifications
                     </Link>
                 )}
+
+                <Link
+                    to={ROUTES.CHANGELOG}
+                    onClick={onClose}
+                    className="text-white flex items-center text-xl"
+                >
+                    <LuFileCode2 className="mr-2 text-3xl" />
+                    Mise à jour
+                </Link>
 
                 {isAdmin() && (
                     <Link
                         to={ROUTES.ADMIN}
                         onClick={onClose}
-                        className="btn-ghost px-5 py-2 text-center"
+                        className="btn-ghost px-10 py-2 text-center"
                     >
                         <p>⚙️ Admin</p>
                     </Link>

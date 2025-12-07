@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../constants/routes.ts';
 
-function News() {
+function Changelog() {
     return (
-        <section className="min-h-[90vh] flex flex-col justify-center items-center gap-6 px-10">
+        <section className="min-h-[91vh] flex flex-col justify-center items-center gap-6 px-10">
             <h1 className="font-title text-retro-primary text-4xl">
                 Nouveautés
             </h1>
@@ -12,7 +12,9 @@ function News() {
                 <p className="text-sm">
                     Contribue à l'amélioration de Pixia et gagne des points et
                     des badges depuis l'espace{' '}
-                    <p className="font-title text-retro-accent">Suggestions</p>{' '}
+                    <span className="font-title text-retro-accent">
+                        Suggestions
+                    </span>{' '}
                     ton tableau de bord
                 </p>
                 <div className="flex mt-5 items-center">
@@ -49,4 +51,4 @@ function News() {
     );
 }
 
-export default News;
+export default Changelog;

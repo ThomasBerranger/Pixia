@@ -110,7 +110,7 @@ export default function Contribution() {
                                     ))}
                                 </select>
                             ) : (
-                                <p className="mt-3 pl-3 pr-4 py-0.5 badge-yellow text-sm w-fit flex items-center gap-2">
+                                <p className="mt-3 pl-3 pr-4 py-0.5 badge-accent text-sm w-fit flex items-center gap-2">
                                     {(() => {
                                         const Icon =
                                             CONTRIBUTION_STATUS_CONFIG[

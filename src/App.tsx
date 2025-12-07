@@ -22,7 +22,9 @@ import UserDetails from './components/User/UserDetails/UserDetails.tsx';
 import InstallPWA from './components/InstallPWA.tsx';
 import { useState } from 'react';
 import Sidebar from './components/Layouts/SideBar.tsx';
-import News from './components/News.tsx';
+import Changelog from './components/Changelog.tsx';
+import ScrollToTop from './components/ScrollToTop.tsx';
+import Notification from './components/User/Notification.tsx';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -32,6 +34,8 @@ function App() {
             <ModalProvider>
                 {import.meta.env.PROD && <Analytics />}
                 {import.meta.env.PROD && <SpeedInsights />}
+
+                <ScrollToTop />
 
                 <InstallPWA />
 
@@ -97,7 +101,14 @@ function App() {
                             />
                         </Route>
 
-                        <Route path={ROUTES.NEWS} element={<News />} />
+                        <Route
+                            path={ROUTES.USER_NOTIFICATIONS}
+                            element={<Notification />}
+                        />
+                        <Route
+                            path={ROUTES.CHANGELOG}
+                            element={<Changelog />}
+                        />
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>

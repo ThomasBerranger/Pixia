@@ -8,6 +8,7 @@ export const ENDPOINTS = {
     USER_UPDATE: 'users',
     USER_CONTRIBUTION_INDEX: 'contributions',
     USER_SHOW: (slug: string) => `users/${slug}`,
+    NOTIFICATION: 'notifications',
     // GAME
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
