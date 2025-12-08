@@ -158,7 +158,30 @@ function AdminGameEdit() {
                                             : prev
                                     )
                                 }
-                                className="input-retro"
+                                className="input-retro p-2"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="solution" className="label-retro">
+                                Solution Anglaise
+                            </label>
+                            <input
+                                id="solution"
+                                type="text"
+                                value={game?.englishSolution || ''}
+                                onChange={(e) =>
+                                    setGame((prev) =>
+                                        prev
+                                            ? {
+                                                  ...prev,
+                                                  englishSolution:
+                                                      e.target.value,
+                                              }
+                                            : prev
+                                    )
+                                }
+                                className="input-retro p-2"
                             />
                         </div>
 
@@ -178,13 +201,13 @@ function AdminGameEdit() {
                             />
                         </div>
 
-                        <div>
+                        <div className="row-span-2">
                             <label htmlFor="indice" className="label-retro">
                                 Indice
                             </label>
                             <textarea
                                 id="indice"
-                                rows={2}
+                                rows={5}
                                 value={game?.hint || ''}
                                 onChange={(e) =>
                                     setGame((prev) =>
@@ -193,7 +216,7 @@ function AdminGameEdit() {
                                             : prev
                                     )
                                 }
-                                className="input-retro resize-none"
+                                className="input-retro p-2 resize-none"
                             />
                         </div>
 
@@ -215,7 +238,7 @@ function AdminGameEdit() {
                                             : prev
                                     )
                                 }
-                                className="input-retro"
+                                className="input-retro p-2"
                             >
                                 {Object.entries(DIFFICULTIES).map(([key]) => (
                                     <option key={key} value={key}>
@@ -233,7 +256,7 @@ function AdminGameEdit() {
                                 disabled
                                 id="type"
                                 value={game?.type || ''}
-                                className="input-retro cursor-not-allowed"
+                                className="input-retro p-2 cursor-not-allowed"
                             />
                         </div>
 
@@ -249,7 +272,7 @@ function AdminGameEdit() {
                                         ? game.author.username
                                         : ''
                                 }
-                                className="input-retro cursor-not-allowed"
+                                className="input-retro p-2 cursor-not-allowed"
                             />
                         </div>
                     </div>
@@ -258,7 +281,7 @@ function AdminGameEdit() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="btn-3d py-2.5 px-6 min-w-[160px]"
+                            className="btn-3d py-2.5 px-10 min-w-[160px]"
                         >
                             {loading ? (
                                 <CgSpinner

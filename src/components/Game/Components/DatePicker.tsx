@@ -156,7 +156,7 @@ export function DatePicker({
             <button
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                className="input-retro w-full text-left"
+                className="input-retro w-full p-2"
             >
                 {value ? formatDisplayDate(value) : 'Sélectionner une date'}
             </button>

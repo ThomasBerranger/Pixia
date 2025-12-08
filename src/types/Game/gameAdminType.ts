@@ -5,6 +5,7 @@ export interface GameAdminType {
     id: string;
     type: string;
     solution: string;
+    englishSolution: string;
     hint: string;
     date: string;
     difficulty: keyof typeof DIFFICULTIES;

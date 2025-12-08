@@ -71,6 +71,7 @@ function PromptGenerator({
                     ...prevGame,
                     prompt: response.prompt,
                     solution: response.solution,
+                    englishSolution: response.englishSolution,
                     hint: response.hint,
                     date: dateStr,
                 })
@@ -83,89 +84,116 @@ function PromptGenerator({
     }
 
     return (
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="w-full">
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="label-retro">
-                            Quelle image souhaites-tu générer ?
-                        </label>
-                        <textarea
-                            id="user-prompt"
-                            value={prompt}
-                            rows={2}
-                            placeholder="Une fusion entre les univers de Jurassic Park et Avatar"
-                            onChange={(e) => setPrompt(e.target.value)}
-                            className="input-retro resize-none"
-                        />
-                    </div>
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-5">
+            <form onSubmit={handleSubmit} className="row-span-2">
+                <div>
+                    <label className="label-retro">
+                        Quelle image souhaites-tu générer ?
+                    </label>
+                    <textarea
+                        id="user-prompt"
+                        value={prompt}
+                        rows={2}
+                        placeholder="Une fusion entre les univers de Jurassic Park et Avatar"
+                        onChange={(e) => setPrompt(e.target.value)}
+                        className="input-retro resize-none"
+                    />
+                </div>
 
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className={`w-full py-2.5 ${prompt.length < 5 ? 'btn-disabled' : 'btn-3d'}`}
-                    >
-                        {!loading ? (
-                            'Générer le jeu'
-                        ) : (
-                            <CgSpinner
-                                className="animate-spin mx-auto"
-                                size={20}
-                            />
-                        )}
-                    </button>
-                </form>
-            </div>
+                <button
+                    type="submit"
+                    disabled={loading}
+                    className={`w-full py-2.5 ${prompt.length < 5 ? 'btn-disabled' : 'btn-3d'}`}
+                >
+                    {!loading ? (
+                        'Générer le jeu'
+                    ) : (
+                        <CgSpinner className="animate-spin mx-auto text-xl" />
+                    )}
+                </button>
+            </form>
 
-            <div className="space-y-4">
+            <div>
+                <label className="label-retro">Solution</label>
                 {game.solution ? (
-                    <div>
-                        <label className="label-retro">Solution</label>
-                        <input
-                            disabled
-                            type="text"
-                            id="solution"
-                            value={game.solution}
-                            onChange={(e) =>
-                                setGame((prev) => ({
-                                    ...prev,
-                                    solution: e.target.value,
-                                }))
-                            }
-                            className="input-retro cursor-not-allowed"
-                        />
-                    </div>
+                    <input
+                        type="text"
+                        id="solution"
+                        value={game.solution}
+                        onChange={(e) =>
+                            setGame((prev) => ({
+                                ...prev,
+                                solution: e.target.value,
+                            }))
+                        }
+                        className="input-retro p-2"
+                    />
                 ) : (
-                    <div>
-                        <label className="label-retro">Solution</label>
-                        <div className="h-10 animate-pulse bg-retro-muted/20 border-[3px] border-retro-muted/30"></div>
-                    </div>
-                )}
-
-                {game.date ? (
-                    <div>
-                        <label className="label-retro">Date du jeu</label>
-                        <DatePicker
-                            value={game?.date?.split('T')[0] || ''}
-                            onChange={(date) =>
-                                setGame((prev) =>
-                                    prev ? { ...prev, date } : prev
-                                )
-                            }
-                            unavailableDates={unavailableDates}
-                        />
-                    </div>
-                ) : (
-                    <div>
-                        <label className="label-retro">Date du jeu</label>
-                        <div className="h-10 animate-pulse bg-retro-muted/20 border-[3px] border-retro-muted/30"></div>
-                    </div>
+                    <div className="h-10 animate-pulse bg-retro-muted/20 border-[3px] border-retro-muted/30"></div>
                 )}
             </div>
 
-            {game.prompt ? (
-                <div className="md:col-span-2">
-                    <label className="label-retro">Prompt</label>
+            <div>
+                <label className="label-retro">Solution anglaise</label>
+                {game.englishSolution ? (
+                    <input
+                        type="text"
+                        id="solution"
+                        value={game.englishSolution}
+                        onChange={(e) =>
+                            setGame((prev) => ({
+                                ...prev,
+                                englishSolution: e.target.value,
+                            }))
+                        }
+                        className="input-retro p-2"
+                    />
+                ) : (
+                    <div className="h-10 animate-pulse bg-retro-muted/20 border-[3px] border-retro-muted/30"></div>
+                )}
+            </div>
+
+            {game.date ? (
+                <div>
+                    <label className="label-retro">Date du jeu</label>
+                    <DatePicker
+                        value={game?.date?.split('T')[0] || ''}
+                        onChange={(date) =>
+                            setGame((prev) => (prev ? { ...prev, date } : prev))
+                        }
+                        unavailableDates={unavailableDates}
+                    />
+                </div>
+            ) : (
+                <div>
+                    <label className="label-retro">Date du jeu</label>
+                    <div className="h-10 animate-pulse bg-retro-muted/20 border-[3px] border-retro-muted/30"></div>
+                </div>
+            )}
+
+            <div>
+                <label className="label-retro">Indice</label>
+                {game.hint ? (
+                    <input
+                        type="text"
+                        id="hint"
+                        value={game.hint}
+                        onChange={(e) =>
+                            setGame((prev) => ({
+                                ...prev,
+                                hint: e.target.value,
+                            }))
+                        }
+                        className="input-retro p-2"
+                    />
+                ) : (
+                    <div className="h-10 animate-pulse bg-retro-muted/20 border-[3px] border-retro-muted/30"></div>
+                )}
+            </div>
+
+            <div className="md:col-span-2">
+                <label className="label-retro">Prompt</label>
+                {game.prompt ? (
                     <textarea
                         id="prompt"
                         rows={3}
@@ -176,22 +204,16 @@ function PromptGenerator({
                                 prompt: e.target.value,
                             }))
                         }
-                        className="input-retro resize-none"
+                        className="input-retro p-2 resize-none"
                     />
-                </div>
-            ) : (
-                <div className="md:col-span-2">
-                    <label className="label-retro">Prompt</label>
+                ) : (
                     <div className="flex flex-wrap gap-2 animate-pulse">
-                        <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-2/12"></div>
-                        <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-6/12"></div>
-                        <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-3/12"></div>
-                        <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-4/12"></div>
-                        <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-5/12"></div>
+                        <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-full"></div>
+                        <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-8/12"></div>
                         <div className="h-8 bg-retro-muted/20 border-[3px] border-retro-muted/30 w-3/12"></div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </div>
     );
 }
