@@ -30,11 +30,12 @@ function ChangeGameButton({
             onClick={onClick}
             disabled={isLoading}
             style={{ minWidth: width }}
-            className={`hidden sm:flex absolute bottom-5 ${isNext ? 'right-5' : 'left-5'} btn-pixel-no-hover-effect px-5 p-2.5 text-[1rem] 
-                transition-all duration-300 ease-in-out group-hover:opacity-40 hover:!opacity-100 justify-center items-center`}
+            className={`hidden md:flex absolute bottom-5 ${isNext ? 'right-5' : 'left-5'} 
+                btn-pixel-no-hover-effect px-4 py-1.5 text-sm justify-center items-center 
+                group-hover:opacity-40 hover:!opacity-100`}
         >
             {isLoading ? (
-                <CgSpinner className="animate-spin" size={16} />
+                <CgSpinner className="animate-spin text-lg" />
             ) : isNext ? (
                 <>
                     {format(parseISO(date), 'd MMMM', { locale: fr })}{' '}

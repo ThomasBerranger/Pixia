@@ -62,57 +62,59 @@ export default function UserDashboardHeader({
 
     return (
         <>
-            <section className="flex flex-wrap justify-center items-center gap-x-4 gap-y-1 mb-8 card-primary px-3 py-4 sm:p-5 sm:pt-4">
+            <section className="sm:flex justify-between mb-8 card-primary px-3 py-4 sm:p-5 sm:pt-4">
                 {user ? (
                     <>
-                        <div
-                            className="cursor-pointer hover:opacity-80 flex items-center justify-center relative"
-                            onClick={() =>
-                                setDisplayAvatarEdit(!displayAvatarEdit)
-                            }
-                        >
-                            <img
-                                onLoad={() => {
-                                    setIsAvatarLoading(false);
-                                }}
-                                src={
-                                    user.avatarUrl ??
-                                    `${import.meta.env.VITE_DICE_URL}${user.username}`
-                                }
-                                alt="Avatar"
-                                className={`h-28 w-28 transition-all duration-300${isAvatarLoading ? ' blur-md' : ''}`}
-                            />
-                            <button
-                                className="absolute right-2 bottom-0 rounded-tl-3xl bg-retro-surface pl-3 pt-1.5"
+                        <div className="flex justify-center items-center gap-2 mb-3 sm:mb-0">
+                            <div
+                                className="cursor-pointer hover:opacity-80 relative h-28 w-28 flex-shrink-0"
                                 onClick={() =>
                                     setDisplayAvatarEdit(!displayAvatarEdit)
                                 }
                             >
-                                <FaUserEdit className=" text-2xl text-retro-accent" />
-                            </button>
-                        </div>
-                        <div className="flex-shrink-0">
-                            <h1 className="font-righteous text-4xl bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent">
-                                {user?.username}
-                            </h1>
-                            <div>
-                                <div className="flex flex-shrink-0 items-center gap-0.5 text-xs sm:text-sm">
-                                    <p className="font-title text-retro-accent text-2xl">
-                                        {user?.score}
-                                    </p>
+                                <img
+                                    onLoad={() => {
+                                        setIsAvatarLoading(false);
+                                    }}
+                                    src={
+                                        user.avatarUrl ??
+                                        `${import.meta.env.VITE_DICE_URL}${user.username}`
+                                    }
+                                    alt="Avatar"
+                                    className={`transition-all duration-300${isAvatarLoading ? ' blur-md' : ''}`}
+                                />
+                                <button
+                                    className="absolute right-2 bottom-0 rounded-tl-3xl bg-retro-surface pl-3 pt-1.5"
+                                    onClick={() =>
+                                        setDisplayAvatarEdit(!displayAvatarEdit)
+                                    }
+                                >
+                                    <FaUserEdit className=" text-2xl text-retro-accent" />
+                                </button>
+                            </div>
+                            <div className="">
+                                <h1 className="font-righteous text-4xl line-clamp-2 bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent">
+                                    {user?.username}
+                                </h1>
+                                <div>
+                                    <div className="flex flex-shrink-0 items-center gap-0.5 text-xs sm:text-sm">
+                                        <p className="font-title text-retro-accent text-2xl">
+                                            {user?.score}
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-wrap justify-center gap-2 sm:gap-4 md:ml-auto">
+                        <div className="flex justify-center items-start sm:items-center gap-3">
                             <button
-                                className="btn-ghost px-6 py-1 sm:py-2.5"
+                                className="btn-ghost flex justify-center items-center gap-2 w-1/2 py-2.5 sm:px-4"
                                 onClick={handleShare}
                             >
-                                <PiShareNetworkBold className="mx-auto mb-0.5 text-2xl" />
+                                <PiShareNetworkBold className="text-2xl" />
                                 <p className="text-xs sm:text-sm">Partager</p>
                             </button>
 
-                            <div className="relative">
+                            <div className="w-1/2 relative mb-3 sm:mb-0">
                                 <button
                                     type="button"
                                     onClick={() =>
@@ -159,15 +161,15 @@ export default function UserDashboardHeader({
                                             </div>
                                         )
                                     }
-                                    className="btn-ghost h-full px-6 py-1 sm:py-1.5"
+                                    className="btn-ghost flex justify-center items-center gap-2 w-full py-2.5 sm:px-4"
                                 >
-                                    <PiHandHeartBold className="mx-auto mb-0.5 text-2xl" />
+                                    <PiHandHeartBold className="text-2xl" />
                                     <p className="text-xs sm:text-sm">
                                         Parrainer
                                     </p>
                                 </button>
 
-                                <p className="absolute -bottom-5 -right-1 badge badge-primary text-xxs w-fit">
+                                <p className="absolute -bottom-3.5 right-4 badge badge-primary text-xxs w-fit">
                                     10 points
                                 </p>
                             </div>
@@ -175,7 +177,7 @@ export default function UserDashboardHeader({
                             {isAdmin() && (
                                 <Link
                                     to={ROUTES.ADMIN}
-                                    className="hidden sm:block btn-ghost px-10 sm:px-6 py-1 sm:py-1.5 text-center"
+                                    className="hidden sm:block btn-ghost py-1 sm:py-1 sm:px-4 text-center"
                                 >
                                     <p className="mx-auto mb-0.5 text-xl">⚙️</p>
                                     <p className="text-xs sm:text-sm">Admin</p>
@@ -194,7 +196,7 @@ export default function UserDashboardHeader({
             <section
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${
                     displayAvatarEdit
-                        ? 'max-h-[2000px] opacity-100 mb-12'
+                        ? 'max-h-[2000px] opacity-100 mb-8'
                         : 'max-h-0 opacity-0'
                 }`}
             >

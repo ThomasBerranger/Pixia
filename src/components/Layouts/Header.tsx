@@ -44,7 +44,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
     }, [apiCall, isAuthenticated, setHasUnreadNotification]);
 
     return (
-        <>
+        <div className="pb-[11vh]">
             <header
                 className="h-[11vh] w-full fixed z-50 flex items-center justify-between px-5
                 bg-retro-surface/95 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)]"
@@ -141,7 +141,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                     </Link>
                 </div>
             </header>
-        </>
+        </div>
     );
 }
 

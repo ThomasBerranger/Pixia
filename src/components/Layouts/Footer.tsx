@@ -91,7 +91,7 @@ function Footer() {
                 <a
                     target="_blank"
                     href="https://www.instagram.com/pixia.mirage/"
-                    className="order-first text-lg"
+                    className="order-first text-lg hover:text-retro-accent"
                 >
                     <PiInstagramLogoFill />
                 </a>
@@ -106,7 +106,7 @@ function Footer() {
                 <a
                     target="_blank"
                     href="https://x.com/pixia_mirage"
-                    className="text-lg"
+                    className="text-lg hover:text-retro-accent"
                 >
                     <FaXTwitter />
                 </a>

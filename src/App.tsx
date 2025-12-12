@@ -49,7 +49,7 @@ function App() {
                     onClose={() => setIsSidebarOpen(false)}
                 />
 
-                <main className="pt-[9vh] bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text">
+                <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text">
                     <Alert />
 
                     <Routes>

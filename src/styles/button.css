@@ -30,18 +30,6 @@
     @apply btn-retro bg-retro-muted text-retro-text border-[3px] border-retro-primary shadow-[4px_4px_0] shadow-retro-primary inline-flex items-center gap-2;
 }
 
-.btn-split {
-    @apply btn-retro text-retro-text border-[3px] border-retro-text hover:text-retro-bg hover:border-retro-primary hover:translate-x-0 hover:translate-y-0;
-    background: linear-gradient(to right, #ff006e 50%, #ffbe0b 50%);
-    background-size: 200% 100%;
-    background-position: right;
-    transition: all 0.4s;
-}
-
-.btn-split:hover {
-    background-position: left;
-}
-
 .btn-pulse {
     @apply btn-retro bg-retro-secondary text-retro-text border-[3px] border-retro-accent animate-pulse hover:animate-none hover:shadow-[0_0_30px_rgba(251,86,7,0.8)] hover:translate-x-0 hover:translate-y-0;
 }

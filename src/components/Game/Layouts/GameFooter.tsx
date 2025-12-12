@@ -113,49 +113,41 @@ function GameFooter({
     };
 
     return (
-        <>
+        <div className="mb-10 md:mb-0 md:h-[20%] flex items-center">
             {game && game.solution ? (
                 <div
-                    className="max-w-3xl mx-auto py-8 px-6 sm:p-8 bg-retro-surface border-[6px] border-retro-secondary
+                    className="w-full py-8 px-6 md:p-6 bg-retro-surface border-[6px] border-retro-secondary
                     rounded-lg text-center relative animate-[border-flicker_4s_infinite]
-                    before:absolute before:inset-[10px] before:border-2 before:border-retro-accent before:opacity-50"
+                    before:absolute before:inset-[10px] before:border-2 before:border-retro-accent before:rounded-sm before:opacity-50"
                 >
-                    <div className="text-[0.7rem] sm:text-xs text-retro-muted uppercase tracking-[2px] mb-2">
-                        Bravo !
-                    </div>
-                    <div className="text-sm sm:text-md sm:text-2xl text-retro-accent font-righteous uppercase tracking-[3px]">
+                    <div className="text-sm md:text-2xl text-retro-accent font-righteous uppercase tracking-[2px]">
                         {game.solution}
                     </div>
                 </div>
             ) : (
-                <>
+                <div className="w-full flex flex-col gap-2">
                     {(isHintLoading || game?.hint || isHintAsked) && (
-                        <div className="max-w-3xl mx-auto w-full my-4 pl-2 border-l-4 border-retro-primary">
-                            <p>
-                                {isHintLoading ? (
-                                    <CgSpinner
-                                        className="animate-spin"
-                                        size={20}
-                                    />
-                                ) : game?.hint ? (
-                                    game.hint
-                                ) : isHintAsked ? (
-                                    isAuthenticated ? (
-                                        '⚠️ Demander un indice diminue le nombre de points gagnés.'
-                                    ) : (
-                                        '⚠️ Connecte-toi pour obtenir un indice.'
-                                    )
-                                ) : null}
-                            </p>
-                        </div>
+                        <p className="max-w-[60vw] text-sm md:text-base pl-2 border-l-4 border-retro-primary">
+                            {isHintLoading ? (
+                                <CgSpinner className="animate-spin" size={20} />
+                            ) : game?.hint ? (
+                                game.hint
+                            ) : isHintAsked ? (
+                                isAuthenticated ? (
+                                    '⚠️ Demander un indice diminue le nombre de points gagnés.'
+                                ) : (
+                                    '⚠️ Connecte-toi pour obtenir un indice.'
+                                )
+                            ) : null}
+                        </p>
                     )}
                     <form
                         onSubmit={handleSolutionRequest}
-                        className="max-w-3xl mx-auto w-full grid grid-cols-3 sm:grid-cols-12 gap-4 items-stretch"
+                        className="w-full grid grid-cols-3 sm:grid-cols-12 gap-4 items-stretch"
                     >
                         <button
                             type="button"
-                            className="btn-neon py-2 sm:py-0 order-2 sm:order-1"
+                            className="btn-neon py-2 sm:py-0 order-2 sm:order-1 sm:col-span-2"
                             onClick={() => hintRequest()}
                         >
                             {isHintAsked && !game?.hint ? (
@@ -164,17 +156,14 @@ function GameFooter({
                                 <FaQuestion size={18} className="mx-auto" />
                             )}
                         </button>
-                        <div className="col-span-full sm:col-span-8 order-1">
+                        <div className="col-span-full sm:col-span-7 order-1">
                             <input
                                 type="text"
                                 placeholder="Titanic et Inception"
                                 autoComplete="off"
                                 value={answer}
                                 onChange={(e) => setAnswer(e.target.value)}
-                                className={`flex-1 w-full text-lg pl-2.5 py-2 bg-retro-surface/80 border-[3px] 
-                            border-retro-primary text-retro-text outline-none transition-all duration-300 
-                            shadow-[0_0_20px_rgba(255,0,110,0.3)] focus:border-retro-accent
-                            focus:shadow-[0_0_40px_rgba(255,190,11,0.5)] placeholder:text-retro-muted 
+                                className={`w-full input-retro-primary text-center text-lg 
                             ${displayError && 'shake !border-retro-primary'}`}
                             />
 
@@ -188,15 +177,15 @@ function GameFooter({
                             className="btn-primary py-1.5 sm:py-2.5 w-full flex justify-center col-span-2 sm:col-span-3 order-3"
                         >
                             {isLoading ? (
-                                <CgSpinner className="animate-spin" size={20} />
+                                <CgSpinner className="animate-spin" />
                             ) : (
-                                <>Vérifier</>
+                                'Trouvé !'
                             )}
                         </button>
                     </form>
-                </>
+                </div>
             )}
-        </>
+        </div>
     );
 }
 

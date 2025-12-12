@@ -156,27 +156,29 @@ function GameContainer() {
 
     return (
         <>
-            <section className="sm:min-h-[80vh] flex flex-col justify-center px-5 py-[3vh]">
+            <section className="md:h-[89vh] flex flex-col px-5">
                 <GameHeader />
 
-                <GameContent
-                    game={game}
-                    onGameChange={handleGameChange}
-                    previousGameDate={previousGameDate}
-                    nextGameDate={nextGameDate}
-                    loadingDirection={loadingDirection}
-                    isImageLoading={isImageLoading}
-                    onImageLoadEnd={() => setIsImageLoading(false)}
-                />
+                <div className="md:h-[83%] inline-block mx-auto">
+                    <GameContent
+                        game={game}
+                        onGameChange={handleGameChange}
+                        previousGameDate={previousGameDate}
+                        nextGameDate={nextGameDate}
+                        loadingDirection={loadingDirection}
+                        isImageLoading={isImageLoading}
+                        onImageLoadEnd={() => setIsImageLoading(false)}
+                    />
 
-                <GameFooter
-                    game={game}
-                    onAnswerSubmit={handleAnswerSubmit}
-                    onHintRequest={handleHintRequested}
-                />
+                    <GameFooter
+                        game={game}
+                        onAnswerSubmit={handleAnswerSubmit}
+                        onHintRequest={handleHintRequested}
+                    />
+                </div>
             </section>
 
-            <hr className="divider max-w-5xl mx-auto my-5 sm:my-10" />
+            <hr className="divider max-w-5xl mx-auto mb-5" />
 
             <Leaderboard
                 leaderboard={leaderboard}

@@ -6,3 +6,10 @@
     @apply w-full px-4 py-3 bg-retro-surface border-[2px] border-retro-muted text-retro-text outline-none transition-all
     focus:border-retro-accent focus:shadow-[0_0_20px_rgba(255,190,11,0.3)] placeholder:text-retro-muted;
 }
+
+.input-retro-primary {
+    @apply pl-2.5 py-2 bg-retro-surface/80 border-[3px]
+    border-retro-primary text-retro-text outline-none transition-all duration-300
+    shadow-[0_0_20px_rgba(255,0,110,0.3)] focus:border-retro-accent
+    focus:shadow-[0_0_40px_rgba(255,190,11,0.5)] placeholder:text-retro-muted
+}

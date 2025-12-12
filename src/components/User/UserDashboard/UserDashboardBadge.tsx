@@ -16,22 +16,22 @@ export default function UserDashboardBadge({
                 className="overflow-x-auto mb-8 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]
                 md:[&::-webkit-scrollbar]:block md:[-ms-overflow-style:auto] [&::-webkit-scrollbar-thumb]:bg-retro-primary md:[scrollbar-width:auto] [&::-webkit-scrollbar]:h-1.5"
             >
-                <div className="flex gap-3 sm:gap-6 pb-0 sm:pb-5">
+                <div className="flex items-center gap-3 sm:gap-6 pb-0 sm:pb-5">
                     {badges?.map((badge) => {
                         return (
                             <div
                                 key={badge.name}
                                 className={
-                                    'min-w-36 flex-shrink-0 relative card-retro'
+                                    'min-w-28 flex-shrink-0 relative card-retro p-3'
                                 }
                             >
                                 <div
                                     className="absolute top-0 right-0 w-full h-full bg-retro-bg z-10 font-righteous
-                                opacity-0 bg-opacity-0 hover:bg-opacity-80 hover:opacity-100 flex justify-center items-center p-1"
+                                opacity-0 bg-opacity-0 hover:bg-opacity-80 hover:opacity-100 flex justify-center items-center p-2"
                                 >
                                     {BADGES[badge.name].description}
                                 </div>
-                                <div className="text-5xl mb-3.5">
+                                <div className="text-4xl mb-3.5">
                                     {BADGES[badge.name].icon}
                                 </div>
                                 <div
@@ -52,12 +52,12 @@ export default function UserDashboardBadge({
                                 <div
                                     key={badge.name}
                                     className={
-                                        'min-w-36 flex-shrink-0 relative card-retro opacity-50'
+                                        'min-w-28 flex-shrink-0 relative card-retro opacity-50 p-3'
                                     }
                                 >
                                     <div
                                         className="absolute top-0 right-0 w-full h-full bg-retro-bg z-10 font-righteous
-                                opacity-0 bg-opacity-0 hover:bg-opacity-80 hover:opacity-100 flex justify-center items-center p-1"
+                                opacity-0 bg-opacity-0 hover:bg-opacity-80 hover:opacity-100 flex justify-center items-center p-2"
                                     >
                                         {badge.description}
                                     </div>

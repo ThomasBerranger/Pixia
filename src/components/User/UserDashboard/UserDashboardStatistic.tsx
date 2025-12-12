@@ -17,7 +17,7 @@ export default function UserDashboardStatistic({
                 <div className="col-span-3 card-primary-hover p-6">
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl mb-4">🎮</div>
-                        <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                        <h3 className="font-righteous text-retro-accent uppercase mb-2">
                             Parties gagnées
                         </h3>
                     </div>
@@ -32,7 +32,7 @@ export default function UserDashboardStatistic({
                 <div className="col-span-3 card-primary-hover p-6">
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl mb-4">✓</div>
-                        <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                        <h3 className="font-righteous text-retro-accent uppercase mb-2">
                             Taux de réussite
                         </h3>
                     </div>
@@ -63,7 +63,7 @@ export default function UserDashboardStatistic({
                 <div className="col-span-3 card-primary-hover p-6">
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl mb-4">🔝</div>
-                        <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                        <h3 className="font-righteous text-retro-accent uppercase mb-2">
                             Classement
                         </h3>
                     </div>
@@ -85,7 +85,7 @@ export default function UserDashboardStatistic({
                 <div className="col-span-3 card-primary p-6 opacity-30 cursor-not-allowed">
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl mb-4">⚡</div>
-                        <h3 className="font-righteous text-retro-accent text-lg uppercase mb-2">
+                        <h3 className="font-righteous text-retro-accent uppercase mb-2">
                             Meilleure série
                         </h3>
                     </div>
