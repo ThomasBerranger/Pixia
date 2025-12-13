@@ -69,7 +69,7 @@ function UserDashboard() {
     };
 
     return (
-        <>
+        <section className="md:min-h-[89vh] py-10 px-[7vw]">
             <UserDashboardHeader user={userDashboard?.user} />
 
             <UserDashboardBadge badges={userDashboard?.user.badges} />
@@ -132,7 +132,7 @@ function UserDashboard() {
             </section>
 
             <UserDashboardDangerZone user={userDashboard?.user} />
-        </>
+        </section>
     );
 }
 

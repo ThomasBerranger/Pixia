@@ -169,7 +169,7 @@ export default function UserDashboardHeader({
                                     </p>
                                 </button>
 
-                                <p className="absolute -bottom-3.5 right-4 badge badge-primary text-xxs w-fit">
+                                <p className="absolute -bottom-3.5 right-4 md:-bottom-5 md:right-3 badge badge-primary text-xxs w-fit">
                                     10 points
                                 </p>
                             </div>

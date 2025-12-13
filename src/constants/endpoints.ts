@@ -1,6 +1,7 @@
 export const ENDPOINTS = {
     // Authentification
     REGISTER: 'register',
+    GOOGLE_AUTH: 'google-auth',
     LOGIN: 'login',
     ME: 'me',
     // USER

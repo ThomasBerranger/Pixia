@@ -25,7 +25,9 @@ export default function UserDashboardStatistic({
                         {success}
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        {success && games && `Il t'en reste ${games - success}`}
+                        {success
+                            ? games && `Il t'en reste ${games - success}`
+                            : `Il t'en reste ${games}`}
                     </div>
                 </div>
 
@@ -43,20 +45,21 @@ export default function UserDashboardStatistic({
                         %
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        {success &&
-                            games &&
-                            (parseInt(((success / games) * 100).toFixed(0)) >=
-                            90
-                                ? 'Machine de guerre'
-                                : parseInt(
-                                        ((success / games) * 100).toFixed(0)
-                                    ) >= 75
-                                  ? 'Champion·ne'
+                        {success
+                            ? games &&
+                              (parseInt(((success / games) * 100).toFixed(0)) >=
+                              90
+                                  ? 'Machine de guerre'
                                   : parseInt(
                                           ((success / games) * 100).toFixed(0)
-                                      ) >= 50
-                                    ? "Y'a du potentiel"
-                                    : 'Courage, ça va venir')}
+                                      ) >= 75
+                                    ? 'Champion·ne'
+                                    : parseInt(
+                                            ((success / games) * 100).toFixed(0)
+                                        ) >= 50
+                                      ? "Y'a du potentiel"
+                                      : 'Courage, ça va venir')
+                            : 'Courage, ça va venir'}
                     </div>
                 </div>
 
