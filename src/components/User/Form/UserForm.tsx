@@ -98,7 +98,7 @@ function UserForm({ slug }: { slug?: string }) {
     };
 
     return (
-        <section className="md:h-[89vh] flex justify-center items-center p-10">
+        <section className="h-[89vh] flex justify-center items-center p-10">
             <div className="card-primary sm:w-2/3">
                 <h3 className="text-center animated-neon-title mb-3 sm:mb-6">
                     Bienvenue

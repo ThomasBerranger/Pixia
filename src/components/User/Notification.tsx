@@ -114,7 +114,7 @@ function Notification() {
                                         <div className="text-sm">
                                             {badge ? (
                                                 <p>
-                                                    Tu as déblqué le badge{' '}
+                                                    Tu as débloqué le badge{' '}
                                                     <span className="font-righteous">
                                                         {badge.name}
                                                     </span>
