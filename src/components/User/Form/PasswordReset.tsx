@@ -75,7 +75,7 @@ function UserForm() {
     return (
         <section className="h-[89vh] flex justify-center items-center p-10">
             <div className="card-primary sm:w-1/2 text-center">
-                <h3 className="animated-neon-title mb-10">Mot de passe :</h3>
+                <h3 className="animated-neon-title mb-10">Mot de passe</h3>
 
                 {resetToken ? (
                     <form onSubmit={handleResetPassword}>
