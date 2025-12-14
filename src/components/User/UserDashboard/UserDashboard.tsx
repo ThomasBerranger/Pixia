@@ -104,7 +104,7 @@ function UserDashboard() {
                     mb-5 duration-500 transition-all order-3 sm:order-2`}
                     onClick={() => setDisplayHistorique(false)}
                 >
-                    <h2 className="w-full sm:w-auto text-left sm:p-2 m-0 font-title text-retro-accent text-3xl">
+                    <h2 className="w-full text-left sm:text-center sm:p-2 m-0 font-title text-retro-accent text-3xl">
                         SUGGESTIONS
                         {userDashboard?.user &&
                             !hasBadge(

@@ -76,7 +76,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                         className="text-white flex items-center text-xl"
                     >
                         <LuFileCode2 className="mr-2 text-3xl" />
-                        Version 1.2.1
+                        Version 1.4.1
                     </Link>
                 )}
 
