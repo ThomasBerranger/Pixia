@@ -6,6 +6,8 @@ import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { type ApiError, useApi } from '../../../hooks/useApi.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
 import { GoogleButton } from './GoogleButton.tsx';
+import { ROUTES } from '../../../constants/routes.ts';
+import { Link } from 'react-router-dom';
 
 function UserForm({ slug }: { slug?: string }) {
     const { apiCall } = useApi();
@@ -111,7 +113,8 @@ function UserForm({ slug }: { slug?: string }) {
                     <div>
                         <label className="label-retro">Pseudo</label>
                         <input
-                            type="username"
+                            type="text"
+                            name="username"
                             placeholder="Neo"
                             className={`input-retro ${username.length >= 1 && 'border-retro-accent'}`}
                             value={username}
@@ -126,6 +129,7 @@ function UserForm({ slug }: { slug?: string }) {
                         <label className="label-retro">Email</label>
                         <input
                             type="email"
+                            name="email"
                             placeholder="thomas.anderson@gmail.com"
                             className={`input-retro ${email.length >= 5 && 'border-retro-accent'}`}
                             value={email}
@@ -140,14 +144,18 @@ function UserForm({ slug }: { slug?: string }) {
                         <label className="label-retro">Mot de passe</label>
                         <input
                             type="password"
+                            name="password"
                             placeholder="••••••••"
                             className={`input-retro ${password.length >= 1 && 'border-retro-accent'} ${error && 'shake border-red-500'}`}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <p className="text-retro-muted text-xxs sm:text-sm mt-1 cursor-pointer">
+                        <Link
+                            to={ROUTES.FORGOT_PASSWORD}
+                            className="text-retro-muted text-xxs sm:text-sm mt-1 cursor-pointer"
+                        >
                             T'as oublié ton mot de passe ?
-                        </p>
+                        </Link>
                     </div>
 
                     {slug && (

@@ -16,6 +16,9 @@ export const ROUTES = {
     ADMIN_GAME_EDIT: (id?: string) =>
         id ? `/admin/games/${id}` : '/admin/games/:id',
     ADMIN_CONTRIBUTIONS: '/admin/contributions',
+    // AUTHENTICATION
+    FORGOT_PASSWORD: '/reset-password',
+    PASSWORD_RESET: '/reset-password/:resetToken',
     // STATIC
     CHANGELOG: '/changelog',
     NOT_FOUND: '/404',

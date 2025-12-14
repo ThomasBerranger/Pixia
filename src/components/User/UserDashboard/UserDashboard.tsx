@@ -1,19 +1,19 @@
-import {useEffect, useState} from 'react';
-import {useApi} from '../../../hooks/useApi.tsx';
-import {ENDPOINTS} from '../../../constants/endpoints.ts';
-import type {UserDashboardType} from '../../../types/User/userDashboardType.ts';
-import type {ContributionType} from '../../../types/Contribution/contributionType.ts';
+import { useEffect, useState } from 'react';
+import { useApi } from '../../../hooks/useApi.tsx';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
+import type { UserDashboardType } from '../../../types/User/userDashboardType.ts';
+import type { ContributionType } from '../../../types/Contribution/contributionType.ts';
 import UserDashboardBadge from './UserDashboardBadge.tsx';
 import UserDashboardStatistic from './UserDashboardStatistic.tsx';
 import UserDashboardHistory from './UserDashboardHistory.tsx';
 import UserDashboardDangerZone from './UserDashboardDangerZone.tsx';
 import UserDashboardHeader from './UserDashboardHeader.tsx';
 import UserDashboardContribution from './UserDashboardSuggestion.tsx';
-import {BADGES} from '../../../constants/badges.ts';
-import {hasBadge} from '../../../utils/user.ts';
+import { BADGES } from '../../../constants/badges.ts';
+import { hasBadge } from '../../../utils/user.ts';
 
 function UserDashboard() {
-    const {apiCall} = useApi();
+    const { apiCall } = useApi();
 
     const [userDashboard, setUserDashboard] = useState<
         UserDashboardType | undefined
@@ -70,9 +70,9 @@ function UserDashboard() {
 
     return (
         <section className="md:min-h-[89vh] py-10 px-[7vw]">
-            <UserDashboardHeader user={userDashboard?.user}/>
+            <UserDashboardHeader user={userDashboard?.user} />
 
-            <UserDashboardBadge badges={userDashboard?.user.badges}/>
+            <UserDashboardBadge badges={userDashboard?.user.badges} />
 
             <UserDashboardStatistic
                 success={userDashboard?.success}
@@ -95,7 +95,7 @@ function UserDashboard() {
                     className={`order-2 sm:order-3 col-span-2 overflow-hidden mb-8 sm:mb-0 ${!displayHistorique && 'sm:hidden'}`}
                 >
                     {userDashboard && userDashboard.history.length > 0 && (
-                        <UserDashboardHistory history={userDashboard.history}/>
+                        <UserDashboardHistory history={userDashboard.history} />
                     )}
                 </div>
 
@@ -113,8 +113,8 @@ function UserDashboard() {
                                 BADGES.GAME_SUGGESTION.key
                             ) && (
                                 <span className="badge badge-primary text-xxs ml-1 px-2 py-1.5 align-middle">
-                                10 points
-                            </span>
+                                    10 points
+                                </span>
                             )}
                     </h2>
                 </div>
@@ -131,7 +131,7 @@ function UserDashboard() {
                 </div>
             </section>
 
-            <UserDashboardDangerZone user={userDashboard?.user}/>
+            <UserDashboardDangerZone user={userDashboard?.user} />
         </section>
     );
 }

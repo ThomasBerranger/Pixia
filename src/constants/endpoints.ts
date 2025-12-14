@@ -1,9 +1,11 @@
 export const ENDPOINTS = {
     // Authentification
+    ME: 'me',
+    LOGIN: 'login',
     REGISTER: 'register',
     GOOGLE_AUTH: 'google-auth',
-    LOGIN: 'login',
-    ME: 'me',
+    FORGOT_PASSWORD: 'forgot-password',
+    PASSWORD_RESET: 'reset-password',
     // USER
     LEADERBOARD: 'users/leaderboard',
     USER_UPDATE: 'users',

@@ -25,6 +25,7 @@ import Sidebar from './components/Layouts/SideBar.tsx';
 import Changelog from './components/Changelog.tsx';
 import ScrollToTop from './components/ScrollToTop.tsx';
 import Notification from './components/User/Notification.tsx';
+import PasswordReset from './components/User/Form/PasswordReset.tsx';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -68,6 +69,15 @@ function App() {
                         <Route
                             path={ROUTES.USER_SPONSOR()}
                             element={<UserContainer />}
+                        />
+
+                        <Route
+                            path={ROUTES.FORGOT_PASSWORD}
+                            element={<PasswordReset />}
+                        />
+                        <Route
+                            path={ROUTES.PASSWORD_RESET}
+                            element={<PasswordReset />}
                         />
 
                         <Route
