@@ -48,7 +48,7 @@ function GameContent({
                 )}
             </p>
 
-            <div className="h-full w-fit relative group rounded mx-auto">
+            <div className="md:h-full w-fit relative group rounded mx-auto">
                 <p
                     className="absolute hidden md:flex items-center text-xs top-3 right-4 z-10
                 badge-primary md:py-2 md:px-4 transition-all duration-300 ease-in-out
@@ -85,12 +85,12 @@ function GameContent({
                         }
                         onLoad={onImageLoadEnd}
                         alt="AI created image"
-                        className={`h-full object-contain shadow-[0_0px_60px_rgba(0,0,0,0.6)] shadow-retro-accent rounded-md transition-all duration-300 ${isImageLoading && 'blur-sm'}`}
+                        className={`md:h-full object-contain shadow-[0_0px_60px_rgba(0,0,0,0.6)] shadow-retro-accent rounded-md transition-all duration-300 ${isImageLoading && 'blur-sm'}`}
                     />
                 ) : (
                     <img
                         src="/gifs/loading3.gif"
-                        className="h-full w-full"
+                        className="md:h-full w-full"
                         alt="loading gif"
                     />
                 )}
