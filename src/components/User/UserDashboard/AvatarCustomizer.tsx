@@ -3,6 +3,7 @@ import { CgSpinner } from 'react-icons/cg';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { useAuth } from '../../../contexts/authContext.tsx';
+import { useAlert } from '../../../hooks/useAlert.ts';
 
 interface SelectedOptions {
     [key: string]: string;
@@ -28,6 +29,7 @@ const AvatarCustomizer: React.FC<{
 }> = ({ username, avatarUrl }) => {
     const { apiCall } = useApi();
     const { login } = useAuth();
+    const { showAlert } = useAlert();
 
     const [selectedOptions, setSelectedOptions] = useState<SelectedOptions>({});
     const [schema, setSchema] = useState<Schema | null>(null);
@@ -40,17 +42,34 @@ const AvatarCustomizer: React.FC<{
                 const url = new URL(avatarUrl);
                 const initialOptions: SelectedOptions = {};
 
+                // Détecter les probabilités à 0
+                const accessoriesProbability = url.searchParams.get('accessoriesProbability');
+                const facialHairProbability = url.searchParams.get('facialHairProbability');
+                const topProbability = url.searchParams.get('topProbability');
+
                 url.searchParams.forEach((value, key) => {
                     if (
                         ![
                             'seed',
                             'accessoriesProbability',
                             'facialHairProbability',
+                            'topProbability',
                         ].includes(key)
                     ) {
                         initialOptions[key] = value;
                     }
                 });
+
+                // Si proba = 0, mettre 'none'
+                if (accessoriesProbability === '0') {
+                    initialOptions.accessories = 'none';
+                }
+                if (facialHairProbability === '0') {
+                    initialOptions.facialHair = 'none';
+                }
+                if (topProbability === '0') {
+                    initialOptions.top = 'none';
+                }
 
                 setSelectedOptions(initialOptions);
             } catch (e) {
@@ -77,16 +96,28 @@ const AvatarCustomizer: React.FC<{
         const params: string[] = [`seed=${encodeURIComponent(username)}`];
 
         Object.entries(selectedOptions).forEach(([key, value]) => {
-            if (value && value !== '' && value !== 'none') {
+            if (value && value !== 'none') {
                 params.push(`${key}=${encodeURIComponent(value)}`);
             }
         });
 
-        if (selectedOptions.accessories) {
+        // Gérer les probabilités
+        if (selectedOptions.accessories === 'none') {
+            params.push('accessoriesProbability=0');
+        } else if (selectedOptions.accessories) {
             params.push('accessoriesProbability=100');
         }
-        if (selectedOptions.facialHair) {
+
+        if (selectedOptions.facialHair === 'none') {
+            params.push('facialHairProbability=0');
+        } else if (selectedOptions.facialHair) {
             params.push('facialHairProbability=100');
+        }
+
+        if (selectedOptions.top === 'none') {
+            params.push('topProbability=0');
+        } else if (selectedOptions.top) {
+            params.push('topProbability=100');
         }
 
         return `https://api.dicebear.com/9.x/avataaars/svg?${params.join('&')}`;
@@ -95,7 +126,7 @@ const AvatarCustomizer: React.FC<{
     const handleOptionChange = (optionKey: string, value: string) => {
         setIsAvatarLoading(true);
 
-        if (!value || value === 'none') {
+        if (!value) {
             setSelectedOptions((prev) => {
                 const newOptions = { ...prev };
                 delete newOptions[optionKey];
@@ -131,6 +162,8 @@ const AvatarCustomizer: React.FC<{
     };
 
     const formatValue = (value: string): string => {
+        if (value === 'none') return 'Aucun';
+
         const translations: { [key: string]: string } = {
             blank: 'Aucun',
             kurt: 'Kurt',
@@ -236,6 +269,36 @@ const AvatarCustomizer: React.FC<{
             shortHairTheCaesar: 'Courts César',
             shortHairTheCaesarSidePart: 'Courts César raie',
             sides: 'Côtés rasés',
+            bob: 'Carré',
+            bun: 'Chignon',
+            curly: 'Bouclés',
+            curvy: 'Ondulés',
+            dreads: 'Dreadlocks',
+            frida: 'Frida',
+            fro: 'Afro',
+            froBand: 'Afro bandeau',
+            longButNotTooLong: 'Mi-longs',
+            miaWallace: 'Mia Wallace',
+            shavedSides: 'Rasés côtés',
+            straight02: 'Raides 2',
+            straight01: 'Raides',
+            straightAndStrand: 'Raides mèche',
+            dreads01: 'Dreadlocks 1',
+            dreads02: 'Dreadlocks 2',
+            frizzle: 'Frisés',
+            shaggy: 'Hirsute',
+            shaggyMullet: 'Mulet',
+            shortCurly: 'Courts bouclés',
+            shortFlat: 'Courts plats',
+            shortRound: 'Courts ronds',
+            shortWaved: 'Courts ondulés',
+            theCaesar: 'César',
+            theCaesarAndSidePart: 'César raie',
+            bigHair: 'Volumineux',
+            blazerAndShirt: 'Blazer chemise',
+            blazerAndSweater: 'Blazer pull',
+            collarAndSweater: 'Pull col',
+            beardMajestic: 'Barbe majestueuse',
         };
 
         return (
@@ -297,6 +360,7 @@ const AvatarCustomizer: React.FC<{
             });
 
             login(response.token);
+            showAlert('Avatar enregistré', 'De toute beauté ! 😍');
         } catch (error) {
             console.error('Erreur:', error);
         } finally {
@@ -454,6 +518,7 @@ const AvatarCustomizer: React.FC<{
                 ];
                 const isHatSelected =
                     selectedOptions.top &&
+                    selectedOptions.top !== 'none' &&
                     hatTops.includes(selectedOptions.top);
 
                 let isDisabled = false;
@@ -465,15 +530,15 @@ const AvatarCustomizer: React.FC<{
                 }
                 if (
                     key === 'accessoriesColor' &&
-                    !selectedOptions.accessories
+                    (!selectedOptions.accessories || selectedOptions.accessories === 'none')
                 ) {
                     isDisabled = true;
                 }
-                if (key === 'facialHairColor' && !selectedOptions.facialHair) {
+                if (key === 'facialHairColor' && (!selectedOptions.facialHair || selectedOptions.facialHair === 'none')) {
                     isDisabled = true;
                 }
                 if (key === 'hairColor') {
-                    if (!selectedOptions.top || isHatSelected) {
+                    if (!selectedOptions.top || selectedOptions.top === 'none' || isHatSelected) {
                         isDisabled = true;
                     }
                 }
@@ -496,7 +561,10 @@ const AvatarCustomizer: React.FC<{
                             disabled={isDisabled}
                             className={`input-retro text-sm p-1 sm:p-2 w-full ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
-                            <option value="none">Défaut</option>
+                            <option value="">Défaut</option>
+                            {['accessories', 'facialHair', 'top'].includes(key) && (
+                                <option value="none">Aucun</option>
+                            )}
                             {values.map((value: string) => (
                                 <option key={value} value={value}>
                                     {isColorOption
