@@ -48,7 +48,7 @@ function App() {
                         height: '100vh',
                         zIndex: 0,
                     }}
-                    snowflakeCount={50}
+                    snowflakeCount={30}
                     color="#fff"
                 />
 
