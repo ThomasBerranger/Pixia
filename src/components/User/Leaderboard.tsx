@@ -338,7 +338,7 @@ function Leaderboard({
                             ))}
                         </p>
                         <p className="flex items-center">
-                            {playerCurrentStreak && (
+                            {playerCurrentStreak > 0 && (
                                 <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
                                     🔥{playerCurrentStreak}
                                 </span>
