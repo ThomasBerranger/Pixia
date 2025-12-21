@@ -7,4 +7,5 @@ export interface UserDashboardType {
     games: number;
     success: number;
     history: Array<AchievementType>;
+    streak: Record<string, number>;
 }

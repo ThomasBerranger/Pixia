@@ -1,5 +1,5 @@
-import {Link} from 'react-router-dom';
-import {ROUTES} from '../constants/routes.ts';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../constants/routes.ts';
 
 function Changelog() {
     return (
@@ -14,15 +14,33 @@ function Changelog() {
 
             <div className="font-righteous mb-10">
                 <p className="text-lg mb-1">Mot de passe oublié ? 🔑</p>
-                <p className="text-sm mb-7">Pas de panique ! Utilise la nouvelle fonction de récupération de mot de passe directement depuis la page de connexion.</p>
-                <p className="text-lg mb-1">Pixia parle maintenant français ET anglais</p>
-                <p className="text-sm mb-7">Une version entièrement traduite de Pixia arrivera un jour, en attendant les réponses fonctionnent désormais avec <span className="underline">les titres français et anglais</span>.</p>
+                <p className="text-sm mb-7">
+                    Pas de panique ! Utilise la nouvelle fonction de
+                    récupération de mot de passe directement depuis la page de
+                    connexion.
+                </p>
+                <p className="text-lg mb-1">
+                    Pixia parle maintenant français ET anglais
+                </p>
+                <p className="text-sm mb-7">
+                    Une version entièrement traduite de Pixia arrivera un jour,
+                    en attendant les réponses fonctionnent désormais avec{' '}
+                    <span className="underline">
+                        les titres français et anglais
+                    </span>
+                    .
+                </p>
                 <p className="text-lg mb-1">Refacto front Mobile First 📱</p>
-                <p className="text-sm mb-7">Vous êtes nombreux a profiter de Pixia sur mobile, des améliorations UI/UX ont été apporté au site.</p>
+                <p className="text-sm mb-7">
+                    Vous êtes nombreux a profiter de Pixia sur mobile, des
+                    améliorations UI/UX ont été apporté au site.
+                </p>
                 <p className="text-lg mb-1">Un compte en un clic !</p>
-                <p className="text-sm mb-7">L'authentification est désormais disponible avec un compte Google !</p>
+                <p className="text-sm mb-7">
+                    L'authentification est désormais disponible avec un compte
+                    Google !
+                </p>
             </div>
-
 
             <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
                 ● Version 1.2.1
@@ -47,7 +65,7 @@ function Changelog() {
                     <div>
                         <p className="text-sm">
                             Les avatars sont arrivés dans Pixia !
-                            <br/>
+                            <br />
                             Va vite customiser le tien !
                         </p>
                     </div>
@@ -58,7 +76,7 @@ function Changelog() {
                 <p className="text-sm">
                     Utilise ton lien de parrainage accessible depuis ton espace
                     pour inviter tes amis !
-                    <br/>
+                    <br />
                     Tu peux aussi partager ton profil et aller voir celui des
                     autres pour surveiller leur avancé.
                 </p>

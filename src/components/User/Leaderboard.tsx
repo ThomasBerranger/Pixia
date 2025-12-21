@@ -6,12 +6,14 @@ import { ROUTES } from '../../constants/routes.ts';
 
 function Leaderboard({
     leaderboard,
-    currentUser,
-    currentUserRank,
+    player,
+    playerRank,
+    playerCurrentStreak,
 }: {
     leaderboard: LeaderboardUserType[];
-    currentUser: UserType | undefined;
-    currentUserRank: number | undefined;
+    player: UserType | undefined;
+    playerRank: number | undefined;
+    playerCurrentStreak: number | undefined;
 }) {
     return (
         <section className="max-w-3xl mx-auto pt-0.5 sm:pt-5 pb-10">
@@ -26,7 +28,7 @@ function Leaderboard({
                                 {leaderboard[1]?.username}
                             </p>
                         </div>
-                        <p className="text-4xl flex-shrink-0">🥈</p>
+                        <p className="text-4xl flex-shrink-0 pr-1">🥈</p>
                     </div>
                     <div className="flex items-center">
                         <img
@@ -38,8 +40,15 @@ function Leaderboard({
                             className="h-24"
                         />
                         <div>
-                            <p className="font-title text-2xl text-retro-accent">
-                                {leaderboard[1] && leaderboard[1].score}
+                            <p className="flex items-center">
+                                <span className="font-title text-2xl text-retro-accent">
+                                    {leaderboard[1]?.score}
+                                </span>
+                                {leaderboard[1]?.streaks.current > 0 && (
+                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
+                                        🔥{leaderboard[1]?.streaks.current}
+                                    </span>
+                                )}
                             </p>
                             <p className="text-lg">
                                 {leaderboard[1] &&
@@ -65,7 +74,7 @@ function Leaderboard({
                                 {leaderboard[0]?.username}
                             </p>
                         </div>
-                        <p className="text-4xl flex-shrink-0">🏆</p>
+                        <p className="text-4xl flex-shrink-0 pr-1">🏆</p>
                     </div>
                     <div className="flex items-center">
                         <img
@@ -77,8 +86,15 @@ function Leaderboard({
                             className="h-24"
                         />
                         <div>
-                            <p className="font-title text-2xl text-retro-accent">
-                                {leaderboard[0] && leaderboard[0].score}
+                            <p className="flex items-center">
+                                <span className="font-title text-2xl text-retro-accent">
+                                    {leaderboard[0]?.score}
+                                </span>
+                                {leaderboard[0]?.streaks.current > 0 && (
+                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
+                                        🔥{leaderboard[0]?.streaks.current}
+                                    </span>
+                                )}
                             </p>
                             <p className="text-lg">
                                 {leaderboard[0] &&
@@ -104,7 +120,7 @@ function Leaderboard({
                                 {leaderboard[2]?.username}
                             </p>
                         </div>
-                        <p className="text-4xl flex-shrink-0">🥉</p>
+                        <p className="text-4xl flex-shrink-0 pr-1">🥉</p>
                     </div>
                     <div className="flex items-center">
                         <img
@@ -116,8 +132,15 @@ function Leaderboard({
                             className="h-24"
                         />
                         <div>
-                            <p className="font-title text-2xl text-retro-accent">
-                                {leaderboard[2] && leaderboard[2].score}
+                            <p className="flex items-center">
+                                <span className="font-title text-2xl text-retro-accent">
+                                    {leaderboard[2]?.score}
+                                </span>
+                                {leaderboard[2]?.streaks.current > 0 && (
+                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
+                                        🔥{leaderboard[2]?.streaks.current}
+                                    </span>
+                                )}
                             </p>
                             <p className="text-lg">
                                 {leaderboard[2] &&
@@ -137,9 +160,11 @@ function Leaderboard({
             <div className="sm:hidden card-primary border-retro-accent p-0 m-5">
                 <Link
                     to={ROUTES.USER_SHOW(leaderboard[0]?.slug)}
-                    className="w-full flex gap-2 items-center px-3 py-2.5"
+                    className="w-full flex gap-0.5 items-center px-3 py-2.5"
                 >
-                    <p className="text-2xl -mr-3.5">🏆</p>
+                    <p className="font-title font-bold text-retro-primary text-3xl">
+                        1
+                    </p>
                     <img
                         src={
                             leaderboard[0]?.avatarUrl ??
@@ -157,8 +182,15 @@ function Leaderboard({
                             </span>
                         ))}
                     </p>
-                    <p className="font-title text-xl text-retro-accent">
-                        {leaderboard[0]?.score}
+                    <p className="flex items-center">
+                        {leaderboard[0]?.streaks.current > 0 && (
+                            <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
+                                🔥{leaderboard[0]?.streaks.current}
+                            </span>
+                        )}
+                        <span className="font-title text-xl text-retro-accent">
+                            {leaderboard[0]?.score}
+                        </span>
                     </p>
                 </Link>
             </div>
@@ -168,7 +200,9 @@ function Leaderboard({
                     to={ROUTES.USER_SHOW(leaderboard[1]?.slug)}
                     className="w-full flex gap-2 items-center px-3 py-2.5"
                 >
-                    <p className="text-2xl -mr-3.5">🥈</p>
+                    <p className="font-title font-bold text-retro-primary text-3xl">
+                        2
+                    </p>
                     <img
                         src={
                             leaderboard[1]?.avatarUrl ??
@@ -186,8 +220,15 @@ function Leaderboard({
                             </span>
                         ))}
                     </p>
-                    <p className="font-title text-xl text-retro-accent">
-                        {leaderboard[1]?.score}
+                    <p className="flex items-center">
+                        {leaderboard[1]?.streaks.current > 0 && (
+                            <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
+                                🔥{leaderboard[1]?.streaks.current}
+                            </span>
+                        )}
+                        <span className="font-title text-xl text-retro-accent">
+                            {leaderboard[1]?.score}
+                        </span>
                     </p>
                 </Link>
 
@@ -195,7 +236,9 @@ function Leaderboard({
                     to={ROUTES.USER_SHOW(leaderboard[2]?.slug)}
                     className="w-full flex gap-2 items-center px-3 py-2.5"
                 >
-                    <p className="text-2xl -mr-3.5">🥉</p>
+                    <p className="font-title font-bold text-retro-primary text-3xl">
+                        3
+                    </p>
                     <img
                         src={
                             leaderboard[2]?.avatarUrl ??
@@ -213,8 +256,15 @@ function Leaderboard({
                             </span>
                         ))}
                     </p>
-                    <p className="font-title text-xl text-retro-accent">
-                        {leaderboard[2]?.score}
+                    <p className="flex items-center">
+                        {leaderboard[2]?.streaks.current > 0 && (
+                            <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
+                                🔥{leaderboard[2]?.streaks.current}
+                            </span>
+                        )}
+                        <span className="font-title text-xl text-retro-accent">
+                            {leaderboard[2]?.score}
+                        </span>
                     </p>
                 </Link>
             </div>
@@ -225,9 +275,9 @@ function Leaderboard({
                         to={ROUTES.USER_SHOW(user.slug)}
                         key={key}
                         className={`w-full flex gap-2 items-center px-3 sm:px-5 py-2.5 
-                     ${key + 4 === currentUserRank ? 'bg-retro-accent bg-opacity-10' : 'hover:bg-retro-accent hover:bg-opacity-10'}`}
+                     ${key + 4 === playerRank ? 'bg-retro-accent bg-opacity-10' : 'hover:bg-retro-accent hover:bg-opacity-10'}`}
                     >
-                        <p className="font-title font-bold text-retro-primary text-2xl sm:text-4xl">
+                        <p className="font-title font-bold text-retro-primary text-3xl">
                             {key + 4}
                         </p>
                         <img
@@ -247,41 +297,55 @@ function Leaderboard({
                                 </span>
                             ))}
                         </p>
-                        <p className="font-title text-2xl text-retro-accent">
-                            {user.score}
+                        <p className="flex items-center">
+                            {user.streaks.current > 0 && (
+                                <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
+                                    🔥{user.streaks.current}
+                                </span>
+                            )}
+                            <span className="text-2xl text-retro-accent font-title">
+                                {user.score}
+                            </span>
                         </p>
                     </Link>
                 ))}
             </div>
 
-            {currentUser && (
+            {player && (
                 <div className="card-retro-hover-retro-accent border-retro-primary p-0 mb-5 mx-5 sm:mx-0">
                     <Link
-                        to={ROUTES.USER_SHOW(currentUser.slug)}
+                        to={ROUTES.USER_SHOW(player.slug)}
                         className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
                     >
-                        <p className="font-title font-bold text-retro-primary text-2xl sm:text-4xl">
-                            {currentUserRank}
+                        <p className="font-title font-bold text-retro-primary text-3xl">
+                            {playerRank}
                         </p>
                         <img
                             src={
-                                currentUser.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${currentUser.username}`
+                                player.avatarUrl ??
+                                `${import.meta.env.VITE_DICE_URL}${player.username}`
                             }
                             alt="Avatar"
                             className="h-16"
                         />
                         <p className="flex-1 text-left font-righteous font-light sm:text-lg text-fade-end">
-                            {currentUser.username}
+                            {player.username}
                             <br />
-                            {currentUser.badges.map((badge, index) => (
+                            {player.badges.map((badge, index) => (
                                 <span key={index}>
                                     {BADGES[badge.name].icon}
                                 </span>
                             ))}
                         </p>
-                        <p className="font-title text-xl text-retro-accent">
-                            {currentUser.score}
+                        <p className="flex items-center">
+                            {playerCurrentStreak && (
+                                <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
+                                    🔥{playerCurrentStreak}
+                                </span>
+                            )}
+                            <span className="text-2xl text-retro-accent font-title">
+                                {player.score}
+                            </span>
                         </p>
                     </Link>
                 </div>

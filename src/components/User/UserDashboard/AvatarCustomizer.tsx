@@ -43,8 +43,12 @@ const AvatarCustomizer: React.FC<{
                 const initialOptions: SelectedOptions = {};
 
                 // Détecter les probabilités à 0
-                const accessoriesProbability = url.searchParams.get('accessoriesProbability');
-                const facialHairProbability = url.searchParams.get('facialHairProbability');
+                const accessoriesProbability = url.searchParams.get(
+                    'accessoriesProbability'
+                );
+                const facialHairProbability = url.searchParams.get(
+                    'facialHairProbability'
+                );
                 const topProbability = url.searchParams.get('topProbability');
 
                 url.searchParams.forEach((value, key) => {
@@ -205,7 +209,7 @@ const AvatarCustomizer: React.FC<{
             upDown: 'Haut bas',
             upDownNatural: 'Haut bas naturel',
             frownNatural: 'Froncé naturel',
-            close: 'Fermés',
+            closed: 'Fermés',
             cry: 'En pleurs',
             dizzy: 'Étourdi',
             eyeRoll: 'Lève les yeux',
@@ -530,15 +534,24 @@ const AvatarCustomizer: React.FC<{
                 }
                 if (
                     key === 'accessoriesColor' &&
-                    (!selectedOptions.accessories || selectedOptions.accessories === 'none')
+                    (!selectedOptions.accessories ||
+                        selectedOptions.accessories === 'none')
                 ) {
                     isDisabled = true;
                 }
-                if (key === 'facialHairColor' && (!selectedOptions.facialHair || selectedOptions.facialHair === 'none')) {
+                if (
+                    key === 'facialHairColor' &&
+                    (!selectedOptions.facialHair ||
+                        selectedOptions.facialHair === 'none')
+                ) {
                     isDisabled = true;
                 }
                 if (key === 'hairColor') {
-                    if (!selectedOptions.top || selectedOptions.top === 'none' || isHatSelected) {
+                    if (
+                        !selectedOptions.top ||
+                        selectedOptions.top === 'none' ||
+                        isHatSelected
+                    ) {
                         isDisabled = true;
                     }
                 }
@@ -562,9 +575,9 @@ const AvatarCustomizer: React.FC<{
                             className={`input-retro text-sm p-1 sm:p-2 w-full ${isDisabled ? 'opacity-50 cursor-not-allowed' : ''}`}
                         >
                             <option value="">Défaut</option>
-                            {['accessories', 'facialHair', 'top'].includes(key) && (
-                                <option value="none">Aucun</option>
-                            )}
+                            {['accessories', 'facialHair', 'top'].includes(
+                                key
+                            ) && <option value="none">Aucun</option>}
                             {values.map((value: string) => (
                                 <option key={value} value={value}>
                                     {isColorOption

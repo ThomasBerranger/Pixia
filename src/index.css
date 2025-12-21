@@ -11,6 +11,7 @@
 @import './styles/alert.css';
 @import './styles/animation.css';
 @import './styles/burger.css';
+@import './styles/border.css';
 @import './styles/timeline.css';
 
 @tailwind base;

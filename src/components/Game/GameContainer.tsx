@@ -26,6 +26,7 @@ function GameContainer() {
     );
 
     const [game, setGame] = useState<GameType | undefined>();
+    const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
     const [nextGameDate, setNextGameDate] = useState<string | null>(null);
     const [previousGameDate, setPreviousGameDate] = useState<string | null>(
         null
@@ -33,10 +34,11 @@ function GameContainer() {
     const [loadingDirection, setLoadingDirection] = useState<
         'prev' | 'next' | null
     >(null);
+
     const [leaderboard, setLeaderboard] = useState<LeaderboardUserType[]>([]);
-    const [currentUser, setCurrentUser] = useState<UserType>();
-    const [currentUserRank, setCurrentUserRank] = useState<number>();
-    const [isImageLoading, setIsImageLoading] = useState<boolean>(true);
+    const [player, setPlayer] = useState<UserType>();
+    const [playerRank, setPlayerRank] = useState<number>();
+    const [playerCurrentStreak, setPlayerCurrentStreak] = useState<number>();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,8 +67,11 @@ function GameContainer() {
 
             if (leaderboardResult.status === 'fulfilled') {
                 setLeaderboard(leaderboardResult.value.leaderboard);
-                setCurrentUser(leaderboardResult.value.currentUser);
-                setCurrentUserRank(leaderboardResult.value.currentUserRank);
+                setPlayer(leaderboardResult.value.player);
+                setPlayerRank(leaderboardResult.value.playerRank);
+                setPlayerCurrentStreak(
+                    leaderboardResult.value.playerCurrentStreak
+                );
             } else {
                 console.error(leaderboardResult.reason);
             }
@@ -114,13 +119,16 @@ function GameContainer() {
                 );
 
                 if (isAuthenticated) {
-                    const leaderboardResponse = await apiCall(
+                    const leaderboardResult = await apiCall(
                         ENDPOINTS.LEADERBOARD
                     );
 
-                    setLeaderboard(leaderboardResponse.leaderboard);
-                    setCurrentUser(leaderboardResponse.currentUser);
-                    setCurrentUserRank(leaderboardResponse.currentUserRank);
+                    setLeaderboard(leaderboardResult.leaderboard);
+                    setPlayer(leaderboardResult.player);
+                    setPlayerRank(leaderboardResult.playerRank);
+                    setPlayerCurrentStreak(
+                        leaderboardResult.playerCurrentStreak
+                    );
 
                     const hasUnreadNotification = await apiCall(
                         ENDPOINTS.HAS_UNREAD_NOTIFICATION
@@ -182,8 +190,9 @@ function GameContainer() {
 
             <Leaderboard
                 leaderboard={leaderboard}
-                currentUser={currentUser}
-                currentUserRank={currentUserRank}
+                player={player}
+                playerRank={playerRank}
+                playerCurrentStreak={playerCurrentStreak}
             />
         </>
     );

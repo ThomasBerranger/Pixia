@@ -26,6 +26,7 @@ import Changelog from './components/Changelog.tsx';
 import ScrollToTop from './components/ScrollToTop.tsx';
 import Notification from './components/User/Notification.tsx';
 import PasswordReset from './components/User/Form/PasswordReset.tsx';
+import { Snowfall } from 'react-snowfall';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -40,6 +41,17 @@ function App() {
 
                 <InstallPWA />
 
+                <Snowfall // note temporary until 2026
+                    style={{
+                        position: 'fixed',
+                        width: '100vw',
+                        height: '100vh',
+                        zIndex: 0,
+                    }}
+                    snowflakeCount={50}
+                    color="#fff"
+                />
+
                 <Header
                     isSidebarOpen={isSidebarOpen}
                     setIsSidebarOpen={setIsSidebarOpen}
@@ -50,7 +62,7 @@ function App() {
                     onClose={() => setIsSidebarOpen(false)}
                 />
 
-                <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text">
+                <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text -z-2">
                     <Alert />
 
                     <Routes>

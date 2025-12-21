@@ -6,4 +6,5 @@ export interface LeaderboardUserType {
     score: string;
     slug: string;
     badges: BadgeType[];
+    streaks: { current: number; best: number };
 }

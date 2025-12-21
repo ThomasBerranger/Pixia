@@ -2,10 +2,12 @@ export default function UserDashboardStatistic({
     success,
     games,
     rank,
+    streak,
 }: {
     success: number | undefined;
     games: number | undefined;
     rank: number | undefined;
+    streak: Record<string, number> | undefined;
 }) {
     return (
         <>
@@ -85,18 +87,18 @@ export default function UserDashboardStatistic({
                     </div>
                 </div>
 
-                <div className="col-span-3 card-primary p-6 opacity-30 cursor-not-allowed">
+                <div className="col-span-3 card-primary-hover p-6">
                     <div className="flex items-center gap-2">
-                        <div className="hidden sm:block text-4xl mb-4">⚡</div>
+                        <div className="hidden sm:block text-4xl mb-4">🔥</div>
                         <h3 className="font-righteous text-retro-accent uppercase mb-2">
                             Meilleure série
                         </h3>
                     </div>
                     <div className="text-4xl sm:text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
-                        7
+                        {streak && streak['best']}
                     </div>
                     <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        Victoires
+                        {streak && `Série de ${streak['current']} en cours`}
                     </div>
                 </div>
             </section>

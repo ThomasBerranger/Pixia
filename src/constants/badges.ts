@@ -71,14 +71,26 @@ export const BADGES = {
         icon: '🎨',
         description: "Picasso du pixel, chapeau l'artiste",
     },
+    STREAK_10: {
+        key: 'STREAK_10',
+        name: 'En feu',
+        icon: '🔥',
+        description: "Dix d'affilée, t'es incandescent",
+    },
     STREAK_30: {
         key: 'STREAK_30',
         name: 'Inarrêtable',
         icon: '⚡',
         description: 'Ta foudre frappe sans relâche',
     },
-    STREAK_60: {
-        key: 'STREAK_60',
+    STREAK_90: {
+        key: 'STREAK_90',
+        name: 'Astre flamboyant',
+        icon: '☄️',
+        description: 'Ta trajectoire est fulgurante',
+    },
+    STREAK_200: {
+        key: 'STREAK_200',
         name: 'Perfectionniste',
         icon: '💫',
         description: 'Régularité stellaire',

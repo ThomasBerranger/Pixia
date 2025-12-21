@@ -78,6 +78,7 @@ function UserDashboard() {
                 success={userDashboard?.success}
                 games={userDashboard?.games}
                 rank={userDashboard?.rank}
+                streak={userDashboard?.streak}
             />
 
             <section className="grid sm:grid-cols-2 mb-10 sm:mb-8">
