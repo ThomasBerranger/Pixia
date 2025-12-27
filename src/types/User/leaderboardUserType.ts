@@ -7,4 +7,5 @@ export interface LeaderboardUserType {
     slug: string;
     badges: BadgeType[];
     streaks: { current: number; best: number };
+    monthlyLeaderboards: { score: number }[];
 }

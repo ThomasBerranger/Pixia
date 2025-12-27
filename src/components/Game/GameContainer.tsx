@@ -37,8 +37,6 @@ function GameContainer() {
 
     const [leaderboard, setLeaderboard] = useState<LeaderboardUserType[]>([]);
     const [player, setPlayer] = useState<UserType>();
-    const [playerRank, setPlayerRank] = useState<number>();
-    const [playerCurrentStreak, setPlayerCurrentStreak] = useState<number>();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -68,10 +66,6 @@ function GameContainer() {
             if (leaderboardResult.status === 'fulfilled') {
                 setLeaderboard(leaderboardResult.value.leaderboard);
                 setPlayer(leaderboardResult.value.player);
-                setPlayerRank(leaderboardResult.value.playerRank);
-                setPlayerCurrentStreak(
-                    leaderboardResult.value.playerCurrentStreak
-                );
             } else {
                 console.error(leaderboardResult.reason);
             }
@@ -125,10 +119,6 @@ function GameContainer() {
 
                     setLeaderboard(leaderboardResult.leaderboard);
                     setPlayer(leaderboardResult.player);
-                    setPlayerRank(leaderboardResult.playerRank);
-                    setPlayerCurrentStreak(
-                        leaderboardResult.playerCurrentStreak
-                    );
 
                     const hasUnreadNotification = await apiCall(
                         ENDPOINTS.HAS_UNREAD_NOTIFICATION
@@ -188,12 +178,7 @@ function GameContainer() {
 
             <hr className="divider max-w-5xl mx-auto mb-5" />
 
-            <Leaderboard
-                leaderboard={leaderboard}
-                player={player}
-                playerRank={playerRank}
-                playerCurrentStreak={playerCurrentStreak}
-            />
+            <Leaderboard leaderboard={leaderboard} player={player} />
         </>
     );
 }

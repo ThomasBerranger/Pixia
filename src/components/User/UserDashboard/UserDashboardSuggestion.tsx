@@ -101,19 +101,19 @@ export default function UserDashboardSuggestion({
 
                         return (
                             <div
-                                key={contribution.id}
+                                key={contribution.createdAt}
                                 className="flex justify-between items-center mt-3"
                             >
                                 <div className="flex items-center border-retro-line-muted">
                                     <div className="line-muted"></div>
 
                                     <div>
-                                        <div className="text-retro-muted text-xs mb-1 capitalize">
+                                        <div className="text-retro-muted text-xs mb-1 capitalize tracking-wide">
                                             {format(
                                                 new Date(
                                                     contribution.createdAt
                                                 ),
-                                                'EEEE dd yyyy',
+                                                'EEEE dd/MM/yyyy',
                                                 { locale: fr }
                                             )}
                                         </div>

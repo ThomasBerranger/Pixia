@@ -13,4 +13,7 @@ export interface UserType {
     avatarUrl?: string;
     slug: string;
     achievements?: AchievementType[];
+    streaks: { current: number; best: number };
+    monthlyLeaderboards: { month: string; score: number }[];
+    rank?: number;
 }

@@ -12,16 +12,16 @@ export default function UserDashboardHistory({
         <>
             {history.map((achievement: AchievementType) => (
                 <div
-                    key={achievement.id}
+                    key={achievement.game.solution}
                     className="text-left flex gap-2 justify-between items-center py-2"
                 >
                     <div className="flex items-center border-retro-line-muted">
                         <div className="line-muted"></div>
                         <div>
-                            <div className="text-retro-muted text-xs mb-1 capitalize">
+                            <div className="text-retro-muted text-xs mb-1 capitalize tracking-wide">
                                 {format(
                                     new Date(achievement.date),
-                                    'EEEE dd yyyy',
+                                    'EEEE dd/MM/yyyy',
                                     { locale: fr }
                                 )}
                             </div>

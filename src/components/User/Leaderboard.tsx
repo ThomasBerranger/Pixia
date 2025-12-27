@@ -1,22 +1,30 @@
-import type {LeaderboardUserType} from '../../types/User/leaderboardUserType.ts';
-import type {UserType} from '../../types/User/userType.ts';
-import {BADGES} from '../../constants/badges.ts';
-import {Link} from 'react-router-dom';
-import {ROUTES} from '../../constants/routes.ts';
+import type { LeaderboardUserType } from '../../types/User/leaderboardUserType.ts';
+import type { UserType } from '../../types/User/userType.ts';
+import { BADGES } from '../../constants/badges.ts';
+import { Link } from 'react-router-dom';
+import { ROUTES } from '../../constants/routes.ts';
+import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
+import { decodeJWT } from '../../utils/jwt.ts';
+import { format } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 function Leaderboard({
-                         leaderboard,
-                         player,
-                         playerRank,
-                         playerCurrentStreak,
-                     }: {
+    leaderboard,
+    player,
+}: {
     leaderboard: LeaderboardUserType[];
     player: UserType | undefined;
-    playerRank: number | undefined;
-    playerCurrentStreak: number | undefined;
 }) {
+    const decodedJwt: JWTPayloadType | undefined = decodeJWT(
+        localStorage.getItem('token')
+    );
+
     return (
         <section className="max-w-3xl mx-auto pt-0.5 sm:pt-5 pb-10">
+            <h2 className="font-title text-retro-accent text-center text-xl sm:text-4xl sm:mb-6">
+                Classement {format(new Date(), 'MMMM', { locale: fr })}
+            </h2>
+
             <div className="hidden sm:grid grid-cols-3 gap-8 items-end">
                 <Link
                     to={ROUTES.USER_SHOW(leaderboard[1]?.slug)}
@@ -42,11 +50,13 @@ function Leaderboard({
                         <div>
                             <p className="flex items-center">
                                 <span className="font-title text-2xl text-retro-accent">
-                                    {leaderboard[1]?.score}
+                                    {
+                                        leaderboard[1]?.monthlyLeaderboards[0]
+                                            .score
+                                    }
                                 </span>
                                 {leaderboard[1]?.streaks.current > 0 && (
-                                    <span
-                                        className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
+                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
                                         🔥{leaderboard[1]?.streaks.current}
                                     </span>
                                 )}
@@ -89,11 +99,13 @@ function Leaderboard({
                         <div>
                             <p className="flex items-center">
                                 <span className="font-title text-2xl text-retro-accent">
-                                    {leaderboard[0]?.score}
+                                    {
+                                        leaderboard[0]?.monthlyLeaderboards[0]
+                                            .score
+                                    }
                                 </span>
                                 {leaderboard[0]?.streaks.current > 0 && (
-                                    <span
-                                        className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
+                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
                                         🔥{leaderboard[0]?.streaks.current}
                                     </span>
                                 )}
@@ -136,11 +148,13 @@ function Leaderboard({
                         <div>
                             <p className="flex items-center">
                                 <span className="font-title text-2xl text-retro-accent">
-                                    {leaderboard[2]?.score}
+                                    {
+                                        leaderboard[2]?.monthlyLeaderboards[0]
+                                            .score
+                                    }
                                 </span>
                                 {leaderboard[2]?.streaks.current > 0 && (
-                                    <span
-                                        className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
+                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
                                         🔥{leaderboard[2]?.streaks.current}
                                     </span>
                                 )}
@@ -178,7 +192,7 @@ function Leaderboard({
                     />
                     <p className="flex-1 text-left font-righteous font-light text-fade-end">
                         {leaderboard[0]?.username}
-                        <br/>
+                        <br />
                         {leaderboard[0]?.badges.map((badge, index) => (
                             <span key={index} className="text-sm">
                                 {BADGES[badge.name].icon}
@@ -192,7 +206,7 @@ function Leaderboard({
                             </span>
                         )}
                         <span className="font-title text-xl text-retro-accent">
-                            {leaderboard[0]?.score}
+                            {leaderboard[0]?.monthlyLeaderboards[0].score}
                         </span>
                     </p>
                 </Link>
@@ -216,7 +230,7 @@ function Leaderboard({
                     />
                     <p className="flex-1 text-left font-righteous font-light text-fade-end">
                         {leaderboard[1]?.username}
-                        <br/>
+                        <br />
                         {leaderboard[1]?.badges.map((badge, index) => (
                             <span key={index} className="text-sm">
                                 {BADGES[badge.name].icon}
@@ -230,7 +244,7 @@ function Leaderboard({
                             </span>
                         )}
                         <span className="font-title text-xl text-retro-accent">
-                            {leaderboard[1]?.score}
+                            {leaderboard[1]?.monthlyLeaderboards[0].score}
                         </span>
                     </p>
                 </Link>
@@ -252,7 +266,7 @@ function Leaderboard({
                     />
                     <p className="flex-1 text-left font-righteous font-light text-fade-end">
                         {leaderboard[2]?.username}
-                        <br/>
+                        <br />
                         {leaderboard[2]?.badges.map((badge, index) => (
                             <span key={index} className="text-sm">
                                 {BADGES[badge.name].icon}
@@ -266,7 +280,7 @@ function Leaderboard({
                             </span>
                         )}
                         <span className="font-title text-xl text-retro-accent">
-                            {leaderboard[2]?.score}
+                            {leaderboard[2]?.monthlyLeaderboards[0].score}
                         </span>
                     </p>
                 </Link>
@@ -278,7 +292,7 @@ function Leaderboard({
                         to={ROUTES.USER_SHOW(user.slug)}
                         key={key}
                         className={`w-full flex gap-2 items-center px-3 sm:px-5 py-2.5 
-                     ${key + 4 === playerRank ? 'bg-retro-accent bg-opacity-10' : 'hover:bg-retro-accent hover:bg-opacity-10'}`}
+                     ${user.username === decodedJwt?.username ? 'bg-retro-accent bg-opacity-10' : 'hover:bg-retro-accent hover:bg-opacity-10'}`}
                     >
                         <p className="font-title font-bold text-retro-primary text-3xl">
                             {key + 4}
@@ -293,7 +307,7 @@ function Leaderboard({
                         />
                         <p className="flex-1 text-left font-righteous font-light sm:text-lg text-fade-end">
                             {user.username}
-                            <br/>
+                            <br />
                             {user.badges.map((badge, index) => (
                                 <span key={index}>
                                     {BADGES[badge.name].icon}
@@ -307,7 +321,7 @@ function Leaderboard({
                                 </span>
                             )}
                             <span className="text-2xl text-retro-accent font-title">
-                                {user.score}
+                                {user.monthlyLeaderboards[0].score}
                             </span>
                         </p>
                     </Link>
@@ -321,7 +335,7 @@ function Leaderboard({
                         className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
                     >
                         <p className="font-title font-bold text-retro-primary text-3xl">
-                            {playerRank}
+                            {player.rank}
                         </p>
                         <img
                             src={
@@ -333,7 +347,7 @@ function Leaderboard({
                         />
                         <p className="flex-1 text-left font-righteous font-light sm:text-lg text-fade-end">
                             {player.username}
-                            <br/>
+                            <br />
                             {player.badges.map((badge, index) => (
                                 <span key={index}>
                                     {BADGES[badge.name].icon}
@@ -341,13 +355,14 @@ function Leaderboard({
                             ))}
                         </p>
                         <p className="flex items-center">
-                            {playerCurrentStreak !== undefined && playerCurrentStreak > 0 && (
-                                <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                    🔥{playerCurrentStreak}
-                                </span>
-                            )}
+                            {player.streaks.current !== undefined &&
+                                player.streaks.current > 0 && (
+                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
+                                        🔥{player.streaks.current}
+                                    </span>
+                                )}
                             <span className="text-2xl text-retro-accent font-title">
-                                {player.score}
+                                {player.monthlyLeaderboards[0].score}
                             </span>
                         </p>
                     </Link>

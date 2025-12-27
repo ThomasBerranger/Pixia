@@ -62,7 +62,7 @@ export default function Contribution() {
                 {contributions &&
                     contributions.map((contribution: ContributionType) => (
                         <div
-                            key={contribution.id}
+                            key={contribution.createdAt}
                             className="border-l-4 border-retro-primary h-fit pl-3 pb-2"
                         >
                             <p>

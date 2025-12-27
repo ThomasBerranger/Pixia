@@ -8,6 +8,8 @@ import { useModal } from '../../../hooks/useModal.tsx';
 import { FaUserEdit } from 'react-icons/fa';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import { Link } from 'react-router-dom';
+import { format, startOfMonth } from 'date-fns';
+import { fr } from 'date-fns/locale';
 
 export default function UserDashboardHeader({
     user,
@@ -60,6 +62,11 @@ export default function UserDashboardHeader({
         }
     };
 
+    const currentMonthLeaderboard = user?.monthlyLeaderboards.find(
+        (ml) =>
+            format(startOfMonth(ml.month), 'yyyy-MM') ===
+            format(startOfMonth(new Date()), 'yyyy-MM')
+    );
     return (
         <>
             <section className="sm:flex justify-between mb-8 card-primary px-3 py-4 sm:p-5 sm:pt-4">
@@ -92,16 +99,33 @@ export default function UserDashboardHeader({
                                     <FaUserEdit className=" text-2xl text-retro-accent" />
                                 </button>
                             </div>
-                            <div className="">
+                            <div>
                                 <h1 className="font-righteous text-4xl line-clamp-2 bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent">
                                     {user?.username}
                                 </h1>
-                                <div>
-                                    <div className="flex flex-shrink-0 items-center gap-0.5 text-xs sm:text-sm">
-                                        <p className="font-title text-retro-accent text-2xl">
-                                            {user?.score}
+                                <div className="flex flex-col flex-shrink-0">
+                                    {currentMonthLeaderboard && (
+                                        <p className="font-title text-retro-accent text-xl">
+                                            {currentMonthLeaderboard.score}
+                                            <span className="text-xxs font-righteous">
+                                                {' '}
+                                                {format(
+                                                    startOfMonth(
+                                                        currentMonthLeaderboard.month
+                                                    ),
+                                                    'MMMM',
+                                                    { locale: fr }
+                                                )}
+                                            </span>
                                         </p>
-                                    </div>
+                                    )}
+                                    <p className="font-title text-retro-accent text-xl">
+                                        {user?.score}
+                                        <span className="text-xxs font-righteous">
+                                            {' '}
+                                            Total
+                                        </span>
+                                    </p>
                                 </div>
                             </div>
                         </div>

@@ -13,14 +13,28 @@ function Changelog() {
             </h2>
 
             <div className="font-righteous mb-10">
-                <p className="text-lg mb-1">🎅 Ho Ho Hoo l'évènement de noël est en cours !</p>
-                <p className="text-sm mb-7">Retrouveras-tu les meilleurs classiques de fin d'années dans les prochaines images ? ☃️</p>
+                <p className="text-lg mb-1">
+                    🎅 Ho Ho Hoo l'évènement de noël est en cours !
+                </p>
+                <p className="text-sm mb-7">
+                    Retrouveras-tu les meilleurs classiques de fin d'années dans
+                    les prochaines images ? ☃️
+                </p>
             </div>
 
             <div className="font-righteous mb-10">
-                <p className="text-lg mb-1">🔥 Les séries de victoires sont là 🔥</p>
-                <p className="text-sm mb-1">Alors qui sera capable de générer le plus de flammes ? Les séries sont calculées à partir du nombre de victoires consécutives.</p>
-                <p className="text-sm mb-7">Pas de stress, tu ne perdras pas ta série si tu oublies de te connecter.</p>
+                <p className="text-lg mb-1">
+                    🔥 Les séries de victoires sont là 🔥
+                </p>
+                <p className="text-sm mb-1">
+                    Alors qui sera capable de générer le plus de flammes ? Les
+                    séries sont calculées à partir du nombre de victoires
+                    consécutives.
+                </p>
+                <p className="text-sm mb-7">
+                    Pas de stress, tu ne perdras pas ta série si tu oublies de
+                    te connecter.
+                </p>
             </div>
 
             <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
