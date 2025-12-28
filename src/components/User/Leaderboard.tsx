@@ -7,6 +7,7 @@ import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
 import { decodeJWT } from '../../utils/jwt.ts';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { getCurrentMonthlyLeaderboard } from '../../utils/monthlyLeaderboard.ts';
 
 function Leaderboard({
     leaderboard,
@@ -362,7 +363,7 @@ function Leaderboard({
                                     </span>
                                 )}
                             <span className="text-2xl text-retro-accent font-title">
-                                {player.monthlyLeaderboards[0].score}
+                                {getCurrentMonthlyLeaderboard(player)?.score}
                             </span>
                         </p>
                     </Link>

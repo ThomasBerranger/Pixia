@@ -10,6 +10,7 @@ import { useAuth } from '../../../contexts/authContext.tsx';
 import { Link } from 'react-router-dom';
 import { format, startOfMonth } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { getCurrentMonthlyLeaderboard } from '../../../utils/monthlyLeaderboard.ts';
 
 export default function UserDashboardHeader({
     user,
@@ -62,11 +63,9 @@ export default function UserDashboardHeader({
         }
     };
 
-    const currentMonthLeaderboard = user?.monthlyLeaderboards.find(
-        (ml) =>
-            format(startOfMonth(ml.month), 'yyyy-MM') ===
-            format(startOfMonth(new Date()), 'yyyy-MM')
-    );
+    const currentMonthlyLeaderboard =
+        user && getCurrentMonthlyLeaderboard(user);
+
     return (
         <>
             <section className="sm:flex justify-between mb-8 card-primary px-3 py-4 sm:p-5 sm:pt-4">
@@ -104,14 +103,14 @@ export default function UserDashboardHeader({
                                     {user?.username}
                                 </h1>
                                 <div className="flex flex-col flex-shrink-0">
-                                    {currentMonthLeaderboard && (
+                                    {currentMonthlyLeaderboard && (
                                         <p className="font-title text-retro-accent text-xl">
-                                            {currentMonthLeaderboard.score}
+                                            {currentMonthlyLeaderboard.score}
                                             <span className="text-xxs font-righteous">
                                                 {' '}
                                                 {format(
                                                     startOfMonth(
-                                                        currentMonthLeaderboard.month
+                                                        currentMonthlyLeaderboard.month
                                                     ),
                                                     'MMMM',
                                                     { locale: fr }
