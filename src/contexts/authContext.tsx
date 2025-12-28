@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, type ReactNode } from 'react';
+import {
+    createContext,
+    useContext,
+    useState,
+    type ReactNode,
+    useEffect,
+} from 'react';
 import { jwtDecode } from 'jwt-decode';
 import type { JWTPayloadType } from '../types/JWTPayloadType.ts';
 
@@ -17,22 +23,63 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
     const [token, setToken] = useState<string | null>(() => {
-        return localStorage.getItem('token');
-    });
-
-    const [userRoles, setUserRoles] = useState<string[]>(() => {
         const savedToken = localStorage.getItem('token');
+
         if (savedToken) {
             try {
                 const decoded: JWTPayloadType = jwtDecode(savedToken);
+
+                if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+                    localStorage.removeItem('token');
+                    return null;
+                }
+
+                return savedToken;
+            } catch {
+                localStorage.removeItem('token');
+
+                return null;
+            }
+        }
+        return null;
+    });
+
+    const [userRoles, setUserRoles] = useState<string[]>(() => {
+        if (token) {
+            try {
+                const decoded: JWTPayloadType = jwtDecode(token);
+
                 return decoded.roles || [];
-            } catch (error) {
-                console.error('Erreur décodage JWT:', error);
+            } catch {
                 return [];
             }
         }
         return [];
     });
+
+    useEffect(() => {
+        if (!token) return;
+
+        const checkExpiration = () => {
+            try {
+                const decoded = jwtDecode<JWTPayloadType>(token);
+
+                if (decoded.exp && decoded.exp * 1000 < Date.now()) {
+                    logout();
+                }
+            } catch {
+                logout();
+            }
+        };
+
+        // Vérifier immédiatement
+        checkExpiration();
+
+        // Puis toutes les minutes
+        const interval = setInterval(checkExpiration, 60000);
+
+        return () => clearInterval(interval);
+    }, [token]);
 
     const login = (newToken: string) => {
         setToken(newToken);
