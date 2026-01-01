@@ -122,7 +122,7 @@ export default function UserDashboardHeader({
                                         {user?.score}
                                         <span className="text-xxs font-righteous">
                                             {' '}
-                                            Total
+                                            Général
                                         </span>
                                     </p>
                                 </div>

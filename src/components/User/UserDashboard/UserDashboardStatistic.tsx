@@ -69,7 +69,7 @@ export default function UserDashboardStatistic({
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl mb-4">🔝</div>
                         <h3 className="font-righteous text-retro-accent uppercase mb-2">
-                            Classement total
+                            Classement général
                         </h3>
                     </div>
                     <div className="text-4xl sm:text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
