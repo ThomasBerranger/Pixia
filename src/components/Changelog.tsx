@@ -36,21 +36,6 @@ function Changelog() {
                 </p>
             </div>
 
-            <div className="font-righteous mb-10">
-                <p className="text-lg mb-1">
-                    🔥 Les séries de victoires sont là 🔥
-                </p>
-                <p className="text-sm mb-1">
-                    Alors qui sera capable de générer le plus de flammes ? Les
-                    séries sont calculées à partir du nombre de victoires
-                    consécutives.
-                </p>
-                <p className="text-sm mb-7">
-                    Pas de stress, tu ne perdras pas ta série si tu oublies de
-                    te connecter.
-                </p>
-            </div>
-
             <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
                 ● Version 1.7.2
             </h2>
