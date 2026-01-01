@@ -9,6 +9,49 @@ function Changelog() {
             </h1>
 
             <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
+                ● Version 2.0.1
+            </h2>
+
+            <div className="font-righteous mb-10">
+                <p className="text-lg mb-1">Le classement évolue 🔝</p>
+                <p className="text-sm">
+                    Fonctionnement:{' '}
+                    <span className="underline">
+                        vos points sont attribués selon la date de publication
+                        de l'image
+                    </span>
+                    , pas la date de votre réponse.
+                </p>
+                <p className="text-sm">
+                    Répondre aux images de Décembre fera donc augmenter votre
+                    classement pour Décembre et non Janvier.
+                </p>
+                <p className="text-sm mb-3">
+                    En revanche les 10 points de contribution et ceux de
+                    parrainage, eux, comptent pour le mois actuel. Si cette
+                    règle se révèle trop injuste elle sera revue.
+                </p>
+                <p className="text-sm mb-7">
+                    Nouveau mois, nouveau classement ! Qui dominera ?
+                </p>
+            </div>
+
+            <div className="font-righteous mb-10">
+                <p className="text-lg mb-1">
+                    🔥 Les séries de victoires sont là 🔥
+                </p>
+                <p className="text-sm mb-1">
+                    Alors qui sera capable de générer le plus de flammes ? Les
+                    séries sont calculées à partir du nombre de victoires
+                    consécutives.
+                </p>
+                <p className="text-sm mb-7">
+                    Pas de stress, tu ne perdras pas ta série si tu oublies de
+                    te connecter.
+                </p>
+            </div>
+
+            <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
                 ● Version 1.7.2
             </h2>
 
