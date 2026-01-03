@@ -10,6 +10,10 @@
     @apply btn-retro bg-transparent text-retro-accent border-2 border-dashed border-retro-accent hover:bg-retro-accent hover:text-retro-bg;
 }
 
+.btn-ghost-hovered {
+    @apply btn-ghost bg-retro-accent text-retro-bg;
+}
+
 .btn-pixel {
     @apply btn-retro bg-retro-accent text-retro-bg border-none shadow-[3px_3px_0_#ff006e,6px_6px_0_#fb5607] hover:translate-x-[-3px] hover:translate-y-[-3px] hover:shadow-[6px_6px_0_#ff006e,9px_9px_0_#fb5607];
 }

@@ -26,7 +26,7 @@ import Changelog from './components/Changelog.tsx';
 import ScrollToTop from './components/ScrollToTop.tsx';
 import Notification from './components/User/Notification.tsx';
 import PasswordReset from './components/User/Form/PasswordReset.tsx';
-import { Snowfall } from 'react-snowfall';
+import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -40,17 +40,6 @@ function App() {
                 <ScrollToTop />
 
                 <InstallPWA />
-
-                <Snowfall // note temporary until 2026
-                    style={{
-                        position: 'fixed',
-                        width: '100vw',
-                        height: '100vh',
-                        zIndex: 0,
-                    }}
-                    snowflakeCount={30}
-                    color="#fff"
-                />
 
                 <Header
                     isSidebarOpen={isSidebarOpen}
@@ -66,13 +55,15 @@ function App() {
                     <Alert />
 
                     <Routes>
+                        {/* 404 */}
                         <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
+                        {/* Game */}
                         <Route path={ROUTES.HOME} element={<GameContainer />} />
                         <Route
                             path={ROUTES.GAME_BY_DATE()}
                             element={<GameContainer />}
                         />
-
+                        {/* User */}
                         <Route path={ROUTES.USER} element={<UserContainer />} />
                         <Route
                             path={ROUTES.USER_SHOW()}
@@ -82,7 +73,11 @@ function App() {
                             path={ROUTES.USER_SPONSOR()}
                             element={<UserContainer />}
                         />
-
+                        <Route
+                            path={ROUTES.LEADERBOARD}
+                            element={<Leaderboard />}
+                        />
+                        {/* Password reset */}
                         <Route
                             path={ROUTES.FORGOT_PASSWORD}
                             element={<PasswordReset />}
@@ -91,7 +86,7 @@ function App() {
                             path={ROUTES.PASSWORD_RESET}
                             element={<PasswordReset />}
                         />
-
+                        {/* Admin */}
                         <Route
                             path={ROUTES.ADMIN}
                             element={
@@ -127,10 +122,12 @@ function App() {
                             path={ROUTES.USER_NOTIFICATIONS}
                             element={<Notification />}
                         />
+
                         <Route
                             path={ROUTES.CHANGELOG}
                             element={<Changelog />}
                         />
+
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </main>

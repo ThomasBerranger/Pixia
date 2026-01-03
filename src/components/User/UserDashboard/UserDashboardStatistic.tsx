@@ -1,3 +1,6 @@
+import { ROUTES } from '../../../constants/routes.ts';
+import { Link } from 'react-router-dom';
+
 export default function UserDashboardStatistic({
     success,
     games,
@@ -66,25 +69,29 @@ export default function UserDashboardStatistic({
                 </div>
 
                 <div className="col-span-3 card-primary-hover p-6">
-                    <div className="flex items-center gap-2">
-                        <div className="hidden sm:block text-4xl mb-4">🔝</div>
-                        <h3 className="font-righteous text-retro-accent uppercase mb-2">
-                            Classement général
-                        </h3>
-                    </div>
-                    <div className="text-4xl sm:text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
-                        {rank}
-                    </div>
-                    <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
-                        {rank &&
-                            (rank <= 3
-                                ? 'Légende Vivante'
-                                : rank <= 10
-                                  ? 'Point faible, trop fort·e'
-                                  : rank <= 20
-                                    ? 'Aux portes du top'
-                                    : 'Prometteur')}
-                    </div>
+                    <Link to={ROUTES.LEADERBOARD}>
+                        <div className="flex items-center gap-2">
+                            <div className="hidden sm:block text-4xl mb-4">
+                                🔝
+                            </div>
+                            <h3 className="font-righteous text-retro-accent uppercase mb-2">
+                                Classement général
+                            </h3>
+                        </div>
+                        <div className="text-4xl sm:text-5xl font-title text-retro-primary [text-shadow:0_0_10px_rgba(255,0,110,0.5)]">
+                            {rank}
+                        </div>
+                        <div className="text-retro-muted text-xs uppercase tracking-wide mt-2">
+                            {rank &&
+                                (rank <= 3
+                                    ? 'Légende Vivante'
+                                    : rank <= 10
+                                      ? 'Point faible, trop fort·e'
+                                      : rank <= 20
+                                        ? 'Aux portes du top'
+                                        : 'Prometteur')}
+                        </div>
+                    </Link>
                 </div>
 
                 <div className="col-span-3 card-primary-hover p-6">

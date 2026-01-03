@@ -8,6 +8,8 @@ export const ROUTES = {
     USER_SHOW: (slug?: string) => (slug ? `/users/${slug}` : '/users/:slug'),
     USER_SPONSOR: (slug?: string) =>
         slug ? `/users/${slug}/sponsor` : '/users/:slug/sponsor',
+    LEADERBOARD: '/leaderboard',
+    LEADERBOARD_WITH_PAGE: (page: number) => `/leaderboard?page=${page}`,
     // ADMIN
     ADMIN: '/admin',
     ADMIN_USERS: '/admin/user-dashboard',

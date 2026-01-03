@@ -7,7 +7,7 @@ import type { AnswerResult } from '../../types/answerResultType.ts';
 import GameHeader from './Layouts/GameHeader.tsx';
 import GameContent from './Layouts/GameContent.tsx';
 import GameFooter from './Layouts/GameFooter.tsx';
-import Leaderboard from '../User/Leaderboard.tsx';
+import MonthlyLeaderboard from '../User/Leaderboard/MonthlyLeaderboard.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { fireConfetti } from '../../utils/confetti.ts';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -52,7 +52,7 @@ function GameContainer() {
 
             const [dailyResult, leaderboardResult] = await Promise.allSettled([
                 apiCall(ENDPOINTS.DAILY(date)),
-                apiCall(ENDPOINTS.LEADERBOARD),
+                apiCall(ENDPOINTS.MONTHLY_LEADERBOARD),
             ]);
 
             if (dailyResult.status === 'fulfilled') {
@@ -114,7 +114,7 @@ function GameContainer() {
 
                 if (isAuthenticated) {
                     const leaderboardResult = await apiCall(
-                        ENDPOINTS.LEADERBOARD
+                        ENDPOINTS.MONTHLY_LEADERBOARD
                     );
 
                     setLeaderboard(leaderboardResult.leaderboard);
@@ -178,7 +178,7 @@ function GameContainer() {
 
             <hr className="divider max-w-5xl mx-auto mb-5" />
 
-            <Leaderboard leaderboard={leaderboard} player={player} />
+            <MonthlyLeaderboard leaderboard={leaderboard} player={player} />
         </>
     );
 }

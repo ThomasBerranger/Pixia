@@ -1,15 +1,15 @@
-import type { LeaderboardUserType } from '../../types/User/leaderboardUserType.ts';
-import type { UserType } from '../../types/User/userType.ts';
-import { BADGES } from '../../constants/badges.ts';
+import type { LeaderboardUserType } from '../../../types/User/leaderboardUserType.ts';
+import type { UserType } from '../../../types/User/userType.ts';
+import { BADGES } from '../../../constants/badges.ts';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../constants/routes.ts';
-import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
-import { decodeJWT } from '../../utils/jwt.ts';
+import { ROUTES } from '../../../constants/routes.ts';
+import type { JWTPayloadType } from '../../../types/JWTPayloadType.ts';
+import { decodeJWT } from '../../../utils/jwt.ts';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { getCurrentMonthlyLeaderboard } from '../../utils/monthlyLeaderboard.ts';
+import { getCurrentMonthlyLeaderboard } from '../../../utils/monthlyLeaderboard.ts';
 
-function Leaderboard({
+function MonthlyLeaderboard({
     leaderboard,
     player,
 }: {
@@ -369,8 +369,17 @@ function Leaderboard({
                     </Link>
                 </div>
             )}
+
+            <div className="w-full flex justify-center mt-6">
+                <Link
+                    to={ROUTES.LEADERBOARD}
+                    className="btn-primary text-xs px-6 py-2.5"
+                >
+                    Classement Général
+                </Link>
+            </div>
         </section>
     );
 }
 
-export default Leaderboard;
+export default MonthlyLeaderboard;

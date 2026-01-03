@@ -7,12 +7,13 @@ export const ENDPOINTS = {
     FORGOT_PASSWORD: 'forgot-password',
     PASSWORD_RESET: 'reset-password',
     // USER
-    LEADERBOARD: 'users/leaderboard',
     USER_UPDATE: 'users',
     USER_CONTRIBUTION_INDEX: 'contributions',
     USER_SHOW: (slug: string) => `users/${slug}`,
     NOTIFICATION: 'notifications',
     HAS_UNREAD_NOTIFICATION: 'notifications/has-unread',
+    LEADERBOARD: 'users/leaderboard',
+    MONTHLY_LEADERBOARD: 'users/monthly-leaderboard',
     // GAME
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
