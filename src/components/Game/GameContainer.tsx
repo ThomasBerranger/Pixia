@@ -52,7 +52,7 @@ function GameContainer() {
 
             const [dailyResult, leaderboardResult] = await Promise.allSettled([
                 apiCall(ENDPOINTS.DAILY(date)),
-                apiCall(ENDPOINTS.MONTHLY_LEADERBOARD),
+                apiCall(ENDPOINTS.MONTHLY_LEADERBOARD(date)),
             ]);
 
             if (dailyResult.status === 'fulfilled') {
@@ -114,7 +114,7 @@ function GameContainer() {
 
                 if (isAuthenticated) {
                     const leaderboardResult = await apiCall(
-                        ENDPOINTS.MONTHLY_LEADERBOARD
+                        ENDPOINTS.MONTHLY_LEADERBOARD(date)
                     );
 
                     setLeaderboard(leaderboardResult.leaderboard);
@@ -145,7 +145,7 @@ function GameContainer() {
                 };
             }
         },
-        [apiCall, game, isAuthenticated, setHasUnreadNotification]
+        [apiCall, date, game, isAuthenticated, setHasUnreadNotification]
     );
 
     function handleHintRequested(hint: string): void {
@@ -178,7 +178,11 @@ function GameContainer() {
 
             <hr className="divider max-w-5xl mx-auto mb-5" />
 
-            <MonthlyLeaderboard leaderboard={leaderboard} player={player} />
+            <MonthlyLeaderboard
+                date={date}
+                leaderboard={leaderboard}
+                player={player}
+            />
         </>
     );
 }

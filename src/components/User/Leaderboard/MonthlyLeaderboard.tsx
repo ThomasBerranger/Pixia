@@ -10,9 +10,11 @@ import { fr } from 'date-fns/locale';
 import { getCurrentMonthlyLeaderboard } from '../../../utils/monthlyLeaderboard.ts';
 
 function MonthlyLeaderboard({
+    date,
     leaderboard,
     player,
 }: {
+    date: string | undefined;
     leaderboard: LeaderboardUserType[];
     player: UserType | undefined;
 }) {
@@ -23,8 +25,15 @@ function MonthlyLeaderboard({
     return (
         <section className="max-w-3xl mx-auto pt-0.5 sm:pt-5 pb-10">
             <h2 className="font-title text-retro-accent text-center text-xl sm:text-4xl sm:mb-6">
-                Classement {format(new Date(), 'MMMM', { locale: fr })}
+                Classement {format(date || new Date(), 'MMMM', { locale: fr })}
             </h2>
+
+            {date?.substring(0, 7) !==
+                new Date().toISOString().substring(0, 7) && (
+                <p className="text-retro-accent text-center font-righteous text-xs mt-0.5">
+                    Terminé
+                </p>
+            )}
 
             <div className="hidden sm:grid grid-cols-3 gap-8 items-end">
                 <Link

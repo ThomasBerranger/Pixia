@@ -13,7 +13,10 @@ export const ENDPOINTS = {
     NOTIFICATION: 'notifications',
     HAS_UNREAD_NOTIFICATION: 'notifications/has-unread',
     LEADERBOARD: 'users/leaderboard',
-    MONTHLY_LEADERBOARD: 'users/monthly-leaderboard',
+    MONTHLY_LEADERBOARD: (date?: string) =>
+        date
+            ? `users/monthly-leaderboard?date=${date}`
+            : 'users/monthly-leaderboard',
     // GAME
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
