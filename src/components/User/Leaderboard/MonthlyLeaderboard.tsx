@@ -30,12 +30,13 @@ function MonthlyLeaderboard({
                     {format(date || new Date(), 'MMMM', { locale: fr })}
                 </h2>
 
-                {date?.substring(0, 7) !==
-                    new Date().toISOString().substring(0, 7) && (
-                    <p className="text-retro-accent text-center font-righteous text-xs sm:text-base mt-0.5">
-                        Terminé
-                    </p>
-                )}
+                {date &&
+                    date?.substring(0, 7) !==
+                        new Date().toISOString().substring(0, 7) && (
+                        <p className="text-retro-accent text-center font-righteous text-xs sm:text-base mt-0.5">
+                            Terminé
+                        </p>
+                    )}
             </div>
 
             <div className="hidden sm:grid grid-cols-3 gap-8 items-end">
