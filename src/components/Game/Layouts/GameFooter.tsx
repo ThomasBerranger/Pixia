@@ -127,7 +127,7 @@ function GameFooter({
             ) : (
                 <div className="w-full flex flex-col gap-2">
                     {(isHintLoading || game?.hint || isHintAsked) && (
-                        <p className="max-w-[60vw] text-sm md:text-base pl-2 border-l-4 border-retro-primary">
+                        <p className="sm:max-w-[60vw] text-sm md:text-base pl-2 border-l-4 border-retro-primary">
                             {isHintLoading ? (
                                 <CgSpinner className="animate-spin" size={20} />
                             ) : game?.hint ? (
