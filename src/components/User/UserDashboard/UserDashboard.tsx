@@ -77,7 +77,7 @@ function UserDashboard() {
             <UserDashboardStatistic
                 success={userDashboard?.success}
                 games={userDashboard?.games}
-                rank={userDashboard?.rank}
+                rank={userDashboard?.user.rank}
                 streak={userDashboard?.streak}
             />
 
