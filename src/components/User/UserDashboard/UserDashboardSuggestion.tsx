@@ -35,7 +35,11 @@ export default function UserDashboardSuggestion({
             c.status === CONTRIBUTION_STATUSES.PENDING
     );
 
-    const isFormValid = title.length > 2 && description.length > 2;
+    const isFormValid =
+        title.length > 2 &&
+        title.length < 255 &&
+        description.length > 2 &&
+        description.length < 1000;
 
     const handleSubmit = async (type: 'suggestion' | 'bug') => {
         if (!isFormValid) return;

@@ -1,10 +1,10 @@
 import { RiAiGenerate2 } from 'react-icons/ri';
 import { IoColorPaletteOutline } from 'react-icons/io5';
 import { useModal } from '../../hooks/useModal.tsx';
-import { FaXTwitter } from 'react-icons/fa6';
 import { PiInstagramLogoFill } from 'react-icons/pi';
 import { ROUTES } from '../../constants/routes.ts';
 import { Link } from 'react-router-dom';
+import { FaTiktok } from 'react-icons/fa';
 
 function Footer() {
     const { openModal } = useModal();
@@ -105,10 +105,10 @@ function Footer() {
 
                 <a
                     target="_blank"
-                    href="https://x.com/pixia_mirage"
+                    href="https://www.tiktok.com/@pixia.mirage"
                     className="text-lg hover:text-retro-accent"
                 >
-                    <FaXTwitter />
+                    <FaTiktok />
                 </a>
 
                 <button
