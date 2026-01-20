@@ -9,6 +9,7 @@ import {
 } from 'react-icons/md';
 import { LuFileCode2 } from 'react-icons/lu';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
+import { TbPhotoSearch } from 'react-icons/tb';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -34,7 +35,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 ${isOpen ? 'translate-x-0' : 'translate-x-full'}
             `}
         >
-            <nav className="text-white font-righteous flex flex-col items-center gap-8">
+            <nav className="text-white font-righteous flex flex-col gap-8">
                 {(decodedJwt?.avatarUrl || decodedJwt?.username) && (
                     <Link to={ROUTES.USER} onClick={onClose}>
                         <img
@@ -43,15 +44,24 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                                 `${import.meta.env.VITE_DICE_URL}${decodedJwt.username}`
                             }
                             alt="Avatar"
-                            className={`h-32 w-32`}
+                            className={`h-32 w-32 mx-auto`}
                         />
                     </Link>
                 )}
 
                 <Link to={ROUTES.USER} onClick={onClose}>
-                    <button className="btn-primary text-sm px-8 py-2.5">
+                    <button className="btn-primary text-sm px-8 py-2.5 mx-auto">
                         {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}
                     </button>
+                </Link>
+
+                <Link
+                    to={ROUTES.HOME}
+                    onClick={onClose}
+                    className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
+                >
+                    <TbPhotoSearch className=" mr-2 text-3xl" />
+                    Jeu du jour
                 </Link>
 
                 {isAuthenticated && (
@@ -76,7 +86,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                         className="text-white flex items-center text-xl"
                     >
                         <LuFileCode2 className="mr-2 text-3xl" />
-                        Version 1.7.2
+                        Version 2.0.1
                     </Link>
                 )}
 
