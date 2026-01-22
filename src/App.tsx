@@ -27,6 +27,7 @@ import ScrollToTop from './components/ScrollToTop.tsx';
 import Notification from './components/User/Notification.tsx';
 import PasswordReset from './components/User/Form/PasswordReset.tsx';
 import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
+import UserGames from './components/User/Game/UserGames.tsx';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -76,6 +77,10 @@ function App() {
                         <Route
                             path={ROUTES.LEADERBOARD}
                             element={<Leaderboard />}
+                        />
+                        <Route
+                            path={ROUTES.USER_GAMES}
+                            element={<UserGames />}
                         />
                         {/* Password reset */}
                         <Route

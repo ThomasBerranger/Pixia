@@ -10,6 +10,7 @@ export const ROUTES = {
         slug ? `/users/${slug}/sponsor` : '/users/:slug/sponsor',
     LEADERBOARD: '/leaderboard',
     LEADERBOARD_WITH_PAGE: (page: number) => `/leaderboard?page=${page}`,
+    USER_GAMES: '/me/games',
     // ADMIN
     ADMIN: '/admin',
     ADMIN_USERS: '/admin/user-dashboard',

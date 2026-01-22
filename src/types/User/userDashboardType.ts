@@ -8,4 +8,5 @@ export interface UserDashboardType {
     success: number;
     history: Array<AchievementType>;
     streak: Record<string, number>;
+    playerCount: number;
 }

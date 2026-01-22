@@ -17,6 +17,7 @@ export const ENDPOINTS = {
         date
             ? `users/monthly-leaderboard?date=${date}`
             : 'users/monthly-leaderboard',
+    USER_GAME_STATS: 'me/games-stats',
     // GAME
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
