@@ -31,7 +31,7 @@ export default function UserDashboardStatistic({
                             <div className="hidden sm:block text-4xl mb-4">
                                 🎮
                             </div>
-                            <h3 className="font-righteous text-retro-accent uppercase mb-3">
+                            <h3 className="font-righteous text-retro-accent uppercase mb-2">
                                 Parties gagnées
                             </h3>
                         </div>
@@ -52,7 +52,7 @@ export default function UserDashboardStatistic({
                             </div>
                         </div>
 
-                        <p className="self-end mt-1 sm:mt-0 flex items-center font-righteous text-retro-accent text-xs">
+                        <p className="self-end mt-2 sm:mt-0 flex items-center font-righteous text-retro-accent text-xs">
                             Voir <BiSolidRightArrow className="ml-1" />
                         </p>
                     </Link>
@@ -67,7 +67,7 @@ export default function UserDashboardStatistic({
                             <div className="hidden sm:block text-4xl mb-4">
                                 🔝
                             </div>
-                            <h3 className="font-righteous text-retro-accent uppercase mb-2">
+                            <h3 className="font-righteous text-retro-accent uppercase">
                                 Classement général
                             </h3>
                         </div>
@@ -79,7 +79,7 @@ export default function UserDashboardStatistic({
                                     / {playerCount}
                                 </span>{' '}
                             </div>
-                            <div className="text-retro-muted text-xs uppercase tracking-wide mt-2 text-center">
+                            <div className="text-retro-muted text-xs uppercase tracking-wide mt-1 text-center">
                                 {rank &&
                                     (rank <= 3
                                         ? 'Légende Vivante'

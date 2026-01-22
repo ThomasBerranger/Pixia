@@ -20,7 +20,7 @@ function UserGames() {
         const fetchData = async () => {
             try {
                 const userGameStats: UserGamesStats = await apiCall(
-                    ENDPOINTS.USER_GAME_STATS
+                    ENDPOINTS.USER_GAMES_STATS
                 );
 
                 setUserGamesStats(userGameStats);
@@ -63,7 +63,7 @@ function UserGames() {
 
             <section className="mt-6 sm:mt-10">
                 {isLoading || !userGamesStats ? (
-                    <CgSpinner className="animate-spin text-4xl text-retro-accent" />
+                    <CgSpinner className="animate-spin text-4xl text-retro-primary mx-auto" />
                 ) : (
                     Object.entries(userGamesStats.byDifficulty).map(
                         ([diff, data]) => (
@@ -82,7 +82,7 @@ function UserGames() {
 
             <section className="mt-6 sm:mt-10">
                 {isLoading || !userGamesStats ? (
-                    <CgSpinner className="animate-spin text-4xl text-retro-accent" />
+                    <CgSpinner className="animate-spin text-4xl text-retro-accent mx-auto" />
                 ) : (
                     Object.entries(userGamesStats.byMonth).map(
                         ([month, data]) => (
