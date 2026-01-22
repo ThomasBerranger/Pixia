@@ -6,6 +6,8 @@ import { CgSpinner } from 'react-icons/cg';
 import { useApi } from '../hooks/useApi.tsx';
 import { ENDPOINTS } from '../constants/endpoints.ts';
 import type { UserGameType } from '../types/Game/userGameType.ts';
+import { ROUTES } from '../constants/routes.ts';
+import { Link } from 'react-router-dom';
 
 export function GameMonthAccordion({
     month,
@@ -71,7 +73,16 @@ export function GameMonthAccordion({
                             <CgSpinner className="animate-spin text-4xl text-retro-accent mx-auto col-span-2 sm:col-span-5" />
                         ) : (
                             userGames?.map((userGame) => (
-                                <div
+                                <Link
+                                    to={ROUTES.GAME_BY_DATE(
+                                        format(
+                                            userGame.game.date,
+                                            'yyyy-MM-dd',
+                                            {
+                                                locale: fr,
+                                            }
+                                        )
+                                    )}
                                     key={`${userGame.game.type}-${userGame.game.date}`}
                                     className="relative"
                                 >
@@ -80,7 +91,7 @@ export function GameMonthAccordion({
                                         alt="AI created image"
                                         className={`rounded-sm ${!userGame.won && 'blur-sm'}`}
                                     />
-                                </div>
+                                </Link>
                             ))
                         )}
                     </div>
