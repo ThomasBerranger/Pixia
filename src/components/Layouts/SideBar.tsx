@@ -6,9 +6,11 @@ import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
 import {
     MdOutlineNotifications,
     MdOutlineNotificationsActive,
+    MdOutlineSecurityUpdate,
 } from 'react-icons/md';
 import { LuFileCode2 } from 'react-icons/lu';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
+import { useVersionStore } from '../../stores/versionStore.ts';
 import { TbPhotoSearch } from 'react-icons/tb';
 
 interface SidebarProps {
@@ -17,10 +19,9 @@ interface SidebarProps {
 }
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
-    const { isAuthenticated } = useAuth();
-    const { isAdmin } = useAuth();
-
+    const { isAuthenticated, isAdmin } = useAuth();
     const hasUnread = useNotificationStore((state) => state.hasUnread);
+    const needsUpdate = useVersionStore((state) => state.needsUpdate);
 
     const decodedJwt: JWTPayloadType | undefined = decodeJWT(
         localStorage.getItem('token')
@@ -29,11 +30,11 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
     return (
         <aside
             className={`
-                fixed top-[11vh] right-0 h-[93vh] w-full bg-retro-surface/95
-                flex items-center justify-center border-t-2 border-retro-accent
-                transform transition-transform duration-300 ease-in-out z-50
-                ${isOpen ? 'translate-x-0' : 'translate-x-full'}
-            `}
+        fixed top-[11vh] right-0 h-[93vh] w-full bg-retro-surface/95
+        flex items-center justify-center border-t-2 border-retro-accent
+        transform transition-transform duration-300 ease-in-out z-50
+        ${isOpen ? 'translate-x-0' : 'translate-x-full'}
+      `}
         >
             <nav className="text-white font-righteous flex flex-col gap-8">
                 {(decodedJwt?.avatarUrl || decodedJwt?.username) && (
@@ -44,7 +45,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                                 `${import.meta.env.VITE_DICE_URL}${decodedJwt.username}`
                             }
                             alt="Avatar"
-                            className={`h-32 w-32 mx-auto`}
+                            className="h-32 w-32 mx-auto"
                         />
                     </Link>
                 )}
@@ -73,22 +74,29 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                         {hasUnread ? (
                             <MdOutlineNotificationsActive className="text-retro-primary mr-2 text-3xl" />
                         ) : (
-                            <MdOutlineNotifications className=" mr-2 text-3xl" />
+                            <MdOutlineNotifications className="mr-2 text-3xl" />
                         )}
                         Notifications
                     </Link>
                 )}
 
-                {isAuthenticated && (
-                    <Link
-                        to={ROUTES.CHANGELOG}
-                        onClick={onClose}
-                        className="text-white flex items-center text-xl"
-                    >
-                        <LuFileCode2 className="mr-2 text-3xl" />
-                        Version 2.0.1
-                    </Link>
-                )}
+                <Link
+                    to={ROUTES.CHANGELOG}
+                    onClick={onClose}
+                    className={`flex items-center text-xl ${needsUpdate ? 'animate-pulse' : ''}`}
+                >
+                    {needsUpdate ? (
+                        <>
+                            <MdOutlineSecurityUpdate className="mr-2 text-3xl text-retro-primary" />
+                            Mise à jour
+                        </>
+                    ) : (
+                        <>
+                            <LuFileCode2 className="mr-2 text-3xl" />
+                            Version {__APP_VERSION__}
+                        </>
+                    )}
+                </Link>
 
                 {isAdmin() && (
                     <Link

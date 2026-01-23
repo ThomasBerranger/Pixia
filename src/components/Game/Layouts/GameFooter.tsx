@@ -5,10 +5,11 @@ import type { AnswerResult } from '../../../types/answerResultType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { ROUTES } from '../../../constants/routes.ts';
 import { useAlert } from '../../../hooks/useAlert.ts';
-import { FaCheck, FaQuestion } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { useNavigate } from 'react-router-dom';
+import { MdTipsAndUpdates } from 'react-icons/md';
 
 function GameFooter({
     game,
@@ -153,7 +154,10 @@ function GameFooter({
                             {isHintAsked && !game?.hint ? (
                                 <FaCheck size={18} className="mx-auto" />
                             ) : (
-                                <FaQuestion size={18} className="mx-auto" />
+                                <MdTipsAndUpdates
+                                    size={18}
+                                    className="mx-auto"
+                                />
                             )}
                         </button>
                         <div className="col-span-full sm:col-span-7 order-1">

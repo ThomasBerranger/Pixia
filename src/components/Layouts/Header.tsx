@@ -5,8 +5,9 @@ import { useModal } from '../../hooks/useModal.tsx';
 import { useEffect } from 'react';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { useApi } from '../../hooks/useApi.tsx';
-import { MdOutlineNotificationsActive } from 'react-icons/md';
+import { MdOutlineNotificationsActive, MdRefresh } from 'react-icons/md';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
+import { useVersionStore } from '../../stores/versionStore.ts';
 
 interface HeaderProps {
     isSidebarOpen: boolean;
@@ -17,6 +18,9 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
     const { isAuthenticated } = useAuth();
     const { openModal } = useModal();
     const { apiCall } = useApi();
+
+    // todo: pq pas meme comportement que sidebar ?
+    const needsUpdate = useVersionStore((state) => state.needsUpdate);
 
     const hasUnreadNotification = useNotificationStore(
         (state) => state.hasUnread
@@ -75,6 +79,15 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                 </div>
 
                 <div className="hidden sm:flex items-center gap-5 font-righteous">
+                    {needsUpdate && (
+                        <Link
+                            to={ROUTES.CHANGELOG}
+                            className="flex items-center animate-pulse text-retro-primary"
+                        >
+                            <MdRefresh className="mr-1 text-xl" />
+                            Mise à jour
+                        </Link>
+                    )}
                     <button
                         type="button"
                         onClick={() =>
@@ -124,16 +137,24 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                         Le concept
                     </button>
 
-                    {isAuthenticated && (
+                    {needsUpdate ? (
                         <Link
-                            to={ROUTES.USER_NOTIFICATIONS}
-                            className={`flex items-center ${hasUnreadNotification ? 'text-retro-primary animate-pulse' : 'text-white'}`}
+                            to={ROUTES.CHANGELOG}
+                            className="flex items-center text-retro-primary animate-pulse"
                         >
-                            {hasUnreadNotification && (
-                                <MdOutlineNotificationsActive className="text-retro-primary mr-2 text-3xl" />
-                            )}
-                            Notifications
+                            <MdRefresh className="mr-2 text-3xl" />
                         </Link>
+                    ) : (
+                        isAuthenticated &&
+                        hasUnreadNotification && (
+                            <Link
+                                to={ROUTES.USER_NOTIFICATIONS}
+                                className="flex items-center text-retro-primary animate-pulse"
+                            >
+                                <MdOutlineNotificationsActive className="mr-2 text-3xl" />
+                                Notifications
+                            </Link>
+                        )
                     )}
 
                     <Link to={ROUTES.USER}>

@@ -1,7 +1,59 @@
+import { useEffect, useState } from 'react';
+import { useAlert } from '../hooks/useAlert.ts';
+import { useVersionStore } from '../stores/versionStore.ts';
+import { clearAppCache } from '../hooks/useVersionCheck.ts';
+import { CgSpinner } from 'react-icons/cg';
 import { Link } from 'react-router-dom';
 import { ROUTES } from '../constants/routes.ts';
 
 function Changelog() {
+    const { showAlert } = useAlert();
+    const needsUpdate = useVersionStore((state) => state.needsUpdate);
+    const setNeedsUpdate = useVersionStore((state) => state.setNeedsUpdate);
+    const [isUpdating, setIsUpdating] = useState(false);
+
+    useEffect(() => {
+        if (!needsUpdate) return;
+
+        const update = async () => {
+            setIsUpdating(true);
+
+            const success = await clearAppCache();
+
+            if (success) {
+                setNeedsUpdate(false);
+                showAlert(
+                    'Pixia est à jour !',
+                    'Profite des dernières nouveautés.',
+                    'success',
+                    4000
+                );
+            } else {
+                showAlert(
+                    'Connexion requise',
+                    'Connecte-toi à internet pour mettre à jour.',
+                    'warning',
+                    4000
+                );
+            }
+
+            setIsUpdating(false);
+        };
+
+        update();
+    }, [needsUpdate, setNeedsUpdate, showAlert]);
+
+    if (isUpdating) {
+        return (
+            <section className="min-h-[91vh] flex flex-col items-center justify-center">
+                <CgSpinner className="animate-spin text-retro-primary text-6xl mb-4" />
+                <p className="font-righteous text-xl">
+                    Mise à jour en cours...
+                </p>
+            </section>
+        );
+    }
+
     return (
         <section className="min-h-[91vh] p-10 sm:px-[10vw]">
             <h1 className="font-title text-center text-retro-accent text-4xl mb-8">
@@ -9,7 +61,7 @@ function Changelog() {
             </h1>
 
             <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
-                ● Version 2.0.1
+                ● Version {__APP_VERSION__}
             </h2>
 
             <div className="font-righteous mb-10">
