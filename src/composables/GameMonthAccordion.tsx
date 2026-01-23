@@ -8,6 +8,7 @@ import { ENDPOINTS } from '../constants/endpoints.ts';
 import type { UserGameType } from '../types/Game/userGameType.ts';
 import { ROUTES } from '../constants/routes.ts';
 import { Link } from 'react-router-dom';
+import { TbPhotoSearch } from 'react-icons/tb';
 
 export function GameMonthAccordion({
     month,
@@ -86,6 +87,9 @@ export function GameMonthAccordion({
                                     key={`${userGame.game.type}-${userGame.game.date}`}
                                     className="relative"
                                 >
+                                    <p className="absolute inset-0 flex items-center justify-center font-title z-10 text-white text-4xl">
+                                        {!userGame.won && <TbPhotoSearch />}
+                                    </p>
                                     <img
                                         src={`${import.meta.env.VITE_API_URL}${userGame.game.image}`}
                                         alt="AI created image"
