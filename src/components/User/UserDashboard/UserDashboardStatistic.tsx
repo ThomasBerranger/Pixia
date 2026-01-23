@@ -64,16 +64,14 @@ export default function UserDashboardStatistic({
                         className="flex flex-col h-full"
                     >
                         <div className="flex items-center gap-2">
-                            <div className="hidden sm:block text-4xl mb-4">
-                                🔝
-                            </div>
+                            <div className="hidden sm:block text-4xl">🔝</div>
                             <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase">
                                 Classement général
                             </h3>
                         </div>
 
                         <div className="flex-1 flex flex-col items-center justify-center">
-                            <div className="flex items-baseline text-4xl sm:text-5xl font-title text-retro-primary">
+                            <div className="flex items-baseline text-4xl sm:text-5xl font-title text-retro-primary pt-1">
                                 {rank}
                                 <span className="text-xs font-righteous text-retro-muted">
                                     / {playerCount}
