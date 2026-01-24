@@ -62,11 +62,22 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                 </Link>
 
                 <div className="flex sm:hidden items-baseline">
-                    {hasUnreadNotification && (
-                        <Link to={ROUTES.USER_NOTIFICATIONS}>
-                            <MdOutlineNotificationsActive className="text-retro-primary pt-2 text-4xl animate-pulse" />
-                        </Link>
+                    {(needsUpdate || hasUnreadNotification) && (
+                        <div className="flex text-3xl mr-1.5">
+                            {needsUpdate && (
+                                <Link to={ROUTES.CHANGELOG}>
+                                    <MdRefresh className="text-retro-primary animate-pulse" />
+                                </Link>
+                            )}
+
+                            {hasUnreadNotification && (
+                                <Link to={ROUTES.USER_NOTIFICATIONS}>
+                                    <MdOutlineNotificationsActive className="text-retro-primary animate-pulse" />
+                                </Link>
+                            )}
+                        </div>
                     )}
+
                     <button
                         className={`hamburger hamburger--collapse pt-4 pr-2 ${isSidebarOpen && 'is-active'}`}
                         type="button"
