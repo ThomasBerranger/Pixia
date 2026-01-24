@@ -82,12 +82,13 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                     {needsUpdate && (
                         <Link
                             to={ROUTES.CHANGELOG}
-                            className="flex items-center animate-pulse text-retro-primary"
+                            className="flex items-center text-retro-primary animate-pulse"
                         >
-                            <MdRefresh className="mr-1 text-xl" />
+                            <MdRefresh className="mr-0.5 text-3xl" />
                             Mise à jour
                         </Link>
                     )}
+
                     <button
                         type="button"
                         onClick={() =>
@@ -137,24 +138,16 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                         Le concept
                     </button>
 
-                    {needsUpdate ? (
+                    {isAuthenticated && (
                         <Link
-                            to={ROUTES.CHANGELOG}
-                            className="flex items-center text-retro-primary animate-pulse"
+                            to={ROUTES.USER_NOTIFICATIONS}
+                            className={`flex items-center ${hasUnreadNotification ? 'text-retro-primary animate-pulse' : 'text-white'}`}
                         >
-                            <MdRefresh className="mr-2 text-3xl" />
+                            {hasUnreadNotification && (
+                                <MdOutlineNotificationsActive className="mr-0.5 text-3xl" />
+                            )}
+                            Notifications
                         </Link>
-                    ) : (
-                        isAuthenticated &&
-                        hasUnreadNotification && (
-                            <Link
-                                to={ROUTES.USER_NOTIFICATIONS}
-                                className="flex items-center text-retro-primary animate-pulse"
-                            >
-                                <MdOutlineNotificationsActive className="mr-2 text-3xl" />
-                                Notifications
-                            </Link>
-                        )
                     )}
 
                     <Link to={ROUTES.USER}>
