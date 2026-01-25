@@ -3,3 +3,5 @@ export const DIFFICULTIES = {
     TORDU: 25,
     DIABOLIQUE: 50,
 } as const;
+
+export type Difficulty = keyof typeof DIFFICULTIES;

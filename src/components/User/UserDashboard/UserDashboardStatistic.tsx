@@ -56,7 +56,7 @@ export default function UserDashboardStatistic({
 
                 <Link
                     to={ROUTES.LEADERBOARD}
-                    className="col-span-3 card-primary-hover p-6"
+                    className="col-span-3 flex flex-col card-primary-hover p-6"
                 >
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl">🔝</div>

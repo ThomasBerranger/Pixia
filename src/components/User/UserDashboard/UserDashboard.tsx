@@ -107,17 +107,19 @@ function UserDashboard() {
                     onClick={() => setDisplayHistorique(false)}
                 >
                     <h2 className="w-full text-left sm:text-center sm:p-2 m-0 font-title text-retro-accent text-3xl">
-                        SUGGESTIONS
-                        {userDashboard?.user &&
-                            !hasBadge(
-                                userDashboard.user.badges,
-                                BADGES.BUG_DETECTED.key,
-                                BADGES.GAME_SUGGESTION.key
-                            ) && (
-                                <span className="badge badge-primary text-xxs ml-1 px-2 py-1.5 align-middle">
-                                    10 points
-                                </span>
-                            )}
+                        <span className="inline-flex items-center flex-wrap gap-1">
+                            SUGGESTIONS
+                            {userDashboard?.user &&
+                                !hasBadge(
+                                    userDashboard.user.badges,
+                                    BADGES.BUG_DETECTED.key,
+                                    BADGES.GAME_SUGGESTION.key
+                                ) && (
+                                    <span className="badge-primary text-xxs px-2 py-0 whitespace-nowrap">
+                                        10 points
+                                    </span>
+                                )}
+                        </span>
                     </h2>
                 </div>
 

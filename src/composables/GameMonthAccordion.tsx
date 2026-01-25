@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { BiSolidDownArrow } from 'react-icons/bi';
@@ -8,44 +8,69 @@ import { ENDPOINTS } from '../constants/endpoints.ts';
 import type { UserGameType } from '../types/Game/userGameType.ts';
 import { ROUTES } from '../constants/routes.ts';
 import { Link } from 'react-router-dom';
-import { TbPhotoSearch } from 'react-icons/tb';
+import {
+    DIFFICULTIES,
+    type Difficulty,
+} from '../constants/difficultyPoints.ts';
+import { FaCheck, FaTimes } from 'react-icons/fa';
+
+interface GameMonthAccordionProps {
+    month: string;
+    value: string;
+    hiddenDifficulties: Set<Difficulty>;
+}
 
 export function GameMonthAccordion({
     month,
     value,
-}: {
-    month: string;
-    value: string;
-}) {
+    hiddenDifficulties,
+}: GameMonthAccordionProps) {
     const { apiCall } = useApi();
     const [isOpen, setIsOpen] = useState(false);
     const [userGames, setUserGames] = useState<UserGameType[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [hasFetched, setHasFetched] = useState(false);
 
     const formattedMonth = format(new Date(`${month}-01`), 'MMMM yyyy', {
         locale: fr,
     });
 
-    const fetchGames = async () => {
+    const fetchGames = useCallback(async () => {
         setIsLoading(true);
 
         try {
-            const games: UserGameType[] = await apiCall(
-                ENDPOINTS.USER_GAMES(`${month}-01`)
+            const allDifficulties = Object.keys(DIFFICULTIES) as Difficulty[];
+            const visibleDifficulties = allDifficulties.filter(
+                (d) => !hiddenDifficulties.has(d)
             );
+            const difficulties = visibleDifficulties.join(',');
 
+            const games: UserGameType[] = await apiCall(
+                `${ENDPOINTS.USER_GAMES(`${month}-01`)}&difficulties=${difficulties}`
+            );
             setUserGames(games);
+            setHasFetched(true);
         } catch (error) {
             console.error(error);
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [apiCall, month, hiddenDifficulties]);
 
     const handleToggle = () => {
-        setIsOpen((prev) => !prev);
-        if (!isOpen && userGames.length === 0) fetchGames();
+        const willOpen = !isOpen;
+        setIsOpen(willOpen);
+
+        if (willOpen && !hasFetched) {
+            fetchGames();
+        }
     };
+
+    useEffect(() => {
+        if (isOpen && hasFetched) {
+            fetchGames();
+        }
+    }, [fetchGames, hasFetched, hiddenDifficulties, isOpen]);
 
     return (
         <div>
@@ -69,11 +94,15 @@ export function GameMonthAccordion({
                 style={{ gridTemplateRows: isOpen ? '1fr' : '0fr' }}
             >
                 <div className="overflow-hidden">
-                    <div className="grid grid-cols-2 sm:grid-cols-5 items-center gap-3 p-4">
+                    <div className="grid grid-cols-2 sm:grid-cols-5 items-center gap-1.5 p-1">
                         {isLoading ? (
                             <CgSpinner className="animate-spin text-4xl text-retro-accent mx-auto col-span-2 sm:col-span-5" />
+                        ) : userGames.length === 0 ? (
+                            <p className="col-span-2 sm:col-span-5 text-center text-retro-muted font-righteous">
+                                Aucune partie
+                            </p>
                         ) : (
-                            userGames?.map((userGame) => (
+                            userGames.map((userGame) => (
                                 <Link
                                     to={ROUTES.GAME_BY_DATE(
                                         format(
@@ -87,13 +116,21 @@ export function GameMonthAccordion({
                                     key={`${userGame.game.type}-${userGame.game.date}`}
                                     className="relative"
                                 >
-                                    <p className="absolute inset-0 flex items-center justify-center font-title z-10 text-white text-4xl">
-                                        {!userGame.won && <TbPhotoSearch />}
-                                    </p>
+                                    <div className="absolute flex flex-col items-center top-0.5 right-0.5 gap-1">
+                                        <p
+                                            className={`text-xxs rounded-sm ${userGame.won ? 'badge-primary-no-border' : 'badge-muted-no-border'}`}
+                                        >
+                                            {userGame.won ? (
+                                                <FaCheck />
+                                            ) : (
+                                                <FaTimes />
+                                            )}
+                                        </p>
+                                    </div>
                                     <img
                                         src={`${import.meta.env.VITE_API_URL}${userGame.game.image}`}
                                         alt="AI created image"
-                                        className={`rounded-sm ${!userGame.won && 'blur-sm'}`}
+                                        className="rounded-sm"
                                     />
                                 </Link>
                             ))

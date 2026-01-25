@@ -65,6 +65,19 @@ function Changelog() {
             </h2>
 
             <div className="font-righteous mb-10">
+                <p className="text-lg mb-1">📊 Mes parties</p>
+                <p className="text-sm">
+                    Tu peux désormais retrouver l'ensemble de tes parties
+                    gagnées ou non en cliquant sur "Parties gagnées" depuis ton
+                    espace perso.
+                </p>
+            </div>
+
+            <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
+                ● Version 2.0.0
+            </h2>
+
+            <div className="font-righteous mb-10">
                 <p className="text-lg mb-1">Le classement évolue 🔝</p>
                 <p className="text-sm">
                     Fonctionnement:{' '}

@@ -5,6 +5,10 @@ import type { UserGamesStats } from '../../../types/Game/userGamesStats.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { ProgressBar } from '../../../composables/ProgressBar.tsx';
 import { GameMonthAccordion } from '../../../composables/GameMonthAccordion.tsx';
+import {
+    DIFFICULTIES,
+    type Difficulty,
+} from '../../../constants/difficultyPoints.ts';
 
 function UserGames() {
     const { apiCall } = useApi();
@@ -13,16 +17,38 @@ function UserGames() {
     const [userGamesStats, setUserGamesStats] = useState<UserGamesStats | null>(
         null
     );
+    const [hiddenDifficulties, setHiddenDifficulties] = useState(
+        () => new Set<Difficulty>()
+    );
+
+    const toggleDifficulty = (difficulty: Difficulty) => {
+        setHiddenDifficulties((prev) => {
+            const next = new Set(prev);
+            if (next.has(difficulty)) {
+                next.delete(difficulty);
+            } else {
+                next.add(difficulty);
+            }
+            return next;
+        });
+    };
 
     useEffect(() => {
-        setIsLoading(true);
-
         const fetchData = async () => {
-            try {
-                const userGameStats: UserGamesStats = await apiCall(
-                    ENDPOINTS.USER_GAMES_STATS
-                );
+            setIsLoading(true);
 
+            try {
+                const allDifficulties = Object.keys(
+                    DIFFICULTIES
+                ) as Difficulty[];
+                const visibleDifficulties = allDifficulties.filter(
+                    (d) => !hiddenDifficulties.has(d)
+                );
+                const difficulties = visibleDifficulties.join(',');
+
+                const userGameStats: UserGamesStats = await apiCall(
+                    `${ENDPOINTS.USER_GAMES_STATS}?difficulties=${difficulties}`
+                );
                 setUserGamesStats(userGameStats);
             } catch (error) {
                 console.error(error);
@@ -32,7 +58,7 @@ function UserGames() {
         };
 
         fetchData();
-    }, [apiCall]);
+    }, [apiCall, hiddenDifficulties]);
 
     return (
         <article className="min-h-[89vh] py-10 px-[7vw]">
@@ -62,20 +88,31 @@ function UserGames() {
             </section>
 
             <section className="mt-6 sm:mt-10">
-                {isLoading || !userGamesStats ? (
+                {!userGamesStats ? (
                     <CgSpinner className="animate-spin text-4xl text-retro-primary mx-auto" />
                 ) : (
-                    Object.entries(userGamesStats.byDifficulty).map(
-                        ([diff, data]) => (
-                            <div className="w-full sm:w-1/2 mt-3" key={diff}>
-                                <ProgressBar
-                                    key={diff}
-                                    label={diff}
-                                    value={data.won}
-                                    max={data.total}
-                                />
-                            </div>
-                        )
+                    (Object.keys(DIFFICULTIES) as Difficulty[]).map(
+                        (difficulty) => {
+                            const data =
+                                userGamesStats.byDifficulty[difficulty];
+
+                            return (
+                                <div
+                                    className="w-full sm:w-1/2 mt-3 cursor-pointer"
+                                    key={difficulty}
+                                    onClick={() => toggleDifficulty(difficulty)}
+                                >
+                                    <ProgressBar
+                                        label={difficulty}
+                                        value={data?.won ?? 0}
+                                        max={data?.total ?? 0}
+                                        isActive={
+                                            !hiddenDifficulties.has(difficulty)
+                                        }
+                                    />
+                                </div>
+                            );
+                        }
                     )
                 )}
             </section>
@@ -90,6 +127,7 @@ function UserGames() {
                                 <GameMonthAccordion
                                     month={month}
                                     value={`${data.won}/${data.total}`}
+                                    hiddenDifficulties={hiddenDifficulties}
                                 />
                             </div>
                         )
