@@ -9,12 +9,7 @@ export function useVersionCheck() {
     useEffect(() => {
         const storedVersion = localStorage.getItem(STORAGE_KEY);
 
-        if (!storedVersion) {
-            localStorage.setItem(STORAGE_KEY, __APP_VERSION__);
-            return;
-        }
-
-        if (storedVersion !== __APP_VERSION__) {
+        if (!storedVersion || storedVersion !== __APP_VERSION__) {
             setNeedsUpdate(true);
         }
     }, [setNeedsUpdate]);
