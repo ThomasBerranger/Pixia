@@ -131,6 +131,7 @@ export function GameMonthAccordion({
                                         src={`${import.meta.env.VITE_API_URL}${userGame.game.image}`}
                                         alt="AI created image"
                                         className="rounded-sm"
+                                        loading="lazy"
                                     />
                                 </Link>
                             ))
