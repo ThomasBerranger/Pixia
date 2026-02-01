@@ -16,4 +16,5 @@ export interface UserType {
     streaks: { current: number; best: number };
     monthlyLeaderboards: { month: string; score: number }[];
     rank?: number;
+    roles?: [];
 }

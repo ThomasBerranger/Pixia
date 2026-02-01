@@ -4,17 +4,22 @@ import { FaUsersGear } from 'react-icons/fa6';
 import { RiAiGenerate2 } from 'react-icons/ri';
 import { MdDashboard } from 'react-icons/md';
 import { FaHandsHelping } from 'react-icons/fa';
+import { useAuth } from '../../contexts/authContext.tsx';
 
-function AdminContainer() {
+function AdminLayout() {
+    const { isSuperAdmin } = useAuth();
+
     return (
         <section className="min-h-[90vh] flex flex-col sm:flex-row justify-center items-center gap-4 p-4">
-            <Link
-                to={ROUTES.ADMIN_USERS}
-                className="card-primary-hover text-center w-4/5 sm:w-1/5"
-            >
-                <FaUsersGear className="mx-auto mb-2" size={30} />
-                <p className="font-righteous whitespace-nowrap">Joueurs</p>
-            </Link>
+            {isSuperAdmin() && (
+                <Link
+                    to={ROUTES.ADMIN_USERS}
+                    className="card-primary-hover text-center w-4/5 sm:w-1/5"
+                >
+                    <FaUsersGear className="mx-auto mb-2" size={30} />
+                    <p className="font-righteous whitespace-nowrap">Joueurs</p>
+                </Link>
+            )}
             <Link
                 to={ROUTES.ADMIN_GAMES}
                 className="card-primary-hover text-center w-4/5 sm:w-1/5"
@@ -40,4 +45,4 @@ function AdminContainer() {
     );
 }
 
-export default AdminContainer;
+export default AdminLayout;

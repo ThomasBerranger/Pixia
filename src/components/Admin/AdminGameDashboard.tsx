@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useApi } from '../../../hooks/useApi.tsx';
-import type { GameAdminType } from '../../../types/Game/gameAdminType.ts';
+import { useApi } from '../../hooks/useApi.tsx';
+import type { GameAdminType } from '../../types/Game/gameAdminType.ts';
 import {
     startOfMonth,
     endOfMonth,
@@ -17,9 +17,9 @@ import { fr } from 'date-fns/locale';
 import { PiArrowFatLineLeft, PiArrowFatLineRight } from 'react-icons/pi';
 import { CiImageOff, CiImageOn } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
-import { decodeJWT } from '../../../utils/jwt.ts';
-import { ROUTES } from '../../../constants/routes.ts';
-import { ENDPOINTS } from '../../../constants/endpoints.ts';
+import { decodeJWT } from '../../utils/jwt.ts';
+import { ROUTES } from '../../constants/routes.ts';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
 
 function AdminGameDashboard() {
     const { apiCall } = useApi();

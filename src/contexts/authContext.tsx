@@ -7,16 +7,21 @@ import {
 } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import type { JWTPayloadType } from '../types/JWTPayloadType.ts';
+import { ENDPOINTS } from '../constants/endpoints.ts';
 
 interface AuthContextType {
     token: string | null;
     userRoles: string[];
     login: (token: string) => void;
     logout: () => void;
+    impersonate: (email: string) => Promise<void>;
+    exitImpersonate: () => void;
     hasRole: (role: string) => boolean;
     isUser: () => boolean;
     isAdmin: () => boolean;
+    isSuperAdmin: () => boolean;
     isAuthenticated: boolean;
+    isImpersonating: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -37,7 +42,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 return savedToken;
             } catch {
                 localStorage.removeItem('token');
-
                 return null;
             }
         }
@@ -48,7 +52,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (token) {
             try {
                 const decoded: JWTPayloadType = jwtDecode(token);
-
                 return decoded.roles || [];
             } catch {
                 return [];
@@ -56,6 +59,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
         return [];
     });
+
+    const [isImpersonating, setIsImpersonating] = useState<boolean>(
+        () => !!localStorage.getItem('adminToken')
+    );
 
     useEffect(() => {
         if (!token) return;
@@ -72,10 +79,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             }
         };
 
-        // Vérifier immédiatement
         checkExpiration();
 
-        // Puis toutes les minutes
         const interval = setInterval(checkExpiration, 60000);
 
         return () => clearInterval(interval);
@@ -97,12 +102,50 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const logout = () => {
         setToken(null);
         localStorage.removeItem('token');
+        localStorage.removeItem('adminToken');
         setUserRoles([]);
+        setIsImpersonating(false);
+    };
+
+    const impersonate = async (email: string) => {
+        const adminToken = localStorage.getItem('token');
+
+        if (!adminToken) return;
+
+        localStorage.setItem('adminToken', adminToken);
+
+        const response = await fetch(
+            `${import.meta.env.VITE_API_URL}${ENDPOINTS.SUPER_ADMIN_IMPERSONATE(email)}`,
+            {
+                method: 'POST',
+                headers: { Authorization: `Bearer ${adminToken}` },
+            }
+        );
+
+        if (!response.ok) {
+            localStorage.removeItem('adminToken');
+            throw new Error('Impersonation failed');
+        }
+
+        const data = await response.json();
+        login(data.token);
+        setIsImpersonating(true);
+    };
+
+    const exitImpersonate = () => {
+        const adminToken = localStorage.getItem('adminToken');
+
+        if (!adminToken) return;
+
+        login(adminToken);
+        localStorage.removeItem('adminToken');
+        setIsImpersonating(false);
     };
 
     const hasRole = (role: string) => userRoles.includes(role);
     const isUser = () => hasRole('ROLE_USER');
-    const isAdmin = () => hasRole('ROLE_ADMIN');
+    const isAdmin = () => hasRole('ROLE_ADMIN') || isSuperAdmin();
+    const isSuperAdmin = () => hasRole('ROLE_SUPER_ADMIN');
 
     return (
         <AuthContext.Provider
@@ -111,10 +154,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 userRoles,
                 login,
                 logout,
+                impersonate,
+                exitImpersonate,
                 hasRole,
                 isUser,
                 isAdmin,
+                isSuperAdmin,
                 isAuthenticated: !!token,
+                isImpersonating,
             }}
         >
             {children}
