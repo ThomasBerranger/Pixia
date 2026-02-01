@@ -31,27 +31,39 @@ function Footer() {
                                     un compte pour débloquer des récompenses et
                                     suivre tes stats.
                                 </p>
-                                <p className="mb-4">
+                                <div className="mb-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
                                     <div className="flex items-center">
-                                        <p className="badge badge-primary text-xxs mr-2.5">
+                                        <p className="badge badge-primary text-xxs mr-1.5">
                                             SIMPLE
                                         </p>{' '}
                                         10 points
                                     </div>
-                                    <div className="flex items-center my-2">
-                                        <p className="badge badge-primary text-xxs mr-2.5">
+                                    <div className="flex items-center">
+                                        <p className="badge badge-primary text-xxs mr-1.5">
+                                            VICIEUX
+                                        </p>{' '}
+                                        15 points
+                                    </div>
+                                    <div className="flex items-center">
+                                        <p className="badge badge-primary text-xxs mr-1.5">
                                             TORDU
                                         </p>{' '}
                                         25 points
                                     </div>
-                                    <div className="flex items-center">
-                                        <p className="badge badge-primary text-xxs mr-2.5">
+                                    <div className="flex items-center col-span-2 sm:col-span-1">
+                                        <p className="badge badge-primary text-xxs mr-1.5">
                                             DIABOLIQUE
                                         </p>{' '}
                                         50 points
                                     </div>
-                                </p>
-                                <p>Bon chance</p>
+                                    <div className="flex items-center col-span-2 sm:col-span-1">
+                                        <p className="badge badge-primary text-xxs mr-1.5">
+                                            IMPOSSIBLE
+                                        </p>{' '}
+                                        80 points
+                                    </div>
+                                </div>
+                                <p>Bon chance.</p>
                             </div>
                         )
                     }

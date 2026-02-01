@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import type { UserGamesStats } from '../../../types/Game/userGamesStats.ts';
 import { CgSpinner } from 'react-icons/cg';
-import { ProgressBar } from '../../../composables/ProgressBar.tsx';
-import { GameMonthAccordion } from '../../../composables/GameMonthAccordion.tsx';
+import { ProgressBar } from '../../../atoms/ProgressBar.tsx';
+import { GameMonthAccordion } from '../../../atoms/GameMonthAccordion.tsx';
 import {
     DIFFICULTIES,
     type Difficulty,

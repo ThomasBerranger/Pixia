@@ -1,13 +1,13 @@
 import Header from './components/Layouts/Header.tsx';
 import Footer from './components/Layouts/Footer.tsx';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import AdminContainer from './components/Admin/AdminContainer.tsx';
+import AdminLayout from './components/Admin/AdminLayout.tsx';
 import GameContainer from './components/Game/GameContainer.tsx';
 import UserContainer from './components/User/UserContainer.tsx';
 import ProtectedRoute from './components/ProtectedRoute.tsx';
 import AdminGameGenerator from './components/Admin/GameGenerator/AdminGameGenerator.tsx';
-import AdminUserDashboard from './components/Admin/Dashboard/AdminUserDashboard.tsx';
-import AdminGameDashboard from './components/Admin/Dashboard/AdminGameDashboard.tsx';
+import AdminUsersTable from './components/Admin/AdminUsersTable.tsx';
+import AdminGameDashboard from './components/Admin/AdminGameDashboard.tsx';
 import AdminGameEdit from './components/Admin/AdminGameEdit.tsx';
 import Modal from './components/Modal.tsx';
 import { ModalProvider } from './contexts/modalContext.tsx';
@@ -29,6 +29,8 @@ import PasswordReset from './components/User/Form/PasswordReset.tsx';
 import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
 import UserGames from './components/User/Game/UserGames.tsx';
 import { useVersionCheck } from './hooks/useVersionCheck.ts';
+import ImpersonateBanner from './atoms/ImpersonateBanner.tsx';
+import { ROLES } from './constants/roles.ts';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -44,6 +46,8 @@ function App() {
                 <ScrollToTop />
 
                 <InstallPWA />
+
+                <ImpersonateBanner />
 
                 <Header
                     isSidebarOpen={isSidebarOpen}
@@ -98,16 +102,28 @@ function App() {
                         <Route
                             path={ROUTES.ADMIN}
                             element={
-                                <ProtectedRoute requiredRole={'ROLE_ADMIN'}>
+                                <ProtectedRoute requiredRole={ROLES.ADMIN}>
                                     <Outlet />
                                 </ProtectedRoute>
                             }
                         >
-                            <Route index element={<AdminContainer />} />
+                            <Route index element={<AdminLayout />} />
+                            {/* Super Admin */}
                             <Route
-                                path={ROUTES.ADMIN_USERS}
-                                element={<AdminUserDashboard />}
-                            />
+                                path={ROUTES.ADMIN}
+                                element={
+                                    <ProtectedRoute
+                                        requiredRole={ROLES.SUPER_ADMIN}
+                                    >
+                                        <Outlet />
+                                    </ProtectedRoute>
+                                }
+                            >
+                                <Route
+                                    path={ROUTES.ADMIN_USERS}
+                                    element={<AdminUsersTable />}
+                                />
+                            </Route>
                             <Route
                                 path={ROUTES.ADMIN_GENERATOR}
                                 element={<AdminGameGenerator />}

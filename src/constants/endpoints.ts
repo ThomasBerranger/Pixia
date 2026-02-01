@@ -25,7 +25,6 @@ export const ENDPOINTS = {
     GAME_HINT: (id: string) => `games/${id}/hint`,
     GAME_SOLUTION: (id: string) => `games/${id}/solution`,
     // ADMIN
-    ADMIN_USER_INDEX: 'admin/users',
     ADMIN_GAME_INDEX: 'admin/games',
     ADMIN_GAME_CREATE: 'admin/games',
     ADMIN_GAME_UPDATE: (id: string) => `admin/games/${id}`,
@@ -34,6 +33,12 @@ export const ENDPOINTS = {
         `admin/games/solution-exist?solution=${solution}`,
     ADMIN_CONTRIBUTION_INDEX: 'admin/contributions',
     ADMIN_CONTRIBUTION_UPDATE: (id: string) => `admin/contributions/${id}`,
+    // SUPER ADMIN
+    SUPER_ADMIN_IMPERSONATE: (email: string) =>
+        `super-admin/impersonate/${email}`,
+    SUPER_ADMIN_TOGGLE_BAN: (email: string) =>
+        `super-admin/toggle-ban/${email}`,
+    SUPER_ADMIN_USER_INDEX: 'super-admin/users',
     // OPEN_AI
     OPEN_AI_GENERATE_CONTENT: 'open-api/generate-content',
     OPEN_AI_GENERATE_IMAGE: 'open-api/generate-image',
