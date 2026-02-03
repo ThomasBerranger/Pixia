@@ -91,11 +91,6 @@ function Changelog() {
                     Répondre aux images de Décembre fera donc augmenter votre
                     classement pour Décembre et non Janvier.
                 </p>
-                <p className="text-sm mb-3">
-                    En revanche les 10 points de contribution et ceux de
-                    parrainage, eux, comptent pour le mois actuel. Si cette
-                    règle se révèle trop injuste elle sera revue.
-                </p>
                 <p className="text-sm mb-7">
                     Nouveau mois, nouveau classement ! Qui dominera ?
                 </p>

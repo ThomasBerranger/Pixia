@@ -31,6 +31,7 @@ import UserGames from './components/User/Game/UserGames.tsx';
 import { useVersionCheck } from './hooks/useVersionCheck.ts';
 import ImpersonateBanner from './atoms/ImpersonateBanner.tsx';
 import { ROLES } from './constants/roles.ts';
+import ValentineHearts from './atoms/ValentineHearts.tsx';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -60,6 +61,10 @@ function App() {
                 />
 
                 <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text -z-2">
+                    {new Date().getMonth() === 1 &&
+                        new Date().getDate() >= 9 &&
+                        new Date().getDate() < 16 && <ValentineHearts />}
+
                     <Alert />
 
                     <Routes>
