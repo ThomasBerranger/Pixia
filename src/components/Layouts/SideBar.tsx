@@ -6,11 +6,9 @@ import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
 import {
     MdOutlineNotifications,
     MdOutlineNotificationsActive,
-    MdOutlineSecurityUpdate,
 } from 'react-icons/md';
 import { LuFileCode2 } from 'react-icons/lu';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
-import { useVersionStore } from '../../stores/versionStore.ts';
 import { TbPhotoSearch } from 'react-icons/tb';
 
 interface SidebarProps {
@@ -21,7 +19,6 @@ interface SidebarProps {
 function Sidebar({ isOpen, onClose }: SidebarProps) {
     const { isAuthenticated, isAdmin } = useAuth();
     const hasUnread = useNotificationStore((state) => state.hasUnread);
-    const needsUpdate = useVersionStore((state) => state.needsUpdate);
 
     const decodedJwt: JWTPayloadType | undefined = decodeJWT(
         localStorage.getItem('token')
@@ -83,19 +80,10 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 <Link
                     to={ROUTES.CHANGELOG}
                     onClick={onClose}
-                    className={`flex items-center text-xl ${needsUpdate ? 'animate-pulse' : ''}`}
+                    className="flex items-center text-xl"
                 >
-                    {needsUpdate ? (
-                        <>
-                            <MdOutlineSecurityUpdate className="mr-2 text-3xl text-retro-primary" />
-                            Mise à jour
-                        </>
-                    ) : (
-                        <>
-                            <LuFileCode2 className="mr-2 text-3xl" />
-                            Version {__APP_VERSION__}
-                        </>
-                    )}
+                    <LuFileCode2 className="mr-2 text-3xl" />
+                    Version {__APP_VERSION__}
                 </Link>
 
                 {isAdmin() && (

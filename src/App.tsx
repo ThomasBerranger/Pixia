@@ -28,15 +28,12 @@ import Notification from './components/User/Notification.tsx';
 import PasswordReset from './components/User/Form/PasswordReset.tsx';
 import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
 import UserGames from './components/User/Game/UserGames.tsx';
-import { useVersionCheck } from './hooks/useVersionCheck.ts';
 import ImpersonateBanner from './atoms/ImpersonateBanner.tsx';
 import { ROLES } from './constants/roles.ts';
 import ValentineHearts from './atoms/ValentineHearts.tsx';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    useVersionCheck();
 
     return (
         <AlertProvider>
