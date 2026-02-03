@@ -61,7 +61,9 @@ function App() {
                 />
 
                 <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text -z-2">
-                    <ValentineHearts />
+                    {new Date().getMonth() === 1 &&
+                        new Date().getDate() >= 9 &&
+                        new Date().getDate() < 16 && <ValentineHearts />}
 
                     <Alert />
 
