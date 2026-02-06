@@ -4,7 +4,7 @@ import { CgSpinner } from 'react-icons/cg';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 
 function UserForm() {
     const { apiCall } = useApi();
@@ -63,7 +63,7 @@ function UserForm() {
             });
 
             login(response.token);
-            navigate(ROUTES.USER);
+            navigate(URLS.USER);
         } catch (error) {
             console.error('Password reset error:', error);
             setError('Une erreur est survenue');

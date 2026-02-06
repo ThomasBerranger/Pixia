@@ -3,7 +3,7 @@ import { useApi } from '../../../hooks/useApi.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import { CgSpinner } from 'react-icons/cg';
 import UserDetailsBattle from './UserDetailsBattle.tsx';
 import { BADGES } from '../../../constants/badges.ts';
@@ -33,7 +33,7 @@ function UserDashboard() {
             } catch (error) {
                 console.error('Erreur: ', error);
 
-                navigate(ROUTES.NOT_FOUND, { replace: true });
+                navigate(URLS.NOT_FOUND, { replace: true });
             }
         };
 

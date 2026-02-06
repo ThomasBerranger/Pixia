@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import type { UserType } from '../../../types/User/userType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useState } from 'react';
@@ -32,12 +32,12 @@ export default function UserDashboardHeader({
             await navigator.share({
                 title: `Profil de ${user.username}`,
                 text: 'Regarde un peu ça',
-                url: `${import.meta.env.VITE_URL}${ROUTES.USER_SHOW(user.slug)}`,
+                url: `${import.meta.env.VITE_URL}${URLS.USER_SHOW(user.slug)}`,
             });
         } catch (error) {
             console.log(error);
             await navigator.clipboard.writeText(
-                `${import.meta.env.VITE_URL}${ROUTES.USER_SHOW(user.slug)}`
+                `${import.meta.env.VITE_URL}${URLS.USER_SHOW(user.slug)}`
             );
             alert('Lien copié !');
         }
@@ -52,12 +52,12 @@ export default function UserDashboardHeader({
             await navigator.share({
                 title: 'À toi de jouer !',
                 text: 'Tu connais ton ciné ?',
-                url: `${import.meta.env.VITE_URL}${ROUTES.USER_SPONSOR(user.slug)}`,
+                url: `${import.meta.env.VITE_URL}${URLS.USER_SPONSOR(user.slug)}`,
             });
         } catch (error) {
             console.log(error);
             await navigator.clipboard.writeText(
-                `${import.meta.env.VITE_URL}${ROUTES.USER_SPONSOR(user.slug)}`
+                `${import.meta.env.VITE_URL}${URLS.USER_SPONSOR(user.slug)}`
             );
             alert('Lien copié !');
         }
@@ -199,7 +199,7 @@ export default function UserDashboardHeader({
 
                             {isAdmin() && (
                                 <Link
-                                    to={ROUTES.ADMIN}
+                                    to={URLS.ADMIN}
                                     className="hidden sm:block btn-ghost py-1 sm:py-1 sm:px-4 text-center"
                                 >
                                     <p className="mx-auto mb-0.5 text-xl">⚙️</p>

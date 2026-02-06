@@ -1,6 +1,6 @@
 import { BADGES } from '../../../constants/badges.ts';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import type { LeaderboardUserType } from '../../../types/User/leaderboardUserType.ts';
 import { CgSpinner } from 'react-icons/cg';
 
@@ -19,7 +19,7 @@ function Podium({
         <section className="max-w-3xl mx-auto">
             <div className="hidden sm:grid grid-cols-3 gap-8 items-end">
                 <Link
-                    to={ROUTES.USER_SHOW(secondPlayer?.slug)}
+                    to={URLS.USER_SHOW(secondPlayer?.slug ?? '')}
                     className="card-primary-hover px-0 pt-2 pb-2"
                 >
                     <div className="flex justify-between items-center pl-3 pb-2">
@@ -64,7 +64,7 @@ function Podium({
                 </Link>
 
                 <Link
-                    to={ROUTES.USER_SHOW(firstPlayer?.slug)}
+                    to={URLS.USER_SHOW(firstPlayer?.slug ?? '')}
                     className="card-primary-hover px-0 py-2 border-retro-accent"
                 >
                     <div className="flex justify-between items-center pl-3 pb-4">
@@ -109,7 +109,7 @@ function Podium({
                 </Link>
 
                 <Link
-                    to={ROUTES.USER_SHOW(thirdPlayer?.slug)}
+                    to={URLS.USER_SHOW(thirdPlayer?.slug ?? '')}
                     className="card-primary-hover px-0 py-2"
                 >
                     <div className="flex justify-between items-center pl-3">
@@ -161,7 +161,7 @@ function Podium({
                     </div>
                 ) : (
                     <Link
-                        to={ROUTES.USER_SHOW(firstPlayer?.slug)}
+                        to={URLS.USER_SHOW(firstPlayer?.slug ?? '')}
                         className="w-full flex gap-0.5 items-center px-3 py-2.5"
                     >
                         <p className="font-title font-bold text-retro-primary text-3xl">
@@ -207,7 +207,7 @@ function Podium({
                 ) : (
                     <>
                         <Link
-                            to={ROUTES.USER_SHOW(secondPlayer?.slug)}
+                            to={URLS.USER_SHOW(secondPlayer?.slug ?? '')}
                             className="w-full flex gap-2 items-center px-3 py-2.5"
                         >
                             <p className="font-title font-bold text-retro-primary text-3xl">
@@ -244,7 +244,7 @@ function Podium({
                         </Link>
 
                         <Link
-                            to={ROUTES.USER_SHOW(thirdPlayer?.slug)}
+                            to={URLS.USER_SHOW(thirdPlayer?.slug ?? '')}
                             className="w-full flex gap-2 items-center px-3 py-2.5"
                         >
                             <p className="font-title font-bold text-retro-primary text-3xl">

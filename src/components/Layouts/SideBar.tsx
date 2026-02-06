@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import { useAuth } from '../../contexts/authContext.tsx';
 import { decodeJWT } from '../../utils/jwt.ts';
 import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
@@ -35,7 +35,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
         >
             <nav className="text-white font-righteous flex flex-col gap-8">
                 {(decodedJwt?.avatarUrl || decodedJwt?.username) && (
-                    <Link to={ROUTES.USER} onClick={onClose}>
+                    <Link to={URLS.USER} onClick={onClose}>
                         <img
                             src={
                                 decodedJwt.avatarUrl ??
@@ -47,14 +47,14 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     </Link>
                 )}
 
-                <Link to={ROUTES.USER} onClick={onClose}>
+                <Link to={URLS.USER} onClick={onClose}>
                     <button className="btn-primary text-sm px-8 py-2.5 mx-auto">
                         {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}
                     </button>
                 </Link>
 
                 <Link
-                    to={ROUTES.HOME}
+                    to={URLS.HOME}
                     onClick={onClose}
                     className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
                 >
@@ -64,7 +64,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                 {isAuthenticated && (
                     <Link
-                        to={ROUTES.USER_NOTIFICATIONS}
+                        to={URLS.USER_NOTIFICATIONS}
                         onClick={onClose}
                         className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
                     >
@@ -78,7 +78,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 )}
 
                 <Link
-                    to={ROUTES.CHANGELOG}
+                    to={URLS.CHANGELOG}
                     onClick={onClose}
                     className="flex items-center text-xl"
                 >
@@ -88,7 +88,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                 {isAdmin() && (
                     <Link
-                        to={ROUTES.ADMIN}
+                        to={URLS.ADMIN}
                         onClick={onClose}
                         className="btn-ghost px-10 py-2 text-center"
                     >

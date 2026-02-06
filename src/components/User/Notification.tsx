@@ -9,7 +9,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { CgSpinner } from 'react-icons/cg';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
-import { ROUTES } from '../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import {
     getBadgeDescription,
@@ -81,7 +81,7 @@ function Notification() {
                                     className={`timeline-retro-dot${notification.read ? '-read' : '-unread'}`}
                                 ></div>
                                 <Link
-                                    to={badge ? ROUTES.USER : ROUTES.CHANGELOG}
+                                    to={badge ? URLS.USER : URLS.CHANGELOG}
                                 >
                                     <div
                                         className={`p-4 ${notification.read ? 'card-retro-hover-retro-accent text-left' : 'card-primary-hover'}`}

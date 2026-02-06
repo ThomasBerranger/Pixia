@@ -6,7 +6,7 @@ import { CgSpinner } from 'react-icons/cg';
 import { useApi } from '../hooks/useApi.tsx';
 import { ENDPOINTS } from '../constants/endpoints.ts';
 import type { UserGameType } from '../types/Game/userGameType.ts';
-import { ROUTES } from '../constants/routes.ts';
+import { URLS } from '../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import {
     DIFFICULTIES,
@@ -104,7 +104,7 @@ export function GameMonthAccordion({
                         ) : (
                             userGames.map((userGame) => (
                                 <Link
-                                    to={ROUTES.GAME_BY_DATE(
+                                    to={URLS.GAME_BY_DATE(
                                         format(
                                             userGame.game.date,
                                             'yyyy-MM-dd',

@@ -5,7 +5,7 @@ import type { UserType } from '../../types/User/userType.ts';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { PiEyesFill } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import Toggle from '../../atoms/Toggle.tsx';
 import { hasRole } from '../../utils/user.ts';
 import { ROLES } from '../../constants/roles.ts';
@@ -35,7 +35,7 @@ function AdminUsersTable() {
     const handleImpersonate = async (email: string) => {
         try {
             await impersonate(email);
-            navigate(ROUTES.USER);
+            navigate(URLS.USER);
         } catch (error) {
             console.error('Erreur impersonation:', error);
         }

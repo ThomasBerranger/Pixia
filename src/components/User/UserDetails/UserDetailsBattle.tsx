@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 
 interface BattleHistory {
     date: string;
@@ -132,7 +132,7 @@ export default function UserDetailsBattle({
                             </div>
                             <div className="col-span-6 flex flex-col justify-center">
                                 <Link
-                                    to={ROUTES.GAME_BY_DATE(
+                                    to={URLS.GAME_BY_DATE(
                                         format(history.date, 'yyyy-MM-dd', {
                                             locale: fr,
                                         })

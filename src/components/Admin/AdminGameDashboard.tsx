@@ -18,7 +18,7 @@ import { PiArrowFatLineLeft, PiArrowFatLineRight } from 'react-icons/pi';
 import { CiImageOff, CiImageOn } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
 import { decodeJWT } from '../../utils/jwt.ts';
-import { ROUTES } from '../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 
 function AdminGameDashboard() {
@@ -136,7 +136,7 @@ function AdminGameDashboard() {
                         return isAuthor && game?.id ? (
                             <Link
                                 key={day.toString()}
-                                to={ROUTES.ADMIN_GAME_EDIT(game.id)}
+                                to={URLS.ADMIN_GAME_EDIT(game.id)}
                                 className={dayClasses}
                             >
                                 {content}

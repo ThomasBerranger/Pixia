@@ -17,7 +17,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import NotFound from './components/NotFound.tsx';
 import Contribution from './components/Admin/Contribution/Contribution.tsx';
-import { ROUTES } from './constants/routes.ts';
+import { PATHS } from './constants/routes.ts';
 import UserDetails from './components/User/UserDetails/UserDetails.tsx';
 import InstallPWA from './components/InstallPWA.tsx';
 import { useState } from 'react';
@@ -67,43 +67,43 @@ function App() {
 
                     <Routes>
                         {/* 404 */}
-                        <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
+                        <Route path={PATHS.NOT_FOUND} element={<NotFound />} />
                         {/* Game */}
-                        <Route path={ROUTES.HOME} element={<GameContainer />} />
+                        <Route path={PATHS.HOME} element={<GameContainer />} />
                         <Route
-                            path={ROUTES.GAME_BY_DATE()}
+                            path={PATHS.GAME_BY_DATE}
                             element={<GameContainer />}
                         />
                         {/* User */}
-                        <Route path={ROUTES.USER} element={<UserContainer />} />
+                        <Route path={PATHS.USER} element={<UserContainer />} />
                         <Route
-                            path={ROUTES.USER_SHOW()}
+                            path={PATHS.USER_SHOW}
                             element={<UserDetails />}
                         />
                         <Route
-                            path={ROUTES.USER_SPONSOR()}
+                            path={PATHS.USER_SPONSOR}
                             element={<UserContainer />}
                         />
                         <Route
-                            path={ROUTES.LEADERBOARD}
+                            path={PATHS.LEADERBOARD}
                             element={<Leaderboard />}
                         />
                         <Route
-                            path={ROUTES.USER_GAMES}
+                            path={PATHS.USER_GAMES}
                             element={<UserGames />}
                         />
                         {/* Password reset */}
                         <Route
-                            path={ROUTES.FORGOT_PASSWORD}
+                            path={PATHS.FORGOT_PASSWORD}
                             element={<PasswordReset />}
                         />
                         <Route
-                            path={ROUTES.PASSWORD_RESET}
+                            path={PATHS.PASSWORD_RESET}
                             element={<PasswordReset />}
                         />
                         {/* Admin */}
                         <Route
-                            path={ROUTES.ADMIN}
+                            path={PATHS.ADMIN}
                             element={
                                 <ProtectedRoute requiredRole={ROLES.ADMIN}>
                                     <Outlet />
@@ -111,51 +111,50 @@ function App() {
                             }
                         >
                             <Route index element={<AdminLayout />} />
-                            {/* Super Admin */}
                             <Route
-                                path={ROUTES.ADMIN}
-                                element={
-                                    <ProtectedRoute
-                                        requiredRole={ROLES.SUPER_ADMIN}
-                                    >
-                                        <Outlet />
-                                    </ProtectedRoute>
-                                }
-                            >
-                                <Route
-                                    path={ROUTES.ADMIN_USERS}
-                                    element={<AdminUsersTable />}
-                                />
-                            </Route>
-                            <Route
-                                path={ROUTES.ADMIN_GENERATOR}
+                                path={PATHS.ADMIN_GENERATOR}
                                 element={<AdminGameGenerator />}
                             />
                             <Route
-                                path={ROUTES.ADMIN_GAMES}
+                                path={PATHS.ADMIN_GAMES}
                                 element={<AdminGameDashboard />}
                             />
                             <Route
-                                path={ROUTES.ADMIN_GAME_EDIT()}
+                                path={PATHS.ADMIN_GAME_EDIT}
                                 element={<AdminGameEdit />}
                             />
                             <Route
-                                path={ROUTES.ADMIN_CONTRIBUTIONS}
+                                path={PATHS.ADMIN_CONTRIBUTIONS}
                                 element={<Contribution />}
                             />
                         </Route>
 
+                        {/* Super Admin */}
                         <Route
-                            path={ROUTES.USER_NOTIFICATIONS}
+                            path={PATHS.ADMIN}
+                            element={
+                                <ProtectedRoute requiredRole={ROLES.SUPER_ADMIN}>
+                                    <Outlet />
+                                </ProtectedRoute>
+                            }
+                        >
+                            <Route
+                                path={PATHS.ADMIN_USERS}
+                                element={<AdminUsersTable />}
+                            />
+                        </Route>
+
+                        <Route
+                            path={PATHS.USER_NOTIFICATIONS}
                             element={<Notification />}
                         />
 
                         <Route
-                            path={ROUTES.CHANGELOG}
+                            path={PATHS.CHANGELOG}
                             element={<Changelog />}
                         />
 
-                        <Route path={ROUTES.CGU} element={<CGU />} />
+                        <Route path={PATHS.CGU} element={<CGU />} />
 
                         <Route path="*" element={<NotFound />} />
                     </Routes>

@@ -1,7 +1,7 @@
 import type { LeaderboardUserType } from '../../../types/User/leaderboardUserType.ts';
 import { BADGES } from '../../../constants/badges.ts';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import type { JWTPayloadType } from '../../../types/JWTPayloadType.ts';
 import { decodeJWT } from '../../../utils/jwt.ts';
 import { useApi } from '../../../hooks/useApi.tsx';
@@ -73,7 +73,7 @@ function Leaderboard() {
                         .slice(currentPage === 1 ? 3 : 0)
                         .map((user, key) => (
                             <Link
-                                to={ROUTES.USER_SHOW(user.slug)}
+                                to={URLS.USER_SHOW(user.slug)}
                                 key={key}
                                 className={`w-full flex gap-2 items-center px-3 sm:px-5 py-2.5 
                      ${user.username === decodedJwt?.username ? 'bg-retro-accent bg-opacity-10' : 'hover:bg-retro-accent hover:bg-opacity-10'}`}
@@ -117,7 +117,7 @@ function Leaderboard() {
 
             <div className="flex items-center justify-center gap-3 mt-8">
                 <Link
-                    to={ROUTES.LEADERBOARD_WITH_PAGE(
+                    to={URLS.LEADERBOARD_PAGE(
                         Math.max(1, currentPage - 1)
                     )}
                     className={`${currentPage === 1 ? 'opacity-50 pointer-events-none text-retro-muted' : 'text-retro-accent'}`}
@@ -129,7 +129,7 @@ function Leaderboard() {
                     (pageNum) => (
                         <Link
                             key={pageNum}
-                            to={ROUTES.LEADERBOARD_WITH_PAGE(pageNum)}
+                            to={URLS.LEADERBOARD_PAGE(pageNum)}
                             className={`${currentPage === pageNum ? 'btn-disabled' : 'btn-ghost'} font-title text-center px-2 py-1`}
                         >
                             {pageNum}
@@ -138,7 +138,7 @@ function Leaderboard() {
                 )}
 
                 <Link
-                    to={ROUTES.LEADERBOARD_WITH_PAGE(
+                    to={URLS.LEADERBOARD_PAGE(
                         Math.min(totalPages, currentPage + 1)
                     )}
                     className={`${currentPage === totalPages ? 'opacity-50 pointer-events-none text-retro-muted' : 'text-retro-accent'}`}

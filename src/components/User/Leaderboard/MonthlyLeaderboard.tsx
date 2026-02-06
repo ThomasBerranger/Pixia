@@ -2,7 +2,7 @@ import type { LeaderboardUserType } from '../../../types/User/leaderboardUserTyp
 import type { UserType } from '../../../types/User/userType.ts';
 import { BADGES } from '../../../constants/badges.ts';
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import type { JWTPayloadType } from '../../../types/JWTPayloadType.ts';
 import { decodeJWT } from '../../../utils/jwt.ts';
 import { format } from 'date-fns';
@@ -41,7 +41,7 @@ function MonthlyLeaderboard({
 
             <div className="hidden sm:grid grid-cols-3 gap-8 items-end">
                 <Link
-                    to={ROUTES.USER_SHOW(leaderboard[1]?.slug)}
+                    to={URLS.USER_SHOW(leaderboard[1]?.slug ?? '')}
                     className="card-primary-hover px-0 pt-2 pb-2"
                 >
                     <div className="flex justify-between items-center pl-3 pb-2">
@@ -90,7 +90,7 @@ function MonthlyLeaderboard({
                 </Link>
 
                 <Link
-                    to={ROUTES.USER_SHOW(leaderboard[0]?.slug)}
+                    to={URLS.USER_SHOW(leaderboard[0]?.slug ?? '')}
                     className="card-primary-hover px-0 py-2 border-retro-accent"
                 >
                     <div className="flex justify-between items-center pl-3 pb-4">
@@ -139,7 +139,7 @@ function MonthlyLeaderboard({
                 </Link>
 
                 <Link
-                    to={ROUTES.USER_SHOW(leaderboard[2]?.slug)}
+                    to={URLS.USER_SHOW(leaderboard[2]?.slug ?? '')}
                     className="card-primary-hover px-0 py-2"
                 >
                     <div className="flex justify-between items-center pl-3">
@@ -190,7 +190,7 @@ function MonthlyLeaderboard({
 
             <div className="sm:hidden card-primary border-retro-accent p-0 m-5">
                 <Link
-                    to={ROUTES.USER_SHOW(leaderboard[0]?.slug)}
+                    to={URLS.USER_SHOW(leaderboard[0]?.slug ?? '')}
                     className="w-full flex gap-0.5 items-center px-3 py-2.5"
                 >
                     <p className="font-title font-bold text-retro-primary text-3xl">
@@ -228,7 +228,7 @@ function MonthlyLeaderboard({
 
             <div className="sm:hidden card-primary p-0 m-5">
                 <Link
-                    to={ROUTES.USER_SHOW(leaderboard[1]?.slug)}
+                    to={URLS.USER_SHOW(leaderboard[1]?.slug ?? '')}
                     className="w-full flex gap-2 items-center px-3 py-2.5"
                 >
                     <p className="font-title font-bold text-retro-primary text-3xl">
@@ -264,7 +264,7 @@ function MonthlyLeaderboard({
                 </Link>
 
                 <Link
-                    to={ROUTES.USER_SHOW(leaderboard[2]?.slug)}
+                    to={URLS.USER_SHOW(leaderboard[2]?.slug ?? '')}
                     className="w-full flex gap-2 items-center px-3 py-2.5"
                 >
                     <p className="font-title font-bold text-retro-primary text-3xl">
@@ -303,7 +303,7 @@ function MonthlyLeaderboard({
             <div className="card-retro p-0 mt-5 mb-3 mx-5 sm:mx-0">
                 {leaderboard.slice(3).map((user, key) => (
                     <Link
-                        to={ROUTES.USER_SHOW(user.slug)}
+                        to={URLS.USER_SHOW(user.slug)}
                         key={key}
                         className={`w-full flex gap-2 items-center px-3 sm:px-5 py-2.5 
                      ${user.username === decodedJwt?.username ? 'bg-retro-accent bg-opacity-10' : 'hover:bg-retro-accent hover:bg-opacity-10'}`}
@@ -345,7 +345,7 @@ function MonthlyLeaderboard({
             {player && (
                 <div className="card-retro-hover-retro-accent border-retro-primary p-0 mb-5 mx-5 sm:mx-0">
                     <Link
-                        to={ROUTES.USER_SHOW(player.slug)}
+                        to={URLS.USER_SHOW(player.slug)}
                         className="w-full flex gap-2 items-center px-3 sm:px-5 py-2.5"
                     >
                         <p className="font-title font-bold text-retro-primary text-3xl">
@@ -385,7 +385,7 @@ function MonthlyLeaderboard({
 
             <div className="w-full flex justify-center mt-6">
                 <Link
-                    to={ROUTES.LEADERBOARD}
+                    to={URLS.LEADERBOARD}
                     className="btn-primary text-xs px-6 py-2.5"
                 >
                     Classement Général

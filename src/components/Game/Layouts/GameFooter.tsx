@@ -3,7 +3,7 @@ import { useAuth } from '../../../contexts/authContext.tsx';
 import type { GameType } from '../../../types/Game/gameType.ts';
 import type { AnswerResult } from '../../../types/answerResultType.ts';
 import { CgSpinner } from 'react-icons/cg';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import { useAlert } from '../../../hooks/useAlert.ts';
 import { FaCheck } from 'react-icons/fa';
 import { useApi } from '../../../hooks/useApi.tsx';
@@ -61,7 +61,7 @@ function GameFooter({
                         'Clique ici pour te créer un compte et sauvegarder tes parties.',
                         'warning',
                         5000,
-                        ROUTES.USER
+                        URLS.USER
                     );
                 }
             } else {
@@ -107,7 +107,7 @@ function GameFooter({
 
             return;
         } else if (isHintAsked) {
-            navigate(ROUTES.USER);
+            navigate(URLS.USER);
         }
 
         setIsHintAsked(true);

@@ -6,7 +6,7 @@ import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { type ApiError, useApi } from '../../../hooks/useApi.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
 import { GoogleButton } from './GoogleButton.tsx';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 
 function UserForm({ slug }: { slug?: string }) {
@@ -151,7 +151,7 @@ function UserForm({ slug }: { slug?: string }) {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <Link
-                            to={ROUTES.FORGOT_PASSWORD}
+                            to={URLS.FORGOT_PASSWORD}
                             className="text-retro-muted text-xxs sm:text-sm mt-1 cursor-pointer"
                         >
                             T'as oublié ton mot de passe ?
