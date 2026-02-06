@@ -1,6 +1,5 @@
 export const ROUTES = {
     // GAME
-    HOME: '/',
     GAME_BY_DATE: (date?: string) => (date ? `/${date}` : '/:date'),
     // USER
     USER: '/me',
@@ -23,6 +22,8 @@ export const ROUTES = {
     FORGOT_PASSWORD: '/reset-password',
     PASSWORD_RESET: '/reset-password/:resetToken',
     // STATIC
+    HOME: '/',
     CHANGELOG: '/changelog',
+    CGU: '/cgu',
     NOT_FOUND: '/404',
 } as const;

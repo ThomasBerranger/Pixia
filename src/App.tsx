@@ -31,6 +31,7 @@ import UserGames from './components/User/Game/UserGames.tsx';
 import ImpersonateBanner from './atoms/ImpersonateBanner.tsx';
 import { ROLES } from './constants/roles.ts';
 import ValentineHearts from './atoms/ValentineHearts.tsx';
+import CGU from './components/CGU.tsx';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -153,6 +154,8 @@ function App() {
                             path={ROUTES.CHANGELOG}
                             element={<Changelog />}
                         />
+
+                        <Route path={ROUTES.CGU} element={<CGU />} />
 
                         <Route path="*" element={<NotFound />} />
                     </Routes>

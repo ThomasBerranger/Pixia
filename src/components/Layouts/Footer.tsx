@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { FaTiktok } from 'react-icons/fa';
 
 function Footer() {
-    const { openModal } = useModal();
+    const { openModal, closeModal } = useModal();
 
     return (
         <footer className="text-center font-righteous px-[5%] py-4 bg-retro-surface/95 shadow-[0_-4px_40px_rgba(255,190,11,0.3)] text-retro-muted text-xs">
@@ -164,25 +164,34 @@ function Footer() {
                         openModal(
                             'Mentions légales',
                             <span className="text-white font-righteous">
-                                <p className="underline mb-1">Hébergement</p>
-                                React : Vercel Inc. <br /> Symfony : Railway
-                                Corp.
+                                <p className="underline mb-1">Tes données</p>
+                                On collecte ton email (pour ton compte), ton IP
+                                (pour la sécurité) et c'est tout. Pas de spam,
+                                pas de revente, jamais. 🤝
+                                <br />
+                                <br />
+                                <p className="underline mb-1">Cookies</p>
+                                🍪 Que des cookies essentiels
+                                (authentification). Zéro tracking, zéro pub.
                                 <br />
                                 <br />
                                 <p className="underline mb-1">
                                     Propriété intellectuelle
                                 </p>
-                                Images générées par IAs. Noms de films © ayants
+                                Images générées par IA. Noms de films © ayants
                                 droit respectifs. Pixia est un projet à but non
                                 lucratif.
                                 <br />
                                 <br />
-                                <p className="underline mb-1">
-                                    Données personnelles
+                                <p className="w-full text-center">
+                                    <Link
+                                        to={ROUTES.CGU}
+                                        onClick={closeModal}
+                                        className="text-retro-accent underline hover:text-retro-primary transition-colors"
+                                    >
+                                        Lire les CGU complètes
+                                    </Link>
                                 </p>
-                                On collecte ton email pour ton compte. Promis
-                                pas de spam ni de revente de données. Pour tes
-                                droits (accès, suppression), contacte-nous.
                             </span>
                         )
                     }
