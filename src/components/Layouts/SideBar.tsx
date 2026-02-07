@@ -10,6 +10,7 @@ import {
 import { LuFileCode2 } from 'react-icons/lu';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
 import { TbPhotoSearch } from 'react-icons/tb';
+import { FaCrown } from 'react-icons/fa';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -17,7 +18,7 @@ interface SidebarProps {
 }
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
-    const { isAuthenticated, isAdmin } = useAuth();
+    const { isAuthenticated, isSuperAdmin } = useAuth();
     const hasUnread = useNotificationStore((state) => state.hasUnread);
 
     const decodedJwt: JWTPayloadType | undefined = decodeJWT(
@@ -86,13 +87,15 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     Version {__APP_VERSION__}
                 </Link>
 
-                {isAdmin() && (
+                {isSuperAdmin() && (
                     <Link
-                        to={URLS.ADMIN}
+                        to={URLS.SUPER_ADMIN}
                         onClick={onClose}
-                        className="btn-ghost px-10 py-2 text-center"
+                        className="btn-ghost py-2 text-center"
                     >
-                        <p>⚙️ Admin</p>
+                        <p className="flex items-center justify-center gap-2">
+                            <FaCrown className="text-3xl" />
+                        </p>
                     </Link>
                 )}
             </nav>

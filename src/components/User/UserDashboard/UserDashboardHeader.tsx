@@ -5,7 +5,7 @@ import { useState } from 'react';
 import AvatarCustomizer from './AvatarCustomizer.tsx';
 import { PiHandHeartBold, PiShareNetworkBold } from 'react-icons/pi';
 import { useModal } from '../../../hooks/useModal.tsx';
-import { FaUserEdit } from 'react-icons/fa';
+import { FaCrown, FaUserEdit } from 'react-icons/fa';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import { Link } from 'react-router-dom';
 import { format, startOfMonth } from 'date-fns';
@@ -18,7 +18,7 @@ export default function UserDashboardHeader({
     user: UserType | undefined;
 }) {
     const { openModal } = useModal();
-    const { isAdmin } = useAuth();
+    const { isSuperAdmin } = useAuth();
 
     const [displayAvatarEdit, setDisplayAvatarEdit] = useState(false);
     const [isAvatarLoading, setIsAvatarLoading] = useState(true);
@@ -201,13 +201,14 @@ export default function UserDashboardHeader({
                                 </p>
                             </div>
 
-                            {isAdmin() && (
+                            {isSuperAdmin() && (
                                 <Link
-                                    to={URLS.ADMIN}
-                                    className="hidden sm:block btn-ghost py-1 sm:py-1 sm:px-4 text-center"
+                                    to={URLS.SUPER_ADMIN}
+                                    className="hidden sm:block btn-ghost w-1/2 py-2.5 sm:px-4"
                                 >
-                                    <p className="mx-auto mb-0.5 text-xl">⚙️</p>
-                                    <p className="text-xs sm:text-sm">Admin</p>
+                                    <p className="mx-auto mb-0.5 text-xl">
+                                        <FaCrown className="text-2xl" />
+                                    </p>
                                 </Link>
                             )}
                         </div>
