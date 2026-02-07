@@ -23,7 +23,7 @@ export default function UserDashboardStatistic({
 
             <section className="grid grid-cols-6 lg:grid-cols-12 gap-4 sm:gap-6 mb-8">
                 <Link
-                    to={URLS.USER_GAMES}
+                    to={URLS.ME_GAMES}
                     className="col-span-3 flex flex-col items-center card-primary-hover p-6"
                 >
                     <div className="self-start flex items-center gap-2">

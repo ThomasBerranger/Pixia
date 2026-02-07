@@ -63,7 +63,7 @@ function UserForm() {
             });
 
             login(response.token);
-            navigate(URLS.USER);
+            navigate(URLS.ME);
         } catch (error) {
             console.error('Password reset error:', error);
             setError('Une erreur est survenue');

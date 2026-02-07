@@ -35,7 +35,7 @@ function AdminUsersTable() {
     const handleImpersonate = async (email: string) => {
         try {
             await impersonate(email);
-            navigate(URLS.USER);
+            navigate(URLS.ME);
         } catch (error) {
             console.error('Erreur impersonation:', error);
         }

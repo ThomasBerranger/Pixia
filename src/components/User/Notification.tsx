@@ -81,7 +81,7 @@ function Notification() {
                                     className={`timeline-retro-dot${notification.read ? '-read' : '-unread'}`}
                                 ></div>
                                 <Link
-                                    to={badge ? URLS.USER : URLS.CHANGELOG}
+                                    to={badge ? URLS.ME : URLS.CHANGELOG}
                                 >
                                     <div
                                         className={`p-4 ${notification.read ? 'card-retro-hover-retro-accent text-left' : 'card-primary-hover'}`}

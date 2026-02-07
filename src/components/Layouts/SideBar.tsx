@@ -35,7 +35,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
         >
             <nav className="text-white font-righteous flex flex-col gap-8">
                 {(decodedJwt?.avatarUrl || decodedJwt?.username) && (
-                    <Link to={URLS.USER} onClick={onClose}>
+                    <Link to={URLS.ME} onClick={onClose}>
                         <img
                             src={
                                 decodedJwt.avatarUrl ??
@@ -47,7 +47,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     </Link>
                 )}
 
-                <Link to={URLS.USER} onClick={onClose}>
+                <Link to={URLS.ME} onClick={onClose}>
                     <button className="btn-primary text-sm px-8 py-2.5 mx-auto">
                         {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}
                     </button>
@@ -64,7 +64,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                 {isAuthenticated && (
                     <Link
-                        to={URLS.USER_NOTIFICATIONS}
+                        to={URLS.ME_NOTIFICATIONS}
                         onClick={onClose}
                         className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
                     >

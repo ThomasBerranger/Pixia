@@ -18,7 +18,7 @@ function ProtectedRoute({
         (requiredRole === ROLES.ADMIN && !isAdmin()) ||
         (requiredRole === ROLES.SUPER_ADMIN && !isSuperAdmin())
     ) {
-        return <Navigate to={URLS.USER} replace />;
+        return <Navigate to={URLS.ME} replace />;
     }
 
     return <>{children}</>;

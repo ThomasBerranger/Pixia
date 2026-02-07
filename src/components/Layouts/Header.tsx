@@ -60,7 +60,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                 <div className="flex sm:hidden items-baseline">
                     {hasUnreadNotification && (
                         <div className="flex text-3xl mr-1.5">
-                            <Link to={URLS.USER_NOTIFICATIONS}>
+                            <Link to={URLS.ME_NOTIFICATIONS}>
                                 <MdOutlineNotificationsActive className="text-retro-primary animate-pulse" />
                             </Link>
                         </div>
@@ -141,7 +141,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
 
                     {isAuthenticated && (
                         <Link
-                            to={URLS.USER_NOTIFICATIONS}
+                            to={URLS.ME_NOTIFICATIONS}
                             className={`flex items-center ${hasUnreadNotification ? 'text-retro-primary animate-pulse' : 'text-white'}`}
                         >
                             {hasUnreadNotification && (
@@ -151,7 +151,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                         </Link>
                     )}
 
-                    <Link to={URLS.USER}>
+                    <Link to={URLS.ME}>
                         <button className="btn-primary text-xs sm:text-md px-4 py-2 sm:px-6 sm:py-2.5">
                             {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}
                         </button>

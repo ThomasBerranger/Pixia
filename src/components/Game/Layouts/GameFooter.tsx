@@ -61,7 +61,7 @@ function GameFooter({
                         'Clique ici pour te créer un compte et sauvegarder tes parties.',
                         'warning',
                         5000,
-                        URLS.USER
+                        URLS.ME
                     );
                 }
             } else {
@@ -107,7 +107,7 @@ function GameFooter({
 
             return;
         } else if (isHintAsked) {
-            navigate(URLS.USER);
+            navigate(URLS.ME);
         }
 
         setIsHintAsked(true);
