@@ -32,15 +32,15 @@ const PasswordReset = lazy(
 );
 
 // Lazy — authentifié
-const Notification = lazy(() => import('./components/User/Notification.tsx'));
+const Notification = lazy(() => import('./components/User/Notification/Notification.tsx'));
 const UserGames = lazy(() => import('./components/User/Game/UserGames.tsx'));
 
 // Lazy — admin
 const AdminGameGenerator = lazy(
-    () => import('./components/Admin/GameGenerator/AdminGameGenerator.tsx')
+    () => import('./components/Admin/GameGenerator/GameGenerator.tsx')
 );
 const AdminGameEdit = lazy(
-    () => import('./components/Admin/AdminGameEdit.tsx')
+    () => import('./components/Admin/GameEdit.tsx')
 );
 
 // Lazy — super admin
@@ -203,6 +203,10 @@ function App() {
                                 <Route
                                     path={PATHS.SUPER_ADMIN_CONTRIBUTIONS}
                                     element={<SuperAdminContributions />}
+                                />
+                                <Route
+                                    path={PATHS.ADMIN_CONTRIBUTIONS}
+                                    element={<Contribution />}
                                 />
                             </Route>
 
