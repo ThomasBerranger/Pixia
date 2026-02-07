@@ -18,7 +18,7 @@ export default function UserDashboardHeader({
     user: UserType | undefined;
 }) {
     const { openModal } = useModal();
-    const { isSuperAdmin } = useAuth();
+    const { isAdmin, isSuperAdmin } = useAuth();
 
     const [displayAvatarEdit, setDisplayAvatarEdit] = useState(false);
     const [isAvatarLoading, setIsAvatarLoading] = useState(true);
@@ -201,9 +201,13 @@ export default function UserDashboardHeader({
                                 </p>
                             </div>
 
-                            {isSuperAdmin() && (
+                            {(isAdmin() || isSuperAdmin()) && (
                                 <Link
-                                    to={URLS.SUPER_ADMIN}
+                                    to={
+                                        isSuperAdmin()
+                                            ? URLS.SUPER_ADMIN
+                                            : URLS.ADMIN_GAMES
+                                    }
                                     className="hidden sm:block btn-ghost w-1/2 py-2.5 sm:px-4"
                                 >
                                     <p className="mx-auto mb-0.5 text-xl">

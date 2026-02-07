@@ -30,7 +30,7 @@ function Games() {
         const fetchData = async () => {
             try {
                 const response = await apiCall(
-                    `${ENDPOINTS.ADMIN_GAME_INDEX}?fields=type,image,date`
+                    `${ENDPOINTS.SUPER_ADMIN_GAMES_INDEX}?fields=type,image,date`
                 );
 
                 setGames(response);

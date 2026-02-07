@@ -49,7 +49,7 @@ function PromptGenerator({
             }
 
             const games = await apiCall(
-                `${ENDPOINTS.ADMIN_GAME_INDEX}?fields=date`
+                `${ENDPOINTS.SUPER_ADMIN_GAMES_INDEX}?fields=date`
             );
 
             const unavailableDates = games.map(
