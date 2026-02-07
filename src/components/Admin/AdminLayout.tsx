@@ -8,15 +8,13 @@ import { FaHandsHelping } from 'react-icons/fa';
 function AdminLayout() {
     return (
         <section className="min-h-[90vh] flex flex-col sm:flex-row justify-center items-center gap-4 p-4">
-            {isSuperAdmin() && (
-                <Link
-                    to={URLS.ADMIN_USERS}
-                    className="card-primary-hover text-center w-4/5 sm:w-1/5"
-                >
-                    <FaUsersGear className="mx-auto mb-2" size={30} />
-                    <p className="font-righteous whitespace-nowrap">Joueurs</p>
-                </Link>
-            )}
+            <Link
+                to={URLS.ADMIN_USERS}
+                className="card-primary-hover text-center w-4/5 sm:w-1/5"
+            >
+                <FaUsersGear className="mx-auto mb-2" size={30} />
+                <p className="font-righteous whitespace-nowrap">Joueurs</p>
+            </Link>
             <Link
                 to={URLS.ADMIN_GAMES}
                 className="card-primary-hover text-center w-4/5 sm:w-1/5"
