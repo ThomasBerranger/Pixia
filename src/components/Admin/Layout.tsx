@@ -34,13 +34,15 @@ function AdminLayout() {
                 <RiAiGenerate2 className="mx-auto mb-2" size={30} />
                 <p className="font-righteous whitespace-nowrap">Création</p>
             </Link>
-            <Link
-                to={URLS.ADMIN_CONTRIBUTIONS}
-                className="card-primary-hover text-center w-4/5 sm:w-1/5"
-            >
-                <FaHandsHelping className="mx-auto mb-2" size={30} />
-                <p className="font-righteous whitespace-nowrap">Contribution</p>
-            </Link>
+            {isSuperAdmin() && (
+                <Link
+                    to={URLS.ADMIN_CONTRIBUTIONS}
+                    className="card-primary-hover text-center w-4/5 sm:w-1/5"
+                >
+                    <FaHandsHelping className="mx-auto mb-2" size={30} />
+                    <p className="font-righteous whitespace-nowrap">Contribution</p>
+                </Link>
+            )}
         </section>
     );
 }

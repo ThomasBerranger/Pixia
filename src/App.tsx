@@ -176,10 +176,6 @@ function App() {
                                     path={PATHS.ADMIN_GAME_EDIT}
                                     element={<AdminGameEdit />}
                                 />
-                                <Route
-                                    path={PATHS.ADMIN_CONTRIBUTIONS}
-                                    element={<Contribution />}
-                                />
                             </Route>
 
                             {/* ===== Super Admin ===== */}
@@ -196,6 +192,10 @@ function App() {
                                 <Route
                                     path={PATHS.ADMIN_USERS}
                                     element={<AdminUsersTable />}
+                                />
+                                <Route
+                                    path={PATHS.ADMIN_CONTRIBUTIONS}
+                                    element={<Contribution />}
                                 />
                             </Route>
 
