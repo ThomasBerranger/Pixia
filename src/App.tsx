@@ -23,7 +23,7 @@ import UserContainer from './components/User/UserContainer.tsx';
 import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
 
 // Lazy — public
-const NotFound = lazy(() => import('./components/NotFound.tsx'));
+const NotFound = lazy(() => import('./components/Static/NotFound.tsx'));
 const UserDetails = lazy(
     () => import('./components/User/UserDetails/UserDetails.tsx')
 );
@@ -36,26 +36,30 @@ const Notification = lazy(() => import('./components/User/Notification.tsx'));
 const UserGames = lazy(() => import('./components/User/Game/UserGames.tsx'));
 
 // Lazy — admin
-const AdminLayout = lazy(() => import('./components/Admin/AdminLayout.tsx'));
-const AdminUsersTable = lazy(
-    () => import('./components/Admin/AdminUsersTable.tsx')
-);
 const AdminGameGenerator = lazy(
     () => import('./components/Admin/GameGenerator/AdminGameGenerator.tsx')
-);
-const AdminGameDashboard = lazy(
-    () => import('./components/Admin/AdminGameDashboard.tsx')
 );
 const AdminGameEdit = lazy(
     () => import('./components/Admin/AdminGameEdit.tsx')
 );
-const Contribution = lazy(
-    () => import('./components/Admin/Contribution/Contribution.tsx')
+
+// Lazy — super admin
+const SuperAdminDashboard = lazy(
+    () => import('./components/SuperAdmin/SuperAdminDashboard.tsx')
+);
+const SuperAdminUsers = lazy(
+    () => import('./components/SuperAdmin/SuperAdminUsers.tsx')
+);
+const SuperAdminContributions = lazy(
+    () => import('./components/SuperAdmin/SuperAdminContribution.tsx')
+);
+const SuperAdminGameDashboard = lazy(
+    () => import('./components/SuperAdmin/./SuperAdminGameDashboard')
 );
 
 // Lazy — static
-const Changelog = lazy(() => import('./components/Changelog.tsx'));
-const CGU = lazy(() => import('./components/CGU.tsx'));
+const Changelog = lazy(() => import('./components/Static/Changelog.tsx'));
+const CGU = lazy(() => import('./components/Static/CGU.tsx'));
 
 function Loader() {
     return (
@@ -163,28 +167,19 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             >
-                                <Route index element={<AdminLayout />} />
                                 <Route
                                     path={PATHS.ADMIN_GENERATOR}
                                     element={<AdminGameGenerator />}
                                 />
                                 <Route
-                                    path={PATHS.ADMIN_GAMES}
-                                    element={<AdminGameDashboard />}
-                                />
-                                <Route
                                     path={PATHS.ADMIN_GAME_EDIT}
                                     element={<AdminGameEdit />}
-                                />
-                                <Route
-                                    path={PATHS.ADMIN_CONTRIBUTIONS}
-                                    element={<Contribution />}
                                 />
                             </Route>
 
                             {/* ===== Super Admin ===== */}
                             <Route
-                                path={PATHS.ADMIN}
+                                path={PATHS.SUPER_ADMIN}
                                 element={
                                     <ProtectedRoute
                                         requiredRole={ROLES.SUPER_ADMIN}
@@ -194,8 +189,20 @@ function App() {
                                 }
                             >
                                 <Route
-                                    path={PATHS.ADMIN_USERS}
-                                    element={<AdminUsersTable />}
+                                    path={PATHS.SUPER_ADMIN}
+                                    element={<SuperAdminDashboard />}
+                                />
+                                <Route
+                                    path={PATHS.SUPER_ADMIN_USERS}
+                                    element={<SuperAdminUsers />}
+                                />
+                                <Route
+                                    path={PATHS.SUPER_ADMIN_GAMES}
+                                    element={<SuperAdminGameDashboard />}
+                                />
+                                <Route
+                                    path={PATHS.SUPER_ADMIN_CONTRIBUTIONS}
+                                    element={<SuperAdminContributions />}
                                 />
                             </Route>
 

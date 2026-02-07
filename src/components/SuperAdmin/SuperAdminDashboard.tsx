@@ -5,18 +5,18 @@ import { RiAiGenerate2 } from 'react-icons/ri';
 import { MdDashboard } from 'react-icons/md';
 import { FaHandsHelping } from 'react-icons/fa';
 
-function AdminLayout() {
+function SuperAdminDashboard() {
     return (
         <section className="min-h-[90vh] flex flex-col sm:flex-row justify-center items-center gap-4 p-4">
             <Link
-                to={URLS.ADMIN_USERS}
+                to={URLS.SUPER_ADMIN_USERS}
                 className="card-primary-hover text-center w-4/5 sm:w-1/5"
             >
                 <FaUsersGear className="mx-auto mb-2" size={30} />
                 <p className="font-righteous whitespace-nowrap">Joueurs</p>
             </Link>
             <Link
-                to={URLS.ADMIN_GAMES}
+                to={URLS.SUPER_ADMIN_GAMES}
                 className="card-primary-hover text-center w-4/5 sm:w-1/5"
             >
                 <MdDashboard className="mx-auto mb-2" size={30} />
@@ -30,7 +30,7 @@ function AdminLayout() {
                 <p className="font-righteous whitespace-nowrap">Création</p>
             </Link>
             <Link
-                to={URLS.ADMIN_CONTRIBUTIONS}
+                to={URLS.SUPER_ADMIN_CONTRIBUTIONS}
                 className="card-primary-hover text-center w-4/5 sm:w-1/5"
             >
                 <FaHandsHelping className="mx-auto mb-2" size={30} />
@@ -40,4 +40,4 @@ function AdminLayout() {
     );
 }
 
-export default AdminLayout;
+export default SuperAdminDashboard;

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { URLS } from '../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 
 function Changelog() {
     return (

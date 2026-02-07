@@ -21,7 +21,7 @@ import { decodeJWT } from '../../utils/jwt.ts';
 import { URLS } from '../../constants/routes.ts';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 
-function AdminGameDashboard() {
+function SuperAdminGameDashboard() {
     const { apiCall } = useApi();
     const [games, setGames] = useState<GameAdminType[]>([]);
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -153,4 +153,4 @@ function AdminGameDashboard() {
     );
 }
 
-export default AdminGameDashboard;
+export default SuperAdminGameDashboard;

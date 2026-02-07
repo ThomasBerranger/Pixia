@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useApi } from '../../../hooks/useApi.tsx';
-import { ENDPOINTS } from '../../../constants/endpoints.ts';
-import type { ContributionType } from '../../../types/Contribution/contributionType.ts';
-import { CONTRIBUTION_TYPES } from '../../../constants/contributionTypes.ts';
+import { useApi } from '../../hooks/useApi.tsx';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
+import type { ContributionType } from '../../types/Contribution/contributionType.ts';
+import { CONTRIBUTION_TYPES } from '../../constants/contributionTypes.ts';
 import { RxDotFilled } from 'react-icons/rx';
 import {
     CONTRIBUTION_STATUS_CONFIG,
     CONTRIBUTION_STATUSES,
-} from '../../../constants/contributionStatuses.ts';
+} from '../../constants/contributionStatuses.ts';
 import { CgSpinner } from 'react-icons/cg';
 
-export default function Contribution() {
+export default function SuperAdminContribution() {
     const { apiCall } = useApi();
 
     const [contributions, setContributions] = useState<ContributionType[]>();

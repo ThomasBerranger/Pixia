@@ -15,11 +15,13 @@ export const PATHS = {
     PASSWORD_RESET: '/reset-password/:resetToken',
     // Admin
     ADMIN: '/admin',
-    ADMIN_USERS: 'user-dashboard',
-    ADMIN_GAMES: 'game-dashboard',
     ADMIN_GENERATOR: 'game-generator',
     ADMIN_GAME_EDIT: 'games/:id',
-    ADMIN_CONTRIBUTIONS: 'contributions',
+    // Admin
+    SUPER_ADMIN: '/super-admin',
+    SUPER_ADMIN_USERS: 'users',
+    SUPER_ADMIN_GAMES: 'game-dashboard',
+    SUPER_ADMIN_CONTRIBUTIONS: 'contributions',
     // Static
     CHANGELOG: '/changelog',
     CGU: '/cgu',
@@ -43,11 +45,13 @@ export const URLS = {
     FORGOT_PASSWORD: '/reset-password',
     // Admin
     ADMIN: '/admin',
-    ADMIN_USERS: '/admin/user-dashboard',
-    ADMIN_GAMES: '/admin/game-dashboard',
     ADMIN_GENERATOR: '/admin/game-generator',
     ADMIN_GAME_EDIT: (id: string) => `/admin/games/${id}`,
-    ADMIN_CONTRIBUTIONS: '/admin/contributions',
+    // Super Admin
+    SUPER_ADMIN: '/super-admin',
+    SUPER_ADMIN_USERS: '/super-admin/users',
+    SUPER_ADMIN_GAMES: '/super-admin/game-dashboard',
+    SUPER_ADMIN_CONTRIBUTIONS: '/super-admin/contributions',
     // Static
     CHANGELOG: '/changelog',
     CGU: '/cgu',
