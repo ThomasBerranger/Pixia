@@ -68,7 +68,7 @@ export default function UserDashboardHeader({
 
     return (
         <>
-            <section className="sm:flex justify-between mb-8 card-primary px-3 py-4 sm:p-5 sm:pt-4">
+            <section className="lg:flex justify-between mb-8 card-primary px-3 py-4 sm:p-5 sm:pt-4">
                 {user ? (
                     <>
                         <div className="flex justify-center items-center gap-2 mb-3 sm:mb-0">
@@ -98,9 +98,13 @@ export default function UserDashboardHeader({
                                     <FaUserEdit className=" text-2xl text-retro-accent" />
                                 </button>
                             </div>
-                            <div>
-                                <h1 className="font-righteous text-4xl line-clamp-2 bg-gradient-to-br from-retro-primary via-retro-secondary to-retro-accent bg-clip-text text-transparent">
-                                    {user?.username}
+                            <div className="min-w-0">
+                                <h1
+                                    className={`font-righteous bg-gradient-to-br from-retro-primary via-retro-secondary
+                                                to-retro-accent bg-clip-text text-transparent truncate
+                                                ${user.username.length > 10 ? 'text-2xl' : 'text-4xl'}`}
+                                >
+                                    {user.username}
                                 </h1>
                                 <div className="flex flex-col flex-shrink-0">
                                     {currentMonthlyLeaderboard && (

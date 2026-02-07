@@ -4,11 +4,8 @@ import { FaUsersGear } from 'react-icons/fa6';
 import { RiAiGenerate2 } from 'react-icons/ri';
 import { MdDashboard } from 'react-icons/md';
 import { FaHandsHelping } from 'react-icons/fa';
-import { useAuth } from '../../contexts/authContext.tsx';
 
 function AdminLayout() {
-    const { isSuperAdmin } = useAuth();
-
     return (
         <section className="min-h-[90vh] flex flex-col sm:flex-row justify-center items-center gap-4 p-4">
             {isSuperAdmin() && (
