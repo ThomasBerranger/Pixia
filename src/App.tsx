@@ -23,7 +23,7 @@ import UserContainer from './components/User/UserContainer.tsx';
 import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
 
 // Lazy — public
-const NotFound = lazy(() => import('./components/NotFound.tsx'));
+const NotFound = lazy(() => import('./pages/NotFound.tsx'));
 const UserDetails = lazy(
     () => import('./components/User/UserDetails/UserDetails.tsx')
 );
@@ -32,30 +32,30 @@ const PasswordReset = lazy(
 );
 
 // Lazy — authentifié
-const Notification = lazy(() => import('./components/User/Notification.tsx'));
+const Notification = lazy(() => import('./components/User/Notification/Notification.tsx'));
 const UserGames = lazy(() => import('./components/User/Game/UserGames.tsx'));
 
 // Lazy — admin
-const AdminLayout = lazy(() => import('./components/Admin/AdminLayout.tsx'));
+const AdminLayout = lazy(() => import('./components/Admin/Layout.tsx'));
 const AdminUsersTable = lazy(
-    () => import('./components/Admin/AdminUsersTable.tsx')
+    () => import('./components/Admin/UsersTable.tsx')
 );
 const AdminGameGenerator = lazy(
-    () => import('./components/Admin/GameGenerator/AdminGameGenerator.tsx')
+    () => import('./components/Admin/GameGenerator/GameGenerator.tsx')
 );
 const AdminGameDashboard = lazy(
-    () => import('./components/Admin/AdminGameDashboard.tsx')
+    () => import('./components/Admin/GameDashboard.tsx')
 );
 const AdminGameEdit = lazy(
-    () => import('./components/Admin/AdminGameEdit.tsx')
+    () => import('./components/Admin/GameEdit.tsx')
 );
 const Contribution = lazy(
-    () => import('./components/Admin/Contribution/Contribution.tsx')
+    () => import('./components/Admin/Contribution.tsx')
 );
 
 // Lazy — static
-const Changelog = lazy(() => import('./components/Changelog.tsx'));
-const CGU = lazy(() => import('./components/CGU.tsx'));
+const Changelog = lazy(() => import('./pages/Changelog.tsx'));
+const CGU = lazy(() => import('./pages/CGU.tsx'));
 
 function Loader() {
     return (
