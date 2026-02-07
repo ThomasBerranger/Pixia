@@ -32,29 +32,27 @@ const PasswordReset = lazy(
 );
 
 // Lazy — authentifié
-const Notification = lazy(() => import('./components/User/Notification/Notification.tsx'));
+const Notification = lazy(
+    () => import('./components/User/Notification/Notification.tsx')
+);
 const UserGames = lazy(() => import('./components/User/Game/UserGames.tsx'));
 
 // Lazy — admin
 const AdminGameGenerator = lazy(
     () => import('./components/Admin/GameGenerator/GameGenerator.tsx')
 );
-const AdminGameEdit = lazy(
-    () => import('./components/Admin/GameEdit.tsx')
-);
+const AdminGameEdit = lazy(() => import('./components/Admin/GameEdit.tsx'));
 
 // Lazy — super admin
 const SuperAdminDashboard = lazy(
-    () => import('./components/SuperAdmin/SuperAdminDashboard.tsx')
+    () => import('./components/SuperAdmin/./Dashboard')
 );
-const SuperAdminUsers = lazy(
-    () => import('./components/SuperAdmin/SuperAdminUsers.tsx')
-);
+const SuperAdminUsers = lazy(() => import('./components/SuperAdmin/Users.tsx'));
 const SuperAdminContributions = lazy(
-    () => import('./components/SuperAdmin/SuperAdminContribution.tsx')
+    () => import('./components/SuperAdmin/./Contribution')
 );
 const SuperAdminGameDashboard = lazy(
-    () => import('./components/SuperAdmin/./SuperAdminGameDashboard')
+    () => import('./components/SuperAdmin/GameDashboard.tsx')
 );
 
 // Lazy — static
@@ -203,10 +201,6 @@ function App() {
                                 <Route
                                     path={PATHS.SUPER_ADMIN_CONTRIBUTIONS}
                                     element={<SuperAdminContributions />}
-                                />
-                                <Route
-                                    path={PATHS.ADMIN_CONTRIBUTIONS}
-                                    element={<Contribution />}
                                 />
                             </Route>
 
