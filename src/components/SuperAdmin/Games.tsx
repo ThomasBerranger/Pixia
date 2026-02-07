@@ -21,7 +21,7 @@ import { decodeJWT } from '../../utils/jwt.ts';
 import { URLS } from '../../constants/routes.ts';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 
-function GameDashboard() {
+function Games() {
     const { apiCall } = useApi();
     const [games, setGames] = useState<GameAdminType[]>([]);
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -102,7 +102,6 @@ function GameDashboard() {
                         const dayClasses = `
                             calendar-day
                             ${!isCurrentMonth && 'text-retro-muted/50'}
-                            ${game ? (isAuthor ? 'cursor-pointer' : 'cursor-not-allowed hover:bg-retro-surface') : ''}
                         `;
 
                         const content = (
@@ -119,7 +118,7 @@ function GameDashboard() {
                                             <img
                                                 src={`${import.meta.env.VITE_API_URL}${game.image}`}
                                                 alt="AI created image"
-                                                className={`hidden md:block w-full mt-2 ${!isAuthor && 'blur-sm'}`}
+                                                className="hidden md:block w-full mt-2"
                                             />
                                         </>
                                     ) : (
@@ -133,7 +132,7 @@ function GameDashboard() {
                             </>
                         );
 
-                        return isAuthor && game?.id ? (
+                        return game ? (
                             <Link
                                 key={day.toString()}
                                 to={URLS.ADMIN_GAME_EDIT(game.id)}
@@ -148,9 +147,18 @@ function GameDashboard() {
                         );
                     })}
                 </div>
+
+                <div className="text-center mt-8">
+                    <Link
+                        to={URLS.ADMIN_GAMES}
+                        className="btn-primary text-center px-7 py-2"
+                    >
+                        Espace Admin
+                    </Link>
+                </div>
             </div>
         </section>
     );
 }
 
-export default GameDashboard;
+export default Games;

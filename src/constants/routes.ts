@@ -15,6 +15,7 @@ export const PATHS = {
     PASSWORD_RESET: '/reset-password/:resetToken',
     // Admin
     ADMIN: '/admin',
+    ADMIN_GAMES: 'games',
     ADMIN_GENERATOR: 'game-generator',
     ADMIN_GAME_EDIT: 'games/:id',
     // Admin
@@ -45,6 +46,7 @@ export const URLS = {
     FORGOT_PASSWORD: '/reset-password',
     // Admin
     ADMIN: '/admin',
+    ADMIN_GAMES: '/admin/games',
     ADMIN_GENERATOR: '/admin/game-generator',
     ADMIN_GAME_EDIT: (id: string) => `/admin/games/${id}`,
     // Super Admin

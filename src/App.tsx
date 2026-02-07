@@ -42,17 +42,18 @@ const AdminGameGenerator = lazy(
     () => import('./components/Admin/GameGenerator/GameGenerator.tsx')
 );
 const AdminGameEdit = lazy(() => import('./components/Admin/GameEdit.tsx'));
+const AdminDashboard = lazy(() => import('./components/Admin/Dashboard.tsx'));
 
 // Lazy — super admin
 const SuperAdminDashboard = lazy(
-    () => import('./components/SuperAdmin/./Dashboard')
+    () => import('./components/SuperAdmin/Dashboard.tsx')
 );
 const SuperAdminUsers = lazy(() => import('./components/SuperAdmin/Users.tsx'));
 const SuperAdminContributions = lazy(
-    () => import('./components/SuperAdmin/./Contribution')
+    () => import('./components/SuperAdmin/Contribution.tsx')
 );
 const SuperAdminGameDashboard = lazy(
-    () => import('./components/SuperAdmin/GameDashboard.tsx')
+    () => import('./components/SuperAdmin/Games.tsx')
 );
 
 // Lazy — static
@@ -165,6 +166,10 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             >
+                                <Route
+                                    path={PATHS.ADMIN_GAMES}
+                                    element={<AdminDashboard />}
+                                />
                                 <Route
                                     path={PATHS.ADMIN_GENERATOR}
                                     element={<AdminGameGenerator />}

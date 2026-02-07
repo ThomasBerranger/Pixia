@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom';
 import { URLS } from '../../constants/routes.ts';
 import { FaUsersGear } from 'react-icons/fa6';
 import { RiAiGenerate2 } from 'react-icons/ri';
-import { MdDashboard } from 'react-icons/md';
 import { FaHandsHelping } from 'react-icons/fa';
+import { PiCalendarDots } from 'react-icons/pi';
 
 function Dashboard() {
     return (
@@ -19,7 +19,7 @@ function Dashboard() {
                 to={URLS.SUPER_ADMIN_GAMES}
                 className="card-primary-hover text-center w-4/5 sm:w-1/5"
             >
-                <MdDashboard className="mx-auto mb-2" size={30} />
+                <PiCalendarDots className="mx-auto mb-2" size={30} />
                 <p className="font-righteous whitespace-nowrap">Parties</p>
             </Link>
             <Link
