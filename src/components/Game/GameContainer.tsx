@@ -92,7 +92,7 @@ function GameContainer() {
             }
 
             try {
-                const response: { solution: string } | false = await apiCall(
+                const solution: string | false = await apiCall(
                     ENDPOINTS.GAME_SOLUTION(game.id),
                     {
                         method: 'POST',
@@ -100,16 +100,14 @@ function GameContainer() {
                     }
                 );
 
-                if (!response) {
+                if (!solution) {
                     return { success: false };
                 }
 
                 fireConfetti();
 
                 setGame((prevGame) =>
-                    prevGame
-                        ? { ...prevGame, solution: response.solution }
-                        : prevGame
+                    prevGame ? { ...prevGame, solution: solution } : prevGame
                 );
 
                 if (isAuthenticated) {

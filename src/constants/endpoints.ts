@@ -10,8 +10,6 @@ export const ENDPOINTS = {
     USER_UPDATE: 'users',
     USER_CONTRIBUTION_INDEX: 'contributions',
     USER_SHOW: (slug: string) => `users/${slug}`,
-    NOTIFICATION: 'notifications',
-    HAS_UNREAD_NOTIFICATION: 'notifications/has-unread',
     LEADERBOARD: 'users/leaderboard',
     MONTHLY_LEADERBOARD: (date?: string) =>
         date
@@ -19,6 +17,9 @@ export const ENDPOINTS = {
             : 'users/monthly-leaderboard',
     USER_GAMES_STATS: 'me/games-stats',
     USER_GAMES: (month: string) => `me/games?month=${month}`,
+    // NOTIFICATION
+    NOTIFICATION: 'notifications',
+    HAS_UNREAD_NOTIFICATION: 'notifications/has-unread',
     // GAME
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',

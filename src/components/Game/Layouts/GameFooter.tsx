@@ -181,7 +181,7 @@ function GameFooter({
                             className="btn-primary py-1.5 sm:py-2.5 w-full flex justify-center col-span-2 sm:col-span-3 order-3"
                         >
                             {isLoading ? (
-                                <CgSpinner className="animate-spin" />
+                                <CgSpinner className="animate-spin text-xl sm:text-2xl" />
                             ) : (
                                 'Trouvé !'
                             )}
