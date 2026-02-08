@@ -8,6 +8,7 @@ import type { UserType } from '../../../types/User/userType.ts';
 import { GoogleButton } from './GoogleButton.tsx';
 import { URLS } from '../../../constants/routes.ts';
 import { Link } from 'react-router-dom';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
 
 function UserForm({ slug }: { slug?: string }) {
     const { apiCall } = useApi();
@@ -180,12 +181,9 @@ function UserForm({ slug }: { slug?: string }) {
                                     )}
                                 </div>
                                 {sponsor && (
-                                    <img
-                                        src={
-                                            sponsor.avatarUrl ??
-                                            `${import.meta.env.VITE_DICE_URL}${sponsor.username}`
-                                        }
-                                        alt="avatar"
+                                    <UserAvatar
+                                        avatarUrl={sponsor.avatarUrl}
+                                        username={sponsor.username}
                                         onLoad={() => {
                                             setIsSponsorLoading(false);
                                         }}

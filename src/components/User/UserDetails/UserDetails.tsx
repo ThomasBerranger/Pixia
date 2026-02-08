@@ -7,6 +7,7 @@ import { URLS } from '../../../constants/routes.ts';
 import { CgSpinner } from 'react-icons/cg';
 import UserDetailsBattle from './UserDetailsBattle.tsx';
 import { BADGES } from '../../../constants/badges.ts';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
 
 function UserDashboard() {
     const { apiCall } = useApi();
@@ -46,13 +47,10 @@ function UserDashboard() {
                 {user ? (
                     <>
                         <div className="flex items-center gap-3 min-w-0">
-                            <img
+                            <UserAvatar
                                 onLoad={() => setIsAvatarLoading(false)}
-                                src={
-                                    user.avatarUrl ??
-                                    `${import.meta.env.VITE_DICE_URL}${user.username}`
-                                }
-                                alt="Avatar"
+                                avatarUrl={user.avatarUrl}
+                                username={user.username}
                                 className={`h-28 w-28 flex-shrink-0 transition-all duration-300${isAvatarLoading ? ' blur-md' : ''}`}
                             />
                             <div className="min-w-0">
