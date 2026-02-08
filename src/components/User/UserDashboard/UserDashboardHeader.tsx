@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom';
 import { format, startOfMonth } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { getCurrentMonthlyLeaderboard } from '../../../utils/monthlyLeaderboard.ts';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
 
 export default function UserDashboardHeader({
     user,
@@ -78,15 +79,12 @@ export default function UserDashboardHeader({
                                     setDisplayAvatarEdit(!displayAvatarEdit)
                                 }
                             >
-                                <img
+                                <UserAvatar
                                     onLoad={() => {
                                         setIsAvatarLoading(false);
                                     }}
-                                    src={
-                                        user.avatarUrl ??
-                                        `${import.meta.env.VITE_DICE_URL}${user.username}`
-                                    }
-                                    alt="Avatar"
+                                    avatarUrl={user.avatarUrl}
+                                    username={user.username}
                                     className={`transition-all duration-300${isAvatarLoading ? ' blur-md' : ''}`}
                                 />
                                 <button

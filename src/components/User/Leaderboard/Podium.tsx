@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { URLS } from '../../../constants/routes.ts';
 import type { LeaderboardUserType } from '../../../types/User/leaderboardUserType.ts';
 import { CgSpinner } from 'react-icons/cg';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
+import StreakBadge from '../../../atoms/StreakBadge.tsx';
 
 function Podium({
     firstPlayer,
@@ -31,12 +33,9 @@ function Podium({
                         <p className="text-4xl flex-shrink-0 pr-1">🥈</p>
                     </div>
                     <div className="flex items-center">
-                        <img
-                            src={
-                                secondPlayer?.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${secondPlayer?.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={secondPlayer?.avatarUrl}
+                            username={secondPlayer?.username}
                             className="h-24"
                         />
                         <div>
@@ -44,12 +43,9 @@ function Podium({
                                 <span className="font-title text-2xl text-retro-accent">
                                     {secondPlayer?.score}
                                 </span>
-                                {secondPlayer?.streaks &&
-                                    secondPlayer.streaks.current > 0 && (
-                                        <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
-                                            🔥{secondPlayer?.streaks.current}
-                                        </span>
-                                    )}
+                                {secondPlayer?.streaks && (
+                                    <StreakBadge count={secondPlayer.streaks.current} className="ml-1.5 mt-1" />
+                                )}
                             </p>
                             <p className="text-lg">
                                 {secondPlayer &&
@@ -76,12 +72,9 @@ function Podium({
                         <p className="text-4xl flex-shrink-0 pr-1">🏆</p>
                     </div>
                     <div className="flex items-center">
-                        <img
-                            src={
-                                firstPlayer?.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${firstPlayer?.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={firstPlayer?.avatarUrl}
+                            username={firstPlayer?.username}
                             className="h-24"
                         />
                         <div>
@@ -89,12 +82,9 @@ function Podium({
                                 <span className="font-title text-2xl text-retro-accent">
                                     {firstPlayer?.score}
                                 </span>
-                                {firstPlayer?.streaks &&
-                                    firstPlayer.streaks.current > 0 && (
-                                        <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
-                                            🔥{firstPlayer?.streaks.current}
-                                        </span>
-                                    )}
+                                {firstPlayer?.streaks && (
+                                    <StreakBadge count={firstPlayer.streaks.current} className="ml-1.5 mt-1" />
+                                )}
                             </p>
                             <p className="text-lg">
                                 {firstPlayer &&
@@ -121,12 +111,9 @@ function Podium({
                         <p className="text-4xl flex-shrink-0 pr-1">🥉</p>
                     </div>
                     <div className="flex items-center">
-                        <img
-                            src={
-                                thirdPlayer?.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${thirdPlayer?.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={thirdPlayer?.avatarUrl}
+                            username={thirdPlayer?.username}
                             className="h-24"
                         />
                         <div>
@@ -134,12 +121,9 @@ function Podium({
                                 <span className="font-title text-2xl text-retro-accent">
                                     {thirdPlayer?.score}
                                 </span>
-                                {thirdPlayer?.streaks &&
-                                    thirdPlayer.streaks.current > 0 && (
-                                        <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
-                                            🔥{thirdPlayer?.streaks.current}
-                                        </span>
-                                    )}
+                                {thirdPlayer?.streaks && (
+                                    <StreakBadge count={thirdPlayer.streaks.current} className="ml-1.5 mt-1" />
+                                )}
                             </p>
                             <p className="text-lg">
                                 {thirdPlayer &&
@@ -167,12 +151,9 @@ function Podium({
                         <p className="font-title font-bold text-retro-primary text-3xl">
                             1
                         </p>
-                        <img
-                            src={
-                                firstPlayer?.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${firstPlayer?.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={firstPlayer?.avatarUrl}
+                            username={firstPlayer?.username}
                             className="h-16"
                         />
                         <p className="flex-1 text-left font-righteous font-light text-fade-end">
@@ -185,12 +166,9 @@ function Podium({
                             ))}
                         </p>
                         <p className="flex items-center">
-                            {firstPlayer?.streaks &&
-                                firstPlayer.streaks.current > 0 && (
-                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                        🔥{firstPlayer?.streaks.current}
-                                    </span>
-                                )}
+                            {firstPlayer?.streaks && (
+                                <StreakBadge count={firstPlayer.streaks.current} className="mr-1 mt-1" />
+                            )}
                             <span className="font-title text-xl text-retro-accent">
                                 {firstPlayer?.score}
                             </span>
@@ -213,12 +191,9 @@ function Podium({
                             <p className="font-title font-bold text-retro-primary text-3xl">
                                 2
                             </p>
-                            <img
-                                src={
-                                    secondPlayer?.avatarUrl ??
-                                    `${import.meta.env.VITE_DICE_URL}${secondPlayer?.username}`
-                                }
-                                alt="Avatar"
+                            <UserAvatar
+                                avatarUrl={secondPlayer?.avatarUrl}
+                                username={secondPlayer?.username}
                                 className="h-16"
                             />
                             <p className="flex-1 text-left font-righteous font-light text-fade-end">
@@ -231,12 +206,9 @@ function Podium({
                                 ))}
                             </p>
                             <p className="flex items-center">
-                                {secondPlayer?.streaks &&
-                                    secondPlayer.streaks.current > 0 && (
-                                        <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                            🔥{secondPlayer?.streaks.current}
-                                        </span>
-                                    )}
+                                {secondPlayer?.streaks && (
+                                    <StreakBadge count={secondPlayer.streaks.current} className="mr-1 mt-1" />
+                                )}
                                 <span className="font-title text-xl text-retro-accent">
                                     {secondPlayer?.score}
                                 </span>
@@ -250,12 +222,9 @@ function Podium({
                             <p className="font-title font-bold text-retro-primary text-3xl">
                                 3
                             </p>
-                            <img
-                                src={
-                                    thirdPlayer?.avatarUrl ??
-                                    `${import.meta.env.VITE_DICE_URL}${thirdPlayer?.username}`
-                                }
-                                alt="Avatar"
+                            <UserAvatar
+                                avatarUrl={thirdPlayer?.avatarUrl}
+                                username={thirdPlayer?.username}
                                 className="h-16"
                             />
                             <p className="flex-1 text-left font-righteous font-light text-fade-end">
@@ -268,12 +237,9 @@ function Podium({
                                 ))}
                             </p>
                             <p className="flex items-center">
-                                {thirdPlayer?.streaks &&
-                                    thirdPlayer.streaks.current > 0 && (
-                                        <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                            🔥{thirdPlayer?.streaks.current}
-                                        </span>
-                                    )}
+                                {thirdPlayer?.streaks && (
+                                    <StreakBadge count={thirdPlayer.streaks.current} className="mr-1 mt-1" />
+                                )}
                                 <span className="font-title text-xl text-retro-accent">
                                     {thirdPlayer?.score}
                                 </span>

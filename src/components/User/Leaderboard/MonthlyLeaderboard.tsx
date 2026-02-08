@@ -8,6 +8,8 @@ import { decodeJWT } from '../../../utils/jwt.ts';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { getCurrentMonthlyLeaderboard } from '../../../utils/monthlyLeaderboard.ts';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
+import StreakBadge from '../../../atoms/StreakBadge.tsx';
 
 function MonthlyLeaderboard({
     date,
@@ -53,12 +55,9 @@ function MonthlyLeaderboard({
                         <p className="text-4xl flex-shrink-0 pr-1">🥈</p>
                     </div>
                     <div className="flex items-center">
-                        <img
-                            src={
-                                leaderboard[1]?.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${leaderboard[1]?.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={leaderboard[1]?.avatarUrl}
+                            username={leaderboard[1]?.username}
                             className="h-24"
                         />
                         <div>
@@ -69,11 +68,7 @@ function MonthlyLeaderboard({
                                             .score
                                     }
                                 </span>
-                                {leaderboard[1]?.streaks.current > 0 && (
-                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
-                                        🔥{leaderboard[1]?.streaks.current}
-                                    </span>
-                                )}
+                                <StreakBadge count={leaderboard[1]?.streaks.current} className="ml-1.5 mt-1" />
                             </p>
                             <p className="text-lg">
                                 {leaderboard[1] &&
@@ -102,12 +97,9 @@ function MonthlyLeaderboard({
                         <p className="text-4xl flex-shrink-0 pr-1">🏆</p>
                     </div>
                     <div className="flex items-center">
-                        <img
-                            src={
-                                leaderboard[0]?.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${leaderboard[0]?.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={leaderboard[0]?.avatarUrl}
+                            username={leaderboard[0]?.username}
                             className="h-24"
                         />
                         <div>
@@ -118,11 +110,7 @@ function MonthlyLeaderboard({
                                             .score
                                     }
                                 </span>
-                                {leaderboard[0]?.streaks.current > 0 && (
-                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
-                                        🔥{leaderboard[0]?.streaks.current}
-                                    </span>
-                                )}
+                                <StreakBadge count={leaderboard[0]?.streaks.current} className="ml-1.5 mt-1" />
                             </p>
                             <p className="text-lg">
                                 {leaderboard[0] &&
@@ -151,12 +139,9 @@ function MonthlyLeaderboard({
                         <p className="text-4xl flex-shrink-0 pr-1">🥉</p>
                     </div>
                     <div className="flex items-center">
-                        <img
-                            src={
-                                leaderboard[2]?.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${leaderboard[2]?.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={leaderboard[2]?.avatarUrl}
+                            username={leaderboard[2]?.username}
                             className="h-24"
                         />
                         <div>
@@ -167,11 +152,7 @@ function MonthlyLeaderboard({
                                             .score
                                     }
                                 </span>
-                                {leaderboard[2]?.streaks.current > 0 && (
-                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 ml-1.5 mt-1 rounded text-sm">
-                                        🔥{leaderboard[2]?.streaks.current}
-                                    </span>
-                                )}
+                                <StreakBadge count={leaderboard[2]?.streaks.current} className="ml-1.5 mt-1" />
                             </p>
                             <p className="text-lg">
                                 {leaderboard[2] &&
@@ -196,12 +177,9 @@ function MonthlyLeaderboard({
                     <p className="font-title font-bold text-retro-primary text-3xl">
                         1
                     </p>
-                    <img
-                        src={
-                            leaderboard[0]?.avatarUrl ??
-                            `${import.meta.env.VITE_DICE_URL}${leaderboard[0]?.username}`
-                        }
-                        alt="Avatar"
+                    <UserAvatar
+                        avatarUrl={leaderboard[0]?.avatarUrl}
+                        username={leaderboard[0]?.username}
                         className="h-16"
                     />
                     <p className="flex-1 text-left font-righteous font-light text-fade-end">
@@ -214,11 +192,7 @@ function MonthlyLeaderboard({
                         ))}
                     </p>
                     <p className="flex items-center">
-                        {leaderboard[0]?.streaks.current > 0 && (
-                            <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                🔥{leaderboard[0]?.streaks.current}
-                            </span>
-                        )}
+                        <StreakBadge count={leaderboard[0]?.streaks.current} className="mr-1 mt-1" />
                         <span className="font-title text-xl text-retro-accent">
                             {leaderboard[0]?.monthlyLeaderboards[0].score}
                         </span>
@@ -234,12 +208,9 @@ function MonthlyLeaderboard({
                     <p className="font-title font-bold text-retro-primary text-3xl">
                         2
                     </p>
-                    <img
-                        src={
-                            leaderboard[1]?.avatarUrl ??
-                            `${import.meta.env.VITE_DICE_URL}${leaderboard[1]?.username}`
-                        }
-                        alt="Avatar"
+                    <UserAvatar
+                        avatarUrl={leaderboard[1]?.avatarUrl}
+                        username={leaderboard[1]?.username}
                         className="h-16"
                     />
                     <p className="flex-1 text-left font-righteous font-light text-fade-end">
@@ -252,11 +223,7 @@ function MonthlyLeaderboard({
                         ))}
                     </p>
                     <p className="flex items-center">
-                        {leaderboard[1]?.streaks.current > 0 && (
-                            <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                🔥{leaderboard[1]?.streaks.current}
-                            </span>
-                        )}
+                        <StreakBadge count={leaderboard[1]?.streaks.current} className="mr-1 mt-1" />
                         <span className="font-title text-xl text-retro-accent">
                             {leaderboard[1]?.monthlyLeaderboards[0].score}
                         </span>
@@ -270,12 +237,9 @@ function MonthlyLeaderboard({
                     <p className="font-title font-bold text-retro-primary text-3xl">
                         3
                     </p>
-                    <img
-                        src={
-                            leaderboard[2]?.avatarUrl ??
-                            `${import.meta.env.VITE_DICE_URL}${leaderboard[2]?.username}`
-                        }
-                        alt="Avatar"
+                    <UserAvatar
+                        avatarUrl={leaderboard[2]?.avatarUrl}
+                        username={leaderboard[2]?.username}
                         className="h-16"
                     />
                     <p className="flex-1 text-left font-righteous font-light text-fade-end">
@@ -288,11 +252,7 @@ function MonthlyLeaderboard({
                         ))}
                     </p>
                     <p className="flex items-center">
-                        {leaderboard[2]?.streaks.current > 0 && (
-                            <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                🔥{leaderboard[2]?.streaks.current}
-                            </span>
-                        )}
+                        <StreakBadge count={leaderboard[2]?.streaks.current} className="mr-1 mt-1" />
                         <span className="font-title text-xl text-retro-accent">
                             {leaderboard[2]?.monthlyLeaderboards[0].score}
                         </span>
@@ -311,12 +271,9 @@ function MonthlyLeaderboard({
                         <p className="font-title font-bold text-retro-primary text-3xl">
                             {key + 4}
                         </p>
-                        <img
-                            src={
-                                user?.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${user.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={user?.avatarUrl}
+                            username={user.username}
                             className="h-16 mb-2"
                         />
                         <p className="flex-1 text-left font-righteous font-light sm:text-lg text-fade-end">
@@ -329,11 +286,7 @@ function MonthlyLeaderboard({
                             ))}
                         </p>
                         <p className="flex items-center">
-                            {user.streaks.current > 0 && (
-                                <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                    🔥{user.streaks.current}
-                                </span>
-                            )}
+                            <StreakBadge count={user.streaks.current} className="mr-1 mt-1" />
                             <span className="text-2xl text-retro-accent font-title">
                                 {user.monthlyLeaderboards[0].score}
                             </span>
@@ -351,12 +304,9 @@ function MonthlyLeaderboard({
                         <p className="font-title font-bold text-retro-primary text-3xl">
                             {player.rank}
                         </p>
-                        <img
-                            src={
-                                player.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${player.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={player.avatarUrl}
+                            username={player.username}
                             className="h-16"
                         />
                         <p className="flex-1 text-left font-righteous font-light sm:text-lg text-fade-end">
@@ -369,12 +319,7 @@ function MonthlyLeaderboard({
                             ))}
                         </p>
                         <p className="flex items-center">
-                            {player.streaks.current !== undefined &&
-                                player.streaks.current > 0 && (
-                                    <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                        🔥{player.streaks.current}
-                                    </span>
-                                )}
+                            <StreakBadge count={player.streaks.current ?? 0} className="mr-1 mt-1" />
                             <span className="text-2xl text-retro-accent font-title">
                                 {getCurrentMonthlyLeaderboard(player)?.score}
                             </span>

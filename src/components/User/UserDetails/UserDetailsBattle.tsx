@@ -5,6 +5,7 @@ import { fr } from 'date-fns/locale';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { URLS } from '../../../constants/routes.ts';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
 
 interface BattleHistory {
     date: string;
@@ -69,13 +70,10 @@ export default function UserDetailsBattle({
 
             <div className="sm:hidden grid grid-cols-12 mb-4">
                 <div className="text-center col-span-5">
-                    <img
+                    <UserAvatar
                         onLoad={() => setIsCurrentUserAvatarLoading(false)}
-                        src={
-                            currentUser?.avatarUrl ??
-                            `${import.meta.env.VITE_DICE_URL}${currentUser?.username}`
-                        }
-                        alt="Avatar"
+                        avatarUrl={currentUser?.avatarUrl}
+                        username={currentUser?.username}
                         className={`h-24 w-24 mx-auto transition-all duration-300${isCurrentUserAvatarLoading ? ' blur-md' : ''}`}
                     />
                     <p className="font-righteous text-white mt-2">
@@ -86,13 +84,10 @@ export default function UserDetailsBattle({
                     vs
                 </div>
                 <div className="text-center col-span-5">
-                    <img
+                    <UserAvatar
                         onLoad={() => setIsUserAvatarLoading(false)}
-                        src={
-                            user?.avatarUrl ??
-                            `${import.meta.env.VITE_DICE_URL}${user?.username}`
-                        }
-                        alt="Avatar"
+                        avatarUrl={user?.avatarUrl}
+                        username={user?.username}
                         className={`h-24 w-24 mx-auto transition-all duration-300${isUserAvatarLoading ? ' blur-md' : ''}`}
                     />
                     <p className="font-righteous text-white mt-2">
@@ -113,15 +108,12 @@ export default function UserDetailsBattle({
                             className="grid grid-cols-12 items-center gap-2"
                         >
                             <div className="flex flex-wrap justify-center col-span-3">
-                                <img
+                                <UserAvatar
                                     onLoad={() =>
                                         setIsCurrentUserAvatarLoading(false)
                                     }
-                                    src={
-                                        currentUser?.avatarUrl ??
-                                        `${import.meta.env.VITE_DICE_URL}${currentUser?.username}`
-                                    }
-                                    alt="Avatar"
+                                    avatarUrl={currentUser?.avatarUrl}
+                                    username={currentUser?.username}
                                     className={`hidden sm:block h-1/2 pb-2 mx-auto transition-all duration-300${isCurrentUserAvatarLoading ? ' blur-md' : ''}`}
                                 />
                                 {!history.userWon ? (
@@ -156,13 +148,10 @@ export default function UserDetailsBattle({
                                 </p>
                             </div>
                             <div className="flex flex-wrap justify-center col-span-3">
-                                <img
+                                <UserAvatar
                                     onLoad={() => setIsUserAvatarLoading(false)}
-                                    src={
-                                        user?.avatarUrl ??
-                                        `${import.meta.env.VITE_DICE_URL}${user?.username}`
-                                    }
-                                    alt="Avatar"
+                                    avatarUrl={user?.avatarUrl}
+                                    username={user?.username}
                                     className={`hidden sm:block h-1/2 pb-2 transition-all duration-300${isUserAvatarLoading ? ' blur-md' : ''}`}
                                 />
                                 {history.userWon ? (

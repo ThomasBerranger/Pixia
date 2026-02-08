@@ -11,6 +11,7 @@ import { LuFileCode2 } from 'react-icons/lu';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
 import { TbPhotoSearch } from 'react-icons/tb';
 import { FaCrown } from 'react-icons/fa';
+import UserAvatar from '../../atoms/UserAvatar.tsx';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -37,12 +38,9 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
             <nav className="text-white font-righteous flex flex-col gap-8">
                 {(decodedJwt?.avatarUrl || decodedJwt?.username) && (
                     <Link to={URLS.ME} onClick={onClose}>
-                        <img
-                            src={
-                                decodedJwt.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${decodedJwt.username}`
-                            }
-                            alt="Avatar"
+                        <UserAvatar
+                            avatarUrl={decodedJwt.avatarUrl}
+                            username={decodedJwt.username}
                             className="h-32 w-32 mx-auto"
                         />
                     </Link>
