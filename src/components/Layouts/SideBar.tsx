@@ -19,7 +19,7 @@ interface SidebarProps {
 }
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
-    const { isAuthenticated, isSuperAdmin } = useAuth();
+    const { isAuthenticated, isAdmin, isSuperAdmin } = useAuth();
     const hasUnread = useNotificationStore((state) => state.hasUnread);
 
     const decodedJwt: JWTPayloadType | undefined = decodeJWT(
@@ -85,7 +85,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     Version {__APP_VERSION__}
                 </Link>
 
-                {isSuperAdmin() && (
+                {(isAdmin() || isSuperAdmin()) && (
                     <Link
                         to={URLS.SUPER_ADMIN}
                         onClick={onClose}

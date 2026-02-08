@@ -1,10 +1,10 @@
-import { useAuth } from '../../../contexts/authContext.tsx';
+import { useAuth } from '../../contexts/authContext.tsx';
 import React, { useEffect, useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { RiAlarmWarningLine } from 'react-icons/ri';
-import { ENDPOINTS } from '../../../constants/endpoints.ts';
-import { type ApiError, useApi } from '../../../hooks/useApi.tsx';
-import type { UserType } from '../../../types/User/userType.ts';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
+import { type ApiError, useApi } from '../../hooks/useApi.tsx';
+import type { UserType } from '../../types/User/userType.ts';
 import { GoogleButton } from './GoogleButton.tsx';
 import { URLS } from '../../../constants/routes.ts';
 import { Link, useNavigate } from 'react-router-dom';

@@ -1,10 +1,10 @@
-import { useAuth } from '../../../contexts/authContext.tsx';
+import { useAuth } from '../../contexts/authContext.tsx';
 import React, { useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
-import { ENDPOINTS } from '../../../constants/endpoints.ts';
-import { useApi } from '../../../hooks/useApi.tsx';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
+import { useApi } from '../../hooks/useApi.tsx';
 import { useNavigate, useParams } from 'react-router-dom';
-import { URLS } from '../../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 
 function UserForm() {
     const { apiCall } = useApi();

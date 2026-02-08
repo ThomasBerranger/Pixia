@@ -1,5 +1,6 @@
 import type { DIFFICULTIES } from '../../constants/difficultyPoints.ts';
 import type { UserType } from '../User/userType.ts';
+import type { GAME_STATUSES } from './gameStatuses.ts';
 
 export interface GameType {
     id: string;
@@ -12,5 +13,5 @@ export interface GameType {
     author: UserType;
     createdAt: string;
     supervisor: UserType;
-    approvedAt: string;
+    status: keyof typeof GAME_STATUSES;
 }

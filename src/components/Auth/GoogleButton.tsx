@@ -2,9 +2,9 @@ import { GrGoogle } from 'react-icons/gr';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import { useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
-import { ENDPOINTS } from '../../../constants/endpoints.ts';
-import { useApi } from '../../../hooks/useApi.tsx';
-import { useAuth } from '../../../contexts/authContext.tsx';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
+import { useApi } from '../../hooks/useApi.tsx';
+import { useAuth } from '../../contexts/authContext.tsx';
 
 function GoogleButtonContent({ slug }: { slug?: string }) {
     const { apiCall } = useApi();

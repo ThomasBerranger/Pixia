@@ -23,19 +23,20 @@ import UserContainer from './components/User/UserContainer.tsx';
 import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
 
 // Lazy — public
-const NotFound = lazy(() => import('./components/Static/NotFound.tsx'));
+const NotFound = lazy(() => import('./pages/NotFound.tsx'));
 const UserDetails = lazy(
     () => import('./components/User/UserDetails/UserDetails.tsx')
 );
-const PasswordReset = lazy(
-    () => import('./components/User/Form/PasswordReset.tsx')
-);
+const PasswordReset = lazy(() => import('./components/Auth/PasswordReset.tsx'));
 
 // Lazy — authentifié
 const Notification = lazy(
     () => import('./components/User/Notification/Notification.tsx')
 );
-const UserGames = lazy(() => import('./components/User/Game/UserGames.tsx'));
+const UserGames = lazy(() => import('./components/User/Game/List.tsx'));
+const UserGeneratedGames = lazy(
+    () => import('./components/User/Game/Generated.tsx')
+);
 
 // Lazy — admin
 const AdminGameGenerator = lazy(
@@ -57,8 +58,8 @@ const SuperAdminGameDashboard = lazy(
 );
 
 // Lazy — static
-const Changelog = lazy(() => import('./components/Static/Changelog.tsx'));
-const CGU = lazy(() => import('./components/Static/CGU.tsx'));
+const Changelog = lazy(() => import('./pages/Changelog.tsx'));
+const CGU = lazy(() => import('./pages/CGU.tsx'));
 
 function Loader() {
     return (
@@ -125,6 +126,10 @@ function App() {
                                     <Route
                                         path={PATHS.ME_GAMES}
                                         element={<UserGames />}
+                                    />
+                                    <Route
+                                        path={PATHS.ME_GAMES_GENERATED}
+                                        element={<UserGeneratedGames />}
                                     />
                                     <Route
                                         path={PATHS.ME_NOTIFICATIONS}

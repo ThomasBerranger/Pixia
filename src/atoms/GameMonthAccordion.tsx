@@ -46,7 +46,7 @@ export function GameMonthAccordion({
             const difficulties = visibleDifficulties.join(',');
 
             const games: UserGameType[] = await apiCall(
-                `${ENDPOINTS.USER_GAMES(`${month}-01`)}&difficulties=${difficulties}`
+                `${ENDPOINTS.ME_GAMES(`${month}-01`)}&difficulties=${difficulties}`
             );
             setUserGames(games);
             setHasFetched(true);

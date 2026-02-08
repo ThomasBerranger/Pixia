@@ -6,6 +6,8 @@ export const PATHS = {
     ME: '/me',
     ME_NOTIFICATIONS: 'notifications',
     ME_GAMES: 'games',
+    ME_GAMES_GENERATED: 'games/generated',
+    ME_GAME: 'games/:id',
     // Users
     USER_SHOW: '/users/:slug',
     USER_SPONSOR: '/users/:slug/sponsor',
@@ -37,6 +39,8 @@ export const URLS = {
     ME: '/me',
     ME_NOTIFICATIONS: '/me/notifications',
     ME_GAMES: '/me/games',
+    ME_GAMES_GENERATED: '/me/games/generated',
+    ME_GAME: (id: string) => `/me/games/${id}`,
     // Users
     USER_SHOW: (slug: string) => `/users/${slug}`,
     USER_SPONSOR: (slug: string) => `/users/${slug}/sponsor`,
