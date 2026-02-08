@@ -1,21 +1,21 @@
-import { useApi } from '../../hooks/useApi.tsx';
+import { useApi } from '../../../hooks/useApi.tsx';
 import { useEffect, useState } from 'react';
-import { ENDPOINTS } from '../../constants/endpoints.ts';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import {
     type NotificationInterface,
     NotificationTypeLabel,
-} from '../../types/Notification/notificationInterface.ts';
+} from '../../../types/Notification/notificationInterface.ts';
 import { formatDistanceToNow } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { CgSpinner } from 'react-icons/cg';
-import { useNotificationStore } from '../../stores/notificationStore.ts';
-import { ROUTES } from '../../constants/routes.ts';
+import { useNotificationStore } from '../../../stores/notificationStore.ts';
+import { URLS } from '../../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import {
     getBadgeDescription,
     getBadgeIcon,
     getBadgeName,
-} from '../../types/Badge/badgeType.ts';
+} from '../../../types/Badge/badgeType.ts';
 
 function Notification() {
     const { apiCall } = useApi();
@@ -81,7 +81,7 @@ function Notification() {
                                     className={`timeline-retro-dot${notification.read ? '-read' : '-unread'}`}
                                 ></div>
                                 <Link
-                                    to={badge ? ROUTES.USER : ROUTES.CHANGELOG}
+                                    to={badge ? URLS.ME : URLS.CHANGELOG}
                                 >
                                     <div
                                         className={`p-4 ${notification.read ? 'card-retro-hover-retro-accent text-left' : 'card-primary-hover'}`}

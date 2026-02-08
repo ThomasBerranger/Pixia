@@ -4,7 +4,7 @@ import ImageGenerator from './ImageGenerator.tsx';
 import { useApi } from '../../../hooks/useApi.tsx';
 import React, { useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import { useAlert } from '../../../hooks/useAlert.ts';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 
@@ -36,7 +36,7 @@ function AdminUserDashboard() {
                 'Félicitation, votre jeu a été ajouté à Pixia. Clique ici pour le modifier',
                 'success',
                 5000,
-                ROUTES.ADMIN_GAME_EDIT(createdGame.id)
+                URLS.ADMIN_GAME_EDIT(createdGame.id)
             );
         } catch (error) {
             showAlert(

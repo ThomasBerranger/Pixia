@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../constants/routes.ts';
+import { URLS } from '../constants/routes.ts';
 
 function Changelog() {
     return (
@@ -148,7 +148,7 @@ function Changelog() {
             </div>
 
             <div className="text-center mt-16 mb-8">
-                <Link to={ROUTES.HOME} className="btn-primary px-8 py-3">
+                <Link to={URLS.HOME} className="btn-primary px-8 py-3">
                     Retour au jeu du jour
                 </Link>
             </div>

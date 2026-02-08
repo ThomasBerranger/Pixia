@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ROUTES } from '../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import { useAuth } from '../../contexts/authContext.tsx';
 import { decodeJWT } from '../../utils/jwt.ts';
 import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
@@ -10,6 +10,8 @@ import {
 import { LuFileCode2 } from 'react-icons/lu';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
 import { TbPhotoSearch } from 'react-icons/tb';
+import { FaCrown } from 'react-icons/fa';
+import UserAvatar from '../../atoms/UserAvatar.tsx';
 
 interface SidebarProps {
     isOpen: boolean;
@@ -17,7 +19,7 @@ interface SidebarProps {
 }
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
-    const { isAuthenticated, isAdmin } = useAuth();
+    const { isAuthenticated, isSuperAdmin } = useAuth();
     const hasUnread = useNotificationStore((state) => state.hasUnread);
 
     const decodedJwt: JWTPayloadType | undefined = decodeJWT(
@@ -35,26 +37,23 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
         >
             <nav className="text-white font-righteous flex flex-col gap-8">
                 {(decodedJwt?.avatarUrl || decodedJwt?.username) && (
-                    <Link to={ROUTES.USER} onClick={onClose}>
-                        <img
-                            src={
-                                decodedJwt.avatarUrl ??
-                                `${import.meta.env.VITE_DICE_URL}${decodedJwt.username}`
-                            }
-                            alt="Avatar"
+                    <Link to={URLS.ME} onClick={onClose}>
+                        <UserAvatar
+                            avatarUrl={decodedJwt.avatarUrl}
+                            username={decodedJwt.username}
                             className="h-32 w-32 mx-auto"
                         />
                     </Link>
                 )}
 
-                <Link to={ROUTES.USER} onClick={onClose}>
+                <Link to={URLS.ME} onClick={onClose}>
                     <button className="btn-primary text-sm px-8 py-2.5 mx-auto">
                         {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}
                     </button>
                 </Link>
 
                 <Link
-                    to={ROUTES.HOME}
+                    to={URLS.HOME}
                     onClick={onClose}
                     className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
                 >
@@ -64,7 +63,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                 {isAuthenticated && (
                     <Link
-                        to={ROUTES.USER_NOTIFICATIONS}
+                        to={URLS.ME_NOTIFICATIONS}
                         onClick={onClose}
                         className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
                     >
@@ -78,7 +77,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 )}
 
                 <Link
-                    to={ROUTES.CHANGELOG}
+                    to={URLS.CHANGELOG}
                     onClick={onClose}
                     className="flex items-center text-xl"
                 >
@@ -86,13 +85,15 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     Version {__APP_VERSION__}
                 </Link>
 
-                {isAdmin() && (
+                {isSuperAdmin() && (
                     <Link
-                        to={ROUTES.ADMIN}
+                        to={URLS.SUPER_ADMIN}
                         onClick={onClose}
-                        className="btn-ghost px-10 py-2 text-center"
+                        className="btn-ghost py-2 text-center"
                     >
-                        <p>⚙️ Admin</p>
+                        <p className="flex items-center justify-center gap-2">
+                            <FaCrown className="text-3xl" />
+                        </p>
                     </Link>
                 )}
             </nav>

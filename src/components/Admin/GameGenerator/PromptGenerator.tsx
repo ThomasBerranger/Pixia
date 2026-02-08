@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { useAlert } from '../../../hooks/useAlert.ts';
 import { CgSpinner } from 'react-icons/cg';
-import { DatePicker } from '../../Game/Components/DatePicker.tsx';
+import { DatePicker } from '../../Game/Controls/DatePicker.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 
 function PromptGenerator({
@@ -49,7 +49,7 @@ function PromptGenerator({
             }
 
             const games = await apiCall(
-                `${ENDPOINTS.ADMIN_GAME_INDEX}?fields=date`
+                `${ENDPOINTS.SUPER_ADMIN_GAMES_INDEX}?fields=date`
             );
 
             const unavailableDates = games.map(

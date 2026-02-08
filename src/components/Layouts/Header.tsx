@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/authContext.tsx';
-import { ROUTES } from '../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import { useModal } from '../../hooks/useModal.tsx';
 import { useEffect } from 'react';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
@@ -50,7 +50,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                 bg-retro-surface/95 backdrop-blur-md shadow-[0_4px_40px_rgba(255,0,110,0.3)]"
             >
                 <Link
-                    to={ROUTES.HOME}
+                    to={URLS.HOME}
                     onClick={() => setIsSidebarOpen(false)}
                     className="font-title text-5xl text-retro-primary skew-x-[-10deg] [text-shadow:0_0_10px_#ff006e,3px_2px_0_#ffbe0b]"
                 >
@@ -60,7 +60,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                 <div className="flex sm:hidden items-baseline">
                     {hasUnreadNotification && (
                         <div className="flex text-3xl mr-1.5">
-                            <Link to={ROUTES.USER_NOTIFICATIONS}>
+                            <Link to={URLS.ME_NOTIFICATIONS}>
                                 <MdOutlineNotificationsActive className="text-retro-primary animate-pulse" />
                             </Link>
                         </div>
@@ -141,7 +141,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
 
                     {isAuthenticated && (
                         <Link
-                            to={ROUTES.USER_NOTIFICATIONS}
+                            to={URLS.ME_NOTIFICATIONS}
                             className={`flex items-center ${hasUnreadNotification ? 'text-retro-primary animate-pulse' : 'text-white'}`}
                         >
                             {hasUnreadNotification && (
@@ -151,7 +151,7 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                         </Link>
                     )}
 
-                    <Link to={ROUTES.USER}>
+                    <Link to={URLS.ME}>
                         <button className="btn-primary text-xs sm:text-md px-4 py-2 sm:px-6 sm:py-2.5">
                             {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}
                         </button>

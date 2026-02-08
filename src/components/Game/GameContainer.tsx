@@ -11,7 +11,7 @@ import MonthlyLeaderboard from '../User/Leaderboard/MonthlyLeaderboard.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { fireConfetti } from '../../utils/confetti.ts';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ROUTES } from '../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
 import { useAuth } from '../../contexts/authContext.tsx';
 
@@ -45,7 +45,7 @@ function GameContainer() {
                 const today = new Date().toISOString().split('T')[0];
 
                 if (!dateRegex.test(date) || date > today) {
-                    navigate(ROUTES.NOT_FOUND);
+                    navigate(URLS.NOT_FOUND);
                     return;
                 }
             }
@@ -80,7 +80,7 @@ function GameContainer() {
         async (newDate: string, isPrevious: boolean) => {
             setLoadingDirection(isPrevious ? 'prev' : 'next');
             setIsImageLoading(true);
-            navigate(ROUTES.GAME_BY_DATE(newDate));
+            navigate(URLS.GAME_BY_DATE(newDate));
         },
         [navigate]
     );
@@ -92,7 +92,7 @@ function GameContainer() {
             }
 
             try {
-                const response: { solution: string } | false = await apiCall(
+                const solution: string | false = await apiCall(
                     ENDPOINTS.GAME_SOLUTION(game.id),
                     {
                         method: 'POST',
@@ -100,16 +100,14 @@ function GameContainer() {
                     }
                 );
 
-                if (!response) {
+                if (!solution) {
                     return { success: false };
                 }
 
                 fireConfetti();
 
                 setGame((prevGame) =>
-                    prevGame
-                        ? { ...prevGame, solution: response.solution }
-                        : prevGame
+                    prevGame ? { ...prevGame, solution: solution } : prevGame
                 );
 
                 if (isAuthenticated) {

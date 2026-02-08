@@ -1,4 +1,5 @@
 import type { DIFFICULTIES } from '../../constants/difficultyPoints.ts';
+import type { UserType } from '../User/userType.ts';
 
 export interface GameType {
     id: string;
@@ -8,4 +9,8 @@ export interface GameType {
     date: string;
     difficulty: keyof typeof DIFFICULTIES;
     image?: string;
+    author: UserType;
+    createdAt: string;
+    supervisor: UserType;
+    approvedAt: string;
 }

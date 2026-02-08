@@ -3,7 +3,7 @@ import { useAuth } from '../../../contexts/authContext.tsx';
 import type { GameType } from '../../../types/Game/gameType.ts';
 import type { AnswerResult } from '../../../types/answerResultType.ts';
 import { CgSpinner } from 'react-icons/cg';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import { useAlert } from '../../../hooks/useAlert.ts';
 import { FaCheck } from 'react-icons/fa';
 import { useApi } from '../../../hooks/useApi.tsx';
@@ -61,7 +61,7 @@ function GameFooter({
                         'Clique ici pour te créer un compte et sauvegarder tes parties.',
                         'warning',
                         5000,
-                        ROUTES.USER
+                        URLS.ME
                     );
                 }
             } else {
@@ -107,7 +107,7 @@ function GameFooter({
 
             return;
         } else if (isHintAsked) {
-            navigate(ROUTES.USER);
+            navigate(URLS.ME);
         }
 
         setIsHintAsked(true);
@@ -181,7 +181,7 @@ function GameFooter({
                             className="btn-primary py-1.5 sm:py-2.5 w-full flex justify-center col-span-2 sm:col-span-3 order-3"
                         >
                             {isLoading ? (
-                                <CgSpinner className="animate-spin" />
+                                <CgSpinner className="animate-spin text-xl sm:text-2xl" />
                             ) : (
                                 'Trouvé !'
                             )}

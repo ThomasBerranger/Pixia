@@ -1,7 +1,7 @@
 import type { LeaderboardUserType } from '../../../types/User/leaderboardUserType.ts';
 import { BADGES } from '../../../constants/badges.ts';
 import { Link, useSearchParams } from 'react-router-dom';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import type { JWTPayloadType } from '../../../types/JWTPayloadType.ts';
 import { decodeJWT } from '../../../utils/jwt.ts';
 import { useApi } from '../../../hooks/useApi.tsx';
@@ -10,6 +10,8 @@ import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { BiSolidLeftArrow, BiSolidRightArrow } from 'react-icons/bi';
 import Podium from './Podium.tsx';
 import { CgSpinner } from 'react-icons/cg';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
+import StreakBadge from '../../../atoms/StreakBadge.tsx';
 
 function Leaderboard() {
     const { apiCall } = useApi();
@@ -73,7 +75,7 @@ function Leaderboard() {
                         .slice(currentPage === 1 ? 3 : 0)
                         .map((user, key) => (
                             <Link
-                                to={ROUTES.USER_SHOW(user.slug)}
+                                to={URLS.USER_SHOW(user.slug)}
                                 key={key}
                                 className={`w-full flex gap-2 items-center px-3 sm:px-5 py-2.5 
                      ${user.username === decodedJwt?.username ? 'bg-retro-accent bg-opacity-10' : 'hover:bg-retro-accent hover:bg-opacity-10'}`}
@@ -83,12 +85,9 @@ function Leaderboard() {
                                         (currentPage === 1 ? 4 : 1) +
                                         (currentPage - 1) * 20}
                                 </p>
-                                <img
-                                    src={
-                                        user?.avatarUrl ??
-                                        `${import.meta.env.VITE_DICE_URL}${user.username}`
-                                    }
-                                    alt="Avatar"
+                                <UserAvatar
+                                    avatarUrl={user?.avatarUrl}
+                                    username={user.username}
                                     className="h-16 mb-2"
                                 />
                                 <p className="flex-1 text-left font-righteous font-light sm:text-lg text-fade-end">
@@ -101,11 +100,7 @@ function Leaderboard() {
                                     ))}
                                 </p>
                                 <p className="flex items-center">
-                                    {user.streaks.current > 0 && (
-                                        <span className="badge-accent-no-border py-0.5 pl-0.5 pr-1 mr-1 mt-1 rounded text-sm">
-                                            🔥{user.streaks.current}
-                                        </span>
-                                    )}
+                                    <StreakBadge count={user.streaks.current} className="mr-1 mt-1" />
                                     <span className="text-2xl text-retro-accent font-title">
                                         {user.score}
                                     </span>
@@ -117,7 +112,7 @@ function Leaderboard() {
 
             <div className="flex items-center justify-center gap-3 mt-8">
                 <Link
-                    to={ROUTES.LEADERBOARD_WITH_PAGE(
+                    to={URLS.LEADERBOARD_PAGE(
                         Math.max(1, currentPage - 1)
                     )}
                     className={`${currentPage === 1 ? 'opacity-50 pointer-events-none text-retro-muted' : 'text-retro-accent'}`}
@@ -129,7 +124,7 @@ function Leaderboard() {
                     (pageNum) => (
                         <Link
                             key={pageNum}
-                            to={ROUTES.LEADERBOARD_WITH_PAGE(pageNum)}
+                            to={URLS.LEADERBOARD_PAGE(pageNum)}
                             className={`${currentPage === pageNum ? 'btn-disabled' : 'btn-ghost'} font-title text-center px-2 py-1`}
                         >
                             {pageNum}
@@ -138,7 +133,7 @@ function Leaderboard() {
                 )}
 
                 <Link
-                    to={ROUTES.LEADERBOARD_WITH_PAGE(
+                    to={URLS.LEADERBOARD_PAGE(
                         Math.min(totalPages, currentPage + 1)
                     )}
                     className={`${currentPage === totalPages ? 'opacity-50 pointer-events-none text-retro-muted' : 'text-retro-accent'}`}

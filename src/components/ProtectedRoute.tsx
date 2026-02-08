@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from '../contexts/authContext';
 import { Navigate } from 'react-router-dom';
-import { ROUTES } from '../constants/routes.ts';
+import { URLS } from '../constants/routes.ts';
 import { type Role, ROLES } from '../constants/roles.ts';
 
 function ProtectedRoute({
@@ -18,7 +18,7 @@ function ProtectedRoute({
         (requiredRole === ROLES.ADMIN && !isAdmin()) ||
         (requiredRole === ROLES.SUPER_ADMIN && !isSuperAdmin())
     ) {
-        return <Navigate to={ROUTES.USER} replace />;
+        return <Navigate to={URLS.ME} replace />;
     }
 
     return <>{children}</>;

@@ -5,7 +5,7 @@ import { useApi } from '../../hooks/useApi.tsx';
 import type { GameAdminType } from '../../types/Game/gameAdminType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useAlert } from '../../hooks/useAlert.ts';
-import { DatePicker } from '../Game/Components/DatePicker.tsx';
+import { DatePicker } from '../Game/Controls/DatePicker.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { DIFFICULTIES } from '../../constants/difficultyPoints.ts';
 
@@ -31,7 +31,7 @@ function AdminGameEdit() {
                 setGame(response);
 
                 const games = await apiCall(
-                    `${ENDPOINTS.ADMIN_GAME_INDEX}?fields=date`
+                    `${ENDPOINTS.SUPER_ADMIN_GAMES_INDEX}?fields=date`
                 );
 
                 const unavailableDates = games.map(

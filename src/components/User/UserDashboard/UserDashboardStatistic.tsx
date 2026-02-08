@@ -1,4 +1,4 @@
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import { BiSolidRightArrow } from 'react-icons/bi';
 
@@ -23,7 +23,7 @@ export default function UserDashboardStatistic({
 
             <section className="grid grid-cols-6 lg:grid-cols-12 gap-4 sm:gap-6 mb-8">
                 <Link
-                    to={ROUTES.USER_GAMES}
+                    to={URLS.ME_GAMES}
                     className="col-span-3 flex flex-col items-center card-primary-hover p-6"
                 >
                     <div className="self-start flex items-center gap-2">
@@ -55,7 +55,7 @@ export default function UserDashboardStatistic({
                 </Link>
 
                 <Link
-                    to={ROUTES.LEADERBOARD}
+                    to={URLS.LEADERBOARD}
                     className="col-span-3 flex flex-col card-primary-hover p-6"
                 >
                     <div className="flex items-center gap-2">

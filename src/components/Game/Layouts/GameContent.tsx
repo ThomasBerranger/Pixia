@@ -1,6 +1,6 @@
 import type { GameType } from '../../../types/Game/gameType.ts';
-import ChangeGameButton from '../Components/ChangeGameButton.tsx';
-import MobilChangeGameButton from '../Components/MobilChangeGameButton.tsx';
+import ChangeGameButton from '../Controls/ChangeGameButton.tsx';
+import MobileChangeGameButton from '../Controls/MobileChangeGameButton.tsx';
 import { CgSpinner } from 'react-icons/cg';
 import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -117,7 +117,7 @@ function GameContent({
 
             <div className="md:hidden flex justify-between pr-2 mt-3 mb-6">
                 {previousGameDate && (
-                    <MobilChangeGameButton
+                    <MobileChangeGameButton
                         date={previousGameDate}
                         isNext={false}
                         isLoading={loadingDirection === 'prev'}
@@ -127,7 +127,7 @@ function GameContent({
 
                 {nextGameDate &&
                     nextGameDate <= new Date().toISOString().split('T')[0] && (
-                        <MobilChangeGameButton
+                        <MobileChangeGameButton
                             date={nextGameDate}
                             isNext={true}
                             isLoading={loadingDirection === 'next'}

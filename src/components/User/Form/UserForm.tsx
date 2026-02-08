@@ -6,8 +6,9 @@ import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { type ApiError, useApi } from '../../../hooks/useApi.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
 import { GoogleButton } from './GoogleButton.tsx';
-import { ROUTES } from '../../../constants/routes.ts';
+import { URLS } from '../../../constants/routes.ts';
 import { Link } from 'react-router-dom';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
 
 function UserForm({ slug }: { slug?: string }) {
     const { apiCall } = useApi();
@@ -151,7 +152,7 @@ function UserForm({ slug }: { slug?: string }) {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <Link
-                            to={ROUTES.FORGOT_PASSWORD}
+                            to={URLS.FORGOT_PASSWORD}
                             className="text-retro-muted text-xxs sm:text-sm mt-1 cursor-pointer"
                         >
                             T'as oublié ton mot de passe ?
@@ -180,12 +181,9 @@ function UserForm({ slug }: { slug?: string }) {
                                     )}
                                 </div>
                                 {sponsor && (
-                                    <img
-                                        src={
-                                            sponsor.avatarUrl ??
-                                            `${import.meta.env.VITE_DICE_URL}${sponsor.username}`
-                                        }
-                                        alt="avatar"
+                                    <UserAvatar
+                                        avatarUrl={sponsor.avatarUrl}
+                                        username={sponsor.username}
                                         onLoad={() => {
                                             setIsSponsorLoading(false);
                                         }}

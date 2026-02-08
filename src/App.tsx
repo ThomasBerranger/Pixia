@@ -1,37 +1,74 @@
+import { lazy, Suspense, useState } from 'react';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import Header from './components/Layouts/Header.tsx';
 import Footer from './components/Layouts/Footer.tsx';
-import { Outlet, Route, Routes } from 'react-router-dom';
-import AdminLayout from './components/Admin/AdminLayout.tsx';
-import GameContainer from './components/Game/GameContainer.tsx';
-import UserContainer from './components/User/UserContainer.tsx';
-import ProtectedRoute from './components/ProtectedRoute.tsx';
-import AdminGameGenerator from './components/Admin/GameGenerator/AdminGameGenerator.tsx';
-import AdminUsersTable from './components/Admin/AdminUsersTable.tsx';
-import AdminGameDashboard from './components/Admin/AdminGameDashboard.tsx';
-import AdminGameEdit from './components/Admin/AdminGameEdit.tsx';
 import Modal from './components/Modal.tsx';
-import { ModalProvider } from './contexts/modalContext.tsx';
 import Alert from './components/Alert.tsx';
+import ScrollToTop from './components/ScrollToTop.tsx';
+import InstallPWA from './components/InstallPWA.tsx';
+import ImpersonateBanner from './atoms/ImpersonateBanner.tsx';
+import Sidebar from './components/Layouts/SideBar.tsx';
+import ProtectedRoute from './components/ProtectedRoute.tsx';
+import { ModalProvider } from './contexts/modalContext.tsx';
 import { AlertProvider } from './contexts/alertContext.tsx';
+import { PATHS } from './constants/routes.ts';
+import { ROLES } from './constants/roles.ts';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import NotFound from './components/NotFound.tsx';
-import Contribution from './components/Admin/Contribution/Contribution.tsx';
-import { ROUTES } from './constants/routes.ts';
-import UserDetails from './components/User/UserDetails/UserDetails.tsx';
-import InstallPWA from './components/InstallPWA.tsx';
-import { useState } from 'react';
-import Sidebar from './components/Layouts/SideBar.tsx';
-import Changelog from './components/Changelog.tsx';
-import ScrollToTop from './components/ScrollToTop.tsx';
-import Notification from './components/User/Notification.tsx';
-import PasswordReset from './components/User/Form/PasswordReset.tsx';
-import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
-import UserGames from './components/User/Game/UserGames.tsx';
-import ImpersonateBanner from './atoms/ImpersonateBanner.tsx';
-import { ROLES } from './constants/roles.ts';
 import ValentineHearts from './atoms/ValentineHearts.tsx';
-import CGU from './components/CGU.tsx';
+
+// Critical path
+import GameContainer from './components/Game/GameContainer.tsx';
+import UserContainer from './components/User/UserContainer.tsx';
+import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
+
+// Lazy — public
+const NotFound = lazy(() => import('./components/Static/NotFound.tsx'));
+const UserDetails = lazy(
+    () => import('./components/User/UserDetails/UserDetails.tsx')
+);
+const PasswordReset = lazy(
+    () => import('./components/User/Form/PasswordReset.tsx')
+);
+
+// Lazy — authentifié
+const Notification = lazy(
+    () => import('./components/User/Notification/Notification.tsx')
+);
+const UserGames = lazy(() => import('./components/User/Game/UserGames.tsx'));
+
+// Lazy — admin
+const AdminGameGenerator = lazy(
+    () => import('./components/Admin/GameGenerator/GameGenerator.tsx')
+);
+const AdminGameEdit = lazy(() => import('./components/Admin/GameEdit.tsx'));
+const AdminDashboard = lazy(() => import('./components/Admin/Dashboard.tsx'));
+
+// Lazy — super admin
+const SuperAdminDashboard = lazy(
+    () => import('./components/SuperAdmin/Dashboard.tsx')
+);
+const SuperAdminUsers = lazy(() => import('./components/SuperAdmin/Users.tsx'));
+const SuperAdminContributions = lazy(
+    () => import('./components/SuperAdmin/Contribution.tsx')
+);
+const SuperAdminGameDashboard = lazy(
+    () => import('./components/SuperAdmin/Games.tsx')
+);
+
+// Lazy — static
+const Changelog = lazy(() => import('./components/Static/Changelog.tsx'));
+const CGU = lazy(() => import('./components/Static/CGU.tsx'));
+
+function Loader() {
+    return (
+        <div className="min-h-[91vh] flex items-center justify-center">
+            <div className="font-title text-retro-primary text-4xl animate-pulse">
+                Chargement
+            </div>
+        </div>
+    );
+}
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -43,9 +80,7 @@ function App() {
                 {import.meta.env.PROD && <SpeedInsights />}
 
                 <ScrollToTop />
-
                 <InstallPWA />
-
                 <ImpersonateBanner />
 
                 <Header
@@ -65,55 +100,89 @@ function App() {
 
                     <Alert />
 
-                    <Routes>
-                        {/* 404 */}
-                        <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
-                        {/* Game */}
-                        <Route path={ROUTES.HOME} element={<GameContainer />} />
-                        <Route
-                            path={ROUTES.GAME_BY_DATE()}
-                            element={<GameContainer />}
-                        />
-                        {/* User */}
-                        <Route path={ROUTES.USER} element={<UserContainer />} />
-                        <Route
-                            path={ROUTES.USER_SHOW()}
-                            element={<UserDetails />}
-                        />
-                        <Route
-                            path={ROUTES.USER_SPONSOR()}
-                            element={<UserContainer />}
-                        />
-                        <Route
-                            path={ROUTES.LEADERBOARD}
-                            element={<Leaderboard />}
-                        />
-                        <Route
-                            path={ROUTES.USER_GAMES}
-                            element={<UserGames />}
-                        />
-                        {/* Password reset */}
-                        <Route
-                            path={ROUTES.FORGOT_PASSWORD}
-                            element={<PasswordReset />}
-                        />
-                        <Route
-                            path={ROUTES.PASSWORD_RESET}
-                            element={<PasswordReset />}
-                        />
-                        {/* Admin */}
-                        <Route
-                            path={ROUTES.ADMIN}
-                            element={
-                                <ProtectedRoute requiredRole={ROLES.ADMIN}>
-                                    <Outlet />
-                                </ProtectedRoute>
-                            }
-                        >
-                            <Route index element={<AdminLayout />} />
-                            {/* Super Admin */}
+                    <Suspense fallback={<Loader />}>
+                        <Routes>
+                            {/* ===== Game ===== */}
                             <Route
-                                path={ROUTES.ADMIN}
+                                path={PATHS.HOME}
+                                element={<GameContainer />}
+                            />
+                            <Route
+                                path={PATHS.GAME_BY_DATE}
+                                element={<GameContainer />}
+                            />
+
+                            {/* ===== Me ===== */}
+                            <Route path={PATHS.ME}>
+                                <Route index element={<UserContainer />} />
+                                <Route
+                                    element={
+                                        <ProtectedRoute>
+                                            <Outlet />
+                                        </ProtectedRoute>
+                                    }
+                                >
+                                    <Route
+                                        path={PATHS.ME_GAMES}
+                                        element={<UserGames />}
+                                    />
+                                    <Route
+                                        path={PATHS.ME_NOTIFICATIONS}
+                                        element={<Notification />}
+                                    />
+                                </Route>
+                            </Route>
+
+                            {/* ===== Users ===== */}
+                            <Route
+                                path={PATHS.USER_SHOW}
+                                element={<UserDetails />}
+                            />
+                            <Route
+                                path={PATHS.USER_SPONSOR}
+                                element={<UserContainer />}
+                            />
+                            <Route
+                                path={PATHS.LEADERBOARD}
+                                element={<Leaderboard />}
+                            />
+
+                            {/* ===== Auth ===== */}
+                            <Route
+                                path={PATHS.FORGOT_PASSWORD}
+                                element={<PasswordReset />}
+                            />
+                            <Route
+                                path={PATHS.PASSWORD_RESET}
+                                element={<PasswordReset />}
+                            />
+
+                            {/* ===== Admin ===== */}
+                            <Route
+                                path={PATHS.ADMIN}
+                                element={
+                                    <ProtectedRoute requiredRole={ROLES.ADMIN}>
+                                        <Outlet />
+                                    </ProtectedRoute>
+                                }
+                            >
+                                <Route
+                                    path={PATHS.ADMIN_GAMES}
+                                    element={<AdminDashboard />}
+                                />
+                                <Route
+                                    path={PATHS.ADMIN_GENERATOR}
+                                    element={<AdminGameGenerator />}
+                                />
+                                <Route
+                                    path={PATHS.ADMIN_GAME_EDIT}
+                                    element={<AdminGameEdit />}
+                                />
+                            </Route>
+
+                            {/* ===== Super Admin ===== */}
+                            <Route
+                                path={PATHS.SUPER_ADMIN}
                                 element={
                                     <ProtectedRoute
                                         requiredRole={ROLES.SUPER_ADMIN}
@@ -123,46 +192,41 @@ function App() {
                                 }
                             >
                                 <Route
-                                    path={ROUTES.ADMIN_USERS}
-                                    element={<AdminUsersTable />}
+                                    path={PATHS.SUPER_ADMIN}
+                                    element={<SuperAdminDashboard />}
+                                />
+                                <Route
+                                    path={PATHS.SUPER_ADMIN_USERS}
+                                    element={<SuperAdminUsers />}
+                                />
+                                <Route
+                                    path={PATHS.SUPER_ADMIN_GAMES}
+                                    element={<SuperAdminGameDashboard />}
+                                />
+                                <Route
+                                    path={PATHS.SUPER_ADMIN_CONTRIBUTIONS}
+                                    element={<SuperAdminContributions />}
                                 />
                             </Route>
-                            <Route
-                                path={ROUTES.ADMIN_GENERATOR}
-                                element={<AdminGameGenerator />}
-                            />
-                            <Route
-                                path={ROUTES.ADMIN_GAMES}
-                                element={<AdminGameDashboard />}
-                            />
-                            <Route
-                                path={ROUTES.ADMIN_GAME_EDIT()}
-                                element={<AdminGameEdit />}
-                            />
-                            <Route
-                                path={ROUTES.ADMIN_CONTRIBUTIONS}
-                                element={<Contribution />}
-                            />
-                        </Route>
 
-                        <Route
-                            path={ROUTES.USER_NOTIFICATIONS}
-                            element={<Notification />}
-                        />
+                            {/* ===== Static ===== */}
+                            <Route
+                                path={PATHS.CHANGELOG}
+                                element={<Changelog />}
+                            />
+                            <Route path={PATHS.CGU} element={<CGU />} />
 
-                        <Route
-                            path={ROUTES.CHANGELOG}
-                            element={<Changelog />}
-                        />
-
-                        <Route path={ROUTES.CGU} element={<CGU />} />
-
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
+                            {/* ===== 404 ===== */}
+                            <Route
+                                path={PATHS.NOT_FOUND}
+                                element={<NotFound />}
+                            />
+                            <Route path="*" element={<NotFound />} />
+                        </Routes>
+                    </Suspense>
                 </main>
 
                 <Footer />
-
                 <Modal />
             </ModalProvider>
         </AlertProvider>

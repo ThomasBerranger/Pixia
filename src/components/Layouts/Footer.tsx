@@ -2,7 +2,7 @@ import { RiAiGenerate2 } from 'react-icons/ri';
 import { IoColorPaletteOutline } from 'react-icons/io5';
 import { useModal } from '../../hooks/useModal.tsx';
 import { PiInstagramLogoFill } from 'react-icons/pi';
-import { ROUTES } from '../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import { FaTiktok } from 'react-icons/fa';
 
@@ -109,7 +109,7 @@ function Footer() {
                 </a>
 
                 <Link
-                    to={ROUTES.HOME}
+                    to={URLS.HOME}
                     className="order-last skew-x-[-10deg] sm:order-first font-title text-retro-accent text-lg"
                 >
                     PIXIA
@@ -185,7 +185,7 @@ function Footer() {
                                 <br />
                                 <p className="w-full text-center">
                                     <Link
-                                        to={ROUTES.CGU}
+                                        to={URLS.CGU}
                                         onClick={closeModal}
                                         className="text-retro-accent underline hover:text-retro-primary transition-colors"
                                     >
