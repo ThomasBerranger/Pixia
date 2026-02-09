@@ -40,7 +40,7 @@ function ValentineHearts() {
         <Snowfall
             images={hearts}
             radius={[8, 15]}
-            snowflakeCount={40}
+            snowflakeCount={20}
             speed={[0.5, 1.5]}
             style={{
                 position: 'fixed',
