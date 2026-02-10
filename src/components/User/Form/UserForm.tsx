@@ -7,12 +7,13 @@ import { type ApiError, useApi } from '../../../hooks/useApi.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
 import { GoogleButton } from './GoogleButton.tsx';
 import { URLS } from '../../../constants/routes.ts';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import UserAvatar from '../../../atoms/UserAvatar.tsx';
 
 function UserForm({ slug }: { slug?: string }) {
     const { apiCall } = useApi();
     const { login } = useAuth();
+    const navigate = useNavigate();
 
     const [username, setUsername] = useState<string>('');
     const [email, setEmail] = useState<string>('');
@@ -55,6 +56,7 @@ function UserForm({ slug }: { slug?: string }) {
             });
 
             login(response.token);
+            navigate(URLS.HOME);
         } catch (error) {
             console.error('Login error:', error);
 
@@ -79,6 +81,7 @@ function UserForm({ slug }: { slug?: string }) {
             });
 
             login(response.token);
+            navigate(URLS.HOME);
         } catch (error) {
             const apiError = error as ApiError;
 
