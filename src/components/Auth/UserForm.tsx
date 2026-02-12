@@ -6,9 +6,9 @@ import { ENDPOINTS } from '../../constants/endpoints.ts';
 import { type ApiError, useApi } from '../../hooks/useApi.tsx';
 import type { UserType } from '../../types/User/userType.ts';
 import { GoogleButton } from './GoogleButton.tsx';
-import { URLS } from '../../../constants/routes.ts';
+import { URLS } from '../../constants/routes.ts';
 import { Link, useNavigate } from 'react-router-dom';
-import UserAvatar from '../../../atoms/UserAvatar.tsx';
+import UserAvatar from '../../atoms/UserAvatar.tsx';
 
 function UserForm({ slug }: { slug?: string }) {
     const { apiCall } = useApi();

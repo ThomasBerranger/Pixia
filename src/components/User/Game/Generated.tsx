@@ -70,7 +70,7 @@ function List() {
 
             <section className="grid grid-cols-2 sm:grid-cols-4 gap-5 mt-6 sm:mt-10">
                 <Link
-                    to={URLS.ME_GAMES_GENERATED}
+                    to={URLS.ME_GAME_NEW}
                     className="flex flex-col card-primary-hover p-6"
                 >
                     <div className="flex items-center gap-2">

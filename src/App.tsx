@@ -34,6 +34,7 @@ const Notification = lazy(
     () => import('./components/User/Notification/Notification.tsx')
 );
 const UserGames = lazy(() => import('./components/User/Game/List.tsx'));
+const UserGameForm = lazy(() => import('./pages/GameForm.tsx'));
 const UserGeneratedGames = lazy(
     () => import('./components/User/Game/Generated.tsx')
 );
@@ -126,6 +127,14 @@ function App() {
                                     <Route
                                         path={PATHS.ME_GAMES}
                                         element={<UserGames />}
+                                    />
+                                    <Route
+                                        path={PATHS.ME_GAME_NEW}
+                                        element={<UserGameForm />}
+                                    />
+                                    <Route
+                                        path={PATHS.ME_GAME_FORM}
+                                        element={<UserGameForm />}
                                     />
                                     <Route
                                         path={PATHS.ME_GAMES_GENERATED}

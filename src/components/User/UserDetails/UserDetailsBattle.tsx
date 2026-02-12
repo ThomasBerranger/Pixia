@@ -117,7 +117,7 @@ export default function UserDetailsBattle({
                                     className={`hidden sm:block h-1/2 pb-2 mx-auto transition-all duration-300${isCurrentUserAvatarLoading ? ' blur-md' : ''}`}
                                 />
                                 {!history.userWon ? (
-                                    <FaCheck className="text-green-500 text-2xl ml-auto mr-3 sm:mx-auto" />
+                                    <FaCheck className="text-retro-success text-2xl ml-auto mr-3 sm:mx-auto" />
                                 ) : (
                                     <FaTimes className="text-red-500 text-2xl ml-auto mr-3 sm:mx-auto" />
                                 )}
@@ -155,7 +155,7 @@ export default function UserDetailsBattle({
                                     className={`hidden sm:block h-1/2 pb-2 transition-all duration-300${isUserAvatarLoading ? ' blur-md' : ''}`}
                                 />
                                 {history.userWon ? (
-                                    <FaCheck className="text-green-500 text-2xl mr-auto ml-3 sm:mx-auto" />
+                                    <FaCheck className="text-retro-success text-2xl mr-auto ml-3 sm:mx-auto" />
                                 ) : (
                                     <FaTimes className="text-red-500 text-2xl mr-auto ml-3 sm:mx-auto" />
                                 )}

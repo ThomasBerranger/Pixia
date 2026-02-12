@@ -1,0 +1,60 @@
+.stepper {
+    @apply flex items-start justify-between px-4 pt-5 pb-2;
+}
+
+.stepper-step {
+    @apply flex items-start;
+}
+
+.stepper-step:not(:last-child) {
+    flex: 1;
+}
+
+.stepper-dot-wrapper {
+    @apply flex flex-col items-center min-w-[48px];
+}
+
+.stepper-dot {
+    @apply w-12 h-12 rounded-full flex items-center justify-center text-lg transition-all duration-500;
+    border: 3px solid rgba(167, 110, 255, 0.35);
+    background: rgba(10, 14, 39, 0.9);
+}
+
+.stepper-dot--current {
+    @apply border-retro-primary;
+    background: rgba(255, 0, 110, 0.12);
+    box-shadow: 0 0 18px rgba(255, 0, 110, 0.45);
+}
+
+.stepper-dot--done {
+    @apply border-retro-accent;
+    background: rgba(255, 190, 11, 0.12);
+    box-shadow: 0 0 8px rgba(255, 190, 11, 0.2);
+}
+
+.stepper-label {
+    @apply text-[0.6rem] mt-1 uppercase tracking-wider text-center leading-tight font-righteous text-retro-muted/50;
+}
+
+.stepper-label--current {
+    @apply text-retro-primary;
+}
+
+.stepper-label--active {
+    @apply text-retro-accent;
+}
+
+.stepper-line {
+    @apply h-[3px] mx-1 rounded-sm transition-all duration-500;
+    flex: 1;
+    margin-top: 22.5px;
+    background: rgba(167, 110, 255, 0.25);
+}
+
+.stepper-line--done {
+    background: theme('colors.retro.accent');
+}
+
+.stepper-line--transition {
+    background: linear-gradient(90deg, theme('colors.retro.accent'), theme('colors.retro.primary'));
+}

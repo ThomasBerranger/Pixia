@@ -48,3 +48,9 @@
 .animate-slide-up {
     animation: slide-up 1s ease-out;
 }
+
+@keyframes loading-bar {
+    0% { width: 0; }
+    50% { width: 85%; }
+    100% { width: 100%; }
+}

@@ -23,6 +23,7 @@ import { ENDPOINTS } from '../../constants/endpoints.ts';
 import type { GameType } from '../../types/Game/gameType.ts';
 import { useApi } from '../../hooks/useApi.tsx';
 import { getHiddenText } from '../../constants/hiddenTexts.ts';
+import { GAME_STATUSES } from '../../types/Game/gameStatuses.ts';
 
 function Dashboard() {
     const { apiCall } = useApi();
@@ -98,7 +99,11 @@ function Dashboard() {
             <article className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-4 mt-10">
                 <div className="card-primary-hover w-full text-center">
                     <p className="font-title text-retro-accent text-4xl">
-                        {games.filter((g) => g.approvedAt).length}
+                        {
+                            games.filter(
+                                (g) => g.status === GAME_STATUSES.APPROVED
+                            ).length
+                        }
                     </p>
                     <p className="font-righteous text-retro-muted text-xs mt-1 sm:mt-2">
                         Planifiées
@@ -109,7 +114,11 @@ function Dashboard() {
                     className="card-primary-hover w-full text-center relative"
                 >
                     <p className="font-title text-retro-accent text-4xl">
-                        {games.filter((g) => !g.approvedAt).length}
+                        {
+                            games.filter(
+                                (g) => g.status === GAME_STATUSES.DRAFT
+                            ).length
+                        }
                     </p>
                     <p className="font-righteous text-retro-muted text-xs mt-1 sm:mt-2">
                         Au montage
