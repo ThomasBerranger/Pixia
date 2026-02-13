@@ -86,6 +86,7 @@ export function useGameForm() {
 
             setImageUrl('https://picsum.photos/1024/1024');
             setImageGenerated(true);
+            setStep(3);
         } catch (error) {
             showAlert(
                 'Erreur',
@@ -109,6 +110,7 @@ export function useGameForm() {
                 const localUrl = URL.createObjectURL(file);
                 setImageUrl(localUrl);
                 setImageGenerated(false);
+                setStep(3);
             } catch (error) {
                 showAlert('Erreur', "L'import a échoué, réessaie.", 'error');
                 console.error(error);
@@ -118,6 +120,14 @@ export function useGameForm() {
         },
         [showAlert]
     );
+
+    // ── Step 2 → 3 : Passer l'image ──
+
+    const skipImage = useCallback(() => {
+        setImageUrl(null);
+        setImageGenerated(false);
+        setStep(3);
+    }, []);
 
     // ── Step 2 → 3 : Continuer vers l'envoi ──
 
@@ -131,6 +141,7 @@ export function useGameForm() {
         try {
             // TODO: await apiCall(ENDPOINTS.USER_GAME_SUBMIT, { ... });
             setSubmitted(true);
+            setStep(4);
         } catch (error) {
             showAlert('Erreur', "L'envoi a échoué, réessaie.", 'error');
             console.error(error);
@@ -180,6 +191,7 @@ export function useGameForm() {
         generateImage,
         uploadImage,
         goToSubmit,
+        skipImage,
         submitForReview,
         goToStep,
         reset,

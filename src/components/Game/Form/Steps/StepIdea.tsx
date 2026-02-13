@@ -58,7 +58,7 @@ function StepIdea({
                 type="button"
                 onClick={onSubmit}
                 disabled={!canSubmit || loading}
-                className={`w-full mt-3 py-2.5 inline-flex items-center justify-center gap-2 ${canSubmit ? 'btn-primary' : 'btn-disabled'}`}
+                className={`w-full text-xs sm:text-sm mt-3 py-2.5 inline-flex items-center justify-center gap-2 ${canSubmit ? 'btn-primary' : 'btn-disabled'}`}
             >
                 {loading ? (
                     <span className="animate-spin inline-block">⏳</span>

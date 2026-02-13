@@ -1,6 +1,6 @@
 import type { DIFFICULTIES } from '../constants/gameForm.ts';
 
-export type StepId = 1 | 2 | 3;
+export type StepId = 1 | 2 | 3 | 4;
 
 export type DifficultyKey = keyof typeof DIFFICULTIES;
 

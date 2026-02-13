@@ -2,7 +2,7 @@ import type { StepConfig } from '../types/gameFormType.tsx';
 
 export const CREATE_STEPS: StepConfig[] = [
     { id: 1, icon: '💡', label: 'Idée', tokens: 300 },
-    { id: 2, icon: '🎨', label: 'Résultat', tokens: 500 },
+    { id: 2, icon: '🎨', label: 'Image', tokens: 500 },
     { id: 3, icon: '🚀', label: 'Envoi', tokens: 200 },
 ];
 

@@ -13,8 +13,6 @@ function GameForm() {
         step,
         idea,
         setIdea,
-        difficulty,
-        setDifficulty,
         loading,
         gameData,
         imageUrl,
@@ -26,6 +24,7 @@ function GameForm() {
         generateImage,
         uploadImage,
         goToSubmit,
+        skipImage,
         submitForReview,
         goToStep,
         reset,
@@ -62,7 +61,7 @@ function GameForm() {
                     )}
                 </AccordionItem>
 
-                {/* Étape 2 — Résultat + Image */}
+                {/* Étape 2 — Image */}
                 <AccordionItem
                     stepConfig={CREATE_STEPS[1]}
                     currentStep={step}
@@ -84,6 +83,7 @@ function GameForm() {
                                     onGenerateImage={generateImage}
                                     onUploadImage={uploadImage}
                                     onContinue={goToSubmit}
+                                    onSkip={skipImage}
                                 />
                             )}
                         </>
@@ -95,16 +95,18 @@ function GameForm() {
                     stepConfig={CREATE_STEPS[2]}
                     currentStep={step}
                     tokensRemaining={tokensRemaining}
+                    forceOpen={submitted}
                 >
-                    <StepFinalize
-                        difficulty={difficulty}
-                        setDifficulty={setDifficulty}
-                        onSubmit={submitForReview}
-                        onBack={() => goToStep(2)}
-                        onReset={reset}
-                        submitted={submitted}
-                        hasImage={!!imageUrl}
-                    />
+                    {gameData && (
+                        <StepFinalize
+                            gameData={gameData}
+                            imageUrl={imageUrl}
+                            onSubmit={submitForReview}
+                            onBack={() => goToStep(2)}
+                            onReset={reset}
+                            submitted={submitted}
+                        />
+                    )}
                 </AccordionItem>
             </div>
         </article>

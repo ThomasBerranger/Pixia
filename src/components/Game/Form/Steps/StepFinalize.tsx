@@ -1,24 +1,25 @@
-import type { DifficultyKey } from '../../../../types/gameFormType.tsx';
-import DifficultyPicker from '../DifficultyPicker.tsx';
+import { PiCoinsFill } from 'react-icons/pi';
+import type { AiGeneratedData } from '../../../../types/gameFormType.tsx';
+import { TOKEN_COSTS } from '../../../../constants/gameForm.ts';
+import ImagePreview from '../ImagePreview.tsx';
+import { BiSolidLeftArrow } from 'react-icons/bi';
 
 interface StepFinalizeProps {
-    difficulty: DifficultyKey;
-    setDifficulty: (key: DifficultyKey) => void;
+    gameData: AiGeneratedData;
+    imageUrl: string | null;
     onSubmit: () => void;
     onBack: () => void;
     onReset: () => void;
     submitted: boolean;
-    hasImage: boolean;
 }
 
 function StepFinalize({
-    difficulty,
-    setDifficulty,
+    gameData,
+    imageUrl,
     onSubmit,
     onBack,
     onReset,
     submitted,
-    hasImage,
 }: StepFinalizeProps) {
     if (submitted) {
         return (
@@ -48,44 +49,70 @@ function StepFinalize({
 
     return (
         <>
-            <div className="text-center p-4 mb-4 bg-retro-secondary/[0.06] border-2 border-retro-accent/30">
-                <span className="text-3xl">🎬</span>
-                <p className="text-base font-righteous text-retro-accent mt-2 mb-1">
-                    Ton Pixia est prêt !
+            {/* Récapitulatif */}
+            <div className="mb-4 space-y-3">
+                <p className="text-sm font-righteous text-retro-accent">
+                    Récapitulatif
                 </p>
-                {!hasImage && (
-                    <p className="text-xs font-righteous text-retro-muted mt-1">
-                        Pas d'image — un admin s'en chargera.
-                    </p>
-                )}
+
+                <div className="flex flex-col sm:flex-row sm:gap-4">
+                    {/* Image */}
+                    <div className="sm:w-1/2">
+                        {imageUrl ? (
+                            <ImagePreview imageUrl={imageUrl} />
+                        ) : (
+                            <p className="text-xs text-center font-righteous text-retro-muted italic">
+                                Pas d'image <br /> Un admin s'en chargera.
+                            </p>
+                        )}
+                    </div>
+
+                    {/* Infos */}
+                    <div className="mt-3 sm:mt-0 sm:w-1/2 space-y-3">
+                        <div>
+                            <p className="text-xxs font-righteous uppercase tracking-widest text-retro-muted">
+                                Solution
+                            </p>
+                            <p className="text-sm font-righteous text-white/80 mt-0.5 truncate sm:whitespace-normal">
+                                {gameData.solution}
+                            </p>
+                        </div>
+                        <div>
+                            <p className="text-xxs font-righteous uppercase tracking-widest text-retro-muted">
+                                Indice
+                            </p>
+                            <p className="text-xs font-righteous text-white/80 mt-0.5 truncate sm:whitespace-normal">
+                                {gameData.hint}
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {/* Difficulté */}
-            <DifficultyPicker value={difficulty} onChange={setDifficulty} />
-
             {/* Avertissement */}
-            <div className="flex items-center gap-2 px-3 py-2 mb-4 bg-retro-secondary/[0.08] border border-retro-secondary/25">
-                <span>⚠️</span>
-                <p className="text-xxs font-righteous text-retro-secondary leading-snug">
-                    Action irréversible. Tu ne pourras plus modifier ton Pixia
-                    après envoi.
+            <div className="flex justify-center items-center px-2 py-2 mb-4 bg-retro-primary/[0.08]">
+                <p className="text-xxs font-righteous text-retro-primary leading-snug">
+                    Tu ne pourras plus modifier ton Pixia après envoi.
                 </p>
             </div>
 
             <button
                 type="button"
                 onClick={onSubmit}
-                className="w-full py-3 btn-primary"
+                className="w-full py-2.5 text-xs sm:text-sm btn-primary inline-flex items-center justify-center gap-2"
             >
-                🚀 Envoyer pour validation
+                Envoyer pour validation
+                <span className="inline-flex items-center gap-1 text-sm">
+                    <PiCoinsFill className="text-lg" /> {TOKEN_COSTS.submit}
+                </span>
             </button>
 
             <button
                 type="button"
                 onClick={onBack}
-                className="w-full mt-3 py-2.5 btn-ghost text-xs"
+                className="w-full mt-3 py-2.5 text-xs sm:text-sm btn-ghost inline-flex items-center justify-center gap-1"
             >
-                ← Revenir en arrière
+                <BiSolidLeftArrow className="text-xs" /> Revenir à l'édition
             </button>
         </>
     );
