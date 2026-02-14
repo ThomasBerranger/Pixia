@@ -1,22 +1,16 @@
 import { useCallback, useState } from 'react';
 import { useAlert } from './useAlert.ts';
 import { IDEA_MIN_LENGTH, TOKEN_COSTS } from '../constants/gameForm.ts';
-import type {
-    AiGeneratedData,
-    DifficultyKey,
-    StepId,
-} from '../types/gameFormType.tsx';
+import type { AiGeneratedData, StepId } from '../types/gameFormType.tsx';
 
 export function useGameForm() {
     const { showAlert } = useAlert();
 
     const [step, setStep] = useState<StepId>(1);
     const [idea, setIdea] = useState('');
-    const [difficulty, setDifficulty] = useState<DifficultyKey>('VICIEUX');
     const [loading, setLoading] = useState(false);
     const [gameData, setGameData] = useState<AiGeneratedData | null>(null);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
-    const [imageGenerated, setImageGenerated] = useState(false);
     const [submitted, setSubmitted] = useState(false);
 
     // TODO: remplacer par le vrai solde utilisateur depuis l'API
@@ -27,7 +21,7 @@ export function useGameForm() {
     const tokensSpent = (() => {
         let cost = 0;
         if (step >= 2) cost += TOKEN_COSTS.analysis;
-        if (imageUrl) cost += imageGenerated ? TOKEN_COSTS.imageGenerate : TOKEN_COSTS.imageUpload;
+        if (imageUrl) cost += TOKEN_COSTS.imageUpload;
         if (step >= 3) cost += TOKEN_COSTS.submit;
         return cost;
     })();
@@ -66,12 +60,9 @@ export function useGameForm() {
 
     // ── Step 2 : Modifier les données générées ──
 
-    const updateGameData = useCallback(
-        (partial: Partial<AiGeneratedData>) => {
-            setGameData((prev) => (prev ? { ...prev, ...partial } : prev));
-        },
-        []
-    );
+    const updateGameData = useCallback((partial: Partial<AiGeneratedData>) => {
+        setGameData((prev) => (prev ? { ...prev, ...partial } : prev));
+    }, []);
 
     // ── Step 2 : Générer image par IA (500 jetons) ──
 
@@ -85,7 +76,6 @@ export function useGameForm() {
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
             setImageUrl('https://picsum.photos/1024/1024');
-            setImageGenerated(true);
             setStep(3);
         } catch (error) {
             showAlert(
@@ -109,7 +99,6 @@ export function useGameForm() {
                 // TEMP: preview locale en attendant le back
                 const localUrl = URL.createObjectURL(file);
                 setImageUrl(localUrl);
-                setImageGenerated(false);
                 setStep(3);
             } catch (error) {
                 showAlert('Erreur', "L'import a échoué, réessaie.", 'error');
@@ -125,13 +114,6 @@ export function useGameForm() {
 
     const skipImage = useCallback(() => {
         setImageUrl(null);
-        setImageGenerated(false);
-        setStep(3);
-    }, []);
-
-    // ── Step 2 → 3 : Continuer vers l'envoi ──
-
-    const goToSubmit = useCallback(() => {
         setStep(3);
     }, []);
 
@@ -152,13 +134,10 @@ export function useGameForm() {
 
     const goToStep = useCallback(
         (target: StepId) => {
-            if (target < step) {
-                if (target < 2) {
-                    setImageUrl(null);
-                    setImageGenerated(false);
-                }
-                setStep(target);
+            if (target < step && target < 2) {
+                setImageUrl(null);
             }
+            setStep(target);
         },
         [step]
     );
@@ -166,10 +145,8 @@ export function useGameForm() {
     const reset = useCallback(() => {
         setStep(1);
         setIdea('');
-        setDifficulty('VICIEUX');
         setGameData(null);
         setImageUrl(null);
-        setImageGenerated(false);
         setSubmitted(false);
     }, []);
 
@@ -177,12 +154,9 @@ export function useGameForm() {
         step,
         idea,
         setIdea,
-        difficulty,
-        setDifficulty,
         loading,
         gameData,
         imageUrl,
-        imageGenerated,
         submitted,
         canAnalyze,
         tokensRemaining,
@@ -190,7 +164,6 @@ export function useGameForm() {
         updateGameData,
         generateImage,
         uploadImage,
-        goToSubmit,
         skipImage,
         submitForReview,
         goToStep,

@@ -100,7 +100,10 @@ function Leaderboard() {
                                     ))}
                                 </p>
                                 <p className="flex items-center">
-                                    <StreakBadge count={user.streaks.current} className="mr-1 mt-1" />
+                                    <StreakBadge
+                                        count={user.streaks.current}
+                                        className="mr-1 mt-1"
+                                    />
                                     <span className="text-2xl text-retro-accent font-title">
                                         {user.score}
                                     </span>
@@ -112,9 +115,7 @@ function Leaderboard() {
 
             <div className="flex items-center justify-center gap-3 mt-8">
                 <Link
-                    to={URLS.LEADERBOARD_PAGE(
-                        Math.max(1, currentPage - 1)
-                    )}
+                    to={URLS.LEADERBOARD_PAGE(Math.max(1, currentPage - 1))}
                     className={`${currentPage === 1 ? 'opacity-50 pointer-events-none text-retro-muted' : 'text-retro-accent'}`}
                 >
                     <BiSolidLeftArrow size={22} />

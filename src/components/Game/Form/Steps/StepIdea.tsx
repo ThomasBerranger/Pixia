@@ -23,21 +23,19 @@ function StepIdea({
     return (
         <>
             {/* Explication */}
-            <div className="p-3 mb-4 bg-retro-muted/[0.06] border border-retro-muted/15 tracking-wide">
-                <p className="text-sm font-righteous text-retro-accent">
-                    Comment ça marche ?
-                </p>
-                <p className="text-xs font-righteous text-white/60 mt-1 leading-relaxed">
+            <div className="p-3 mb-4 bg-retro-muted/[0.06] border border-retro-muted/15 tracking-wide space-y-0.5 font-righteous">
+                <p className="text-sm text-retro-accent">Comment ça marche ?</p>
+                <p className="text-xs text-white/60 leading-relaxed">
                     Décris ta fusion de 2 films. L'IA va analyser ton concept,
                     générer un prompt artistique, trouver la solution, un indice
                     et estimer la popularité.
                 </p>
-                <p className="text-xs font-righteous text-white/60 mt-1 leading-relaxed">
+                <p className="text-xs text-white/60 leading-relaxed">
                     Tu pourras ensuite générer une image par IA, importer la
                     tienne ou laisser un admin s'en charger, puis soumettre ton
                     Pixia.
                 </p>
-                <p className="text-xs font-righteous text-white/40 mt-1 leading-relaxed">
+                <p className="text-xs text-retro-primary/70 leading-relaxed">
                     Les admins se réservent le droit de modifier ou refuser une
                     proposition afin de garantir la qualité et la ligne
                     éditoriale de Pixia.

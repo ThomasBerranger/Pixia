@@ -4,9 +4,8 @@ import Stepper from '../components/Game/Form/Stepper.tsx';
 import AccordionItem from '../components/Game/Form/AccordionItem.tsx';
 import LoadingOverlay from '../components/Game/Form/LoadingOverlay.tsx';
 import StepIdea from '../components/Game/Form/Steps/StepIdea.tsx';
-import StepAiResult from '../components/Game/Form/Steps/StepAiResult.tsx';
 import StepImage from '../components/Game/Form/Steps/StepImage.tsx';
-import StepFinalize from '../components/Game/Form/Steps/StepFinalize.tsx';
+import StepSubmit from '../components/Game/Form/Steps/StepSubmit.tsx';
 
 function GameForm() {
     const {
@@ -23,7 +22,6 @@ function GameForm() {
         updateGameData,
         generateImage,
         uploadImage,
-        goToSubmit,
         skipImage,
         submitForReview,
         goToStep,
@@ -67,27 +65,21 @@ function GameForm() {
                     currentStep={step}
                     tokensRemaining={tokensRemaining}
                 >
-                    {gameData && (
-                        <>
-                            <StepAiResult
+                    {gameData &&
+                        (loading && step === 2 ? (
+                            <LoadingOverlay step={step} />
+                        ) : (
+                            <StepImage
                                 gameData={gameData}
                                 onUpdateGameData={updateGameData}
+                                imageUrl={imageUrl}
+                                loading={loading}
+                                onGenerateImage={generateImage}
+                                onUploadImage={uploadImage}
+                                onContinue={() => goToStep(3)}
+                                onSkip={skipImage}
                             />
-
-                            {loading && step === 2 ? (
-                                <LoadingOverlay step={step} />
-                            ) : (
-                                <StepImage
-                                    imageUrl={imageUrl}
-                                    loading={loading}
-                                    onGenerateImage={generateImage}
-                                    onUploadImage={uploadImage}
-                                    onContinue={goToSubmit}
-                                    onSkip={skipImage}
-                                />
-                            )}
-                        </>
-                    )}
+                        ))}
                 </AccordionItem>
 
                 {/* Étape 3 — Envoi */}
@@ -98,7 +90,7 @@ function GameForm() {
                     forceOpen={submitted}
                 >
                     {gameData && (
-                        <StepFinalize
+                        <StepSubmit
                             gameData={gameData}
                             imageUrl={imageUrl}
                             onSubmit={submitForReview}

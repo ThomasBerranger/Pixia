@@ -68,7 +68,10 @@ function MonthlyLeaderboard({
                                             .score
                                     }
                                 </span>
-                                <StreakBadge count={leaderboard[1]?.streaks.current} className="ml-1.5 mt-1" />
+                                <StreakBadge
+                                    count={leaderboard[1]?.streaks.current}
+                                    className="ml-1.5 mt-1"
+                                />
                             </p>
                             <p className="text-lg">
                                 {leaderboard[1] &&
@@ -110,7 +113,10 @@ function MonthlyLeaderboard({
                                             .score
                                     }
                                 </span>
-                                <StreakBadge count={leaderboard[0]?.streaks.current} className="ml-1.5 mt-1" />
+                                <StreakBadge
+                                    count={leaderboard[0]?.streaks.current}
+                                    className="ml-1.5 mt-1"
+                                />
                             </p>
                             <p className="text-lg">
                                 {leaderboard[0] &&
@@ -152,7 +158,10 @@ function MonthlyLeaderboard({
                                             .score
                                     }
                                 </span>
-                                <StreakBadge count={leaderboard[2]?.streaks.current} className="ml-1.5 mt-1" />
+                                <StreakBadge
+                                    count={leaderboard[2]?.streaks.current}
+                                    className="ml-1.5 mt-1"
+                                />
                             </p>
                             <p className="text-lg">
                                 {leaderboard[2] &&
@@ -192,7 +201,10 @@ function MonthlyLeaderboard({
                         ))}
                     </p>
                     <p className="flex items-center">
-                        <StreakBadge count={leaderboard[0]?.streaks.current} className="mr-1 mt-1" />
+                        <StreakBadge
+                            count={leaderboard[0]?.streaks.current}
+                            className="mr-1 mt-1"
+                        />
                         <span className="font-title text-xl text-retro-accent">
                             {leaderboard[0]?.monthlyLeaderboards[0].score}
                         </span>
@@ -223,7 +235,10 @@ function MonthlyLeaderboard({
                         ))}
                     </p>
                     <p className="flex items-center">
-                        <StreakBadge count={leaderboard[1]?.streaks.current} className="mr-1 mt-1" />
+                        <StreakBadge
+                            count={leaderboard[1]?.streaks.current}
+                            className="mr-1 mt-1"
+                        />
                         <span className="font-title text-xl text-retro-accent">
                             {leaderboard[1]?.monthlyLeaderboards[0].score}
                         </span>
@@ -252,7 +267,10 @@ function MonthlyLeaderboard({
                         ))}
                     </p>
                     <p className="flex items-center">
-                        <StreakBadge count={leaderboard[2]?.streaks.current} className="mr-1 mt-1" />
+                        <StreakBadge
+                            count={leaderboard[2]?.streaks.current}
+                            className="mr-1 mt-1"
+                        />
                         <span className="font-title text-xl text-retro-accent">
                             {leaderboard[2]?.monthlyLeaderboards[0].score}
                         </span>
@@ -286,7 +304,10 @@ function MonthlyLeaderboard({
                             ))}
                         </p>
                         <p className="flex items-center">
-                            <StreakBadge count={user.streaks.current} className="mr-1 mt-1" />
+                            <StreakBadge
+                                count={user.streaks.current}
+                                className="mr-1 mt-1"
+                            />
                             <span className="text-2xl text-retro-accent font-title">
                                 {user.monthlyLeaderboards[0].score}
                             </span>
@@ -319,7 +340,10 @@ function MonthlyLeaderboard({
                             ))}
                         </p>
                         <p className="flex items-center">
-                            <StreakBadge count={player.streaks.current ?? 0} className="mr-1 mt-1" />
+                            <StreakBadge
+                                count={player.streaks.current ?? 0}
+                                className="mr-1 mt-1"
+                            />
                             <span className="text-2xl text-retro-accent font-title">
                                 {getCurrentMonthlyLeaderboard(player)?.score}
                             </span>

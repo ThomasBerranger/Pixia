@@ -1,10 +1,11 @@
 import { PiCoinsFill } from 'react-icons/pi';
 import type { AiGeneratedData } from '../../../../types/gameFormType.tsx';
 import { TOKEN_COSTS } from '../../../../constants/gameForm.ts';
+import { formatDateFr } from '../../../../utils/date.ts';
 import ImagePreview from '../ImagePreview.tsx';
 import { BiSolidLeftArrow } from 'react-icons/bi';
 
-interface StepFinalizeProps {
+interface StepSubmitProps {
     gameData: AiGeneratedData;
     imageUrl: string | null;
     onSubmit: () => void;
@@ -13,14 +14,14 @@ interface StepFinalizeProps {
     submitted: boolean;
 }
 
-function StepFinalize({
+function StepSubmit({
     gameData,
     imageUrl,
     onSubmit,
     onBack,
     onReset,
     submitted,
-}: StepFinalizeProps) {
+}: StepSubmitProps) {
     if (submitted) {
         return (
             <div className="text-center py-4 animate-slide-up">
@@ -57,7 +58,7 @@ function StepFinalize({
 
                 <div className="flex flex-col sm:flex-row sm:gap-4">
                     {/* Image */}
-                    <div className="sm:w-1/2">
+                    <div className="sm:w-1/2 flex justify-center items-center">
                         {imageUrl ? (
                             <ImagePreview imageUrl={imageUrl} />
                         ) : (
@@ -70,19 +71,27 @@ function StepFinalize({
                     {/* Infos */}
                     <div className="mt-3 sm:mt-0 sm:w-1/2 space-y-3">
                         <div>
-                            <p className="text-xxs font-righteous uppercase tracking-widest text-retro-muted">
+                            <p className="text-xxs sm:text-xs font-righteous uppercase tracking-widest text-retro-muted">
                                 Solution
                             </p>
-                            <p className="text-sm font-righteous text-white/80 mt-0.5 truncate sm:whitespace-normal">
+                            <p className="text-sm sm:text-base font-righteous text-white/80 mt-0.5 truncate sm:whitespace-normal">
                                 {gameData.solution}
                             </p>
                         </div>
                         <div>
-                            <p className="text-xxs font-righteous uppercase tracking-widest text-retro-muted">
+                            <p className="text-xxs sm:text-xs font-righteous uppercase tracking-widest text-retro-muted">
                                 Indice
                             </p>
-                            <p className="text-xs font-righteous text-white/80 mt-0.5 truncate sm:whitespace-normal">
+                            <p className="text-sm sm:text-base font-righteous text-white/80 mt-0.5 truncate sm:whitespace-normal">
                                 {gameData.hint}
+                            </p>
+                        </div>
+                        <div>
+                            <p className="text-xxs sm:text-xs font-righteous uppercase tracking-widest text-retro-muted">
+                                Date estimée
+                            </p>
+                            <p className="text-sm sm:text-base font-title font-semibold text-retro-accent mt-0.5">
+                                {formatDateFr(gameData.estimatedDate)}
                             </p>
                         </div>
                     </div>
@@ -118,4 +127,4 @@ function StepFinalize({
     );
 }
 
-export default StepFinalize;
+export default StepSubmit;

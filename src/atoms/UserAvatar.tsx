@@ -13,9 +13,7 @@ export default function UserAvatar({
 }: UserAvatarProps) {
     return (
         <img
-            src={
-                avatarUrl ?? `${import.meta.env.VITE_DICE_URL}${username}`
-            }
+            src={avatarUrl ?? `${import.meta.env.VITE_DICE_URL}${username}`}
             alt="Avatar"
             className={className}
             onLoad={onLoad}

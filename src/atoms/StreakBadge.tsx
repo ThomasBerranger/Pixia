@@ -3,7 +3,10 @@ interface StreakBadgeProps {
     className?: string;
 }
 
-export default function StreakBadge({ count, className = '' }: StreakBadgeProps) {
+export default function StreakBadge({
+    count,
+    className = '',
+}: StreakBadgeProps) {
     if (count <= 0) return null;
 
     return (
