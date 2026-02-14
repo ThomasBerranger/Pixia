@@ -129,11 +129,11 @@ function App() {
                                     />
                                     <Route
                                         path={PATHS.ME_GAME_NEW}
-                                        element={<UserGameForm />}
+                                        element={<UserGameForm key="new" />}
                                     />
                                     <Route
                                         path={PATHS.ME_GAME_FORM}
-                                        element={<UserGameForm />}
+                                        element={<UserGameForm key="edit" />}
                                     />
                                     <Route
                                         path={PATHS.ME_GAMES_GENERATED}

@@ -4,6 +4,10 @@ import { useAlert } from './useAlert.ts';
 import { ENDPOINTS } from '../constants/endpoints.ts';
 import { IDEA_MIN_LENGTH, TOKEN_COSTS } from '../constants/gameForm.ts';
 import type { AiGeneratedData, StepId } from '../types/gameFormType.tsx';
+import { GAME_STATUSES } from '../types/Game/gameStatuses.ts';
+
+const toImageUrl = (path: string): string =>
+    `${import.meta.env.VITE_API_URL}${path}`;
 
 export function useGameForm() {
     const { apiCall } = useApi();
@@ -74,15 +78,92 @@ export function useGameForm() {
         setGameData((prev) => (prev ? { ...prev, ...partial } : prev));
     }, []);
 
+    // ── PATCH helper (sauvegarde silencieuse) ──
+
+    const patchGame = useCallback(
+        async (data: Record<string, unknown> = {}) => {
+            if (!gameId || !gameData) return;
+
+            return await apiCall(ENDPOINTS.ME_GAME_UPDATE(gameId), {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    solution: gameData.solution,
+                    hint: gameData.hint,
+                    ...data,
+                }),
+            });
+        },
+        [gameId, gameData, apiCall]
+    );
+
+    // ── Step 2 : Import image perso ──
+
+    const uploadImage = useCallback(
+        async (file: File) => {
+            if (!gameId || !gameData) return;
+
+            setLoading(true);
+
+            try {
+                const formData = new FormData();
+                formData.append('image', file);
+
+                const { image } = await apiCall(
+                    ENDPOINTS.ME_GAME_IMAGE_UPLOAD(gameId),
+                    { method: 'POST', body: formData },
+                    false
+                );
+
+                const updated = await patchGame({ image });
+                setImageUrl(toImageUrl(updated.image));
+                setStep(3);
+            } catch (error) {
+                showAlert('Erreur', "L'import a échoué, réessaie.", 'error');
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        },
+        [gameId, gameData, apiCall, patchGame, showAlert]
+    );
+
+    // ── Step 2 : Génération IA ──
+
     const generateImage = useCallback(async () => {
-        if (!gameData?.prompt) return;
+        if (!gameId || !gameData) return;
 
         setLoading(true);
 
         try {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            let prompt = gameData.prompt;
 
-            setImageUrl('https://picsum.photos/1024/1024');
+            if (!prompt) {
+                // TODO: remplacer par l'appel IA réel
+                // const content = await apiCall(
+                //     ENDPOINTS.OPEN_AI_GENERATE_CONTENT,
+                //     {
+                //         method: 'POST',
+                //         body: JSON.stringify({ solution: gameData.solution }),
+                //     }
+                // );
+                // prompt = content.prompt;
+                await new Promise((r) => setTimeout(r, 500));
+                prompt = `A cinematic scene inspired by ${gameData.solution}`;
+                setGameData((prev) =>
+                    prev ? { ...prev, prompt } : prev
+                );
+            }
+
+            // TODO: remplacer par l'appel IA réel
+            // const imageUrl = await apiCall(ENDPOINTS.OPEN_AI_GENERATE_IMAGE, {
+            //     method: 'POST',
+            //     body: JSON.stringify({ prompt }),
+            // });
+            await new Promise((r) => setTimeout(r, 1500));
+            const imageUrl = `https://picsum.photos/seed/${gameId}/1024/576`;
+
+            const updated = await patchGame({ imageUrl });
+            setImageUrl(toImageUrl(updated.image));
             setStep(3);
         } catch (error) {
             showAlert(
@@ -94,48 +175,39 @@ export function useGameForm() {
         } finally {
             setLoading(false);
         }
-    }, [gameData?.prompt, showAlert]);
-
-    // ── Step 2 : Import image perso (gratuit) ──
-
-    const uploadImage = useCallback(
-        async (file: File) => {
-            setLoading(true);
-
-            try {
-                // TEMP: preview locale en attendant le back
-                const localUrl = URL.createObjectURL(file);
-                setImageUrl(localUrl);
-                setStep(3);
-            } catch (error) {
-                showAlert('Erreur', "L'import a échoué, réessaie.", 'error');
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        },
-        [showAlert]
-    );
+    }, [gameId, gameData, apiCall, patchGame, showAlert]);
 
     // ── Step 2 → 3 : Passer l'image ──
 
-    const skipImage = useCallback(() => {
+    const skipImage = useCallback(async () => {
+        if (gameId && imageUrl) {
+            try {
+                await apiCall(
+                    ENDPOINTS.ME_GAME_IMAGE_UPLOAD(gameId),
+                    { method: 'DELETE' }
+                );
+            } catch (error) {
+                showAlert('Erreur', "La suppression de l'image a échoué.", 'error');
+                console.error(error);
+                return;
+            }
+        }
         setImageUrl(null);
         setStep(3);
-    }, []);
+    }, [gameId, imageUrl, apiCall, showAlert]);
 
     // ── Step 3 : Envoi en validation (irréversible) ──
 
     const submitForReview = useCallback(async () => {
         try {
-            // TODO: await apiCall(ENDPOINTS.USER_GAME_SUBMIT, { ... });
+            await patchGame({ status: GAME_STATUSES.PENDING });
             setSubmitted(true);
             setStep(4);
         } catch (error) {
             showAlert('Erreur', "L'envoi a échoué, réessaie.", 'error');
             console.error(error);
         }
-    }, [showAlert]);
+    }, [patchGame, showAlert]);
 
     // ── Chargement d'une game existante ──
 
@@ -156,8 +228,12 @@ export function useGameForm() {
                     prompt,
                     popularityScore,
                 });
-                if (image) setImageUrl(image);
-                setStep(2);
+                if (image) {
+                    setImageUrl(toImageUrl(image));
+                    setStep(3);
+                } else {
+                    setStep(2);
+                }
             } catch (error) {
                 showAlert('Erreur', 'Impossible de charger la partie.', 'error');
                 console.error(error);
@@ -205,6 +281,7 @@ export function useGameForm() {
         analyzeIdea,
         loadGame,
         updateGameData,
+        patchGame,
         generateImage,
         uploadImage,
         skipImage,

@@ -52,10 +52,6 @@ function StepSubmit({
         <>
             {/* Récapitulatif */}
             <div className="mb-4 space-y-3">
-                <p className="text-sm font-righteous text-retro-accent">
-                    Récapitulatif
-                </p>
-
                 <div className="flex flex-col sm:flex-row sm:gap-4">
                     {/* Image */}
                     <div className="sm:w-1/2 flex justify-center items-center">

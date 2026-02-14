@@ -13,6 +13,8 @@ export const ENDPOINTS = {
     ME_GAMES_GENERATED: 'me/games-generated',
     ME_GAME_CREATE: 'me/games',
     ME_GAME_SHOW: (id: string) => `me/games/${id}`,
+    ME_GAME_UPDATE: (id: string) => `me/games/${id}`,
+    ME_GAME_IMAGE_UPLOAD: (id: string) => `me/games/${id}/image`,
 
     // USER
     USER_UPDATE: 'users',

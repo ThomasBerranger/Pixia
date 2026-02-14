@@ -28,6 +28,7 @@ function GameForm() {
         tokensRemaining,
         analyzeIdea,
         loadGame,
+        patchGame,
         updateGameData,
         generateImage,
         uploadImage,
@@ -38,10 +39,10 @@ function GameForm() {
     } = useGameForm();
 
     useEffect(() => {
-        if (id && !gameId) {
+        if (id) {
             loadGame(id);
         }
-    }, [id, gameId, loadGame]);
+    }, [id, loadGame]);
 
     useEffect(() => {
         if (gameId && !id) {
@@ -50,7 +51,6 @@ function GameForm() {
     }, [gameId, id, navigate]);
 
     const handleReset = () => {
-        reset();
         navigate(URLS.ME_GAME_NEW, { replace: true });
     };
 
@@ -103,7 +103,10 @@ function GameForm() {
                                 loading={loading}
                                 onGenerateImage={generateImage}
                                 onUploadImage={uploadImage}
-                                onContinue={() => goToStep(3)}
+                                onContinue={async () => {
+                                    await patchGame();
+                                    goToStep(3);
+                                }}
                                 onSkip={skipImage}
                             />
                         ))}

@@ -115,10 +115,6 @@ function StepImage({
                 </>
             ) : (
                 <>
-                    <p className="text-sm font-righteous text-retro-accent mb-2">
-                        Image
-                    </p>
-
                     <div className="grid grid-cols-3 gap-2 mb-3">
                         {/* Importer */}
                         <button
