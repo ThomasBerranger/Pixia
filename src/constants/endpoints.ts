@@ -11,6 +11,8 @@ export const ENDPOINTS = {
     ME_GAMES_STATS: 'me/games-stats',
     ME_GAMES: (month: string) => `me/games?month=${month}`,
     ME_GAMES_GENERATED: 'me/games-generated',
+    ME_GAME_CREATE: 'me/games',
+    ME_GAME_SHOW: (id: string) => `me/games/${id}`,
 
     // USER
     USER_UPDATE: 'users',

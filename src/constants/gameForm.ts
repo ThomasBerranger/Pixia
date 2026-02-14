@@ -13,16 +13,13 @@ export const TOKEN_COSTS = {
     submit: 200,
 } as const;
 
-export const ANALYSIS_TIPS: string[] = [
-    "L'IA analyse des milliers de films pour trouver la meilleure fusion...",
-    'Astuce : les images les plus populaires combinent des genres opposés !',
-];
-
-export const IMAGE_TIPS: string[] = [
-    'DALL·E dessine ta vision pixel par pixel...',
-    "L'IA compose les couleurs, les ombres et les détails...",
-    "Chaque image est unique, personne n'a vu celle-ci avant toi !",
-    "Les meilleurs artistes prennent leur temps, l'IA aussi 🎨",
+export const LOADING_TIPS: string[] = [
+    'Seuls les films sont acceptés — pas de séries, jeux vidéo ou autres.',
+    'Les films doivent être suffisamment connus, sinon la proposition sera refusée.',
+    "Un souci ? Rendez-vous dans l'espace Contribution de ton compte.",
 ];
 
 export const IDEA_MIN_LENGTH = 10;
+
+export const POPULARITY_MIN = 50;
+export const TOKEN_REFUND_LOW_POPULARITY = 150;

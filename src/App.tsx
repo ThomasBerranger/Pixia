@@ -15,7 +15,6 @@ import { PATHS } from './constants/routes.ts';
 import { ROLES } from './constants/roles.ts';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import ValentineHearts from './atoms/ValentineHearts.tsx';
 
 // Critical path
 import GameContainer from './components/Game/GameContainer.tsx';

@@ -1,6 +1,8 @@
 import {
     IDEA_MIN_LENGTH,
+    POPULARITY_MIN,
     TOKEN_COSTS,
+    TOKEN_REFUND_LOW_POPULARITY,
 } from '../../../../constants/gameForm.ts';
 import { PiCoinsFill } from 'react-icons/pi';
 import TextareaRetro from '../../../../atoms/TextareaRetro.tsx';
@@ -11,6 +13,7 @@ interface StepIdeaProps {
     onSubmit: () => void;
     canSubmit: boolean;
     loading: boolean;
+    lastPopularityScore: number | null;
 }
 
 function StepIdea({
@@ -19,7 +22,10 @@ function StepIdea({
     onSubmit,
     canSubmit,
     loading,
+    lastPopularityScore,
 }: StepIdeaProps) {
+    const isRejected =
+        lastPopularityScore !== null && lastPopularityScore < POPULARITY_MIN;
     return (
         <>
             {/* Explication */}
@@ -41,6 +47,20 @@ function StepIdea({
                     éditoriale de Pixia.
                 </p>
             </div>
+
+            {/* Message de rejet */}
+            {isRejected && (
+                <div className="p-3 mb-4 bg-retro-primary/10">
+                    <p className="text-center text-sm font-righteous text-retro-primary leading-relaxed tracking-wide">
+                        Les films proposés ne sont pas assez connus (popularité{' '}
+                        {lastPopularityScore}%).{' '}
+                        <span className="text-retro-success/90">
+                            Tu as été remboursé de {TOKEN_REFUND_LOW_POPULARITY}{' '}
+                            jetons.
+                        </span>
+                    </p>
+                </div>
+            )}
 
             {/* Textarea */}
             <TextareaRetro

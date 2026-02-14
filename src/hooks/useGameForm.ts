@@ -1,9 +1,12 @@
 import { useCallback, useState } from 'react';
+import { useApi } from './useApi.tsx';
 import { useAlert } from './useAlert.ts';
+import { ENDPOINTS } from '../constants/endpoints.ts';
 import { IDEA_MIN_LENGTH, TOKEN_COSTS } from '../constants/gameForm.ts';
 import type { AiGeneratedData, StepId } from '../types/gameFormType.tsx';
 
 export function useGameForm() {
+    const { apiCall } = useApi();
     const { showAlert } = useAlert();
 
     const [step, setStep] = useState<StepId>(1);
@@ -11,7 +14,11 @@ export function useGameForm() {
     const [loading, setLoading] = useState(false);
     const [gameData, setGameData] = useState<AiGeneratedData | null>(null);
     const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [gameId, setGameId] = useState<string | null>(null);
     const [submitted, setSubmitted] = useState(false);
+    const [lastPopularityScore, setLastPopularityScore] = useState<
+        number | null
+    >(null);
 
     // TODO: remplacer par le vrai solde utilisateur depuis l'API
     const userTokens = 1500;
@@ -28,27 +35,32 @@ export function useGameForm() {
 
     const tokensRemaining = userTokens - tokensSpent;
 
-    // ── Step 1 → 2 : Analyse IA (300 jetons) ──
-
     const analyzeIdea = useCallback(async () => {
         if (!canAnalyze) return;
 
         setLoading(true);
 
         try {
-            // MOCK: données fictives en attendant l'intégration API
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            const response = await apiCall(ENDPOINTS.ME_GAME_CREATE, {
+                method: 'POST',
+                body: JSON.stringify({ idea }),
+            });
 
-            const response: AiGeneratedData = {
-                prompt: `A surreal cinematic fusion of "${idea}", vibrant colors, detailed digital art`,
-                solution: idea,
-                englishSolution: idea,
-                hint: 'Deux univers improbables se rencontrent...',
-                estimatedDate: '15 mars',
-                popularityScore: 78,
-            };
+            setLastPopularityScore(response.popularityScore);
 
-            setGameData(response);
+            if (!response.game) {
+                return;
+            }
+
+            const { id, date, ...game } = response.game;
+
+            setGameId(id);
+            setGameData({
+                ...game,
+                estimatedDate: date,
+                prompt: response.prompt,
+                popularityScore: response.popularityScore,
+            });
             setStep(2);
         } catch (error) {
             showAlert('Erreur', "L'analyse a échoué, réessaie.", 'error');
@@ -56,15 +68,11 @@ export function useGameForm() {
         } finally {
             setLoading(false);
         }
-    }, [canAnalyze, idea, showAlert]);
-
-    // ── Step 2 : Modifier les données générées ──
+    }, [canAnalyze, idea, apiCall, showAlert]);
 
     const updateGameData = useCallback((partial: Partial<AiGeneratedData>) => {
         setGameData((prev) => (prev ? { ...prev, ...partial } : prev));
     }, []);
-
-    // ── Step 2 : Générer image par IA (500 jetons) ──
 
     const generateImage = useCallback(async () => {
         if (!gameData?.prompt) return;
@@ -72,7 +80,6 @@ export function useGameForm() {
         setLoading(true);
 
         try {
-            // MOCK: image placeholder en attendant l'intégration DALL·E
             await new Promise((resolve) => setTimeout(resolve, 1000));
 
             setImageUrl('https://picsum.photos/1024/1024');
@@ -130,6 +137,37 @@ export function useGameForm() {
         }
     }, [showAlert]);
 
+    // ── Chargement d'une game existante ──
+
+    const loadGame = useCallback(
+        async (id: string) => {
+            setLoading(true);
+
+            try {
+                const response = await apiCall(ENDPOINTS.ME_GAME_SHOW(id));
+
+                const { date, prompt, popularityScore, image, idea: savedIdea, ...game } = response;
+
+                setGameId(id);
+                setIdea(savedIdea ?? '');
+                setGameData({
+                    ...game,
+                    estimatedDate: date,
+                    prompt,
+                    popularityScore,
+                });
+                if (image) setImageUrl(image);
+                setStep(2);
+            } catch (error) {
+                showAlert('Erreur', 'Impossible de charger la partie.', 'error');
+                console.error(error);
+            } finally {
+                setLoading(false);
+            }
+        },
+        [apiCall, showAlert]
+    );
+
     // ── Navigation ──
 
     const goToStep = useCallback(
@@ -145,12 +183,15 @@ export function useGameForm() {
     const reset = useCallback(() => {
         setStep(1);
         setIdea('');
+        setLastPopularityScore(null);
+        setGameId(null);
         setGameData(null);
         setImageUrl(null);
         setSubmitted(false);
     }, []);
 
     return {
+        gameId,
         step,
         idea,
         setIdea,
@@ -158,9 +199,11 @@ export function useGameForm() {
         gameData,
         imageUrl,
         submitted,
+        lastPopularityScore,
         canAnalyze,
         tokensRemaining,
         analyzeIdea,
+        loadGame,
         updateGameData,
         generateImage,
         uploadImage,

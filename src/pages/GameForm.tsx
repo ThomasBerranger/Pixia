@@ -1,4 +1,7 @@
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useGameForm } from '../hooks/useGameForm.ts';
+import { URLS } from '../constants/routes.ts';
 import { CREATE_STEPS } from '../constants/gameForm.ts';
 import Stepper from '../components/Game/Form/Stepper.tsx';
 import AccordionItem from '../components/Game/Form/AccordionItem.tsx';
@@ -8,7 +11,11 @@ import StepImage from '../components/Game/Form/Steps/StepImage.tsx';
 import StepSubmit from '../components/Game/Form/Steps/StepSubmit.tsx';
 
 function GameForm() {
+    const navigate = useNavigate();
+    const { id } = useParams();
+
     const {
+        gameId,
         step,
         idea,
         setIdea,
@@ -16,9 +23,11 @@ function GameForm() {
         gameData,
         imageUrl,
         submitted,
+        lastPopularityScore,
         canAnalyze,
         tokensRemaining,
         analyzeIdea,
+        loadGame,
         updateGameData,
         generateImage,
         uploadImage,
@@ -27,6 +36,23 @@ function GameForm() {
         goToStep,
         reset,
     } = useGameForm();
+
+    useEffect(() => {
+        if (id && !gameId) {
+            loadGame(id);
+        }
+    }, [id, gameId, loadGame]);
+
+    useEffect(() => {
+        if (gameId && !id) {
+            navigate(URLS.ME_GAME_FORM(gameId), { replace: true });
+        }
+    }, [gameId, id, navigate]);
+
+    const handleReset = () => {
+        reset();
+        navigate(URLS.ME_GAME_NEW, { replace: true });
+    };
 
     return (
         <article className="min-h-[89vh] sm:py-2 px-[7vw]">
@@ -47,7 +73,7 @@ function GameForm() {
                     tokensRemaining={tokensRemaining}
                 >
                     {loading && step === 1 ? (
-                        <LoadingOverlay step={step} />
+                        <LoadingOverlay />
                     ) : (
                         <StepIdea
                             idea={idea}
@@ -55,6 +81,7 @@ function GameForm() {
                             onSubmit={analyzeIdea}
                             canSubmit={canAnalyze}
                             loading={loading}
+                            lastPopularityScore={lastPopularityScore}
                         />
                     )}
                 </AccordionItem>
@@ -67,7 +94,7 @@ function GameForm() {
                 >
                     {gameData &&
                         (loading && step === 2 ? (
-                            <LoadingOverlay step={step} />
+                            <LoadingOverlay />
                         ) : (
                             <StepImage
                                 gameData={gameData}
@@ -95,7 +122,7 @@ function GameForm() {
                             imageUrl={imageUrl}
                             onSubmit={submitForReview}
                             onBack={() => goToStep(2)}
-                            onReset={reset}
+                            onReset={handleReset}
                             submitted={submitted}
                         />
                     )}

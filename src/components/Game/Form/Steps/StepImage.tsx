@@ -37,11 +37,6 @@ function StepImage({
 
     return (
         <>
-            {/* Édition */}
-            <p className="text-sm font-righteous text-retro-accent mb-2">
-                Édition
-            </p>
-
             <div className="grid grid-cols-12 items-stretch gap-2 mb-2">
                 {/* Solution */}
                 <div className="col-span-12 sm:col-span-10 order-1">
