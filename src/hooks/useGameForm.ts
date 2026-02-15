@@ -175,7 +175,7 @@ export function useGameForm() {
         } finally {
             setLoading(false);
         }
-    }, [gameId, gameData, apiCall, patchGame, showAlert]);
+    }, [gameId, gameData, patchGame, showAlert]);
 
     // ── Step 2 → 3 : Passer l'image ──
 

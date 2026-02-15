@@ -1,7 +1,8 @@
 import * as React from 'react';
 import type { GameAdminCreateType } from '../../../types/Game/gameAdminCreateType.ts';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useApi } from '../../../hooks/useApi.tsx';
+import { useAuth } from '../../../contexts/authContext.tsx';
 import { useAlert } from '../../../hooks/useAlert.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { DatePicker } from '../../Game/Controls/DatePicker.tsx';
@@ -16,10 +17,19 @@ function PromptGenerator({
 }) {
     const { apiCall } = useApi();
     const { showAlert } = useAlert();
+    const { isSuperAdmin } = useAuth();
 
     const [loading, setLoading] = useState<boolean>(false);
     const [prompt, setPrompt] = useState<string>('');
-    const [unavailableDates, setUnavailableDates] = useState<string[]>([]);
+    const [takenDates, setTakenDates] = useState<string[]>([]);
+
+    const minDate = useMemo(() => {
+        if (isSuperAdmin()) return undefined;
+
+        const d = new Date();
+        d.setDate(d.getDate() + 7);
+        return d.toISOString().split('T')[0];
+    }, [isSuperAdmin]);
 
     async function handleSubmit(e?: React.FormEvent): Promise<void> {
         e?.preventDefault();
@@ -48,20 +58,21 @@ function PromptGenerator({
                 return;
             }
 
-            const games = await apiCall(
-                `${ENDPOINTS.SUPER_ADMIN_GAMES_INDEX}?fields=date`
+            const takenDates: string[] = await apiCall(
+                ENDPOINTS.ADMIN_GAME_TAKEN_DATES
             );
 
-            const unavailableDates = games.map(
-                (game: { date: string }) => game.date.split('T')[0]
-            );
-
-            setUnavailableDates(unavailableDates);
+            setTakenDates(takenDates);
 
             const nextAvailableDate = new Date();
+
+            if (!isSuperAdmin()) {
+                nextAvailableDate.setDate(nextAvailableDate.getDate() + 7);
+            }
+
             let dateStr = nextAvailableDate.toISOString().split('T')[0];
 
-            while (unavailableDates.includes(dateStr)) {
+            while (takenDates.includes(dateStr)) {
                 nextAvailableDate.setDate(nextAvailableDate.getDate() + 1);
                 dateStr = nextAvailableDate.toISOString().split('T')[0];
             }
@@ -161,7 +172,8 @@ function PromptGenerator({
                         onChange={(date) =>
                             setGame((prev) => (prev ? { ...prev, date } : prev))
                         }
-                        unavailableDates={unavailableDates}
+                        unavailableDates={takenDates}
+                        minDate={minDate}
                     />
                 </div>
             ) : (

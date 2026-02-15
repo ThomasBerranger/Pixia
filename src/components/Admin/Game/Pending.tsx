@@ -1,7 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { useModal } from '../../../hooks/useModal.tsx';
+import { useAuth } from '../../../contexts/authContext.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { URLS } from '../../../constants/routes.ts';
 import { CgSpinner } from 'react-icons/cg';
@@ -9,12 +11,19 @@ import { CiImageOff } from 'react-icons/ci';
 import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import type { GameType } from '../../../types/Game/gameType.ts';
+import type { JWTPayloadType } from '../../../types/JWTPayloadType.ts';
 import type { ModalAction } from '../../../contexts/modalContext.tsx';
+import { PiCalendarDots } from 'react-icons/pi';
 
 function Pending() {
     const { apiCall } = useApi();
     const { openModal, closeModal } = useModal();
+    const { token } = useAuth();
     const navigate = useNavigate();
+
+    const currentUsername = token
+        ? jwtDecode<JWTPayloadType>(token).username
+        : null;
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [games, setGames] = useState<GameType[]>([]);
@@ -135,48 +144,105 @@ function Pending() {
                     </h3>
 
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-5">
-                        {monthGames.map((game) => (
-                            <button
-                                key={game.id}
-                                type="button"
-                                onClick={() => handleCardClick(game)}
-                                className="flex flex-col p-6 card-primary-hover text-left"
-                            >
-                                <div className="flex justify-between items-center gap-2 font-righteous">
-                                    <p className="text-retro-muted text-sm">
-                                        {format(parseISO(game.date), 'd MMMM', {
-                                            locale: fr,
-                                        })}
-                                    </p>
-                                </div>
+                        {monthGames.map((game) => {
+                            const hasSupervisor = !!game.supervisor;
+                            const isMySupervision =
+                                game.supervisor?.username === currentUsername;
 
-                                <div className="flex h-full justify-center items-center">
-                                    {game.image ? (
-                                        <img
-                                            src={`${import.meta.env.VITE_API_URL}${game.image}`}
-                                            alt="AI created image"
-                                            className="h-full object-contain rounded-md mt-1.5"
-                                        />
-                                    ) : (
-                                        <CiImageOff className="text-retro-muted text-4xl my-3" />
-                                    )}
-                                </div>
+                            const cardContent = (
+                                <>
+                                    <div className="flex justify-between items-center gap-2 font-righteous">
+                                        <p className="text-retro-muted text-sm flex truncate">
+                                            <PiCalendarDots className="text-lg mr-1" />
+                                            {format(
+                                                parseISO(game.date),
+                                                'd MMMM',
+                                                { locale: fr }
+                                            )}
+                                        </p>
+                                    </div>
 
-                                <div className="mt-auto pt-2 flex items-center gap-2">
-                                    <img
-                                        src={
-                                            game.author.avatarUrl ??
-                                            `${import.meta.env.VITE_DICE_URL}${game.author.username}`
-                                        }
-                                        alt="Avatar"
-                                        className="h-8 rounded-full"
-                                    />
-                                    <p className="font-righteous text-sm text-retro-muted truncate">
-                                        {game.author.username}
-                                    </p>
+                                    <div className="flex h-full justify-center items-center">
+                                        {game.image ? (
+                                            <img
+                                                src={`${import.meta.env.VITE_API_URL}${game.image}`}
+                                                alt="AI created image"
+                                                className="h-full object-contain rounded-md mt-1.5"
+                                            />
+                                        ) : (
+                                            <CiImageOff className="text-retro-muted text-4xl my-3" />
+                                        )}
+                                    </div>
+
+                                    <div className="mt-auto pt-2 flex flex-col sm:flex-row justify-between gap-1.5">
+                                        <div className="flex items-center gap-0.5 sm:gap-2">
+                                            <img
+                                                src={
+                                                    game.author.avatarUrl ??
+                                                    `${import.meta.env.VITE_DICE_URL}${game.author.username}`
+                                                }
+                                                alt="Avatar"
+                                                className="h-8 rounded-full"
+                                            />
+                                            <p className="font-righteous text-xs sm:text-sm text-retro-muted truncate">
+                                                {game.author.username}
+                                            </p>
+                                        </div>
+
+                                        {game.supervisor && (
+                                            <div className="flex items-center gap-0.5 sm:gap-2">
+                                                <img
+                                                    src={
+                                                        game.supervisor
+                                                            .avatarUrl ??
+                                                        `${import.meta.env.VITE_DICE_URL}${game.supervisor.username}`
+                                                    }
+                                                    alt="Avatar"
+                                                    className="h-8 rounded-full"
+                                                />
+                                                <p className="font-righteous text-xs sm:text-sm text-retro-accent truncate">
+                                                    {game.supervisor.username}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </>
+                            );
+
+                            if (!hasSupervisor) {
+                                return (
+                                    <button
+                                        key={game.id}
+                                        type="button"
+                                        onClick={() => handleCardClick(game)}
+                                        className="flex flex-col p-6 card-primary-hover text-left"
+                                    >
+                                        {cardContent}
+                                    </button>
+                                );
+                            }
+
+                            if (isMySupervision) {
+                                return (
+                                    <Link
+                                        key={game.id}
+                                        to={URLS.ADMIN_GAME_EDIT(game.id)}
+                                        className="flex flex-col p-6 card-primary-hover text-left"
+                                    >
+                                        {cardContent}
+                                    </Link>
+                                );
+                            }
+
+                            return (
+                                <div
+                                    key={game.id}
+                                    className="flex flex-col p-6 card-retro cursor-default text-left"
+                                >
+                                    {cardContent}
                                 </div>
-                            </button>
-                        ))}
+                            );
+                        })}
                     </div>
                 </section>
             ))}

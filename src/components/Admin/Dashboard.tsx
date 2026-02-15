@@ -43,7 +43,12 @@ function Dashboard() {
     });
 
     const gamesByDate = useMemo(
-        () => new Map(games.map((g) => [g.date.split('T')[0], g])),
+        () =>
+            new Map(
+                games
+                    .filter((g) => g.status === GAME_STATUSES.APPROVED)
+                    .map((g) => [g.date.split('T')[0], g])
+            ),
         [games]
     );
 

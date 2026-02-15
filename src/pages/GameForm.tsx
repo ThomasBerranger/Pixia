@@ -35,7 +35,6 @@ function GameForm() {
         skipImage,
         submitForReview,
         goToStep,
-        reset,
     } = useGameForm();
 
     useEffect(() => {

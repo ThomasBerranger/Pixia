@@ -43,6 +43,7 @@ export const ENDPOINTS = {
     ADMIN_GAMES_INDEX: 'admin/games',
     ADMIN_GAME_UPDATE: (id: string) => `admin/games/${id}`,
     ADMIN_GAME_IMAGE_EDIT: (id: string) => `admin/games/${id}/image`,
+    ADMIN_GAME_TAKEN_DATES: 'admin/games/taken-dates',
     ADMIN_GAME_SOLUTION_EXIST: (solution: string) =>
         `admin/games/solution-exist?solution=${solution}`,
     // SUPER ADMIN

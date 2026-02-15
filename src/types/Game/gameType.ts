@@ -12,6 +12,6 @@ export interface GameType {
     image?: string;
     author: UserType;
     createdAt: string;
-    supervisor: UserType;
+    supervisor?: UserType | null;
     status: keyof typeof GAME_STATUSES;
 }

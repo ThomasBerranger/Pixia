@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import * as React from 'react';
 import { useParams } from 'react-router-dom';
 import { useApi } from '../../hooks/useApi.tsx';
+import { useAuth } from '../../contexts/authContext.tsx';
 import type { GameAdminType } from '../../types/Game/gameAdminType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useAlert } from '../../hooks/useAlert.ts';
@@ -13,11 +14,20 @@ function AdminGameEdit() {
     const { id } = useParams<{ id: string }>();
     const { apiCall } = useApi();
     const { showAlert } = useAlert();
+    const { isSuperAdmin } = useAuth();
 
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [game, setGame] = useState<GameAdminType>();
-    const [unavailableDates, setUnavailableDates] = useState<string[]>([]);
+    const [takenDates, setTakenDates] = useState<string[]>([]);
+
+    const minDate = useMemo(() => {
+        if (isSuperAdmin()) return undefined;
+
+        const d = new Date();
+        d.setDate(d.getDate() + 7);
+        return d.toISOString().split('T')[0];
+    }, [isSuperAdmin]);
 
     useEffect(() => {
         if (!id) {
@@ -30,15 +40,12 @@ function AdminGameEdit() {
 
                 setGame(response);
 
-                const games = await apiCall(
-                    `${ENDPOINTS.SUPER_ADMIN_GAMES_INDEX}?fields=date`
+                const takenDates: string[] = await apiCall(
+                    ENDPOINTS.ADMIN_GAME_TAKEN_DATES
                 );
 
-                const unavailableDates = games.map(
-                    (game: { date: string }) => game.date.split('T')[0]
-                );
-
-                setUnavailableDates(unavailableDates);
+                const gameDate = response.date?.split('T')[0];
+                setTakenDates(takenDates.filter((d) => d !== gameDate));
             } catch (error) {
                 console.error('Erreur: ', error);
             }
@@ -197,7 +204,8 @@ function AdminGameEdit() {
                                         prev ? { ...prev, date } : prev
                                     )
                                 }
-                                unavailableDates={unavailableDates}
+                                unavailableDates={takenDates}
+                                minDate={minDate}
                             />
                         </div>
 
@@ -267,11 +275,7 @@ function AdminGameEdit() {
                             <input
                                 disabled
                                 id="author"
-                                value={
-                                    game?.author && game?.author
-                                        ? game.author.username
-                                        : ''
-                                }
+                                value={game?.author?.username ?? ''}
                                 className="input-retro p-2 cursor-not-allowed"
                             />
                         </div>
