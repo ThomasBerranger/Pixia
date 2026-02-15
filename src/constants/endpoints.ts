@@ -45,9 +45,6 @@ export const ENDPOINTS = {
     ADMIN_GAME_IMAGE_EDIT: (id: string) => `admin/games/${id}/image`,
     ADMIN_GAME_SOLUTION_EXIST: (solution: string) =>
         `admin/games/solution-exist?solution=${solution}`,
-    ADMIN_CONTRIBUTION_INDEX: 'admin/contributions',
-    ADMIN_CONTRIBUTION_UPDATE: (id: string) => `admin/contributions/${id}`,
-
     // SUPER ADMIN
     SUPER_ADMIN_IMPERSONATE: (email: string) =>
         `super-admin/impersonate/${email}`,
@@ -55,6 +52,9 @@ export const ENDPOINTS = {
         `super-admin/toggle-ban/${email}`,
     SUPER_ADMIN_USER_INDEX: 'super-admin/users',
     SUPER_ADMIN_GAMES_INDEX: 'super-admin/games',
+    SUPER_ADMIN_CONTRIBUTION_INDEX: 'super-admin/contributions',
+    SUPER_ADMIN_CONTRIBUTION_UPDATE: (id: string) =>
+        `super-admin/contributions/${id}`,
 
     // OPEN_AI
     OPEN_AI_GENERATE_CONTENT: 'open-api/generate-content',
