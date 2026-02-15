@@ -21,6 +21,7 @@ export const PATHS = {
     ADMIN_GAMES: 'games',
     ADMIN_GENERATOR: 'game-generator',
     ADMIN_GAME_EDIT: 'games/:id',
+    ADMIN_PENDING_GAMES: 'pending-games',
     // Admin
     SUPER_ADMIN: '/super-admin',
     SUPER_ADMIN_USERS: 'users',
@@ -55,6 +56,7 @@ export const URLS = {
     ADMIN_GAMES: '/admin/games',
     ADMIN_GENERATOR: '/admin/game-generator',
     ADMIN_GAME_EDIT: (id: string) => `/admin/games/${id}`,
+    ADMIN_PENDING_GAMES: '/admin/pending-games',
     // Super Admin
     SUPER_ADMIN: '/super-admin',
     SUPER_ADMIN_USERS: '/super-admin/users',

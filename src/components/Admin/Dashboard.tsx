@@ -110,7 +110,7 @@ function Dashboard() {
                     </p>
                 </div>
                 <Link
-                    to={URLS.HOME}
+                    to={URLS.ADMIN_PENDING_GAMES}
                     className="card-primary-hover w-full text-center relative"
                 >
                     <p className="font-title text-retro-accent text-4xl">
@@ -128,7 +128,7 @@ function Dashboard() {
                     </p>
                 </Link>
                 <Link
-                    to={URLS.HOME}
+                    to={URLS.ADMIN_PENDING_GAMES}
                     className="card-primary-hover w-full text-center relative"
                 >
                     <p className="font-title text-retro-accent text-4xl">

@@ -1,8 +1,15 @@
 import { IoClose } from 'react-icons/io5';
 import { useModal } from '../hooks/useModal.tsx';
+import type { ModalAction } from '../contexts/modalContext.tsx';
+
+const ACTION_STYLES: Record<NonNullable<ModalAction['variant']>, string> = {
+    primary: 'btn-pixel',
+    danger: 'btn-pixel bg-red-600 hover:bg-red-700',
+    ghost: 'btn-ghost',
+};
 
 function Modal() {
-    const { isOpen, header, content, closeModal } = useModal();
+    const { isOpen, header, content, actions, closeModal } = useModal();
 
     if (!isOpen) return null;
 
@@ -25,6 +32,22 @@ function Modal() {
                     </button>
                 </div>
                 {content}
+                {actions.length > 0 && (
+                    <div
+                        className={`flex gap-3 mt-6 ${actions.length > 1 ? 'justify-between' : 'justify-end'}`}
+                    >
+                        {actions.map((action) => (
+                            <button
+                                key={action.label}
+                                type="button"
+                                onClick={action.onClick}
+                                className={`px-4 py-2 text-sm font-righteous ${ACTION_STYLES[action.variant ?? 'primary']}`}
+                            >
+                                {action.label}
+                            </button>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );

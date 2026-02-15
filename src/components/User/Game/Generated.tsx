@@ -55,14 +55,12 @@ function List() {
                         <CgSpinner className="animate-spin text-4xl" />
                     ) : (
                         <>
-                            <p className="-mb-1.5">
-                                <span className="font-title text-4xl">
-                                    {userGeneratedGames?.length}
-                                </span>
+                            <p className="font-title text-4xl -mb-1.5">
+                                {userGeneratedGames?.length}
                             </p>
-                            <span className="font-righteous text-sm text-retro-muted">
+                            <p className="font-righteous text-sm text-retro-muted">
                                 générées
-                            </span>
+                            </p>
                         </>
                     )}
                 </div>
@@ -101,32 +99,33 @@ function List() {
                 </Link>
 
                 {userGeneratedGames?.map((game: GameType) => {
-                    const { icon: StatusIcon } =
+                    const { label: statusLabel } =
                         GAME_STATUS_CONFIG[game.status];
+                    const isDraft = game.status === GAME_STATUSES.DRAFT;
+                    const gameDate = parseISO(game.date);
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    const isPlayable =
+                        game.status === GAME_STATUSES.APPROVED &&
+                        gameDate <= today;
 
-                    return (
-                        <Link
-                            key={`${game.type}-${game.date}`}
-                            to={URLS.ADMIN_GAME_EDIT(game.id)}
-                            className={`flex flex-col p-6 ${game.status === GAME_STATUSES.DRAFT ? 'card-primary-hover' : 'card-retro-hover-retro-accent'}`}
-                        >
+                    const cardContent = (
+                        <>
                             <div className="flex justify-between items-center gap-2 font-righteous">
                                 <p className="text-retro-muted text-sm">
                                     {format(parseISO(game.date), 'd MMMM', {
                                         locale: fr,
                                     })}
                                 </p>
-                                <StatusIcon className="text-retro-primary text-lg" />
+                                <span className={`inline-flex items-center gap-1 text-xs ${game.status === GAME_STATUSES.APPROVED ? 'text-retro-success' : 'text-retro-primary'}`}>
+                                    {statusLabel}
+                                </span>
                             </div>
 
                             <div className="flex h-full justify-center items-center">
-                                {game && game.image ? (
+                                {game.image ? (
                                     <img
-                                        src={
-                                            game && game.image
-                                                ? `${import.meta.env.VITE_API_URL}${game.image}`
-                                                : 'https://placehold.co/800x400?text=Chargement'
-                                        }
+                                        src={`${import.meta.env.VITE_API_URL}${game.image}`}
                                         alt="AI created image"
                                         className="h-full object-contain rounded-md mt-1.5"
                                     />
@@ -135,10 +134,46 @@ function List() {
                                 )}
                             </div>
 
-                            <p className="mt-auto pt-2 flex justify-end items-center font-righteous text-retro-accent text-xs">
-                                Voir <BiSolidRightArrow className="ml-1" />
-                            </p>
-                        </Link>
+                            {(isDraft || isPlayable) && (
+                                <p className="mt-auto pt-2 flex justify-end items-center font-righteous text-retro-accent text-xs">
+                                    {isDraft ? 'Modifier' : 'Jouer'}{' '}
+                                    <BiSolidRightArrow className="ml-1" />
+                                </p>
+                            )}
+                        </>
+                    );
+
+                    if (isDraft) {
+                        return (
+                            <Link
+                                key={game.id}
+                                to={URLS.ME_GAME_FORM(game.id)}
+                                className="flex flex-col p-6 card-primary-hover"
+                            >
+                                {cardContent}
+                            </Link>
+                        );
+                    }
+
+                    if (isPlayable) {
+                        return (
+                            <Link
+                                key={game.id}
+                                to={URLS.GAME_BY_DATE(game.date.split('T')[0])}
+                                className="flex flex-col p-6 card-retro-hover-retro-accent"
+                            >
+                                {cardContent}
+                            </Link>
+                        );
+                    }
+
+                    return (
+                        <div
+                            key={game.id}
+                            className="flex flex-col p-6 card-retro cursor-default"
+                        >
+                            {cardContent}
+                        </div>
                     );
                 })}
             </section>
