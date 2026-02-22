@@ -6,6 +6,7 @@ import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { RxDotFilled } from 'react-icons/rx';
 import { FaCheck } from 'react-icons/fa';
+import { toDateKey } from '../../../utils/date.ts';
 
 function GameContent({
     game,
@@ -105,7 +106,7 @@ function GameContent({
                 )}
 
                 {nextGameDate &&
-                    nextGameDate <= new Date().toISOString().split('T')[0] && (
+                    nextGameDate <= toDateKey(new Date()) && (
                         <ChangeGameButton
                             date={nextGameDate}
                             isNext={true}
@@ -126,7 +127,7 @@ function GameContent({
                 )}
 
                 {nextGameDate &&
-                    nextGameDate <= new Date().toISOString().split('T')[0] && (
+                    nextGameDate <= toDateKey(new Date()) && (
                         <MobileChangeGameButton
                             date={nextGameDate}
                             isNext={true}

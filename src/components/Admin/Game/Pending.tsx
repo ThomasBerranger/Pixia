@@ -14,6 +14,7 @@ import type { GameType } from '../../../types/Game/gameType.ts';
 import type { JWTPayloadType } from '../../../types/JWTPayloadType.ts';
 import type { ModalAction } from '../../../contexts/modalContext.tsx';
 import { PiCalendarDots } from 'react-icons/pi';
+import { IoArrowBack } from 'react-icons/io5';
 
 function Pending() {
     const { apiCall } = useApi();
@@ -115,28 +116,38 @@ function Pending() {
 
     return (
         <article className="min-h-[89vh] py-10 px-[7vw]">
-            <section className="flex justify-between items-center">
-                <h2 className="font-title text-retro-accent text-4xl">
-                    En attente
-                </h2>
-                <div className="text-retro-primary whitespace-nowrap text-right">
-                    {isLoading ? (
-                        <CgSpinner className="animate-spin text-4xl" />
-                    ) : (
-                        <>
-                            <p className="font-title text-4xl -mb-1.5">
-                                {games.length}
-                            </p>
-                            <p className="font-righteous text-sm text-retro-muted">
-                                en attente
-                            </p>
-                        </>
-                    )}
+            <section>
+                <div className="flex justify-between items-center">
+                    <h2 className="font-title text-retro-accent text-4xl">
+                        En attente
+                    </h2>
+                    <div className="text-retro-primary whitespace-nowrap text-right">
+                        {isLoading ? (
+                            <CgSpinner className="animate-spin text-4xl" />
+                        ) : (
+                            <>
+                                <p className="font-title text-4xl -mb-1.5">
+                                    {games.length}
+                                </p>
+                                <p className="font-righteous text-sm text-retro-muted">
+                                    en attente
+                                </p>
+                            </>
+                        )}
+                    </div>
                 </div>
+
+                <Link
+                    to={URLS.ADMIN}
+                    className="btn-ghost px-3 py-1.5 text-sm inline-flex items-center gap-1 mt-2"
+                >
+                    <IoArrowBack />
+                    Retour au studio
+                </Link>
             </section>
 
             {[...gamesByMonth.entries()].map(([monthKey, monthGames]) => (
-                <section key={monthKey} className="mt-6 sm:mt-10">
+                <section key={monthKey} className="mt-6">
                     <h3 className="font-title text-retro-primary text-2xl capitalize mb-4">
                         {format(parseISO(`${monthKey}-01`), 'MMMM yyyy', {
                             locale: fr,

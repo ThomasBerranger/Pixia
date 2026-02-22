@@ -10,7 +10,7 @@ export const TOKEN_COSTS = {
     analysis: 300,
     imageGenerate: 500,
     imageUpload: 200,
-    submit: 200,
+    submit: 100,
 } as const;
 
 export const LOADING_TIPS: string[] = [
@@ -21,9 +21,11 @@ export const LOADING_TIPS: string[] = [
     "Les images colorées et lumineuses ont plus de chances d'être validées.",
     "Les films doivent être facilement reconnaissables sur l'image générée.",
     "Pour les franchises, inutile de préciser l'épisode.",
+    "Les acteurs et personnages sont protégés par le copyright, ce qui peut bloquer la génération d'image",
 ];
 
 export const IDEA_MIN_LENGTH = 10;
 
-export const POPULARITY_MIN = 50;
-export const TOKEN_REFUND_LOW_POPULARITY = 150;
+export const TOKEN_REFUND_LOW_NOTORIETY = 150;
+
+export const MIN_NOTORIETY_SCORE = 50;

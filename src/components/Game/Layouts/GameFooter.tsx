@@ -9,7 +9,6 @@ import { FaCheck } from 'react-icons/fa';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { useNavigate } from 'react-router-dom';
-import { MdTipsAndUpdates } from 'react-icons/md';
 
 function GameFooter({
     game,
@@ -154,10 +153,7 @@ function GameFooter({
                             {isHintAsked && !game?.hint ? (
                                 <FaCheck size={18} className="mx-auto" />
                             ) : (
-                                <MdTipsAndUpdates
-                                    size={18}
-                                    className="mx-auto"
-                                />
+                                <span className="tracking-wider">indice</span>
                             )}
                         </button>
                         <div className="col-span-full sm:col-span-7 order-1">

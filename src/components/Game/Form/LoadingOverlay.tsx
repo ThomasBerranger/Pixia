@@ -6,7 +6,7 @@ function LoadingOverlay() {
 
     useEffect(() => {
         setTipIndex(0);
-        const interval = setInterval(() => setTipIndex((p) => p + 1), 3800);
+        const interval = setInterval(() => setTipIndex((p) => p + 1), 4500);
 
         return () => clearInterval(interval);
     }, []);

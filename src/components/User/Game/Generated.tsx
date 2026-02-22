@@ -23,17 +23,19 @@ function List() {
     const [userGeneratedGames, setUserGeneratedGames] = useState<
         GameType[] | null
     >(null);
+    const [tokens, setTokens] = useState<number>(0);
 
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
 
             try {
-                const userGeneratedGames: GameType[] = await apiCall(
+                const { games, tokens } = (await apiCall(
                     ENDPOINTS.ME_GAMES_GENERATED
-                );
+                )) as { games: GameType[]; tokens: number };
 
-                setUserGeneratedGames(userGeneratedGames);
+                setUserGeneratedGames(games);
+                setTokens(tokens);
             } catch (error) {
                 console.error(error);
             } finally {
@@ -48,7 +50,7 @@ function List() {
         <article className="min-h-[89vh] py-10 px-[7vw]">
             <section className="flex justify-between items-center">
                 <h2 className="font-title text-retro-accent text-4xl">
-                    Parties générées
+                    Mes parties
                 </h2>
                 <div className="text-retro-primary whitespace-nowrap text-right">
                     {isLoading ? (
@@ -67,47 +69,67 @@ function List() {
             </section>
 
             <section className="grid grid-cols-2 sm:grid-cols-4 gap-5 mt-6 sm:mt-10">
-                <Link
-                    to={URLS.ME_GAME_NEW}
-                    className="flex flex-col card-primary-hover p-6"
-                >
-                    <div className="flex items-center gap-2">
-                        <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase">
-                            Nouvelle image
-                        </h3>
-                    </div>
-
-                    <div className="flex-1 flex flex-col items-center justify-center mt-2.5 mb-0.5">
-                        <div className="flex items-center w-full">
-                            <ProgressBar
-                                label={''}
-                                value={465}
-                                max={1000}
-                                size={'md'}
-                            />
-                            <PiCoinsFill className="text-retro-muted text-2xl ml-1" />
+                {tokens >= 1000 ? (
+                    <Link
+                        to={URLS.ME_GAME_NEW}
+                        className="flex flex-col card-primary-hover p-6"
+                    >
+                        <div className="flex items-center gap-2">
+                            <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase">
+                                Nouvelle image
+                            </h3>
                         </div>
-                        <p className="text-retro-muted font-righteous text-xs sm:text-sm mt-1">
-                            Utilise tes jetons pour générer un prompt, une image
-                            et la publier !
-                        </p>
-                    </div>
 
-                    <p className="mt-auto pt-2 flex justify-end items-center font-righteous text-retro-accent text-xs">
-                        Générer <BiSolidRightArrow className="ml-1" />
-                    </p>
-                </Link>
+                        <div className="flex-1 flex flex-col items-center justify-center mt-2.5 mb-0.5">
+                            <div className="flex items-center w-full">
+                                <ProgressBar
+                                    label={''}
+                                    value={tokens}
+                                    max={1000}
+                                    size={'md'}
+                                />
+                                <PiCoinsFill className="text-retro-muted text-2xl ml-1" />
+                            </div>
+                            <p className="text-retro-muted font-righteous text-xs sm:text-sm mt-1.5">
+                                Utilise tes jetons pour générer une partie et la
+                                publier !
+                            </p>
+                        </div>
+
+                        <p className="mt-auto pt-2 flex justify-end items-center font-righteous text-retro-accent text-xs">
+                            Générer <BiSolidRightArrow className="ml-1" />
+                        </p>
+                    </Link>
+                ) : (
+                    <div className="flex flex-col card-retro p-6 ursor-default">
+                        <div className="flex items-center gap-2">
+                            <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase">
+                                Nouvelle image
+                            </h3>
+                        </div>
+
+                        <div className="flex-1 flex flex-col items-center justify-center mt-2.5 mb-0.5">
+                            <div className="flex items-center w-full">
+                                <ProgressBar
+                                    label={''}
+                                    value={tokens}
+                                    max={1000}
+                                    size={'md'}
+                                />
+                                <PiCoinsFill className="text-retro-muted text-2xl ml-1" />
+                            </div>
+                            <p className="text-retro-muted font-righteous text-xs sm:text-sm mt-1.5">
+                                Pas assez de jetons pour générer une partie.
+                            </p>
+                        </div>
+                    </div>
+                )}
 
                 {userGeneratedGames?.map((game: GameType) => {
-                    const { label: statusLabel } =
-                        GAME_STATUS_CONFIG[game.status];
+                    const statusLabel =
+                        GAME_STATUS_CONFIG[game.status]?.label ?? game.status;
                     const isDraft = game.status === GAME_STATUSES.DRAFT;
-                    const gameDate = parseISO(game.date);
-                    const today = new Date();
-                    today.setHours(0, 0, 0, 0);
-                    const isPlayable =
-                        game.status === GAME_STATUSES.APPROVED &&
-                        gameDate <= today;
+                    const isPending = game.status === GAME_STATUSES.PENDING;
 
                     const cardContent = (
                         <>
@@ -117,12 +139,14 @@ function List() {
                                         locale: fr,
                                     })}
                                 </p>
-                                <span className={`inline-flex items-center gap-1 text-xs ${game.status === GAME_STATUSES.APPROVED ? 'text-retro-success' : 'text-retro-primary'}`}>
+                                <span
+                                    className={`inline-flex items-center gap-1 text-xs ${game.status === GAME_STATUSES.APPROVED ? 'text-retro-success' : 'text-retro-primary'}`}
+                                >
                                     {statusLabel}
                                 </span>
                             </div>
 
-                            <div className="flex h-full justify-center items-center">
+                            <div className="flex h-full justify-center items-center py-1.5">
                                 {game.image ? (
                                     <img
                                         src={`${import.meta.env.VITE_API_URL}${game.image}`}
@@ -134,9 +158,9 @@ function List() {
                                 )}
                             </div>
 
-                            {(isDraft || isPlayable) && (
+                            {!isPending && (
                                 <p className="mt-auto pt-2 flex justify-end items-center font-righteous text-retro-accent text-xs">
-                                    {isDraft ? 'Modifier' : 'Jouer'}{' '}
+                                    {isDraft ? 'Modifier' : 'Voir'}{' '}
                                     <BiSolidRightArrow className="ml-1" />
                                 </p>
                             )}
@@ -155,25 +179,25 @@ function List() {
                         );
                     }
 
-                    if (isPlayable) {
+                    if (isPending) {
                         return (
-                            <Link
+                            <div
                                 key={game.id}
-                                to={URLS.GAME_BY_DATE(game.date.split('T')[0])}
-                                className="flex flex-col p-6 card-retro-hover-retro-accent"
+                                className="flex flex-col p-6 card-retro cursor-default"
                             >
                                 {cardContent}
-                            </Link>
+                            </div>
                         );
                     }
 
                     return (
-                        <div
+                        <Link
                             key={game.id}
-                            className="flex flex-col p-6 card-retro cursor-default"
+                            to={URLS.ME_GAME_DETAIL(game.id)}
+                            className="flex flex-col p-6 card-primary-hover"
                         >
                             {cardContent}
-                        </div>
+                        </Link>
                     );
                 })}
             </section>

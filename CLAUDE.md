@@ -3,6 +3,63 @@
 ## Projet
 Pixia est un jeu web quotidien où les joueurs devinent 2 films à partir d'une image générée par IA. Front React hébergé sur Vercel, API Symfony sur Railway.
 
+## Concept du jeu
+Chaque jour, une image générée par IA représente la fusion de 2 films. Les joueurs doivent deviner les 2 titres. Chaque partie a une difficulté (SIMPLE, VICIEUX, TORDU, DIABOLIQUE, IMPOSSIBLE) qui détermine les points gagnés. Un indice est disponible mais réduit les points. Les parties sont créées par la communauté puis validées par les admins avant publication.
+
+## Rôles et permissions
+
+### Joueur anonyme
+- Jouer aux parties quotidiennes
+- Consulter le leaderboard et les profils
+
+### Utilisateur authentifié (ROLE_USER)
+- Jouer avec suivi des stats (victoires, streak, rang)
+- Gagner des jetons (= points marqués en jouant)
+- Créer des parties via le formulaire en 3 étapes (idée → image → envoi)
+- Gérer son profil et personnaliser son avatar (DiceBear)
+- Soumettre des contributions (suggestions de jeu, bugs)
+- Consulter ses badges et achievements
+
+### Admin (ROLE_ADMIN)
+- Dashboard Studio : vue mensuelle des parties planifiées, en montage, sans image, par difficulté
+- Gérer les parties en attente (`/admin/pending-games`) : réclamer la supervision d'une partie
+- Superviser une partie (`/admin/games/:id`) : éditer solution/indice/difficulté/date/image, valider ou refuser
+- Contrainte : date de publication minimum J+7 (sauf super admin)
+
+### Super Admin (ROLE_SUPER_ADMIN)
+- Tout ce que l'admin peut faire, sans restriction de date
+- Gestion des utilisateurs : voir, bannir, impersonate
+- Vue calendrier de toutes les parties
+- Gestion des contributions (valider/refuser les suggestions et bugs)
+
+## Cycle de vie d'une partie
+1. **Création (User)** : idée analysée par l'IA → brouillon (`DRAFT`)
+2. **Image (User)** : génération IA (500 jetons), upload perso (200 jetons) ou skip
+3. **Soumission (User)** : envoi pour validation → `PENDING` (100 jetons)
+4. **Supervision (Admin)** : un admin réclame la partie, édite si besoin, valide ou refuse → `APPROVED` / `REJECTED`
+5. **Publication** : la partie apparaît automatiquement à sa date programmée
+
+## Système de jetons
+Les jetons se gagnent en jouant (autant que de points marqués). Ils se dépensent pour créer des parties :
+
+| Étape | Coût |
+|-------|------|
+| Analyse de l'idée | 300 |
+| Génération IA d'image | 500 |
+| Upload image perso | 200 |
+| Soumission | 100 |
+
+Remboursement de 150 jetons si la notoriété des films est trop basse (< 50%). Minimum 1000 jetons requis pour lancer une création.
+
+## Points par difficulté
+| Difficulté | Points |
+|------------|--------|
+| SIMPLE | 10 |
+| VICIEUX | 10 |
+| TORDU | 25 |
+| DIABOLIQUE | 50 |
+| IMPOSSIBLE | 50 |
+
 ## Stack
 - React 19 + TypeScript 5.8 + Vite 7
 - Tailwind CSS 3 (utility-first, pas de CSS custom sauf exception)

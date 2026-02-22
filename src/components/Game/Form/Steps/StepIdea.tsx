@@ -1,11 +1,12 @@
 import {
     IDEA_MIN_LENGTH,
-    POPULARITY_MIN,
+    MIN_NOTORIETY_SCORE,
     TOKEN_COSTS,
-    TOKEN_REFUND_LOW_POPULARITY,
+    TOKEN_REFUND_LOW_NOTORIETY,
 } from '../../../../constants/gameForm.ts';
 import { PiCoinsFill } from 'react-icons/pi';
 import TextareaRetro from '../../../../atoms/TextareaRetro.tsx';
+import type { RejectionData } from '../../../../types/gameFormType.tsx';
 
 interface StepIdeaProps {
     idea: string;
@@ -13,7 +14,7 @@ interface StepIdeaProps {
     onSubmit: () => void;
     canSubmit: boolean;
     loading: boolean;
-    lastPopularityScore: number | null;
+    rejectionData: RejectionData | null;
 }
 
 function StepIdea({
@@ -22,10 +23,8 @@ function StepIdea({
     onSubmit,
     canSubmit,
     loading,
-    lastPopularityScore,
+    rejectionData,
 }: StepIdeaProps) {
-    const isRejected =
-        lastPopularityScore !== null && lastPopularityScore < POPULARITY_MIN;
     return (
         <>
             {/* Explication */}
@@ -34,7 +33,7 @@ function StepIdea({
                 <p className="text-xs text-white/60 leading-relaxed">
                     Décris ta fusion de 2 films. L'IA va analyser ton concept,
                     générer un prompt artistique, trouver la solution, un indice
-                    et estimer la popularité.
+                    et estimer la notoriété.
                 </p>
                 <p className="text-xs text-white/60 leading-relaxed">
                     Tu pourras ensuite générer une image par IA, importer la
@@ -49,15 +48,20 @@ function StepIdea({
             </div>
 
             {/* Message de rejet */}
-            {isRejected && (
-                <div className="p-3 mb-4 bg-retro-primary/10">
-                    <p className="text-center text-sm font-righteous text-retro-primary leading-relaxed tracking-wide">
-                        Les films proposés ne sont pas assez connus (popularité{' '}
-                        {lastPopularityScore}%).{' '}
-                        <span className="text-retro-success/90">
-                            Tu as été remboursé de {TOKEN_REFUND_LOW_POPULARITY}{' '}
-                            jetons.
-                        </span>
+            {rejectionData && (
+                <div className="p-3 mb-4 bg-retro-primary/10 space-y-2">
+                    <p className="text-center text-sm font-righteous text-retro-primary tracking-wide">
+                        {rejectionData.message} (notoriété {rejectionData.score}% &lt; {MIN_NOTORIETY_SCORE}%)
+                    </p>
+                    <div className="flex justify-center gap-4">
+                        {rejectionData.films.map((film) => (
+                            <p key={film.titre} className="text-xs font-righteous text-white/70">
+                                {film.titre} — <span className="text-retro-accent">{film.score}%</span>
+                            </p>
+                        ))}
+                    </div>
+                    <p className="text-center text-xs font-righteous text-retro-success/90">
+                        Tu as été remboursé de {TOKEN_REFUND_LOW_NOTORIETY} jetons.
                     </p>
                 </div>
             )}

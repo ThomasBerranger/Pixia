@@ -37,6 +37,7 @@ const UserGameForm = lazy(() => import('./pages/GameForm.tsx'));
 const UserGeneratedGames = lazy(
     () => import('./components/User/Game/Generated.tsx')
 );
+const UserGameDetail = lazy(() => import('./components/User/Game/Detail.tsx'));
 
 // Lazy — admin
 const AdminPendingGames = lazy(
@@ -45,7 +46,9 @@ const AdminPendingGames = lazy(
 const AdminGameGenerator = lazy(
     () => import('./components/Admin/GameGenerator/GameGenerator.tsx')
 );
-const AdminGameEdit = lazy(() => import('./components/Admin/GameEdit.tsx'));
+const Supervision = lazy(
+    () => import('./components/Admin/Game/Supervision.tsx')
+);
 const AdminDashboard = lazy(() => import('./components/Admin/Dashboard.tsx'));
 
 // Lazy — super admin
@@ -143,6 +146,10 @@ function App() {
                                         element={<UserGeneratedGames />}
                                     />
                                     <Route
+                                        path={PATHS.ME_GAME_DETAIL}
+                                        element={<UserGameDetail />}
+                                    />
+                                    <Route
                                         path={PATHS.ME_NOTIFICATIONS}
                                         element={<Notification />}
                                     />
@@ -183,7 +190,7 @@ function App() {
                                 }
                             >
                                 <Route
-                                    path={PATHS.ADMIN_GAMES}
+                                    index
                                     element={<AdminDashboard />}
                                 />
                                 <Route
@@ -196,7 +203,7 @@ function App() {
                                 />
                                 <Route
                                     path={PATHS.ADMIN_GAME_EDIT}
-                                    element={<AdminGameEdit />}
+                                    element={<Supervision />}
                                 />
                             </Route>
 

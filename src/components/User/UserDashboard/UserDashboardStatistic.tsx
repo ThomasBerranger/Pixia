@@ -10,12 +10,16 @@ export default function UserDashboardStatistic({
     rank,
     streak,
     playerCount,
+    authoredGameCount,
+    tokens,
 }: {
     success: number | undefined;
     games: number | undefined;
     rank: number | undefined;
     streak: Record<string, number> | undefined;
     playerCount: number | undefined;
+    authoredGameCount: number | undefined;
+    tokens: number | undefined;
 }) {
     return (
         <>
@@ -41,13 +45,15 @@ export default function UserDashboardStatistic({
                             background: `conic-gradient(#ff006e 0deg ${((success ?? 0) / (games ?? 1)) * 360}deg, #0a0e27 ${((success ?? 0) / (games ?? 1)) * 360}deg 360deg)`,
                         }}
                     >
-                        <div className="w-[76px] h-[76px] bg-retro-surface rounded-full flex flex-col items-center justify-center">
-                            <span className="text-4xl font-title text-retro-primary">
-                                {success}
-                            </span>
-                            <span className="text-xs text-retro-muted font-righteous">
-                                / {games}
-                            </span>
+                        <div className="w-[76px] h-[76px] bg-retro-surface rounded-full flex items-center justify-center pb-1.5">
+                            <div>
+                                <span className="text-4xl sm:text-5xl font-title text-retro-primary">
+                                    {success}
+                                </span>
+                                <span className="text-xs text-retro-muted font-righteous -ml-0.5">
+                                    /{games}
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -70,9 +76,9 @@ export default function UserDashboardStatistic({
                     <div className="flex-1 flex flex-col items-center justify-center">
                         <div className="flex items-baseline text-4xl sm:text-5xl font-title text-retro-primary pt-1">
                             {rank}
-                            <span className="text-xs font-righteous text-retro-muted">
-                                / {playerCount}
-                            </span>{' '}
+                            <span className="text-xs text-retro-muted font-righteous -ml-0.5">
+                                /{playerCount}
+                            </span>
                         </div>
                         <div className="text-retro-muted text-xs uppercase tracking-wide mt-1 text-center">
                             {rank &&
@@ -98,16 +104,18 @@ export default function UserDashboardStatistic({
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl">🎨</div>
                         <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase">
-                            Parties générées
+                            Mes parties
                         </h3>
                     </div>
 
-                    <div className="text-4xl sm:text-5xl font-title text-center mt-1 mb-0.5">
-                        <span className="text-retro-primary">42</span>
-                        <div className="flex items-center mt-0.5 sm:mt-2">
+                    <div className="flex-1 flex flex-col items-center justify-center text-center mb-0.5">
+                        <span className="text-4xl sm:text-5xl font-title text-retro-primary">
+                            {authoredGameCount}
+                        </span>
+                        <div className="flex items-center mt-2 w-full">
                             <ProgressBar
                                 label={''}
-                                value={565}
+                                value={tokens ?? 0}
                                 max={1000}
                                 size={'sm'}
                             />

@@ -7,6 +7,7 @@ import { useAlert } from '../../../hooks/useAlert.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { DatePicker } from '../../Game/Controls/DatePicker.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
+import { findFirstAvailableDate, toDateKey } from '../../../utils/date.ts';
 
 function PromptGenerator({
     game,
@@ -28,7 +29,7 @@ function PromptGenerator({
 
         const d = new Date();
         d.setDate(d.getDate() + 7);
-        return d.toISOString().split('T')[0];
+        return toDateKey(d);
     }, [isSuperAdmin]);
 
     async function handleSubmit(e?: React.FormEvent): Promise<void> {
@@ -64,18 +65,13 @@ function PromptGenerator({
 
             setTakenDates(takenDates);
 
-            const nextAvailableDate = new Date();
+            const startDate = new Date();
 
             if (!isSuperAdmin()) {
-                nextAvailableDate.setDate(nextAvailableDate.getDate() + 7);
+                startDate.setDate(startDate.getDate() + 7);
             }
 
-            let dateStr = nextAvailableDate.toISOString().split('T')[0];
-
-            while (takenDates.includes(dateStr)) {
-                nextAvailableDate.setDate(nextAvailableDate.getDate() + 1);
-                dateStr = nextAvailableDate.toISOString().split('T')[0];
-            }
+            const dateStr = findFirstAvailableDate(toDateKey(startDate), takenDates);
 
             setGame(
                 (prevGame: GameAdminCreateType): GameAdminCreateType => ({
@@ -168,7 +164,7 @@ function PromptGenerator({
                 <div>
                     <label className="label-retro">Date du jeu</label>
                     <DatePicker
-                        value={game?.date?.split('T')[0] || ''}
+                        value={game?.date ? toDateKey(game.date) : ''}
                         onChange={(date) =>
                             setGame((prev) => (prev ? { ...prev, date } : prev))
                         }

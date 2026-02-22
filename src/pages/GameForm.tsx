@@ -23,7 +23,7 @@ function GameForm() {
         gameData,
         imageUrl,
         submitted,
-        lastPopularityScore,
+        rejectionData,
         canAnalyze,
         tokensRemaining,
         analyzeIdea,
@@ -80,7 +80,7 @@ function GameForm() {
                             onSubmit={analyzeIdea}
                             canSubmit={canAnalyze}
                             loading={loading}
-                            lastPopularityScore={lastPopularityScore}
+                            rejectionData={rejectionData}
                         />
                     )}
                 </AccordionItem>
@@ -100,6 +100,7 @@ function GameForm() {
                                 onUpdateGameData={updateGameData}
                                 imageUrl={imageUrl}
                                 loading={loading}
+                                tokensRemaining={tokensRemaining}
                                 onGenerateImage={generateImage}
                                 onUploadImage={uploadImage}
                                 onContinue={async () => {

@@ -17,4 +17,5 @@ export interface UserType {
     monthlyLeaderboards: { month: string; score: number }[];
     rank?: number;
     roles?: [];
+    tokens?: number;
 }

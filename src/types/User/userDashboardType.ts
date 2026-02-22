@@ -9,4 +9,5 @@ export interface UserDashboardType {
     history: Array<AchievementType>;
     streak: Record<string, number>;
     playerCount: number;
+    authoredGameCount: number;
 }

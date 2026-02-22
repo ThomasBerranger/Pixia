@@ -12,6 +12,7 @@ interface StepImageProps {
     onUpdateGameData: (data: Partial<AiGeneratedData>) => void;
     imageUrl: string | null;
     loading: boolean;
+    tokensRemaining: number;
     onGenerateImage: () => void;
     onUploadImage: (file: File) => void;
     onContinue: () => void;
@@ -23,6 +24,7 @@ function StepImage({
     onUpdateGameData,
     imageUrl,
     loading,
+    tokensRemaining,
     onGenerateImage,
     onUploadImage,
     onContinue,
@@ -52,15 +54,17 @@ function StepImage({
                     />
                 </div>
 
-                {/* Popularité */}
-                <div className="col-span-6 sm:col-span-2 order-3 sm:order-2 h-full flex flex-col items-center justify-center bg-retro-surface">
-                    <p className="text-xxs font-righteous uppercase tracking-widest text-retro-muted text-center">
-                        Popularité
-                    </p>
-                    <p className="sm:text-2xl font-title font-semibold text-retro-accent text-center">
-                        {gameData.popularityScore}%
-                    </p>
-                </div>
+                {/* Notoriété */}
+                {gameData.notorietyScore !== undefined && (
+                    <div className="col-span-6 sm:col-span-2 order-3 sm:order-2 h-full flex flex-col items-center justify-center bg-retro-surface">
+                        <p className="text-xxs font-righteous uppercase tracking-widest text-retro-muted text-center">
+                            Notoriété
+                        </p>
+                        <p className="sm:text-2xl font-title font-semibold text-retro-accent text-center">
+                            {gameData.notorietyScore}%
+                        </p>
+                    </div>
+                )}
 
                 {/* Indice */}
                 <div className="col-span-12 sm:col-span-10 order-2 sm:order-3">
@@ -120,7 +124,12 @@ function StepImage({
                         <button
                             type="button"
                             onClick={() => fileInputRef.current?.click()}
-                            className="flex flex-col items-center gap-1.5 sm:gap-2 p-3 sm:p-4 border-[3px] border-retro-accent/30 bg-retro-accent/5 hover:bg-retro-accent/10 transition-all"
+                            disabled={tokensRemaining < TOKEN_COSTS.imageUpload}
+                            className={`flex flex-col items-center gap-1.5 sm:gap-2 p-3 sm:p-4 border-[3px] transition-all ${
+                                tokensRemaining < TOKEN_COSTS.imageUpload
+                                    ? 'border-retro-muted/20 opacity-50'
+                                    : 'border-retro-accent/30 bg-retro-accent/5 hover:bg-retro-accent/10'
+                            }`}
                         >
                             <span className="text-xl sm:text-2xl">📁</span>
                             <span className="text-xxs sm:text-xs font-righteous text-retro-accent uppercase">
@@ -135,9 +144,9 @@ function StepImage({
                         <button
                             type="button"
                             onClick={onGenerateImage}
-                            disabled={loading}
+                            disabled={loading || tokensRemaining < TOKEN_COSTS.imageGenerate}
                             className={`flex flex-col items-center gap-1.5 sm:gap-2 p-3 sm:p-4 border-[3px] transition-all ${
-                                loading
+                                loading || tokensRemaining < TOKEN_COSTS.imageGenerate
                                     ? 'border-retro-muted/20 opacity-50'
                                     : 'border-retro-primary bg-retro-primary/[0.05] hover:bg-retro-primary/10'
                             }`}

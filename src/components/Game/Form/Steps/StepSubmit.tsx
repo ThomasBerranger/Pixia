@@ -2,8 +2,10 @@ import { PiCoinsFill } from 'react-icons/pi';
 import type { AiGeneratedData } from '../../../../types/gameFormType.tsx';
 import { TOKEN_COSTS } from '../../../../constants/gameForm.ts';
 import { formatDateFr } from '../../../../utils/date.ts';
+import { URLS } from '../../../../constants/routes.ts';
 import ImagePreview from '../ImagePreview.tsx';
 import { BiSolidLeftArrow } from 'react-icons/bi';
+import { Link } from 'react-router-dom';
 
 interface StepSubmitProps {
     gameData: AiGeneratedData;
@@ -19,7 +21,6 @@ function StepSubmit({
     imageUrl,
     onSubmit,
     onBack,
-    onReset,
     submitted,
 }: StepSubmitProps) {
     if (submitted) {
@@ -37,13 +38,12 @@ function StepSubmit({
                     </span>
                 </p>
 
-                <button
-                    type="button"
-                    onClick={onReset}
-                    className="mt-5 py-3 px-5 btn-primary text-xs"
+                <Link
+                    to={URLS.ME_GAMES_GENERATED}
+                    className="mt-5 py-3 px-5 btn-primary text-xs inline-block"
                 >
-                    Créer un autre Pixia
-                </button>
+                    Mes parties
+                </Link>
             </div>
         );
     }
@@ -96,7 +96,7 @@ function StepSubmit({
 
             {/* Avertissement */}
             <div className="flex justify-center items-center px-2 py-2 mb-4 bg-retro-primary/[0.08]">
-                <p className="text-xxs font-righteous text-retro-primary leading-snug">
+                <p className="text-xs font-righteous text-retro-primary leading-snug">
                     Tu ne pourras plus modifier ton Pixia après envoi.
                 </p>
             </div>

@@ -3,8 +3,8 @@ import { useModal } from '../hooks/useModal.tsx';
 import type { ModalAction } from '../contexts/modalContext.tsx';
 
 const ACTION_STYLES: Record<NonNullable<ModalAction['variant']>, string> = {
-    primary: 'btn-pixel',
-    danger: 'btn-pixel bg-red-600 hover:bg-red-700',
+    primary: 'btn-success',
+    danger: 'btn-neon',
     ghost: 'btn-ghost',
 };
 

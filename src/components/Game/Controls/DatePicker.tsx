@@ -170,7 +170,7 @@ export function DatePicker({
 
             {/* Calendrier popup */}
             {isOpen && (
-                <div className="absolute z-30 mt-2 input-retro">
+                <div className="absolute z-30 mt-2 input-retro min-w-[80vw] sm:min-w-96">
                     {/* Header avec navigation */}
                     <div className="flex items-center justify-between mb-3">
                         <button
