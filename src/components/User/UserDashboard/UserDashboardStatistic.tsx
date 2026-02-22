@@ -36,20 +36,18 @@ export default function UserDashboardStatistic({
                     </div>
 
                     <div
-                        className="w-[80px] h-[80px] rounded-full flex items-center justify-center"
+                        className="w-[100px] h-[100px] rounded-full flex items-center justify-center"
                         style={{
                             background: `conic-gradient(#ff006e 0deg ${((success ?? 0) / (games ?? 1)) * 360}deg, #0a0e27 ${((success ?? 0) / (games ?? 1)) * 360}deg 360deg)`,
                         }}
                     >
-                        <div className="w-[76px] h-[76px] bg-retro-surface rounded-full flex items-center justify-center pb-1.5">
-                            <div>
-                                <span className="text-4xl sm:text-5xl font-title text-retro-primary">
-                                    {success}
-                                </span>
-                                <span className="text-xs text-retro-muted font-righteous -ml-0.5">
-                                    /{games}
-                                </span>
-                            </div>
+                        <div className="w-[94px] h-[94px] bg-retro-surface rounded-full flex flex-col items-center justify-center">
+                            <span className="text-4xl font-title text-retro-primary">
+                                {success}
+                            </span>
+                            <span className="text-xs text-retro-muted font-righteous">
+                                / {games}
+                            </span>
                         </div>
                     </div>
 
