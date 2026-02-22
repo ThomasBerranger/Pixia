@@ -3,24 +3,35 @@ interface ProgressBarProps {
     value: number;
     max: number;
     isActive?: boolean;
+    size?: 'sm' | 'md' | 'lg';
 }
+
+const SIZE_CONFIG = {
+    sm: { height: 'h-5', text: 'text-xxs' },
+    md: { height: 'h-6', text: 'text-xs' },
+    lg: { height: 'h-8', text: 'text-sm' },
+} as const;
 
 export function ProgressBar({
     label,
     value,
     max,
     isActive = true,
+    size = 'lg',
 }: ProgressBarProps) {
-    const percentage = max > 0 ? (value / max) * 100 : 0;
+    const percentage = max > 0 ? Math.min((value / max) * 100, 100) : 0;
+    const { height, text } = SIZE_CONFIG[size];
 
     return (
         <div
-            className={`relative h-8 w-full flex border-2 border-retro-bg transition-opacity duration-300 ${
+            className={`relative w-full flex transition-opacity duration-300 ${height} ${
                 isActive ? 'opacity-100' : 'opacity-40'
             }`}
         >
             <div className="h-full flex items-center px-3 shrink-0 bg-retro-primary">
-                <span className="font-righteous text-sm uppercase tracking-wider text-white whitespace-nowrap">
+                <span
+                    className={`font-righteous uppercase tracking-wider text-white whitespace-nowrap ${text}`}
+                >
                     {isActive && `${value} / ${max}`} {label}
                 </span>
             </div>

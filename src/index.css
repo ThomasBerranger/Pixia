@@ -13,7 +13,12 @@
 @import './styles/burger.css';
 @import './styles/border.css';
 @import './styles/timeline.css';
+@import './styles/stepper.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background-color: theme('colors.retro.surface');
+}

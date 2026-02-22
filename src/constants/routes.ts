@@ -6,6 +6,10 @@ export const PATHS = {
     ME: '/me',
     ME_NOTIFICATIONS: 'notifications',
     ME_GAMES: 'games',
+    ME_GAME_NEW: 'games/new',
+    ME_GAME_FORM: 'games/:id',
+    ME_GAMES_GENERATED: 'games/generated',
+    ME_GAME_DETAIL: 'games/:id/detail',
     // Users
     USER_SHOW: '/users/:slug',
     USER_SPONSOR: '/users/:slug/sponsor',
@@ -15,9 +19,9 @@ export const PATHS = {
     PASSWORD_RESET: '/reset-password/:resetToken',
     // Admin
     ADMIN: '/admin',
-    ADMIN_GAMES: 'games',
     ADMIN_GENERATOR: 'game-generator',
     ADMIN_GAME_EDIT: 'games/:id',
+    ADMIN_PENDING_GAMES: 'pending-games',
     // Admin
     SUPER_ADMIN: '/super-admin',
     SUPER_ADMIN_USERS: 'users',
@@ -37,6 +41,10 @@ export const URLS = {
     ME: '/me',
     ME_NOTIFICATIONS: '/me/notifications',
     ME_GAMES: '/me/games',
+    ME_GAME_NEW: '/me/games/new',
+    ME_GAME_FORM: (id: string) => `/me/games/${id}`,
+    ME_GAMES_GENERATED: '/me/games/generated',
+    ME_GAME_DETAIL: (id: string) => `/me/games/${id}/detail`,
     // Users
     USER_SHOW: (slug: string) => `/users/${slug}`,
     USER_SPONSOR: (slug: string) => `/users/${slug}/sponsor`,
@@ -46,9 +54,9 @@ export const URLS = {
     FORGOT_PASSWORD: '/reset-password',
     // Admin
     ADMIN: '/admin',
-    ADMIN_GAMES: '/admin/games',
     ADMIN_GENERATOR: '/admin/game-generator',
     ADMIN_GAME_EDIT: (id: string) => `/admin/games/${id}`,
+    ADMIN_PENDING_GAMES: '/admin/pending-games',
     // Super Admin
     SUPER_ADMIN: '/super-admin',
     SUPER_ADMIN_USERS: '/super-admin/users',

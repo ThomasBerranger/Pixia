@@ -204,7 +204,7 @@ export default function UserDashboardHeader({
                                     to={
                                         isSuperAdmin()
                                             ? URLS.SUPER_ADMIN
-                                            : URLS.ADMIN_GAMES
+                                            : URLS.ADMIN
                                     }
                                     className="hidden sm:block btn-ghost w-1/2 py-2.5 sm:px-4"
                                 >

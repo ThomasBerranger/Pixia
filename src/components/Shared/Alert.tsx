@@ -1,6 +1,6 @@
 import { MdDone, MdError, MdWarning, MdInfo } from 'react-icons/md';
 import { Link } from 'react-router-dom';
-import { useAlert } from '../hooks/useAlert.ts';
+import { useAlert } from '../../hooks/useAlert.ts';
 
 function Alert() {
     const { isVisible, title, message, duration, type, link, hideAlert } =

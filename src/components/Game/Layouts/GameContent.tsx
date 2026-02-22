@@ -6,6 +6,7 @@ import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { RxDotFilled } from 'react-icons/rx';
 import { FaCheck } from 'react-icons/fa';
+import { toDateKey } from '../../../utils/date.ts';
 
 function GameContent({
     game,
@@ -104,15 +105,14 @@ function GameContent({
                     />
                 )}
 
-                {nextGameDate &&
-                    nextGameDate <= new Date().toISOString().split('T')[0] && (
-                        <ChangeGameButton
-                            date={nextGameDate}
-                            isNext={true}
-                            isLoading={loadingDirection === 'next'}
-                            onClick={() => onGameChange(nextGameDate, false)}
-                        />
-                    )}
+                {nextGameDate && nextGameDate <= toDateKey(new Date()) && (
+                    <ChangeGameButton
+                        date={nextGameDate}
+                        isNext={true}
+                        isLoading={loadingDirection === 'next'}
+                        onClick={() => onGameChange(nextGameDate, false)}
+                    />
+                )}
             </div>
 
             <div className="md:hidden flex justify-between pr-2 mt-3 mb-6">
@@ -125,15 +125,14 @@ function GameContent({
                     />
                 )}
 
-                {nextGameDate &&
-                    nextGameDate <= new Date().toISOString().split('T')[0] && (
-                        <MobileChangeGameButton
-                            date={nextGameDate}
-                            isNext={true}
-                            isLoading={loadingDirection === 'next'}
-                            onClick={() => onGameChange(nextGameDate, false)}
-                        />
-                    )}
+                {nextGameDate && nextGameDate <= toDateKey(new Date()) && (
+                    <MobileChangeGameButton
+                        date={nextGameDate}
+                        isNext={true}
+                        isLoading={loadingDirection === 'next'}
+                        onClick={() => onGameChange(nextGameDate, false)}
+                    />
+                )}
             </div>
         </div>
     );

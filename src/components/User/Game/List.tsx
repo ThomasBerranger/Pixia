@@ -4,13 +4,13 @@ import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import type { UserGamesStats } from '../../../types/Game/userGamesStats.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { ProgressBar } from '../../../atoms/ProgressBar.tsx';
-import { GameMonthAccordion } from '../../../atoms/GameMonthAccordion.tsx';
+import { GameMonthAccordion } from '../../Game/GameMonthAccordion.tsx';
 import {
     DIFFICULTIES,
     type Difficulty,
 } from '../../../constants/difficultyPoints.ts';
 
-function UserGames() {
+function List() {
     const { apiCall } = useApi();
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -47,7 +47,7 @@ function UserGames() {
                 const difficulties = visibleDifficulties.join(',');
 
                 const userGameStats: UserGamesStats = await apiCall(
-                    `${ENDPOINTS.USER_GAMES_STATS}?difficulties=${difficulties}`
+                    `${ENDPOINTS.ME_GAMES_STATS}?difficulties=${difficulties}`
                 );
                 setUserGamesStats(userGameStats);
             } catch (error) {
@@ -64,7 +64,7 @@ function UserGames() {
         <article className="min-h-[89vh] py-10 px-[7vw]">
             <section className="flex justify-between items-center">
                 <h2 className="font-title text-retro-accent text-4xl">
-                    Mes parties
+                    Parties gagnées
                 </h2>
                 <div className="text-retro-primary whitespace-nowrap text-right">
                     {isLoading ? (
@@ -138,4 +138,4 @@ function UserGames() {
     );
 }
 
-export default UserGames;
+export default List;

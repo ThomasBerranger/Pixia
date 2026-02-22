@@ -14,6 +14,8 @@ export default function UserDashboardStatistic({
     rank: number | undefined;
     streak: Record<string, number> | undefined;
     playerCount: number | undefined;
+    authoredGameCount: number | undefined;
+    tokens: number | undefined;
 }) {
     return (
         <>
@@ -39,13 +41,15 @@ export default function UserDashboardStatistic({
                             background: `conic-gradient(#ff006e 0deg ${((success ?? 0) / (games ?? 1)) * 360}deg, #0a0e27 ${((success ?? 0) / (games ?? 1)) * 360}deg 360deg)`,
                         }}
                     >
-                        <div className="w-[76px] h-[76px] bg-retro-surface rounded-full flex flex-col items-center justify-center">
-                            <span className="text-4xl font-title text-retro-primary">
-                                {success}
-                            </span>
-                            <span className="text-xs text-retro-muted font-righteous">
-                                / {games}
-                            </span>
+                        <div className="w-[76px] h-[76px] bg-retro-surface rounded-full flex items-center justify-center pb-1.5">
+                            <div>
+                                <span className="text-4xl sm:text-5xl font-title text-retro-primary">
+                                    {success}
+                                </span>
+                                <span className="text-xs text-retro-muted font-righteous -ml-0.5">
+                                    /{games}
+                                </span>
+                            </div>
                         </div>
                     </div>
 
@@ -68,9 +72,9 @@ export default function UserDashboardStatistic({
                     <div className="flex-1 flex flex-col items-center justify-center">
                         <div className="flex items-baseline text-4xl sm:text-5xl font-title text-retro-primary pt-1">
                             {rank}
-                            <span className="text-xs font-righteous text-retro-muted">
-                                / {playerCount}
-                            </span>{' '}
+                            <span className="text-xs text-retro-muted font-righteous -ml-0.5">
+                                /{playerCount}
+                            </span>
                         </div>
                         <div className="text-retro-muted text-xs uppercase tracking-wide mt-1 text-center">
                             {rank &&
@@ -88,6 +92,39 @@ export default function UserDashboardStatistic({
                         Voir <BiSolidRightArrow className="ml-1" />
                     </p>
                 </Link>
+
+                {/* TODO: remettre quand l'API backend sera à jour
+                <Link
+                    to={URLS.ME_GAMES_GENERATED}
+                    className="col-span-3 flex flex-col card-primary-hover p-6"
+                >
+                    <div className="flex items-center gap-2">
+                        <div className="hidden sm:block text-4xl">🎨</div>
+                        <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase">
+                            Mes parties
+                        </h3>
+                    </div>
+
+                    <div className="flex-1 flex flex-col items-center justify-center text-center mb-0.5">
+                        <span className="text-4xl sm:text-5xl font-title text-retro-primary">
+                            {authoredGameCount}
+                        </span>
+                        <div className="flex items-center mt-2 w-full">
+                            <ProgressBar
+                                label={''}
+                                value={tokens ?? 0}
+                                max={1000}
+                                size={'sm'}
+                            />
+                            <PiCoinsFill className="text-retro-muted text-2xl ml-1" />
+                        </div>
+                    </div>
+
+                    <p className="mt-auto pt-2 flex justify-end items-center font-righteous text-retro-accent text-xs">
+                        Voir <BiSolidRightArrow className="ml-1" />
+                    </p>
+                </Link>
+                */}
 
                 <div className="col-span-3 card-primary-hover p-6">
                     <div className="flex items-center gap-2">
@@ -121,18 +158,20 @@ export default function UserDashboardStatistic({
                     </div>
                 </div>
 
-                <div className="col-span-3 card-primary-hover p-6">
+                <div className="col-span-3 card-primary-hover p-6 flex flex-col">
                     <div className="flex items-center gap-2">
                         <div className="hidden sm:block text-4xl mb-4">🔥</div>
                         <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase mb-2">
                             Meilleure série
                         </h3>
                     </div>
-                    <div className="text-4xl sm:text-5xl font-title text-retro-primary text-center">
-                        {streak && streak['best']}
-                    </div>
-                    <div className="text-retro-muted text-xs uppercase tracking-wide mt-2 text-center">
-                        {streak && `Série de ${streak['current']} en cours`}
+                    <div className="flex-1 flex flex-col items-center justify-center sm:justify-start sm:flex-none">
+                        <div className="text-4xl sm:text-5xl font-title text-retro-primary">
+                            {streak && streak['best']}
+                        </div>
+                        <div className="text-retro-muted text-xs text-center uppercase tracking-wide mt-2">
+                            {streak && `Série de ${streak['current']} en cours`}
+                        </div>
                     </div>
                 </div>
             </section>

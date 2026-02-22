@@ -14,6 +14,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { URLS } from '../../constants/routes.ts';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
 import { useAuth } from '../../contexts/authContext.tsx';
+import { toDateKey } from '../../utils/date.ts';
 
 function GameContainer() {
     const navigate = useNavigate();
@@ -42,7 +43,7 @@ function GameContainer() {
         const fetchData = async () => {
             if (date) {
                 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-                const today = new Date().toISOString().split('T')[0];
+                const today = toDateKey(new Date());
 
                 if (!dateRegex.test(date) || date > today) {
                     navigate(URLS.NOT_FOUND);

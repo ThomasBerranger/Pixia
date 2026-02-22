@@ -4,6 +4,7 @@ import { FaUsersGear } from 'react-icons/fa6';
 import { RiAiGenerate2 } from 'react-icons/ri';
 import { FaHandsHelping } from 'react-icons/fa';
 import { PiCalendarDots } from 'react-icons/pi';
+import { MdAdminPanelSettings } from 'react-icons/md';
 
 function Dashboard() {
     return (
@@ -35,6 +36,13 @@ function Dashboard() {
             >
                 <FaHandsHelping className="mx-auto mb-2" size={30} />
                 <p className="font-righteous whitespace-nowrap">Contribution</p>
+            </Link>
+            <Link
+                to={URLS.ADMIN}
+                className="card-primary-hover text-center w-4/5 sm:w-1/5"
+            >
+                <MdAdminPanelSettings className="mx-auto mb-2" size={30} />
+                <p className="font-righteous whitespace-nowrap">Espace admin</p>
             </Link>
         </section>
     );

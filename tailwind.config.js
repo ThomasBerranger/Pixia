@@ -11,6 +11,7 @@ export default {
           surface: '#0a0e27',
           text: '#ffffff',
           muted: '#a76eff',
+          success: '#22c55e',
         },
       },
     },

@@ -1,21 +1,20 @@
 import { lazy, Suspense, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import Header from './components/Layouts/Header.tsx';
-import Footer from './components/Layouts/Footer.tsx';
-import Modal from './components/Modal.tsx';
-import Alert from './components/Alert.tsx';
-import ScrollToTop from './components/ScrollToTop.tsx';
-import InstallPWA from './components/InstallPWA.tsx';
-import ImpersonateBanner from './atoms/ImpersonateBanner.tsx';
-import Sidebar from './components/Layouts/SideBar.tsx';
-import ProtectedRoute from './components/ProtectedRoute.tsx';
+import Header from './layouts/Header.tsx';
+import Footer from './layouts/Footer.tsx';
+import Modal from './components/Shared/Modal.tsx';
+import Alert from './components/Shared/Alert.tsx';
+import ScrollToTop from './layouts/ScrollToTop.tsx';
+import InstallPWA from './layouts/InstallPWA.tsx';
+import ImpersonateBanner from './layouts/ImpersonateBanner.tsx';
+import Sidebar from './layouts/SideBar.tsx';
+import ProtectedRoute from './layouts/ProtectedRoute.tsx';
 import { ModalProvider } from './contexts/modalContext.tsx';
 import { AlertProvider } from './contexts/alertContext.tsx';
 import { PATHS } from './constants/routes.ts';
 import { ROLES } from './constants/roles.ts';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import ValentineHearts from './atoms/ValentineHearts.tsx';
 
 // Critical path
 import GameContainer from './components/Game/GameContainer.tsx';
@@ -23,25 +22,33 @@ import UserContainer from './components/User/UserContainer.tsx';
 import Leaderboard from './components/User/Leaderboard/Leaderboard.tsx';
 
 // Lazy — public
-const NotFound = lazy(() => import('./components/Static/NotFound.tsx'));
+const NotFound = lazy(() => import('./pages/NotFound.tsx'));
 const UserDetails = lazy(
     () => import('./components/User/UserDetails/UserDetails.tsx')
 );
-const PasswordReset = lazy(
-    () => import('./components/User/Form/PasswordReset.tsx')
-);
+const PasswordReset = lazy(() => import('./components/Auth/PasswordReset.tsx'));
 
 // Lazy — authentifié
 const Notification = lazy(
     () => import('./components/User/Notification/Notification.tsx')
 );
-const UserGames = lazy(() => import('./components/User/Game/UserGames.tsx'));
+const UserGames = lazy(() => import('./components/User/Game/List.tsx'));
+const UserGameForm = lazy(() => import('./pages/GameForm.tsx'));
+const UserGeneratedGames = lazy(
+    () => import('./components/User/Game/Generated.tsx')
+);
+const UserGameDetail = lazy(() => import('./components/User/Game/Detail.tsx'));
 
 // Lazy — admin
+const AdminPendingGames = lazy(
+    () => import('./components/Admin/Game/Pending.tsx')
+);
 const AdminGameGenerator = lazy(
     () => import('./components/Admin/GameGenerator/GameGenerator.tsx')
 );
-const AdminGameEdit = lazy(() => import('./components/Admin/GameEdit.tsx'));
+const Supervision = lazy(
+    () => import('./components/Admin/Game/Supervision.tsx')
+);
 const AdminDashboard = lazy(() => import('./components/Admin/Dashboard.tsx'));
 
 // Lazy — super admin
@@ -57,8 +64,8 @@ const SuperAdminGameDashboard = lazy(
 );
 
 // Lazy — static
-const Changelog = lazy(() => import('./components/Static/Changelog.tsx'));
-const CGU = lazy(() => import('./components/Static/CGU.tsx'));
+const Changelog = lazy(() => import('./pages/Changelog.tsx'));
+const CGU = lazy(() => import('./pages/CGU.tsx'));
 
 function Loader() {
     return (
@@ -94,9 +101,9 @@ function App() {
                 />
 
                 <main className="bg-gradient-to-b from-retro-bg to-retro-surface text-retro-text -z-2">
-                    {new Date().getMonth() === 1 &&
-                        new Date().getDate() >= 9 &&
-                        new Date().getDate() < 16 && <ValentineHearts />}
+                    {/*{new Date().getMonth() === 1 &&*/}
+                    {/*    new Date().getDate() >= 9 &&*/}
+                    {/*    new Date().getDate() < 16 && <ValentineHearts />}*/}
 
                     <Alert />
 
@@ -125,6 +132,22 @@ function App() {
                                     <Route
                                         path={PATHS.ME_GAMES}
                                         element={<UserGames />}
+                                    />
+                                    <Route
+                                        path={PATHS.ME_GAME_NEW}
+                                        element={<UserGameForm key="new" />}
+                                    />
+                                    <Route
+                                        path={PATHS.ME_GAME_FORM}
+                                        element={<UserGameForm key="edit" />}
+                                    />
+                                    <Route
+                                        path={PATHS.ME_GAMES_GENERATED}
+                                        element={<UserGeneratedGames />}
+                                    />
+                                    <Route
+                                        path={PATHS.ME_GAME_DETAIL}
+                                        element={<UserGameDetail />}
                                     />
                                     <Route
                                         path={PATHS.ME_NOTIFICATIONS}
@@ -166,17 +189,18 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             >
-                                <Route
-                                    path={PATHS.ADMIN_GAMES}
-                                    element={<AdminDashboard />}
-                                />
+                                <Route index element={<AdminDashboard />} />
                                 <Route
                                     path={PATHS.ADMIN_GENERATOR}
                                     element={<AdminGameGenerator />}
                                 />
                                 <Route
+                                    path={PATHS.ADMIN_PENDING_GAMES}
+                                    element={<AdminPendingGames />}
+                                />
+                                <Route
                                     path={PATHS.ADMIN_GAME_EDIT}
-                                    element={<AdminGameEdit />}
+                                    element={<Supervision />}
                                 />
                             </Route>
 

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { PiArrowFatLineLeft, PiArrowFatLineRight } from 'react-icons/pi';
 
 interface DatePickerProps {
@@ -6,6 +6,7 @@ interface DatePickerProps {
     onChange?: (date: string) => void;
     unavailableDates?: string[];
     initialDate?: string;
+    minDate?: string;
 }
 
 export function DatePicker({
@@ -13,7 +14,12 @@ export function DatePicker({
     onChange,
     unavailableDates = [],
     initialDate,
+    minDate,
 }: DatePickerProps) {
+    const unavailableSet = useMemo(
+        () => new Set(unavailableDates),
+        [unavailableDates]
+    );
     const [isOpen, setIsOpen] = useState(false);
     const [currentMonth, setCurrentMonth] = useState(new Date());
     const pickerRef = useRef<HTMLDivElement>(null);
@@ -90,7 +96,8 @@ export function DatePicker({
     // Vérifier si une date est indisponible
     const isDateUnavailable = (year: number, month: number, day: number) => {
         const dateStr = formatDate(year, month, day);
-        return unavailableDates.includes(dateStr);
+        if (minDate && dateStr < minDate) return true;
+        return unavailableSet.has(dateStr);
     };
 
     const formatDate = (year: number, month: number, day: number) => {
@@ -163,7 +170,7 @@ export function DatePicker({
 
             {/* Calendrier popup */}
             {isOpen && (
-                <div className="absolute z-30 mt-2 input-retro">
+                <div className="absolute z-30 mt-2 input-retro min-w-[80vw] sm:min-w-96">
                     {/* Header avec navigation */}
                     <div className="flex items-center justify-between mb-3">
                         <button

@@ -65,7 +65,7 @@ function AdminUserDashboard() {
                     <div className="flex justify-center mt-5">
                         <button
                             disabled={loading || !game.date}
-                            className="w-3/5 btn-pulse text-white bg-red-600 py-2.5"
+                            className="w-3/5 btn-3d text-white bg-red-600 py-2.5"
                             onClick={handleGameSubmit}
                         >
                             {loading ? (

@@ -41,7 +41,7 @@ function UserDashboard() {
         type: string
     ): Promise<void> => {
         const newContribution: ContributionType = await apiCall(
-            ENDPOINTS.USER_CONTRIBUTION_INDEX,
+            ENDPOINTS.CONTRIBUTION,
             {
                 method: 'POST',
                 body: JSON.stringify({
@@ -80,6 +80,8 @@ function UserDashboard() {
                 rank={userDashboard?.user.rank}
                 streak={userDashboard?.streak}
                 playerCount={userDashboard?.playerCount}
+                authoredGameCount={userDashboard?.authoredGameCount}
+                tokens={userDashboard?.user.tokens}
             />
 
             <section className="grid sm:grid-cols-2 mb-10 sm:mb-8">

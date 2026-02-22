@@ -12,6 +12,7 @@ import {
     addDays,
 } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { toDateKey } from '../../utils/date.ts';
 import { URLS } from '../../constants/routes.ts';
 import { BiSolidRightArrow } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
@@ -23,6 +24,8 @@ import { ENDPOINTS } from '../../constants/endpoints.ts';
 import type { GameType } from '../../types/Game/gameType.ts';
 import { useApi } from '../../hooks/useApi.tsx';
 import { getHiddenText } from '../../constants/hiddenTexts.ts';
+import { GAME_STATUSES } from '../../types/Game/gameStatuses.ts';
+import JackpotModal from './JackpotModal.tsx';
 
 function Dashboard() {
     const { apiCall } = useApi();
@@ -33,6 +36,7 @@ function Dashboard() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [games, setGames] = useState<GameType[]>([]);
     const [currentMonth, setCurrentMonth] = useState<Date>(now);
+    const [showJackpot, setShowJackpot] = useState(false);
 
     const isCurrentMonth = isSameMonth(currentMonth, now);
 
@@ -42,7 +46,12 @@ function Dashboard() {
     });
 
     const gamesByDate = useMemo(
-        () => new Map(games.map((g) => [g.date.split('T')[0], g])),
+        () =>
+            new Map(
+                games
+                    .filter((g) => g.status === GAME_STATUSES.APPROVED)
+                    .map((g) => [toDateKey(g.date), g])
+            ),
         [games]
     );
 
@@ -86,7 +95,10 @@ function Dashboard() {
                     {isLoading ? (
                         <CgSpinner className="text-retro-accent animate-spin text-4xl" />
                     ) : (
-                        <button className="btn-pixel text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 px-4 py-2">
+                        <button
+                            onClick={() => setShowJackpot(true)}
+                            className="btn-pixel text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 px-4 py-2"
+                        >
                             <PiTreasureChest className="text-xl" />{' '}
                             <span className="hidden sm:block">Jetons de</span>{' '}
                             {format(now, 'MMMM', { locale: fr })}
@@ -97,20 +109,38 @@ function Dashboard() {
 
             <article className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-4 mt-10">
                 <div className="card-primary-hover w-full text-center">
-                    <p className="font-title text-retro-accent text-4xl">
-                        {games.filter((g) => g.approvedAt).length}
-                    </p>
+                    {isLoading ? (
+                        <CgSpinner className="text-retro-accent animate-spin text-4xl mx-auto" />
+                    ) : (
+                        <p className="font-title text-retro-accent text-4xl">
+                            {
+                                games.filter(
+                                    (g) => g.status === GAME_STATUSES.APPROVED
+                                ).length
+                            }
+                        </p>
+                    )}
                     <p className="font-righteous text-retro-muted text-xs mt-1 sm:mt-2">
                         Planifiées
                     </p>
                 </div>
                 <Link
-                    to={URLS.HOME}
+                    to={URLS.ADMIN_PENDING_GAMES}
                     className="card-primary-hover w-full text-center relative"
                 >
-                    <p className="font-title text-retro-accent text-4xl">
-                        {games.filter((g) => !g.approvedAt).length}
-                    </p>
+                    {isLoading ? (
+                        <CgSpinner className="text-retro-accent animate-spin text-4xl mx-auto" />
+                    ) : (
+                        <p className="font-title text-retro-accent text-4xl">
+                            {
+                                games.filter(
+                                    (g) =>
+                                        g.status === GAME_STATUSES.DRAFT ||
+                                        g.status === GAME_STATUSES.PENDING
+                                ).length
+                            }
+                        </p>
+                    )}
                     <p className="font-righteous text-retro-muted text-xs mt-1 sm:mt-2">
                         Au montage
                     </p>
@@ -119,12 +149,16 @@ function Dashboard() {
                     </p>
                 </Link>
                 <Link
-                    to={URLS.HOME}
+                    to={URLS.ADMIN_PENDING_GAMES}
                     className="card-primary-hover w-full text-center relative"
                 >
-                    <p className="font-title text-retro-accent text-4xl">
-                        {games.filter((g) => !g.image).length}
-                    </p>
+                    {isLoading ? (
+                        <CgSpinner className="text-retro-accent animate-spin text-4xl mx-auto" />
+                    ) : (
+                        <p className="font-title text-retro-accent text-4xl">
+                            {games.filter((g) => !g.image).length}
+                        </p>
+                    )}
                     <p className="font-righteous text-retro-muted text-xs mt-1 sm:mt-2">
                         Sans image
                     </p>
@@ -138,11 +172,18 @@ function Dashboard() {
                             key={difficulty}
                             className="badge-primary text-xxs flex flex-col text-center justify-center"
                         >
-                            {
-                                games.filter((g) => g.difficulty === difficulty)
-                                    .length
-                            }{' '}
-                            {difficulty}
+                            {isLoading ? (
+                                <CgSpinner className="text-retro-accent animate-spin text-lg mx-auto" />
+                            ) : (
+                                <>
+                                    {
+                                        games.filter(
+                                            (g) => g.difficulty === difficulty
+                                        ).length
+                                    }{' '}
+                                    {difficulty}
+                                </>
+                            )}
                         </div>
                     ))}
                 </div>
@@ -178,21 +219,16 @@ function Dashboard() {
                 )}
 
                 {/* Jours du mois */}
-                {days.map((day, index) => {
+                {days.map((day) => {
                     const game = gamesByDate.get(format(day, 'yyyy-MM-dd'));
-                    const isFirst = index === 0 && isCurrentMonth;
 
                     return (
                         <div
                             key={day.toString()}
-                            className={`timeline-retro-item-${isFirst ? 'unread' : 'read'}`}
+                            className="timeline-retro-item-read"
                         >
-                            <div
-                                className={`timeline-retro-dot-${isFirst ? 'unread' : 'read'}`}
-                            />
-                            <div
-                                className={`${isFirst ? 'card-primary-hover' : 'card-retro'} text-left p-3 flex justify-between items-center`}
-                            >
+                            <div className="timeline-retro-dot-read" />
+                            <div className="card-retro text-left p-3 flex justify-between items-center">
                                 <div className="flex items-center min-w-0">
                                     <span className="font-title text-retro-accent text-2xl">
                                         {day.getDate()}
@@ -295,6 +331,13 @@ function Dashboard() {
                     </button>
                 </div>
             </article>
+
+            {showJackpot && (
+                <JackpotModal
+                    month={format(now, 'MMMM', { locale: fr })}
+                    onClose={() => setShowJackpot(false)}
+                />
+            )}
         </section>
     );
 }

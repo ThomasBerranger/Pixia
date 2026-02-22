@@ -44,7 +44,10 @@ function Podium({
                                     {secondPlayer?.score}
                                 </span>
                                 {secondPlayer?.streaks && (
-                                    <StreakBadge count={secondPlayer.streaks.current} className="ml-1.5 mt-1" />
+                                    <StreakBadge
+                                        count={secondPlayer.streaks.current}
+                                        className="ml-1.5 mt-1"
+                                    />
                                 )}
                             </p>
                             <p className="text-lg">
@@ -83,7 +86,10 @@ function Podium({
                                     {firstPlayer?.score}
                                 </span>
                                 {firstPlayer?.streaks && (
-                                    <StreakBadge count={firstPlayer.streaks.current} className="ml-1.5 mt-1" />
+                                    <StreakBadge
+                                        count={firstPlayer.streaks.current}
+                                        className="ml-1.5 mt-1"
+                                    />
                                 )}
                             </p>
                             <p className="text-lg">
@@ -122,7 +128,10 @@ function Podium({
                                     {thirdPlayer?.score}
                                 </span>
                                 {thirdPlayer?.streaks && (
-                                    <StreakBadge count={thirdPlayer.streaks.current} className="ml-1.5 mt-1" />
+                                    <StreakBadge
+                                        count={thirdPlayer.streaks.current}
+                                        className="ml-1.5 mt-1"
+                                    />
                                 )}
                             </p>
                             <p className="text-lg">
@@ -167,7 +176,10 @@ function Podium({
                         </p>
                         <p className="flex items-center">
                             {firstPlayer?.streaks && (
-                                <StreakBadge count={firstPlayer.streaks.current} className="mr-1 mt-1" />
+                                <StreakBadge
+                                    count={firstPlayer.streaks.current}
+                                    className="mr-1 mt-1"
+                                />
                             )}
                             <span className="font-title text-xl text-retro-accent">
                                 {firstPlayer?.score}
@@ -207,7 +219,10 @@ function Podium({
                             </p>
                             <p className="flex items-center">
                                 {secondPlayer?.streaks && (
-                                    <StreakBadge count={secondPlayer.streaks.current} className="mr-1 mt-1" />
+                                    <StreakBadge
+                                        count={secondPlayer.streaks.current}
+                                        className="mr-1 mt-1"
+                                    />
                                 )}
                                 <span className="font-title text-xl text-retro-accent">
                                     {secondPlayer?.score}
@@ -238,7 +253,10 @@ function Podium({
                             </p>
                             <p className="flex items-center">
                                 {thirdPlayer?.streaks && (
-                                    <StreakBadge count={thirdPlayer.streaks.current} className="mr-1 mt-1" />
+                                    <StreakBadge
+                                        count={thirdPlayer.streaks.current}
+                                        className="mr-1 mt-1"
+                                    />
                                 )}
                                 <span className="font-title text-xl text-retro-accent">
                                     {thirdPlayer?.score}

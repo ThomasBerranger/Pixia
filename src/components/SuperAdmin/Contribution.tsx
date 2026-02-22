@@ -21,7 +21,7 @@ export default function Contribution() {
     useEffect(() => {
         const fetchData = async () => {
             const contributions = await apiCall(
-                ENDPOINTS.ADMIN_CONTRIBUTION_INDEX
+                ENDPOINTS.SUPER_ADMIN_CONTRIBUTION_INDEX
             );
 
             setContributions(contributions);
@@ -35,7 +35,7 @@ export default function Contribution() {
 
         try {
             const contributionUpdated = await apiCall(
-                ENDPOINTS.ADMIN_CONTRIBUTION_UPDATE(contributionId),
+                ENDPOINTS.SUPER_ADMIN_CONTRIBUTION_UPDATE(contributionId),
                 {
                     method: 'PATCH',
                     body: JSON.stringify({ status }),

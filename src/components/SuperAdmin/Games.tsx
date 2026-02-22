@@ -17,7 +17,6 @@ import { fr } from 'date-fns/locale';
 import { PiArrowFatLineLeft, PiArrowFatLineRight } from 'react-icons/pi';
 import { CiImageOff, CiImageOn } from 'react-icons/ci';
 import { Link } from 'react-router-dom';
-import { decodeJWT } from '../../utils/jwt.ts';
 import { URLS } from '../../constants/routes.ts';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
 
@@ -59,8 +58,6 @@ function Games() {
         });
     };
 
-    const decodedEmail = decodeJWT(localStorage.getItem('token'))?.email;
-
     return (
         <section className="min-h-[90vh] max-w-5xl mx-auto w-full flex py-10 px-[10px]">
             <div className="card-primary w-full">
@@ -97,8 +94,6 @@ function Games() {
                         const isCurrentMonth = isSameMonth(day, currentDate);
                         const isTodayDate = isToday(day);
                         const game = getGameForDate(day);
-                        const isAuthor = game?.author.email === decodedEmail;
-
                         const dayClasses = `
                             calendar-day
                             ${!isCurrentMonth && 'text-retro-muted/50'}
@@ -123,9 +118,7 @@ function Games() {
                                         </>
                                     ) : (
                                         game && (
-                                            <CiImageOff
-                                                className={`calendar-icon ${!isAuthor && 'blur-sm'}`}
-                                            />
+                                            <CiImageOff className="calendar-icon" />
                                         )
                                     )}
                                 </div>
@@ -146,15 +139,6 @@ function Games() {
                             </div>
                         );
                     })}
-                </div>
-
-                <div className="text-center mt-8">
-                    <Link
-                        to={URLS.ADMIN_GAMES}
-                        className="btn-primary text-center px-7 py-2"
-                    >
-                        Espace Admin
-                    </Link>
                 </div>
             </div>
         </section>
