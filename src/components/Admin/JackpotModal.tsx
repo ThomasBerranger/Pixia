@@ -8,7 +8,12 @@ const REEL_CONFIGS = [
     { count: 25, duration: 2200 },
     { count: 38, duration: 3200 },
 ];
-const SPARKLE_BG = ['bg-retro-accent', 'bg-retro-primary', 'bg-retro-secondary', 'bg-retro-muted'];
+const SPARKLE_BG = [
+    'bg-retro-accent',
+    'bg-retro-primary',
+    'bg-retro-secondary',
+    'bg-retro-muted',
+];
 
 function rndInt(a: number, b: number): number {
     return Math.floor(Math.random() * (b - a + 1)) + a;

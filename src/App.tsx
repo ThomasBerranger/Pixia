@@ -1,14 +1,14 @@
 import { lazy, Suspense, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import Header from './components/Layouts/Header.tsx';
-import Footer from './components/Layouts/Footer.tsx';
-import Modal from './components/Modal.tsx';
-import Alert from './components/Alert.tsx';
-import ScrollToTop from './components/ScrollToTop.tsx';
-import InstallPWA from './components/InstallPWA.tsx';
-import ImpersonateBanner from './atoms/ImpersonateBanner.tsx';
-import Sidebar from './components/Layouts/SideBar.tsx';
-import ProtectedRoute from './components/ProtectedRoute.tsx';
+import Header from './layouts/Header.tsx';
+import Footer from './layouts/Footer.tsx';
+import Modal from './components/Shared/Modal.tsx';
+import Alert from './components/Shared/Alert.tsx';
+import ScrollToTop from './layouts/ScrollToTop.tsx';
+import InstallPWA from './layouts/InstallPWA.tsx';
+import ImpersonateBanner from './layouts/ImpersonateBanner.tsx';
+import Sidebar from './layouts/SideBar.tsx';
+import ProtectedRoute from './layouts/ProtectedRoute.tsx';
 import { ModalProvider } from './contexts/modalContext.tsx';
 import { AlertProvider } from './contexts/alertContext.tsx';
 import { PATHS } from './constants/routes.ts';
@@ -189,10 +189,7 @@ function App() {
                                     </ProtectedRoute>
                                 }
                             >
-                                <Route
-                                    index
-                                    element={<AdminDashboard />}
-                                />
+                                <Route index element={<AdminDashboard />} />
                                 <Route
                                     path={PATHS.ADMIN_GENERATOR}
                                     element={<AdminGameGenerator />}

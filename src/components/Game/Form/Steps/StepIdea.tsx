@@ -51,17 +51,26 @@ function StepIdea({
             {rejectionData && (
                 <div className="p-3 mb-4 bg-retro-primary/10 space-y-2">
                     <p className="text-center text-sm font-righteous text-retro-primary tracking-wide">
-                        {rejectionData.message} (notoriété {rejectionData.score}% &lt; {MIN_NOTORIETY_SCORE}%)
+                        {rejectionData.message} (notoriété{' '}
+                        {rejectionData.notorietyScore}% &lt;{' '}
+                        {MIN_NOTORIETY_SCORE}%)
                     </p>
                     <div className="flex justify-center gap-4">
                         {rejectionData.films.map((film) => (
-                            <p key={film.titre} className="text-xs font-righteous text-white/70">
-                                {film.titre} — <span className="text-retro-accent">{film.score}%</span>
+                            <p
+                                key={film.titre}
+                                className="text-xs font-righteous text-white/70"
+                            >
+                                {film.titre} —{' '}
+                                <span className="text-retro-accent">
+                                    {film.notorietyScore}%
+                                </span>
                             </p>
                         ))}
                     </div>
                     <p className="text-center text-xs font-righteous text-retro-success/90">
-                        Tu as été remboursé de {TOKEN_REFUND_LOW_NOTORIETY} jetons.
+                        Tu as été remboursé de {TOKEN_REFUND_LOW_NOTORIETY}{' '}
+                        jetons.
                     </p>
                 </div>
             )}

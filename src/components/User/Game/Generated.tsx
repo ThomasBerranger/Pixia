@@ -68,7 +68,7 @@ function List() {
                 </div>
             </section>
 
-            <section className="grid grid-cols-2 sm:grid-cols-4 gap-5 mt-6 sm:mt-10">
+            <section className="grid grid-cols-1 sm:grid-cols-4 gap-5 mt-6 sm:mt-10">
                 {tokens >= 1000 ? (
                     <Link
                         to={URLS.ME_GAME_NEW}
@@ -125,7 +125,7 @@ function List() {
                     </div>
                 )}
 
-                {userGeneratedGames?.map((game: GameType) => {
+                {userGeneratedGames?.slice(0, 10).map((game: GameType) => {
                     const statusLabel =
                         GAME_STATUS_CONFIG[game.status]?.label ?? game.status;
                     const isDraft = game.status === GAME_STATUSES.DRAFT;

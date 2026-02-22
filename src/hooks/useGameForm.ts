@@ -55,7 +55,7 @@ export function useGameForm() {
                 setRejectionData({
                     films: response.films,
                     message: response.message,
-                    score: response.score,
+                    notorietyScore: response.notorietyScore,
                 });
                 return;
             }
@@ -69,7 +69,6 @@ export function useGameForm() {
                 ...game,
                 estimatedDate: date,
                 prompt: response.image_prompt,
-                notorietyScore: response.score,
             });
             setStep(2);
         } catch (error) {
@@ -172,24 +171,19 @@ export function useGameForm() {
     // ── Step 2 → 3 : Passer l'image ──
 
     const skipImage = useCallback(async () => {
-        if (gameId && imageUrl) {
-            try {
+        try {
+            if (gameId && imageUrl) {
                 await apiCall(ENDPOINTS.ME_GAME_IMAGE_UPLOAD(gameId), {
                     method: 'DELETE',
                 });
-            } catch (error) {
-                showAlert(
-                    'Erreur',
-                    "La suppression de l'image a échoué.",
-                    'error'
-                );
-                console.error(error);
-                return;
             }
+            setImageUrl(null);
+            await patchGame();
+            setStep(3);
+        } catch (error) {
+            showAlert('Erreur', 'La sauvegarde a échoué, réessaie.', 'error');
+            console.error(error);
         }
-        setImageUrl(null);
-        await patchGame();
-        setStep(3);
     }, [gameId, imageUrl, apiCall, patchGame, showAlert]);
 
     // ── Step 3 : Envoi en validation (irréversible) ──
@@ -217,7 +211,6 @@ export function useGameForm() {
                 const {
                     date,
                     prompt,
-                    notorietyScore,
                     image,
                     idea: savedIdea,
                     ...game
@@ -229,7 +222,6 @@ export function useGameForm() {
                     ...game,
                     estimatedDate: date,
                     prompt,
-                    notorietyScore,
                 });
                 if (image) {
                     setImageUrl(toImageUrl(image));

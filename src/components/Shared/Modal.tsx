@@ -1,6 +1,6 @@
 import { IoClose } from 'react-icons/io5';
-import { useModal } from '../hooks/useModal.tsx';
-import type { ModalAction } from '../contexts/modalContext.tsx';
+import { useModal } from '../../hooks/useModal.tsx';
+import type { ModalAction } from '../../contexts/modalContext.tsx';
 
 const ACTION_STYLES: Record<NonNullable<ModalAction['variant']>, string> = {
     primary: 'btn-success',

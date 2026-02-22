@@ -54,20 +54,20 @@ function StepImage({
                     />
                 </div>
 
-                {/* Notoriété */}
-                {gameData.notorietyScore !== undefined && (
-                    <div className="col-span-6 sm:col-span-2 order-3 sm:order-2 h-full flex flex-col items-center justify-center bg-retro-surface">
-                        <p className="text-xxs font-righteous uppercase tracking-widest text-retro-muted text-center">
-                            Notoriété
-                        </p>
-                        <p className="sm:text-2xl font-title font-semibold text-retro-accent text-center">
-                            {gameData.notorietyScore}%
+                {/* Date estimée */}
+                <div className="col-span-12 sm:col-span-2 order-2">
+                    <label className="label-retro text-retro-muted text-center block">
+                        Date estimée
+                    </label>
+                    <div className="h-[38px] flex items-center justify-center bg-retro-surface">
+                        <p className="text-base sm:text-xl font-title font-semibold text-retro-accent">
+                            {formatDateFr(gameData.estimatedDate)}
                         </p>
                     </div>
-                )}
+                </div>
 
                 {/* Indice */}
-                <div className="col-span-12 sm:col-span-10 order-2 sm:order-3">
+                <div className="col-span-12 order-3">
                     <TextareaRetro
                         label="Indice"
                         value={gameData.hint}
@@ -75,16 +75,6 @@ function StepImage({
                         rows={2}
                         maxLength={250}
                     />
-                </div>
-
-                {/* Date potentielle */}
-                <div className="col-span-6 sm:col-span-2 order-4 h-full flex flex-col items-center justify-center bg-retro-surface">
-                    <p className="text-xxs font-righteous uppercase tracking-widest text-retro-muted text-center">
-                        Date estimée
-                    </p>
-                    <p className="text-base sm:text-xl font-title font-semibold text-retro-accent text-center mt-1">
-                        {formatDateFr(gameData.estimatedDate)}
-                    </p>
                 </div>
             </div>
 
@@ -144,9 +134,13 @@ function StepImage({
                         <button
                             type="button"
                             onClick={onGenerateImage}
-                            disabled={loading || tokensRemaining < TOKEN_COSTS.imageGenerate}
+                            disabled={
+                                loading ||
+                                tokensRemaining < TOKEN_COSTS.imageGenerate
+                            }
                             className={`flex flex-col items-center gap-1.5 sm:gap-2 p-3 sm:p-4 border-[3px] transition-all ${
-                                loading || tokensRemaining < TOKEN_COSTS.imageGenerate
+                                loading ||
+                                tokensRemaining < TOKEN_COSTS.imageGenerate
                                     ? 'border-retro-muted/20 opacity-50'
                                     : 'border-retro-primary bg-retro-primary/[0.05] hover:bg-retro-primary/10'
                             }`}

@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/authContext.tsx';
-import { URLS } from '../../constants/routes.ts';
-import { useModal } from '../../hooks/useModal.tsx';
+import { useAuth } from '../contexts/authContext.tsx';
+import { URLS } from '../constants/routes.ts';
+import { useModal } from '../hooks/useModal.tsx';
 import { useEffect } from 'react';
-import { ENDPOINTS } from '../../constants/endpoints.ts';
-import { useApi } from '../../hooks/useApi.tsx';
+import { ENDPOINTS } from '../constants/endpoints.ts';
+import { useApi } from '../hooks/useApi.tsx';
 import { MdOutlineNotificationsActive } from 'react-icons/md';
-import { useNotificationStore } from '../../stores/notificationStore.ts';
+import { useNotificationStore } from '../stores/notificationStore.ts';
 
 interface HeaderProps {
     isSidebarOpen: boolean;

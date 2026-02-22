@@ -4,7 +4,7 @@ import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import type { UserGamesStats } from '../../../types/Game/userGamesStats.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { ProgressBar } from '../../../atoms/ProgressBar.tsx';
-import { GameMonthAccordion } from '../../../atoms/GameMonthAccordion.tsx';
+import { GameMonthAccordion } from '../../Game/GameMonthAccordion.tsx';
 import {
     DIFFICULTIES,
     type Difficulty,

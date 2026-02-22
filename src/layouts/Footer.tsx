@@ -1,8 +1,8 @@
 import { RiAiGenerate2 } from 'react-icons/ri';
 import { IoColorPaletteOutline } from 'react-icons/io5';
-import { useModal } from '../../hooks/useModal.tsx';
+import { useModal } from '../hooks/useModal.tsx';
 import { PiInstagramLogoFill } from 'react-icons/pi';
-import { URLS } from '../../constants/routes.ts';
+import { URLS } from '../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import { FaTiktok } from 'react-icons/fa';
 

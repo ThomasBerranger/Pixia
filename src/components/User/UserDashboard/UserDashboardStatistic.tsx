@@ -1,8 +1,6 @@
 import { URLS } from '../../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import { BiSolidRightArrow } from 'react-icons/bi';
-import { ProgressBar } from '../../../atoms/ProgressBar.tsx';
-import { PiCoinsFill } from 'react-icons/pi';
 
 export default function UserDashboardStatistic({
     success,
@@ -10,8 +8,6 @@ export default function UserDashboardStatistic({
     rank,
     streak,
     playerCount,
-    authoredGameCount,
-    tokens,
 }: {
     success: number | undefined;
     games: number | undefined;
@@ -97,6 +93,7 @@ export default function UserDashboardStatistic({
                     </p>
                 </Link>
 
+                {/* TODO: remettre quand l'API backend sera à jour
                 <Link
                     to={URLS.ME_GAMES_GENERATED}
                     className="col-span-3 flex flex-col card-primary-hover p-6"
@@ -127,6 +124,39 @@ export default function UserDashboardStatistic({
                         Voir <BiSolidRightArrow className="ml-1" />
                     </p>
                 </Link>
+                */}
+
+                <div className="col-span-3 card-primary-hover p-6">
+                    <div className="flex items-center gap-2">
+                        <div className="hidden sm:block text-4xl mb-4">✓</div>
+                        <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase mb-2">
+                            Taux de réussite
+                        </h3>
+                    </div>
+                    <div className="text-4xl sm:text-5xl font-title text-retro-primary text-center">
+                        {success &&
+                            games &&
+                            ((success / games) * 100).toFixed(0)}
+                        %
+                    </div>
+                    <div className="text-retro-muted text-xs uppercase tracking-wide mt-2 text-center">
+                        {success
+                            ? games &&
+                              (parseInt(((success / games) * 100).toFixed(0)) >=
+                              90
+                                  ? 'Machine de guerre'
+                                  : parseInt(
+                                          ((success / games) * 100).toFixed(0)
+                                      ) >= 75
+                                    ? 'Champion·ne'
+                                    : parseInt(
+                                            ((success / games) * 100).toFixed(0)
+                                        ) >= 50
+                                      ? "Y'a du potentiel"
+                                      : 'Courage, ça va venir')
+                            : 'Courage, ça va venir'}
+                    </div>
+                </div>
 
                 <div className="col-span-3 card-primary-hover p-6 flex flex-col">
                     <div className="flex items-center gap-2">

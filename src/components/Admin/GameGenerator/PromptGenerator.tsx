@@ -71,7 +71,10 @@ function PromptGenerator({
                 startDate.setDate(startDate.getDate() + 7);
             }
 
-            const dateStr = findFirstAvailableDate(toDateKey(startDate), takenDates);
+            const dateStr = findFirstAvailableDate(
+                toDateKey(startDate),
+                takenDates
+            );
 
             setGame(
                 (prevGame: GameAdminCreateType): GameAdminCreateType => ({

@@ -12,16 +12,15 @@ export interface AiGeneratedData {
     englishSolution: string;
     hint: string;
     estimatedDate: string;
-    notorietyScore: number;
 }
 
 export interface RejectionFilm {
     titre: string;
-    score: number;
+    notorietyScore: number;
 }
 
 export interface RejectionData {
     films: RejectionFilm[];
     message: string;
-    score: number;
+    notorietyScore: number;
 }

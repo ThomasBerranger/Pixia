@@ -3,15 +3,15 @@ import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import { BiSolidDownArrow } from 'react-icons/bi';
 import { CgSpinner } from 'react-icons/cg';
-import { useApi } from '../hooks/useApi.tsx';
-import { ENDPOINTS } from '../constants/endpoints.ts';
-import type { UserGameType } from '../types/Game/userGameType.ts';
-import { URLS } from '../constants/routes.ts';
+import { useApi } from '../../hooks/useApi.tsx';
+import { ENDPOINTS } from '../../constants/endpoints.ts';
+import type { UserGameType } from '../../types/Game/userGameType.ts';
+import { URLS } from '../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import {
     DIFFICULTIES,
     type Difficulty,
-} from '../constants/difficultyPoints.ts';
+} from '../../constants/difficultyPoints.ts';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
 interface GameMonthAccordionProps {

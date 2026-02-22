@@ -105,15 +105,14 @@ function GameContent({
                     />
                 )}
 
-                {nextGameDate &&
-                    nextGameDate <= toDateKey(new Date()) && (
-                        <ChangeGameButton
-                            date={nextGameDate}
-                            isNext={true}
-                            isLoading={loadingDirection === 'next'}
-                            onClick={() => onGameChange(nextGameDate, false)}
-                        />
-                    )}
+                {nextGameDate && nextGameDate <= toDateKey(new Date()) && (
+                    <ChangeGameButton
+                        date={nextGameDate}
+                        isNext={true}
+                        isLoading={loadingDirection === 'next'}
+                        onClick={() => onGameChange(nextGameDate, false)}
+                    />
+                )}
             </div>
 
             <div className="md:hidden flex justify-between pr-2 mt-3 mb-6">
@@ -126,15 +125,14 @@ function GameContent({
                     />
                 )}
 
-                {nextGameDate &&
-                    nextGameDate <= toDateKey(new Date()) && (
-                        <MobileChangeGameButton
-                            date={nextGameDate}
-                            isNext={true}
-                            isLoading={loadingDirection === 'next'}
-                            onClick={() => onGameChange(nextGameDate, false)}
-                        />
-                    )}
+                {nextGameDate && nextGameDate <= toDateKey(new Date()) && (
+                    <MobileChangeGameButton
+                        date={nextGameDate}
+                        isNext={true}
+                        isLoading={loadingDirection === 'next'}
+                        onClick={() => onGameChange(nextGameDate, false)}
+                    />
+                )}
             </div>
         </div>
     );

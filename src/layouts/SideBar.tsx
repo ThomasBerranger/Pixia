@@ -1,17 +1,17 @@
 import { Link } from 'react-router-dom';
-import { URLS } from '../../constants/routes.ts';
-import { useAuth } from '../../contexts/authContext.tsx';
-import { decodeJWT } from '../../utils/jwt.ts';
-import type { JWTPayloadType } from '../../types/JWTPayloadType.ts';
+import { URLS } from '../constants/routes.ts';
+import { useAuth } from '../contexts/authContext.tsx';
+import { decodeJWT } from '../utils/jwt.ts';
+import type { JWTPayloadType } from '../types/JWTPayloadType.ts';
 import {
     MdOutlineNotifications,
     MdOutlineNotificationsActive,
 } from 'react-icons/md';
 import { LuFileCode2 } from 'react-icons/lu';
-import { useNotificationStore } from '../../stores/notificationStore.ts';
+import { useNotificationStore } from '../stores/notificationStore.ts';
 import { TbPhotoSearch } from 'react-icons/tb';
 import { FaCrown } from 'react-icons/fa';
-import UserAvatar from '../../atoms/UserAvatar.tsx';
+import UserAvatar from '../atoms/UserAvatar.tsx';
 
 interface SidebarProps {
     isOpen: boolean;
