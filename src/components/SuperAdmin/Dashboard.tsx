@@ -24,7 +24,7 @@ function Dashboard() {
                 <p className="font-righteous whitespace-nowrap">Parties</p>
             </Link>
             <Link
-                to={URLS.ADMIN_GENERATOR}
+                to={URLS.SUPER_ADMIN_GENERATOR}
                 className="card-primary-hover text-center w-4/5 sm:w-1/5"
             >
                 <RiAiGenerate2 className="mx-auto mb-2" size={30} />

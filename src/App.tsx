@@ -44,7 +44,7 @@ const AdminPendingGames = lazy(
     () => import('./components/Admin/Game/Pending.tsx')
 );
 const AdminGameGenerator = lazy(
-    () => import('./components/Admin/GameGenerator/GameGenerator.tsx')
+    () => import('./components/SuperAdmin/GameGenerator/GameGenerator.tsx')
 );
 const Supervision = lazy(
     () => import('./components/Admin/Game/Supervision.tsx')
@@ -191,10 +191,6 @@ function App() {
                             >
                                 <Route index element={<AdminDashboard />} />
                                 <Route
-                                    path={PATHS.ADMIN_GENERATOR}
-                                    element={<AdminGameGenerator />}
-                                />
-                                <Route
                                     path={PATHS.ADMIN_PENDING_GAMES}
                                     element={<AdminPendingGames />}
                                 />
@@ -230,6 +226,10 @@ function App() {
                                 <Route
                                     path={PATHS.SUPER_ADMIN_CONTRIBUTIONS}
                                     element={<SuperAdminContributions />}
+                                />
+                                <Route
+                                    path={PATHS.SUPER_ADMIN_GENERATOR}
+                                    element={<AdminGameGenerator />}
                                 />
                             </Route>
 
