@@ -58,11 +58,18 @@ function GameForm() {
             <section className="flex justify-between items-center">
                 <h2 className="hidden sm:block font-title text-retro-accent text-4xl">
                     Génération
+                    <span className="text-retro-success font-righteous text-sm ml-1">
+                        BETA
+                    </span>
                 </h2>
                 <div className="text-retro-primary whitespace-nowrap text-right w-full sm:w-1/3">
                     <Stepper currentStep={step} />
                 </div>
             </section>
+
+            <p className="text-xs text-retro-success font-righteous text-center sm:hidden">
+                - BETA -
+            </p>
 
             <div className="flex flex-col gap-2 mt-2 mb-6">
                 {/* Étape 1 — Idée */}
