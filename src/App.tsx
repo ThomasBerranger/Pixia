@@ -44,7 +44,7 @@ const AdminPendingGames = lazy(
     () => import('./components/Admin/Game/Pending.tsx')
 );
 const AdminGameGenerator = lazy(
-    () => import('./components/SuperAdmin/GameGenerator/GameGenerator.tsx')
+    () => import('./components/SuperAdmin/GameGenerator.tsx')
 );
 const Supervision = lazy(
     () => import('./components/Admin/Game/Supervision.tsx')

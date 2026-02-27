@@ -31,18 +31,16 @@ export const ENDPOINTS = {
     // ADMIN
     ADMIN_GAME_CREATE: 'admin/games',
     ADMIN_GAMES_INDEX: 'admin/games',
-    ADMIN_GAME_UPDATE: (id: string) => `admin/games/${id}`,
     ADMIN_GAME_IMAGE_EDIT: (id: string) => `admin/games/${id}/image`,
+    ADMIN_GAME_UPDATE: (id: string) => `admin/games/${id}`,
     ADMIN_GAME_TAKEN_DATES: 'admin/games/taken-dates',
-    ADMIN_GAME_SOLUTION_EXIST: (solution: string) =>
-        `admin/games/solution-exist?solution=${solution}`,
 
     // SUPER ADMIN
     SUPER_ADMIN_IMPERSONATE: (email: string) =>
         `super-admin/impersonate/${email}`,
-    SUPER_ADMIN_TOGGLE_BAN: (email: string) =>
-        `super-admin/toggle-ban/${email}`,
     SUPER_ADMIN_USER_INDEX: 'super-admin/users',
+    SUPER_ADMIN_USER_UPDATE: (id: string) => `super-admin/users/${id}`,
+    SUPER_ADMIN_GAME_CREATE: 'super-admin/games',
     SUPER_ADMIN_GAMES_INDEX: 'super-admin/games',
     SUPER_ADMIN_CONTRIBUTION_INDEX: 'super-admin/contributions',
     SUPER_ADMIN_CONTRIBUTION_UPDATE: (id: string) =>
@@ -60,8 +58,4 @@ export const ENDPOINTS = {
     // NOTIFICATION
     NOTIFICATION: 'notifications',
     HAS_UNREAD_NOTIFICATION: 'notifications/has-unread',
-
-    // OPEN_AI
-    OPEN_AI_GENERATE_CONTENT: 'open-api/generate-content',
-    OPEN_AI_GENERATE_IMAGE: 'open-api/generate-image',
 } as const;

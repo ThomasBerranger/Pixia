@@ -7,6 +7,19 @@ import { fr } from 'date-fns/locale';
 import { RxDotFilled } from 'react-icons/rx';
 import { FaCheck } from 'react-icons/fa';
 import { toDateKey } from '../../../utils/date.ts';
+import UserAvatar from '../../../atoms/UserAvatar.tsx';
+import { Link } from 'react-router-dom';
+import { URLS } from '../../../constants/routes.ts';
+
+interface GameContentProps {
+    game: GameType | undefined;
+    onGameChange: (date: string, isPrevious: boolean) => void;
+    previousGameDate: string | null;
+    nextGameDate: string | null;
+    loadingDirection: 'prev' | 'next' | null;
+    isImageLoading: boolean;
+    onImageLoadEnd: () => void;
+}
 
 function GameContent({
     game,
@@ -16,17 +29,30 @@ function GameContent({
     loadingDirection,
     isImageLoading,
     onImageLoadEnd,
-}: {
-    game: GameType | undefined;
-    onGameChange: (date: string, isPrevious: boolean) => void;
-    previousGameDate: string | null;
-    nextGameDate: string | null;
-    loadingDirection: 'prev' | 'next' | null;
-    isImageLoading: boolean;
-    onImageLoadEnd: () => void;
-}) {
+}: GameContentProps) {
     return (
         <div className="md:h-[80%]">
+            {game?.author && game.author.username !== 'Mirage' && (
+                <Link
+                    to={URLS.USER_SHOW(game.author.slug)}
+                    className="flex md:hidden items-center gap-1.5 float-left relative z-10 mb-4 max-w-[35vw] min-w-0"
+                >
+                    <UserAvatar
+                        avatarUrl={game.author.avatarUrl}
+                        username={game.author.username}
+                        className="w-10 h-10 rounded-full flex-shrink-0"
+                    />
+                    <div className="flex flex-col font-righteous overflow-hidden">
+                        <span className="text-xxs text-retro-muted">
+                            Une idée de
+                        </span>
+                        <span className="text-xs truncate">
+                            {game.author.username}
+                        </span>
+                    </div>
+                </Link>
+            )}
+
             <p className="flex md:hidden items-center text-xxs float-right z-10 badge badge-primary py-1 px-5 w-fit mb-4">
                 {game && game.difficulty ? (
                     game.solution ? (
@@ -50,6 +76,30 @@ function GameContent({
             </p>
 
             <div className="md:h-full w-fit relative group rounded mx-auto">
+                {game?.author && game.author.username !== 'Mirage' && (
+                    <Link
+                        to={URLS.USER_SHOW(game.author.slug)}
+                        className="absolute hidden md:flex items-center top-2 left-2 z-10 rounded-xl max-w-[25vw]
+                        bg-retro-bg/100 backdrop-blur-sm py-1 border-2 border-retro-accent/50 shadow-[0_0_10px_rgba(0,0,0,0.5)]
+                        transition-all duration-300 ease-in-out
+                        group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:opacity-40 hover:!opacity-100"
+                    >
+                        <UserAvatar
+                            avatarUrl={game.author.avatarUrl}
+                            username={game.author.username}
+                            className="w-12 h-12 rounded-full flex-shrink-0"
+                        />
+                        <div className="flex flex-col font-righteous min-w-0">
+                            <span className="text-xs text-retro-muted mr-2">
+                                Générée par
+                            </span>
+                            <span className="mr-1.5 truncate">
+                                {game.author.username}
+                            </span>
+                        </div>
+                    </Link>
+                )}
+
                 <p
                     className="absolute hidden md:flex items-center text-xs top-3 right-4 z-10
                 badge-primary md:py-2 md:px-4 transition-all duration-300 ease-in-out
