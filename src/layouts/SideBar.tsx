@@ -85,9 +85,9 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                     Version {__APP_VERSION__}
                 </Link>
 
-                {(isAdmin() || isSuperAdmin()) && (
+                {(isSuperAdmin() || isAdmin()) && (
                     <Link
-                        to={URLS.ADMIN}
+                        to={isSuperAdmin() ? URLS.SUPER_ADMIN : URLS.ADMIN}
                         onClick={onClose}
                         className="btn-ghost py-2 text-center"
                     >
