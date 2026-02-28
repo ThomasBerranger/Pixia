@@ -87,7 +87,7 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
 
                 {(isAdmin() || isSuperAdmin()) && (
                     <Link
-                        to={URLS.SUPER_ADMIN}
+                        to={URLS.ADMIN}
                         onClick={onClose}
                         className="btn-ghost py-2 text-center"
                     >
