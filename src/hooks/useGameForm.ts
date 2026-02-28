@@ -10,19 +10,33 @@ import type {
 } from '../types/gameFormType.tsx';
 import { GAME_STATUSES } from '../types/Game/gameStatuses.ts';
 
+export interface GameFormState {
+    gameId?: string;
+    idea?: string;
+    gameData?: AiGeneratedData;
+    imageUrl?: string | null;
+    step?: StepId;
+}
+
 const toImageUrl = (path: string): string =>
     `${import.meta.env.VITE_API_URL}${path}`;
 
-export function useGameForm() {
+export function useGameForm(initialState?: GameFormState) {
     const { apiCall } = useApi();
     const { showAlert } = useAlert();
 
-    const [step, setStep] = useState<StepId>(1);
-    const [idea, setIdea] = useState('');
+    const [step, setStep] = useState<StepId>(initialState?.step ?? 1);
+    const [idea, setIdea] = useState(initialState?.idea ?? '');
     const [loading, setLoading] = useState(false);
-    const [gameData, setGameData] = useState<AiGeneratedData | null>(null);
-    const [imageUrl, setImageUrl] = useState<string | null>(null);
-    const [gameId, setGameId] = useState<string | null>(null);
+    const [gameData, setGameData] = useState<AiGeneratedData | null>(
+        initialState?.gameData ?? null
+    );
+    const [imageUrl, setImageUrl] = useState<string | null>(
+        initialState?.imageUrl ?? null
+    );
+    const [gameId, setGameId] = useState<string | null>(
+        initialState?.gameId ?? null
+    );
     const [submitted, setSubmitted] = useState(false);
     const [rejectionData, setRejectionData] = useState<RejectionData | null>(
         null
@@ -32,7 +46,7 @@ export function useGameForm() {
 
     useEffect(() => {
         apiCall(ENDPOINTS.ME_TOKENS)
-            .then((tokens: number) => setUserTokens(tokens))
+            .then(({ tokens }) => setUserTokens(tokens))
             .catch(console.error);
     }, [apiCall]);
 

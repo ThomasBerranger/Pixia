@@ -147,9 +147,7 @@ function AdminUsersTable() {
                 );
 
                 setUsers((prev) =>
-                    prev.map((u) =>
-                        u.id === updatedUser.id ? updatedUser : u
-                    )
+                    prev.map((u) => (u.id === updatedUser.id ? updatedUser : u))
                 );
 
                 closeModal();

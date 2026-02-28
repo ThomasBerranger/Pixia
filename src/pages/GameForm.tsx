@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useGameForm } from '../hooks/useGameForm.ts';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useGameForm, type GameFormState } from '../hooks/useGameForm.ts';
 import { URLS } from '../constants/routes.ts';
 import { CREATE_STEPS } from '../constants/gameForm.ts';
 import Stepper from '../components/Game/Form/Stepper.tsx';
@@ -12,6 +12,7 @@ import StepSubmit from '../components/Game/Form/Steps/StepSubmit.tsx';
 
 function GameForm() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { id } = useParams();
 
     const {
@@ -35,19 +36,22 @@ function GameForm() {
         skipImage,
         submitForReview,
         goToStep,
-    } = useGameForm();
+    } = useGameForm((location.state ?? undefined) as GameFormState | undefined);
 
     useEffect(() => {
-        if (id) {
+        if (id && !gameData) {
             loadGame(id);
         }
-    }, [id, loadGame]);
+    }, [id, loadGame, gameData]);
 
     useEffect(() => {
         if (gameId && !id) {
-            navigate(URLS.ME_GAME_FORM(gameId), { replace: true });
+            navigate(URLS.ME_GAME_FORM(gameId), {
+                replace: true,
+                state: { gameId, idea, gameData, imageUrl, step },
+            });
         }
-    }, [gameId, id, navigate]);
+    }, [gameId, id, navigate, idea, gameData, imageUrl, step]);
 
     const handleReset = () => {
         navigate(URLS.ME_GAME_NEW, { replace: true });

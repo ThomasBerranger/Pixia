@@ -37,6 +37,13 @@ function Dashboard() {
     const [games, setGames] = useState<GameType[]>([]);
     const [currentMonth, setCurrentMonth] = useState<Date>(now);
     const [showJackpot, setShowJackpot] = useState(false);
+    const [canClaim, setCanClaim] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        apiCall(ENDPOINTS.ME_TOKENS)
+            .then(({ canClaim }) => setCanClaim(canClaim))
+            .catch(console.error);
+    }, [apiCall]);
 
     const isCurrentMonth = isSameMonth(currentMonth, now);
 
@@ -92,16 +99,19 @@ function Dashboard() {
                     Studio
                 </h2>
                 <div className="text-retro-primary whitespace-nowrap text-right">
-                    {isLoading ? (
+                    {isLoading || canClaim === null ? (
                         <CgSpinner className="text-retro-accent animate-spin text-4xl" />
                     ) : (
                         <button
-                            onClick={() => setShowJackpot(true)}
-                            className="btn-pixel text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 px-4 py-2"
+                            onClick={() => canClaim && setShowJackpot(true)}
+                            disabled={!canClaim}
+                            className={`text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 px-4 py-2 ${canClaim ? 'btn-pixel' : 'btn-disabled'}`}
                         >
                             <PiTreasureChest className="text-xl" />{' '}
-                            <span className="hidden sm:block">Jetons de</span>{' '}
-                            {format(now, 'MMMM', { locale: fr })}
+                            <span className="hidden sm:block">
+                                Jetons de {format(now, 'MMMM', { locale: fr })}{' '}
+                                {!canClaim && 'récupérés'}
+                            </span>
                         </button>
                     )}
                 </div>
@@ -336,6 +346,7 @@ function Dashboard() {
                 <JackpotModal
                     month={format(now, 'MMMM', { locale: fr })}
                     onClose={() => setShowJackpot(false)}
+                    onClaimed={() => setCanClaim(false)}
                 />
             )}
         </section>

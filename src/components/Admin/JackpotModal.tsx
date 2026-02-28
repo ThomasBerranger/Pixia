@@ -87,9 +87,10 @@ function SlotReel({ target, count, duration, onDone }: SlotReelProps) {
 interface JackpotModalProps {
     month: string;
     onClose: () => void;
+    onClaimed?: () => void;
 }
 
-function JackpotModal({ month, onClose }: JackpotModalProps) {
+function JackpotModal({ month, onClose, onClaimed }: JackpotModalProps) {
     const { apiCall } = useApi();
 
     const [tokens, setTokens] = useState<number | null>(null);
@@ -115,9 +116,10 @@ function JackpotModal({ month, onClose }: JackpotModalProps) {
                 doneCount.current = 0;
                 apiReady.current = true;
                 setReelKey((k) => k + 1);
+                onClaimed?.();
             })
             .catch(console.error);
-    }, [apiCall]);
+    }, [apiCall]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleDone = () => {
         if (!apiReady.current) return;
