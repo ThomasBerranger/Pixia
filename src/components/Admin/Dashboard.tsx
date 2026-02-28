@@ -108,6 +108,9 @@ function Dashboard() {
                             className={`text-xs sm:text-sm flex items-center gap-1 sm:gap-1.5 px-4 py-2 ${canClaim ? 'btn-pixel' : 'btn-disabled'}`}
                         >
                             <PiTreasureChest className="text-xl" />{' '}
+                            <span className="sm:hidden">
+                                {format(now, 'MMMM', { locale: fr })}
+                            </span>
                             <span className="hidden sm:block">
                                 Jetons de {format(now, 'MMMM', { locale: fr })}{' '}
                                 {!canClaim && 'récupérés'}
