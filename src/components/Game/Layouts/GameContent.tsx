@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import type { GameType } from '../../../types/Game/gameType.ts';
 import ChangeGameButton from '../Controls/ChangeGameButton.tsx';
 import MobileChangeGameButton from '../Controls/MobileChangeGameButton.tsx';
@@ -30,6 +31,16 @@ function GameContent({
     isImageLoading,
     onImageLoadEnd,
 }: GameContentProps) {
+    const fsRef = useRef<HTMLDivElement>(null);
+
+    const toggleFullscreen = () => {
+        if (document.fullscreenElement) {
+            document.exitFullscreen();
+        } else {
+            fsRef.current?.requestFullscreen();
+        }
+    };
+
     return (
         <div className="md:h-[80%]">
             {game?.author && game.author.username !== 'Mirage' && (
@@ -128,16 +139,18 @@ function GameContent({
                 </p>
 
                 {game && game.image ? (
-                    <img
-                        src={
-                            game && game.image
-                                ? `${import.meta.env.VITE_API_URL}${game.image}`
-                                : 'https://placehold.co/800x400?text=Chargement'
-                        }
-                        onLoad={onImageLoadEnd}
-                        alt="AI created image"
-                        className={`md:h-full object-contain shadow-[0_0px_60px_rgba(0,0,0,0.6)] shadow-retro-accent rounded-md transition-all duration-300 ${isImageLoading && 'blur-sm'}`}
-                    />
+                    <div
+                        ref={fsRef}
+                        className="contents [&:fullscreen]:flex [&:fullscreen]:bg-black [&:fullscreen]:items-center [&:fullscreen]:overflow-x-auto [&:fullscreen>img]:h-[80vh] [&:fullscreen>img]:w-auto [&:fullscreen>img]:max-w-none [&:fullscreen>img]:mx-auto"
+                    >
+                        <img
+                            src={`${import.meta.env.VITE_API_URL}${game.image}`}
+                            onLoad={onImageLoadEnd}
+                            onClick={toggleFullscreen}
+                            alt="AI created image"
+                            className={`md:h-full object-contain shadow-[0_0px_60px_rgba(0,0,0,0.6)] shadow-retro-accent rounded-md transition-all duration-300 cursor-zoom-in ${isImageLoading && 'blur-sm'}`}
+                        />
+                    </div>
                 ) : (
                     <img
                         src="/gifs/loading3.gif"
