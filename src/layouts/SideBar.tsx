@@ -3,12 +3,7 @@ import { URLS } from '../constants/routes.ts';
 import { useAuth } from '../contexts/authContext.tsx';
 import { decodeJWT } from '../utils/jwt.ts';
 import type { JWTPayloadType } from '../types/JWTPayloadType.ts';
-import {
-    MdOutlineNotifications,
-    MdOutlineNotificationsActive,
-} from 'react-icons/md';
 import { LuFileCode2 } from 'react-icons/lu';
-import { useNotificationStore } from '../stores/notificationStore.ts';
 import { TbPhotoSearch } from 'react-icons/tb';
 import { FaCrown } from 'react-icons/fa';
 import UserAvatar from '../atoms/UserAvatar.tsx';
@@ -20,7 +15,6 @@ interface SidebarProps {
 
 function Sidebar({ isOpen, onClose }: SidebarProps) {
     const { isAuthenticated, isAdmin, isSuperAdmin } = useAuth();
-    const hasUnread = useNotificationStore((state) => state.hasUnread);
 
     const decodedJwt: JWTPayloadType | undefined = decodeJWT(
         localStorage.getItem('token')
@@ -55,26 +49,11 @@ function Sidebar({ isOpen, onClose }: SidebarProps) {
                 <Link
                     to={URLS.HOME}
                     onClick={onClose}
-                    className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
+                    className="text-white flex items-center text-xl"
                 >
                     <TbPhotoSearch className=" mr-2 text-3xl" />
                     Jeu du jour
                 </Link>
-
-                {isAuthenticated && (
-                    <Link
-                        to={URLS.ME_NOTIFICATIONS}
-                        onClick={onClose}
-                        className={`text-white flex items-center text-xl ${hasUnread ? 'animate-pulse' : ''}`}
-                    >
-                        {hasUnread ? (
-                            <MdOutlineNotificationsActive className="text-retro-primary mr-2 text-3xl" />
-                        ) : (
-                            <MdOutlineNotifications className="mr-2 text-3xl" />
-                        )}
-                        Notifications
-                    </Link>
-                )}
 
                 <Link
                     to={URLS.CHANGELOG}

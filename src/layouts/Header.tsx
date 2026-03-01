@@ -2,11 +2,6 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/authContext.tsx';
 import { URLS } from '../constants/routes.ts';
 import { useModal } from '../hooks/useModal.tsx';
-import { useEffect } from 'react';
-import { ENDPOINTS } from '../constants/endpoints.ts';
-import { useApi } from '../hooks/useApi.tsx';
-import { MdOutlineNotificationsActive } from 'react-icons/md';
-import { useNotificationStore } from '../stores/notificationStore.ts';
 
 interface HeaderProps {
     isSidebarOpen: boolean;
@@ -16,32 +11,6 @@ interface HeaderProps {
 function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
     const { isAuthenticated } = useAuth();
     const { openModal } = useModal();
-    const { apiCall } = useApi();
-
-    const hasUnreadNotification = useNotificationStore(
-        (state) => state.hasUnread
-    );
-    const setHasUnreadNotification = useNotificationStore(
-        (state) => state.setHasUnread
-    );
-
-    useEffect(() => {
-        if (!isAuthenticated) return;
-
-        const fetchData = async () => {
-            try {
-                const hasUnreadNotification = await apiCall(
-                    ENDPOINTS.HAS_UNREAD_NOTIFICATION
-                );
-
-                setHasUnreadNotification(hasUnreadNotification);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, [apiCall, isAuthenticated, setHasUnreadNotification]);
 
     return (
         <div className="pb-[11vh]">
@@ -58,14 +27,6 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                 </Link>
 
                 <div className="flex sm:hidden items-baseline">
-                    {hasUnreadNotification && (
-                        <div className="flex text-3xl mr-1.5">
-                            <Link to={URLS.ME_NOTIFICATIONS}>
-                                <MdOutlineNotificationsActive className="text-retro-primary animate-pulse" />
-                            </Link>
-                        </div>
-                    )}
-
                     <button
                         className={`hamburger hamburger--collapse pt-4 pr-2 ${isSidebarOpen && 'is-active'}`}
                         type="button"
@@ -138,18 +99,6 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                     >
                         Le concept
                     </button>
-
-                    {isAuthenticated && (
-                        <Link
-                            to={URLS.ME_NOTIFICATIONS}
-                            className={`flex items-center ${hasUnreadNotification ? 'text-retro-primary animate-pulse' : 'text-white'}`}
-                        >
-                            {hasUnreadNotification && (
-                                <MdOutlineNotificationsActive className="mr-0.5 text-3xl" />
-                            )}
-                            Notifications
-                        </Link>
-                    )}
 
                     <Link to={URLS.ME}>
                         <button className="btn-primary text-xs sm:text-md px-4 py-2 sm:px-6 sm:py-2.5">

@@ -13,6 +13,26 @@ function Changelog() {
             </h2>
 
             <div className="font-righteous mb-10">
+                <p className="text-lg mb-1">🪙 Les jetons débarquent</p>
+                <p className="text-sm mb-7">
+                    Chaque point gagné en jouant te rapporte un jeton.
+                    Accumule-les pour débloquer la création de tes propres
+                    parties !
+                </p>
+                <p className="text-lg mb-1">🎨 Crée tes propres Pixia</p>
+                <p className="text-sm">
+                    Tu as une idée de fusion de films ? Propose-la directement
+                    depuis ton espace perso, génère une image avec l'IA et
+                    envoie ta création pour validation. Si elle est acceptée,
+                    elle sera publiée pour toute la communauté !
+                </p>
+            </div>
+
+            <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
+                ● Version 2.2.1
+            </h2>
+
+            <div className="font-righteous mb-10">
                 <p className="text-lg mb-1">📊 Mes parties</p>
                 <p className="text-sm">
                     Tu peux désormais retrouver l'ensemble de tes parties

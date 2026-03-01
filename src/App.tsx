@@ -7,6 +7,7 @@ import Alert from './components/Shared/Alert.tsx';
 import ScrollToTop from './layouts/ScrollToTop.tsx';
 import InstallPWA from './layouts/InstallPWA.tsx';
 import ImpersonateBanner from './layouts/ImpersonateBanner.tsx';
+import NotificationWatcher from './components/Shared/NotificationWatcher.tsx';
 import Sidebar from './layouts/SideBar.tsx';
 import ProtectedRoute from './layouts/ProtectedRoute.tsx';
 import { ModalProvider } from './contexts/modalContext.tsx';
@@ -89,6 +90,7 @@ function App() {
                 <ScrollToTop />
                 <InstallPWA />
                 <ImpersonateBanner />
+                <NotificationWatcher />
 
                 <Header
                     isSidebarOpen={isSidebarOpen}

@@ -16,7 +16,6 @@ import {
     getBadgeIcon,
     getBadgeName,
 } from '../../../types/Badge/badgeType.ts';
-
 function Notification() {
     const { apiCall } = useApi();
 
