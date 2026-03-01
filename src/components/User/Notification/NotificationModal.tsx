@@ -30,15 +30,17 @@ function NotificationModal({ notifications, onClose }: NotificationModalProps) {
     return (
         <div
             onClick={close}
-            className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-all duration-700 ${visible ? 'bg-black/85 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-0'}`}
+            className={`fixed inset-0 z-50 flex items-center justify-center p-4 pt-[8vh] transition-all duration-700 ${visible ? 'bg-black/85 backdrop-blur-sm' : 'bg-black/0 backdrop-blur-0'}`}
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className={`bg-retro-surface/95 border-[3px] border-retro-primary shadow-[0_0_40px_rgba(255,0,110,0.5)] rounded-xl w-full max-w-xl max-h-[80vh] flex flex-col p-4 sm:p-7 transition-all duration-1000 ease-out ${visible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.85] translate-y-8'}`}
+                className={`bg-retro-surface/95 border-[3px] border-retro-primary shadow-[0_0_40px_rgba(255,0,110,0.5)] rounded-xl w-full max-w-xl max-h-[70vh] flex flex-col p-4 sm:p-7 transition-all duration-1000 ease-out ${visible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.85] translate-y-8'}`}
             >
                 {/* Header */}
                 <div className="flex justify-between items-center mb-3">
-                    <h2 className="animated-neon-title">Notifications</h2>
+                    <h2 className="animated-neon-title text-2xl sm:text-3xl">
+                        Notifications
+                    </h2>
                     <button
                         onClick={close}
                         className="text-retro-accent hover:text-retro-primary transition-colors"

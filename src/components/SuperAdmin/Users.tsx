@@ -13,7 +13,12 @@ import UserAvatar from '../../atoms/UserAvatar.tsx';
 import { format, parseISO } from 'date-fns';
 import { fr } from 'date-fns/locale';
 
-const EDITABLE_ROLES: Role[] = [ROLES.BOT, ROLES.USER, ROLES.BANNED, ROLES.ADMIN];
+const EDITABLE_ROLES: Role[] = [
+    ROLES.BOT,
+    ROLES.USER,
+    ROLES.BANNED,
+    ROLES.ADMIN,
+];
 
 interface UserEditFormProps {
     user: UserType;
