@@ -55,12 +55,15 @@ function Supervision() {
                 );
 
                 const gameDate = toDateKey(response.date);
-                const filteredDates = takenDates.filter((d) => d !== gameDate);
-                setTakenDates(filteredDates);
+                setTakenDates(takenDates);
 
+                const isTaken = takenDates.includes(gameDate);
                 const date =
-                    minDate && gameDate < minDate
-                        ? findFirstAvailableDate(minDate, filteredDates)
+                    isTaken || (minDate && gameDate < minDate)
+                        ? findFirstAvailableDate(
+                              minDate ?? toDateKey(new Date()),
+                              takenDates
+                          )
                         : gameDate;
 
                 setGame({ ...response, date });

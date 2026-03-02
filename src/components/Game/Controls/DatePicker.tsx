@@ -50,7 +50,6 @@ export function DatePicker({
         };
     }, [isOpen]);
 
-    // Générer les jours du mois avec mois précédent et suivant
     const getDaysInMonth = (date: Date) => {
         const year = date.getFullYear();
         const month = date.getMonth();
@@ -62,7 +61,6 @@ export function DatePicker({
 
         const days: { day: number; month: number; year: number }[] = [];
 
-        // Jours du mois précédent
         const prevMonth = month === 0 ? 11 : month - 1;
         const prevYear = month === 0 ? year - 1 : year;
         for (let i = startingDayOfWeek - 1; i >= 0; i--) {
@@ -73,12 +71,10 @@ export function DatePicker({
             });
         }
 
-        // Jours du mois actuel
         for (let day = 1; day <= daysInMonth; day++) {
             days.push({ day, month, year });
         }
 
-        // Jours du mois suivant pour compléter
         const nextMonth = month === 11 ? 0 : month + 1;
         const nextYear = month === 11 ? year + 1 : year;
         const remainingCells = 42 - days.length;
@@ -112,11 +108,9 @@ export function DatePicker({
         return `${day}/${month}/${year}`;
     };
 
-    // Gérer la sélection d'un jour
     const handleDayClick = (year: number, month: number, day: number) => {
         if (isDateUnavailable(year, month, day)) return;
 
-        // Changer de mois si jour d'un autre mois
         if (
             month !== currentMonth.getMonth() ||
             year !== currentMonth.getFullYear()
@@ -129,7 +123,6 @@ export function DatePicker({
         setIsOpen(false);
     };
 
-    // Vérifier si c'est aujourd'hui
     const isToday = (year: number, month: number, day: number) => {
         const today = new Date();
         return (
@@ -139,7 +132,6 @@ export function DatePicker({
         );
     };
 
-    // Navigation entre les mois
     const goToPreviousMonth = () => {
         setCurrentMonth(
             new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1)
