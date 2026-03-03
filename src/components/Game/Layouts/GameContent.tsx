@@ -55,7 +55,7 @@ function GameContent({
                     />
                     <div className="flex flex-col font-righteous overflow-hidden">
                         <span className="text-xxs text-retro-muted">
-                            Une idée de
+                            Générée par
                         </span>
                         <span className="text-xs truncate">
                             {game.author.username}
