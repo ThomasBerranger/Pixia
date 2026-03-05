@@ -80,7 +80,7 @@ function StepIdea({
                 value={idea}
                 onChange={setIdea}
                 label="Décris ton idée"
-                placeholder="Une fusion épique entre les univers de..."
+                placeholder="Inception et Pirates des Caraïbes, je veux voir Jack Sparrow naviguer entre les rêves pour trouver un trésor enfoui dans le subconscient"
                 minLength={IDEA_MIN_LENGTH}
             />
 

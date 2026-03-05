@@ -159,7 +159,7 @@ function GameFooter({
                         <div className="col-span-full sm:col-span-7 order-1">
                             <input
                                 type="text"
-                                placeholder="Exemple : Titanic et Inception"
+                                placeholder="Exemple : Titanic et Spider-Man"
                                 autoComplete="off"
                                 value={answer}
                                 onChange={(e) => setAnswer(e.target.value)}
