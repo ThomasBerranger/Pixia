@@ -1,27 +1,17 @@
 import { URLS } from '../../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import { BiSolidRightArrow } from 'react-icons/bi';
-import { ProgressBar } from '../../../atoms/ProgressBar.tsx';
-import { PiCoinsFill } from 'react-icons/pi';
 
 interface UserDashboardStatisticProps {
-    success: number | undefined;
-    games: number | undefined;
     rank: number | undefined;
     streak: Record<string, number> | undefined;
     playerCount: number | undefined;
-    authoredGameCount: number | undefined;
-    tokens: number | undefined;
 }
 
 export default function UserDashboardStatistic({
-    success,
-    games,
     rank,
     streak,
     playerCount,
-    authoredGameCount,
-    tokens,
 }: UserDashboardStatisticProps) {
     return (
         <>
@@ -30,38 +20,6 @@ export default function UserDashboardStatistic({
             </h2>
 
             <section className="grid grid-cols-6 lg:grid-cols-12 gap-4 sm:gap-6 mb-8">
-                <Link
-                    to={URLS.ME_GAMES}
-                    className="col-span-3 flex flex-col items-center card-primary-hover p-6"
-                >
-                    <div className="self-start flex items-center gap-2">
-                        <div className="hidden sm:block text-4xl mb-4">🎮</div>
-                        <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase mb-3">
-                            Parties gagnées
-                        </h3>
-                    </div>
-
-                    <div
-                        className="w-[100px] h-[100px] rounded-full flex items-center justify-center"
-                        style={{
-                            background: `conic-gradient(#ff006e 0deg ${((success ?? 0) / (games ?? 1)) * 360}deg, #0a0e27 ${((success ?? 0) / (games ?? 1)) * 360}deg 360deg)`,
-                        }}
-                    >
-                        <div className="w-[94px] h-[94px] bg-retro-surface rounded-full flex flex-col items-center justify-center">
-                            <span className="text-4xl font-title text-retro-primary">
-                                {success}
-                            </span>
-                            <span className="text-xs text-retro-muted font-righteous">
-                                / {games}
-                            </span>
-                        </div>
-                    </div>
-
-                    <p className="self-end mt-2 sm:mt-0 flex items-center font-righteous text-retro-accent text-xs">
-                        Voir <BiSolidRightArrow className="ml-1" />
-                    </p>
-                </Link>
-
                 <Link
                     to={URLS.LEADERBOARD}
                     className="col-span-3 flex flex-col card-primary-hover p-6"
@@ -89,37 +47,6 @@ export default function UserDashboardStatistic({
                                       : rank <= 20
                                         ? 'Aux portes du top'
                                         : 'Prometteur·euse')}
-                        </div>
-                    </div>
-
-                    <p className="mt-auto pt-2 flex justify-end items-center font-righteous text-retro-accent text-xs">
-                        Voir <BiSolidRightArrow className="ml-1" />
-                    </p>
-                </Link>
-
-                <Link
-                    to={URLS.ME_GAMES_GENERATED}
-                    className="col-span-3 flex flex-col card-primary-hover p-6"
-                >
-                    <div className="flex items-center gap-2">
-                        <div className="hidden sm:block text-4xl">🎨</div>
-                        <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase">
-                            Mes parties
-                        </h3>
-                    </div>
-
-                    <div className="flex-1 flex flex-col items-center justify-center text-center mb-0.5">
-                        <span className="text-4xl sm:text-5xl font-title text-retro-primary">
-                            {authoredGameCount}
-                        </span>
-                        <div className="flex items-center mt-2 w-full">
-                            <ProgressBar
-                                label={''}
-                                value={tokens ?? 0}
-                                max={1000}
-                                size={'sm'}
-                            />
-                            <PiCoinsFill className="text-retro-muted text-2xl ml-1" />
                         </div>
                     </div>
 

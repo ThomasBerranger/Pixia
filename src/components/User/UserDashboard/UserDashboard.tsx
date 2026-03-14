@@ -4,6 +4,7 @@ import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import type { UserDashboardType } from '../../../types/User/userDashboardType.ts';
 import type { ContributionType } from '../../../types/Contribution/contributionType.ts';
 import UserDashboardBadge from './UserDashboardBadge.tsx';
+import UserDashboardGames from './UserDashboardGames.tsx';
 import UserDashboardStatistic from './UserDashboardStatistic.tsx';
 import UserDashboardHistory from './UserDashboardHistory.tsx';
 import UserDashboardDangerZone from './UserDashboardDangerZone.tsx';
@@ -116,14 +117,17 @@ function UserDashboard() {
 
             <UserDashboardBadge badges={userDashboard?.user.badges} />
 
-            <UserDashboardStatistic
-                success={userDashboard?.success}
+            <UserDashboardGames
+                success={userDashboard?.successCount}
                 games={userDashboard?.games}
+                authoredGameCount={userDashboard?.authoredGameCount}
+                tokens={userDashboard?.user.tokens}
+            />
+
+            <UserDashboardStatistic
                 rank={userDashboard?.user.rank}
                 streak={userDashboard?.streak}
                 playerCount={userDashboard?.playerCount}
-                authoredGameCount={userDashboard?.authoredGameCount}
-                tokens={userDashboard?.user.tokens}
             />
 
             <section className="grid sm:grid-cols-2 mb-10 sm:mb-8">

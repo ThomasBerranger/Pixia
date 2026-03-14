@@ -5,7 +5,7 @@ export interface UserDashboardType {
     user: UserType;
     rank: number;
     games: number;
-    success: number;
+    successCount: number;
     history: Array<AchievementType>;
     streak: Record<string, number>;
     playerCount: number;
