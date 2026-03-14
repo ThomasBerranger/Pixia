@@ -30,7 +30,7 @@ export default function UserDashboardHeader({
             <section className="lg:flex justify-between card-primary px-3 py-4 sm:p-5 sm:pt-4">
                 {user ? (
                     <>
-                        <div className="flex items-center">
+                        <div className="flex items-center sm:flex-1">
                             <div
                                 className="cursor-pointer hover:opacity-80 relative h-28 w-28 flex-shrink-0"
                                 onClick={() =>
@@ -57,15 +57,29 @@ export default function UserDashboardHeader({
                                     />
                                 </button>
                             </div>
-                            <div className="min-w-0 w-full">
-                                <h1
-                                    className={`font-righteous bg-gradient-to-br from-retro-primary via-retro-secondary
-                                                to-retro-accent bg-clip-text text-transparent truncate text-center sm:text-left mb-0.5
-                                                ${user.username.length > 20 ? 'text-xl' : user.username.length > 10 ? 'text-2xl' : 'text-3xl'}`}
-                                >
-                                    {user.username}
-                                </h1>
-                                <div className="flex justify-evenly sm:justify-start gap-1.5">
+                            <div className="min-w-0 w-full sm:flex sm:items-center sm:justify-between">
+                                <div className="min-w-0">
+                                    <h1
+                                        className={`font-righteous bg-gradient-to-br from-retro-primary via-retro-secondary
+                                                    to-retro-accent bg-clip-text text-transparent truncate text-center sm:text-left mb-0.5
+                                                    ${user.username.length > 20 ? 'text-xl' : user.username.length > 10 ? 'text-2xl' : 'text-3xl'}`}
+                                    >
+                                        {user.username}
+                                    </h1>
+                                    {(isAdmin() || isSuperAdmin()) && (
+                                        <Link
+                                            to={
+                                                isSuperAdmin()
+                                                    ? URLS.SUPER_ADMIN
+                                                    : URLS.ADMIN
+                                            }
+                                            className="hidden sm:inline-flex items-center gap-1.5 btn-ghost py-1.5 px-3 text-xs font-righteous"
+                                        >
+                                            <FaCrown className="text-lg" /> Studio
+                                        </Link>
+                                    )}
+                                </div>
+                                <div className="flex justify-evenly sm:justify-end gap-1.5 sm:gap-4">
                                     <div className="text-center">
                                         <p className="font-title text-retro-accent text-xl">
                                             {user?.score}
@@ -103,18 +117,6 @@ export default function UserDashboardHeader({
                                 </div>
                             </div>
                         </div>
-                        {(isAdmin() || isSuperAdmin()) && (
-                            <Link
-                                to={
-                                    isSuperAdmin()
-                                        ? URLS.SUPER_ADMIN
-                                        : URLS.ADMIN
-                                }
-                                className="hidden sm:flex sm:justify-center sm:items-center btn-ghost py-2.5 sm:px-4"
-                            >
-                                <FaCrown className="text-3xl mx-auto" />
-                            </Link>
-                        )}
                     </>
                 ) : (
                     <CgSpinner

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { BadgeType } from '../../../types/Badge/badgeType.ts';
 import { BADGES } from '../../../constants/badges.ts';
 import { useModal } from '../../../hooks/useModal.tsx';
-import { GiLockedChest } from 'react-icons/gi';
+import { GiLockedChest, GiOpenChest } from 'react-icons/gi';
 import { BiSolidRightArrow } from 'react-icons/bi';
 import { formatDuration, intervalToDuration } from 'date-fns';
 import { fr } from 'date-fns/locale';
@@ -58,7 +58,7 @@ export default function UserDashboardBadge({
                     </h2>
                     {jackpotCountdown ? (
                         <>
-                            <GiLockedChest className="text-4xl text-retro-muted mx-auto" />
+                            <GiOpenChest className="text-4xl text-retro-muted mx-auto" />
                             <p className="text-xxs font-righteous text-retro-muted mt-auto">
                                 {jackpotCountdown}
                             </p>

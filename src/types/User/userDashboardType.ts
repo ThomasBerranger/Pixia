@@ -1,12 +1,16 @@
 import type { UserType } from './userType.ts';
-import type { AchievementType } from '../Achievement/achievementType.ts';
+
+export interface HistoryEntry {
+    date: string;
+    points: number;
+}
 
 export interface UserDashboardType {
     user: UserType;
     rank: number;
     games: number;
     successCount: number;
-    history: Array<AchievementType>;
+    history: HistoryEntry[];
     streak: Record<string, number>;
     playerCount: number;
     authoredGameCount: number;

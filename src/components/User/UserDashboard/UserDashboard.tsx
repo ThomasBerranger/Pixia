@@ -6,7 +6,6 @@ import type { ContributionType } from '../../../types/Contribution/contributionT
 import UserDashboardBadge from './UserDashboardBadge.tsx';
 import UserDashboardGames from './UserDashboardGames.tsx';
 import UserDashboardStatistic from './UserDashboardStatistic.tsx';
-import UserDashboardHistory from './UserDashboardHistory.tsx';
 import UserDashboardDangerZone from './UserDashboardDangerZone.tsx';
 import UserDashboardHeader from './UserDashboardHeader.tsx';
 import UserDashboardContribution from './UserDashboardSuggestion.tsx';
@@ -23,7 +22,6 @@ function UserDashboard() {
     const [userDashboard, setUserDashboard] = useState<
         UserDashboardType | undefined
     >();
-    const [displayHistorique, setDisplayHistorique] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -122,6 +120,7 @@ function UserDashboard() {
                 games={userDashboard?.games}
                 authoredGameCount={userDashboard?.authoredGameCount}
                 tokens={userDashboard?.user.tokens}
+                history={userDashboard?.history}
             />
 
             <UserDashboardStatistic
@@ -130,57 +129,28 @@ function UserDashboard() {
                 playerCount={userDashboard?.playerCount}
             />
 
-            <section className="grid sm:grid-cols-2 mb-10 sm:mb-8">
-                <div
-                    className={`${displayHistorique ? 'sm:bg-retro-muted sm:bg-opacity-30' : 'cursor-pointer'} 
-                    mb-5 text-center duration-500 transition-all order-1`}
-                    onClick={() => setDisplayHistorique(true)}
-                >
-                    <h2 className="text-left sm:text-center sm:p-2 font-title text-retro-accent text-3xl">
-                        Historique
-                    </h2>
-                </div>
-
-                <div
-                    className={`order-2 sm:order-3 col-span-2 overflow-hidden mb-8 sm:mb-0 ${!displayHistorique && 'sm:hidden'}`}
-                >
-                    {userDashboard && userDashboard.history.length > 0 && (
-                        <UserDashboardHistory history={userDashboard.history} />
-                    )}
-                </div>
-
-                <div
-                    className={`${!displayHistorique ? 'sm:bg-retro-muted sm:bg-opacity-30' : 'cursor-pointer'} 
-                    mb-5 duration-500 transition-all order-3 sm:order-2`}
-                    onClick={() => setDisplayHistorique(false)}
-                >
-                    <h2 className="w-full text-left sm:text-center sm:p-2 m-0 font-title text-retro-accent text-3xl">
-                        <span className="inline-flex items-center flex-wrap gap-1">
-                            SUGGESTIONS
-                            {userDashboard?.user &&
-                                !hasBadge(
-                                    userDashboard.user.badges,
-                                    BADGES.BUG_DETECTED.key,
-                                    BADGES.GAME_SUGGESTION.key
-                                ) && (
-                                    <span className="badge-primary text-xxs px-2 py-0 whitespace-nowrap">
-                                        10 points
-                                    </span>
-                                )}
-                        </span>
-                    </h2>
-                </div>
-
-                <div
-                    className={`col-span-2 order-4 ${displayHistorique && 'sm:hidden'}`}
-                >
-                    {userDashboard && (
-                        <UserDashboardContribution
-                            contributions={userDashboard.user.contributions}
-                            onSubmitContribution={handleSubmitContribution}
-                        />
-                    )}
-                </div>
+            <section className="mb-10 sm:mb-8">
+                <h2 className="text-left sm:text-center sm:p-2 font-title text-retro-accent text-3xl mb-5">
+                    <span className="inline-flex items-center flex-wrap gap-1">
+                        SUGGESTIONS
+                        {userDashboard?.user &&
+                            !hasBadge(
+                                userDashboard.user.badges,
+                                BADGES.BUG_DETECTED.key,
+                                BADGES.GAME_SUGGESTION.key
+                            ) && (
+                                <span className="badge-primary text-xxs px-2 py-0 whitespace-nowrap">
+                                    10 points
+                                </span>
+                            )}
+                    </span>
+                </h2>
+                {userDashboard && (
+                    <UserDashboardContribution
+                        contributions={userDashboard.user.contributions}
+                        onSubmitContribution={handleSubmitContribution}
+                    />
+                )}
             </section>
 
             <section className="flex justify-center gap-3 mb-10">
