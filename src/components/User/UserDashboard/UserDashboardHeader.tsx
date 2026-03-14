@@ -3,7 +3,6 @@ import type { UserType } from '../../../types/User/userType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useState } from 'react';
 import AvatarCustomizer from './AvatarCustomizer.tsx';
-
 import { FaCrown, FaUserEdit } from 'react-icons/fa';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import { Link } from 'react-router-dom';

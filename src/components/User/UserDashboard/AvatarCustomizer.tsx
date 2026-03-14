@@ -464,7 +464,7 @@ const AvatarCustomizer: React.FC<{
     }
 
     return (
-        <section className="grid grid-flow-row-dense grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2">
+        <section className="grid grid-flow-row-dense grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-2 mt-2 sm:mt-8">
             <div className="relative col-span-2 sm:col-span-1 sm:row-span-4 p-1">
                 {isAvatarLoading && (
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">

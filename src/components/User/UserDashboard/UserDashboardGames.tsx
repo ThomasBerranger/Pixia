@@ -83,8 +83,8 @@ export default function UserDashboardGames({
     history,
 }: UserDashboardGamesProps) {
     return (
-        <section className="mb-28">
-            <h2 className="font-title text-retro-accent text-2xl sm:text-3xl mb-3">
+        <section className="mb-8">
+            <h2 className="font-title text-retro-accent text-2xl sm:text-3xl mb-4">
                 Historique
             </h2>
             <div className="grid sm:grid-cols-2 gap-4 sm:gap-6">

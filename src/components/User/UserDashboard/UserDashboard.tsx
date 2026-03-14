@@ -123,37 +123,39 @@ function UserDashboard() {
                 history={userDashboard?.history}
             />
 
-            <UserDashboardStatistic
-                rank={userDashboard?.user.rank}
-                streak={userDashboard?.streak}
-                playerCount={userDashboard?.playerCount}
-            />
+            <section className="sm:grid sm:grid-cols-2 gap-6 mb-8 sm:mb-4">
+                <UserDashboardStatistic
+                    rank={userDashboard?.user.rank}
+                    streak={userDashboard?.streak}
+                    playerCount={userDashboard?.playerCount}
+                />
 
-            <section className="mb-10 sm:mb-8">
-                <h2 className="text-left sm:text-center sm:p-2 font-title text-retro-accent text-3xl mb-5">
-                    <span className="inline-flex items-center flex-wrap gap-1">
-                        SUGGESTIONS
-                        {userDashboard?.user &&
-                            !hasBadge(
-                                userDashboard.user.badges,
-                                BADGES.BUG_DETECTED.key,
-                                BADGES.GAME_SUGGESTION.key
-                            ) && (
-                                <span className="badge-primary text-xxs px-2 py-0 whitespace-nowrap">
-                                    10 points
-                                </span>
-                            )}
-                    </span>
-                </h2>
-                {userDashboard && (
-                    <UserDashboardContribution
-                        contributions={userDashboard.user.contributions}
-                        onSubmitContribution={handleSubmitContribution}
-                    />
-                )}
+                <div>
+                    <h2 className="text-left sm:text-center font-title text-retro-accent text-2xl sm:text-3xl mb-4">
+                        <span className="inline-flex items-center flex-wrap gap-1">
+                            SUGGESTIONS
+                            {userDashboard?.user &&
+                                !hasBadge(
+                                    userDashboard.user.badges,
+                                    BADGES.BUG_DETECTED.key,
+                                    BADGES.GAME_SUGGESTION.key
+                                ) && (
+                                    <span className="badge-primary text-xxs px-2 py-0 whitespace-nowrap">
+                                        10 points
+                                    </span>
+                                )}
+                        </span>
+                    </h2>
+                    {userDashboard && (
+                        <UserDashboardContribution
+                            contributions={userDashboard.user.contributions}
+                            onSubmitContribution={handleSubmitContribution}
+                        />
+                    )}
+                </div>
             </section>
 
-            <section className="flex justify-center gap-3 mb-10">
+            <section className="flex justify-center gap-2 sm:gap-6 mb-10">
                 <button
                     className="btn-ghost flex justify-center items-center gap-2 w-1/2 py-2.5"
                     onClick={handleShare}
@@ -187,15 +189,14 @@ function UserDashboard() {
                                                 5 points
                                             </p>
                                             <p className="text-left text-xs">
-                                                Après ses 10 premières
-                                                victoires
+                                                Après ses 10 premières victoires
                                             </p>
                                         </div>
                                     </div>
                                     <p className="text-xs mx-auto mt-3">
                                         Merci de faire vivre Pixia ! Fais
-                                        découvrir le jeu à des vrais joueurs,
-                                        on compte sur ton fair-play 🫶
+                                        découvrir le jeu à des vrais joueurs, on
+                                        compte sur ton fair-play 🫶
                                     </p>
                                     <button
                                         className="btn-ghost mt-6 mx-auto px-10 py-1.5"

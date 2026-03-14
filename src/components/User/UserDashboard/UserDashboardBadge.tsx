@@ -53,7 +53,7 @@ export default function UserDashboardBadge({
         <>
             <section className="flex gap-5 my-8 w-full">
                 <div className="flex-shrink-0 text-center sm:w-1/4 flex flex-col">
-                    <h2 className="font-title text-center text-retro-accent text-2xl sm:text-3xl mb-2 sm:min-w-3/5">
+                    <h2 className="font-title text-center text-retro-accent text-2xl sm:text-3xl mb-3 sm:min-w-3/5">
                         Jackpot
                     </h2>
                     {jackpotCountdown ? (
@@ -83,7 +83,7 @@ export default function UserDashboardBadge({
                     className="min-w-0 flex-1 cursor-pointer flex flex-col"
                     onClick={handleBadgesClick}
                 >
-                    <h2 className="font-title text-center text-retro-accent text-2xl sm:text-3xl mb-2">
+                    <h2 className="font-title text-center text-retro-accent text-2xl sm:text-3xl mb-3">
                         Badges
                     </h2>
                     <div

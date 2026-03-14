@@ -155,7 +155,7 @@ export default function UserDashboardSuggestion({
                 <textarea
                     className="input-retro p-2 col-span-12 text-sm"
                     value={description}
-                    rows={3}
+                    rows={2}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Décris la scène géniale que tu as en tête ou le bug que tu as rencontré"
                 />
