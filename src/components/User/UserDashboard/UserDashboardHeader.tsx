@@ -3,8 +3,7 @@ import type { UserType } from '../../../types/User/userType.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useState } from 'react';
 import AvatarCustomizer from './AvatarCustomizer.tsx';
-import { PiHandHeartBold, PiShareNetworkBold } from 'react-icons/pi';
-import { useModal } from '../../../hooks/useModal.tsx';
+
 import { FaCrown, FaUserEdit } from 'react-icons/fa';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import { Link } from 'react-router-dom';
@@ -18,61 +17,20 @@ export default function UserDashboardHeader({
 }: {
     user: UserType | undefined;
 }) {
-    const { openModal } = useModal();
     const { isAdmin, isSuperAdmin } = useAuth();
 
     const [displayAvatarEdit, setDisplayAvatarEdit] = useState(false);
     const [isAvatarLoading, setIsAvatarLoading] = useState(true);
-
-    const handleShare = async () => {
-        if (!user) {
-            return;
-        }
-
-        try {
-            await navigator.share({
-                title: `Profil de ${user.username}`,
-                text: 'Regarde un peu ça',
-                url: `${import.meta.env.VITE_URL}${URLS.USER_SHOW(user.slug)}`,
-            });
-        } catch (error) {
-            console.log(error);
-            await navigator.clipboard.writeText(
-                `${import.meta.env.VITE_URL}${URLS.USER_SHOW(user.slug)}`
-            );
-            alert('Lien copié !');
-        }
-    };
-
-    const handleSponsor = async () => {
-        if (!user) {
-            return;
-        }
-
-        try {
-            await navigator.share({
-                title: 'À toi de jouer !',
-                text: 'Tu connais ton ciné ?',
-                url: `${import.meta.env.VITE_URL}${URLS.USER_SPONSOR(user.slug)}`,
-            });
-        } catch (error) {
-            console.log(error);
-            await navigator.clipboard.writeText(
-                `${import.meta.env.VITE_URL}${URLS.USER_SPONSOR(user.slug)}`
-            );
-            alert('Lien copié !');
-        }
-    };
 
     const currentMonthlyLeaderboard =
         user && getCurrentMonthlyLeaderboard(user);
 
     return (
         <>
-            <section className="lg:flex justify-between mb-8 card-primary px-3 py-4 sm:p-5 sm:pt-4">
+            <section className="lg:flex justify-between card-primary px-3 py-4 sm:p-5 sm:pt-4">
                 {user ? (
                     <>
-                        <div className="flex justify-center items-center gap-2 mb-3 sm:mb-0">
+                        <div className="flex items-center">
                             <div
                                 className="cursor-pointer hover:opacity-80 relative h-28 w-28 flex-shrink-0"
                                 onClick={() =>
@@ -88,28 +46,42 @@ export default function UserDashboardHeader({
                                     className={`transition-all duration-300${isAvatarLoading ? ' blur-md' : ''}`}
                                 />
                                 <button
-                                    className="absolute right-2 bottom-0 rounded-tl-3xl bg-retro-surface pl-3 pt-1.5"
+                                    className="absolute right-4 bottom-0 rounded-tl-3xl bg-retro-surface pl-2.5 pt-1.5"
                                     onClick={() =>
                                         setDisplayAvatarEdit(!displayAvatarEdit)
                                     }
                                 >
-                                    <FaUserEdit className=" text-2xl text-retro-accent" />
+                                    <FaUserEdit
+                                        size="27px"
+                                        className={`text-retro-accent${!user.avatarUrl ? ' animate-pulse' : ''}`}
+                                    />
                                 </button>
                             </div>
-                            <div className="min-w-0">
+                            <div className="min-w-0 w-full">
                                 <h1
                                     className={`font-righteous bg-gradient-to-br from-retro-primary via-retro-secondary
-                                                to-retro-accent bg-clip-text text-transparent truncate
-                                                ${user.username.length > 10 ? 'text-2xl' : 'text-4xl'}`}
+                                                to-retro-accent bg-clip-text text-transparent truncate text-center sm:text-left mb-0.5
+                                                ${user.username.length > 20 ? 'text-xl' : user.username.length > 10 ? 'text-2xl' : 'text-3xl'}`}
                                 >
                                     {user.username}
                                 </h1>
-                                <div className="flex flex-col flex-shrink-0">
-                                    {currentMonthlyLeaderboard && (
+                                <div className="flex justify-center sm:justify-start gap-1.5">
+                                    <div className="text-center">
                                         <p className="font-title text-retro-accent text-xl">
-                                            {currentMonthlyLeaderboard.score}
-                                            <span className="text-xxs font-righteous">
-                                                {' '}
+                                            {user?.score}
+                                        </p>
+                                        <p className="text-xxs font-righteous text-retro-accent">
+                                            Général
+                                        </p>
+                                    </div>
+                                    {currentMonthlyLeaderboard && (
+                                        <div className="text-center">
+                                            <p className="font-title text-retro-accent text-xl">
+                                                {
+                                                    currentMonthlyLeaderboard.score
+                                                }
+                                            </p>
+                                            <p className="text-xxs font-righteous text-retro-accent">
                                                 {format(
                                                     startOfMonth(
                                                         currentMonthlyLeaderboard.month
@@ -117,103 +89,32 @@ export default function UserDashboardHeader({
                                                     'MMMM',
                                                     { locale: fr }
                                                 )}
-                                            </span>
-                                        </p>
+                                            </p>
+                                        </div>
                                     )}
-                                    <p className="font-title text-retro-accent text-xl">
-                                        {user?.score}
-                                        <span className="text-xxs font-righteous">
-                                            {' '}
-                                            Général
-                                        </span>
-                                    </p>
+                                    <div className="text-center">
+                                        <p className="font-title text-green-400 text-xl">
+                                            {user?.tokens ?? 0}
+                                        </p>
+                                        <p className="text-xxs font-righteous text-green-400">
+                                            Jetons
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div className="flex justify-center items-start sm:items-center gap-3">
-                            <button
-                                className="btn-ghost flex justify-center items-center gap-2 w-1/2 py-2.5 sm:px-4"
-                                onClick={handleShare}
+                        {(isAdmin() || isSuperAdmin()) && (
+                            <Link
+                                to={
+                                    isSuperAdmin()
+                                        ? URLS.SUPER_ADMIN
+                                        : URLS.ADMIN
+                                }
+                                className="hidden sm:flex sm:justify-center sm:items-center btn-ghost py-2.5 sm:px-4"
                             >
-                                <PiShareNetworkBold className="text-2xl" />
-                                <p className="text-xs sm:text-sm">Partager</p>
-                            </button>
-
-                            <div className="w-1/2 relative mb-3 sm:mb-0">
-                                <button
-                                    type="button"
-                                    onClick={() =>
-                                        openModal(
-                                            'Parrainage',
-                                            <div className="w-full text-white font-righteous font-light text-center">
-                                                <p className="text-lg sm:text-xl mt-5">
-                                                    🤝 Comment ca fonctionne ?
-                                                </p>
-
-                                                <div className="flex flex-col mt-3 mx-auto w-fit">
-                                                    <div className="flex items-center gap-3 py-2">
-                                                        <p className="badge badge-primary text-xxs w-fit shrink-0">
-                                                            5 points
-                                                        </p>
-                                                        <p className="text-left text-xs sm:text-lg">
-                                                            Pour chaque filleul
-                                                            inscris
-                                                        </p>
-                                                    </div>
-                                                    <div className="flex items-center gap-3 py-2">
-                                                        <p className="badge badge-primary text-xxs w-fit shrink-0">
-                                                            5 points
-                                                        </p>
-                                                        <p className="text-left text-xs sm:text-lg">
-                                                            Après ses 10
-                                                            premières victoires
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <p className="text-xs sm:text-sm sm:w-2/3 mx-auto mt-3">
-                                                    Merci de faire vivre Pixia !
-                                                    Fais découvrir le jeu à des
-                                                    vrais joueurs, on compte sur
-                                                    ton fair-play 🫶
-                                                </p>
-                                                <button
-                                                    className="btn-ghost mt-6 mx-auto px-10 py-1.5 sm:py-1.5"
-                                                    onClick={handleSponsor}
-                                                >
-                                                    <PiHandHeartBold className="mx-auto my-1.5 text-3xl" />
-                                                    <p>Parrainer</p>
-                                                </button>
-                                            </div>
-                                        )
-                                    }
-                                    className="btn-ghost flex justify-center items-center gap-2 w-full py-2.5 sm:px-4"
-                                >
-                                    <PiHandHeartBold className="text-2xl" />
-                                    <p className="text-xs sm:text-sm">
-                                        Parrainer
-                                    </p>
-                                </button>
-
-                                <p className="absolute -bottom-3.5 right-4 md:-bottom-5 md:right-3 badge badge-primary text-xxs w-fit">
-                                    10 points
-                                </p>
-                            </div>
-
-                            {(isAdmin() || isSuperAdmin()) && (
-                                <Link
-                                    to={
-                                        isSuperAdmin()
-                                            ? URLS.SUPER_ADMIN
-                                            : URLS.ADMIN
-                                    }
-                                    className="hidden sm:block btn-ghost w-1/2 py-2.5 sm:px-4"
-                                >
-                                    <p className="mx-auto mb-0.5 text-xl">
-                                        <FaCrown className="text-2xl" />
-                                    </p>
-                                </Link>
-                            )}
-                        </div>
+                                <FaCrown className="text-3xl mx-auto" />
+                            </Link>
+                        )}
                     </>
                 ) : (
                     <CgSpinner

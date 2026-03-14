@@ -8,7 +8,7 @@ export default function UserDashboardBadge({
 }) {
     return (
         <>
-            <h2 className="font-title text-retro-accent text-3xl mb-5 flex-wrap sm:flex items-center">
+            <h2 className="font-title text-retro-accent text-3xl mb-5 flex-wrap sm:flex items-center mt-8">
                 Badges
             </h2>
 
