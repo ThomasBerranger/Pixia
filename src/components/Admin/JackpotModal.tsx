@@ -142,9 +142,8 @@ function JackpotModal({ month, onClose, onClaimed }: JackpotModalProps) {
                 onClick={(e) => e.stopPropagation()}
                 className={`bg-retro-surface/95 border-[3px] border-retro-primary shadow-[0_0_40px_rgba(255,0,110,0.5)] rounded-xl relative overflow-hidden flex flex-col items-center gap-5 w-full max-w-xs py-8 px-9 transition-all duration-500 ${visible ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-[0.85] translate-y-8'}`}
             >
-                {/* Titre */}
                 <div className="flex flex-col items-center gap-1">
-                    <h2 className="animated-neon-title text-lg">JACKPOT</h2>
+                    <h2 className="animated-neon-title text-3xl">JACKPOT</h2>
                     <p className="font-righteous text-retro-muted uppercase text-[11px] tracking-[3px]">
                         Jetons de {month}
                     </p>
@@ -152,7 +151,6 @@ function JackpotModal({ month, onClose, onClaimed }: JackpotModalProps) {
 
                 <div className="w-4/5 h-px bg-gradient-to-r from-transparent via-retro-primary/40 to-transparent" />
 
-                {/* Rouleaux */}
                 <div className="flex gap-2.5">
                     {REEL_CONFIGS.map((cfg, i) => (
                         <SlotReel

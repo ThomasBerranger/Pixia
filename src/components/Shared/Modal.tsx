@@ -19,7 +19,7 @@ function Modal() {
             onClick={closeModal}
         >
             <div
-                className="bg-retro-surface/95 backdrop-blur-md border-[3px] border-retro-primary shadow-[0_0_40px_rgba(255,0,110,0.5)] p-4 sm:p-7 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+                className="bg-retro-surface/95 backdrop-blur-md border-[3px] border-retro-primary shadow-[0_0_40px_rgba(255,0,110,0.5)] p-4 sm:p-7 max-w-2xl w-full max-h-[70vh] flex flex-col"
                 onClick={(e) => e.stopPropagation()}
             >
                 <div className="flex justify-between items-center mb-6">
@@ -31,7 +31,9 @@ function Modal() {
                         <IoClose size={35} />
                     </button>
                 </div>
-                {content}
+                <div className="overflow-y-auto flex-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+                    {content}
+                </div>
                 {actions.length > 0 && (
                     <div
                         className={`flex gap-3 mt-6 ${actions.length > 1 ? 'justify-between' : 'justify-end'}`}

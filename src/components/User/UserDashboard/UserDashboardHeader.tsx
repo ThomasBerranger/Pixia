@@ -65,7 +65,7 @@ export default function UserDashboardHeader({
                                 >
                                     {user.username}
                                 </h1>
-                                <div className="flex justify-center sm:justify-start gap-1.5">
+                                <div className="flex justify-evenly sm:justify-start gap-1.5">
                                     <div className="text-center">
                                         <p className="font-title text-retro-accent text-xl">
                                             {user?.score}
@@ -81,7 +81,7 @@ export default function UserDashboardHeader({
                                                     currentMonthlyLeaderboard.score
                                                 }
                                             </p>
-                                            <p className="text-xxs font-righteous text-retro-accent">
+                                            <p className="text-xxs font-righteous text-retro-accent capitalize">
                                                 {format(
                                                     startOfMonth(
                                                         currentMonthlyLeaderboard.month
