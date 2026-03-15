@@ -349,7 +349,8 @@ function Dashboard() {
                 <JackpotModal
                     month={format(now, 'MMMM', { locale: fr })}
                     onClose={() => setShowJackpot(false)}
-                    onClaimed={() => setCanClaim(false)}
+                    onClaimed={() => { setCanClaim(false); }}
+                    isAdminClaim
                 />
             )}
         </section>

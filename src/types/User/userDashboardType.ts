@@ -14,4 +14,5 @@ export interface UserDashboardType {
     streak: Record<string, number>;
     playerCount: number;
     authoredGameCount: number;
+    canClaimTokens: string | true;
 }

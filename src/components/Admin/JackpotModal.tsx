@@ -19,8 +19,6 @@ function rndInt(a: number, b: number): number {
     return Math.floor(Math.random() * (b - a + 1)) + a;
 }
 
-// ── Rouleau ──
-
 interface SlotReelProps {
     target: string;
     count: number;
@@ -82,15 +80,19 @@ function SlotReel({ target, count, duration, onDone }: SlotReelProps) {
     );
 }
 
-// ── Modal Jackpot ──
-
 interface JackpotModalProps {
     month: string;
     onClose: () => void;
-    onClaimed?: () => void;
+    onClaimed?: (addedTokens: number) => void;
+    isAdminClaim?: boolean;
 }
 
-function JackpotModal({ month, onClose, onClaimed }: JackpotModalProps) {
+function JackpotModal({
+    month,
+    onClose,
+    onClaimed,
+    isAdminClaim = false,
+}: JackpotModalProps) {
     const { apiCall } = useApi();
 
     const [tokens, setTokens] = useState<number | null>(null);
@@ -109,14 +111,17 @@ function JackpotModal({ month, onClose, onClaimed }: JackpotModalProps) {
     }, []);
 
     useEffect(() => {
-        apiCall(ENDPOINTS.CLAIM_TOKENS, { method: 'POST' })
-            .then((t: number) => {
-                setTokens(t);
-                setTarget(String(t).padStart(3, '0').split(''));
+        const url = isAdminClaim
+            ? `${ENDPOINTS.CLAIM_TOKENS}?isAdminClaim=true`
+            : ENDPOINTS.CLAIM_TOKENS;
+        apiCall(url, { method: 'POST' })
+            .then((res: { addedTokens: number; tokens: number }) => {
+                setTokens(res.addedTokens);
+                setTarget(String(res.addedTokens).padStart(3, '0').split(''));
                 doneCount.current = 0;
                 apiReady.current = true;
                 setReelKey((k) => k + 1);
-                onClaimed?.();
+                onClaimed?.(res.addedTokens);
             })
             .catch(console.error);
     }, [apiCall]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -163,7 +168,6 @@ function JackpotModal({ month, onClose, onClaimed }: JackpotModalProps) {
                     ))}
                 </div>
 
-                {/* Résultat */}
                 <div className="flex flex-col items-center justify-center min-h-[60px]">
                     {!revealed && (
                         <p className="font-righteous text-retro-muted uppercase animate-pulse text-[11px] tracking-[2px]">
@@ -182,7 +186,6 @@ function JackpotModal({ month, onClose, onClaimed }: JackpotModalProps) {
                     )}
                 </div>
 
-                {/* Actions */}
                 {revealed && (
                     <button
                         onClick={close}
@@ -192,7 +195,6 @@ function JackpotModal({ month, onClose, onClaimed }: JackpotModalProps) {
                     </button>
                 )}
 
-                {/* Particules */}
                 {revealed &&
                     [...Array(16)].map((_, i) => (
                         <div

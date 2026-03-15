@@ -3,26 +3,37 @@ import type { BadgeType } from '../../../types/Badge/badgeType.ts';
 import { BADGES } from '../../../constants/badges.ts';
 import { useModal } from '../../../hooks/useModal.tsx';
 import { GiLockedChest, GiOpenChest } from 'react-icons/gi';
+import { CgSpinner } from 'react-icons/cg';
 import { BiSolidRightArrow } from 'react-icons/bi';
-import { formatDuration, intervalToDuration } from 'date-fns';
+import { format, formatDuration, intervalToDuration } from 'date-fns';
 import { fr } from 'date-fns/locale';
 import JackpotModal from '../../Admin/JackpotModal.tsx';
 
+interface UserDashboardBadgeProps {
+    badges: BadgeType[] | undefined;
+    canClaimTokens: string | true | undefined;
+    onTokensClaimed?: (addedTokens: number) => void;
+}
+
 export default function UserDashboardBadge({
     badges,
-}: {
-    badges: BadgeType[] | undefined;
-}) {
+    canClaimTokens,
+    onTokensClaimed,
+}: UserDashboardBadgeProps) {
     const { openModal } = useModal();
     const [showJackpot, setShowJackpot] = useState(false);
 
-    const jackpotCountdown = formatDuration(
-        intervalToDuration({
-            start: new Date(),
-            end: new Date('2026-03-18T00:00:00'),
-        }),
-        { format: ['days', 'hours'], locale: fr }
-    );
+    const canClaim = canClaimTokens === true;
+    const jackpotCountdown =
+        !canClaim && typeof canClaimTokens === 'string'
+            ? formatDuration(
+                  intervalToDuration({
+                      start: new Date(),
+                      end: new Date(canClaimTokens),
+                  }),
+                  { format: ['days', 'hours'], locale: fr }
+              )
+            : null;
 
     const handleBadgesClick = () => {
         openModal(
@@ -56,24 +67,26 @@ export default function UserDashboardBadge({
                     <h2 className="font-title text-center text-retro-accent text-2xl sm:text-3xl mb-3 sm:min-w-3/5">
                         Jackpot
                     </h2>
-                    {jackpotCountdown ? (
+                    {canClaim ? (
                         <>
-                            <GiOpenChest className="text-4xl text-retro-muted mx-auto" />
-                            <p className="text-xxs font-righteous text-retro-muted mt-auto">
-                                {jackpotCountdown}
+                            <GiLockedChest
+                                className="text-4xl text-retro-accent mx-auto cursor-pointer animate-pulse"
+                                onClick={() => setShowJackpot(true)}
+                            />
+                            <p
+                                className="text-xs font-righteous text-retro-accent mt-auto cursor-pointer"
+                                onClick={() => setShowJackpot(true)}
+                            >
+                                Ouvrir
                             </p>
                         </>
                     ) : (
                         <>
-                            <GiLockedChest
-                                className="text-4xl text-retro-accent mx-auto cursor-pointer"
-                                onClick={() => setShowJackpot(true)}
-                            />
-                            <p
-                                className="text-xxs font-righteous text-retro-accent mt-auto cursor-pointer"
-                                onClick={() => setShowJackpot(true)}
-                            >
-                                Ouvrir
+                            <GiOpenChest className="text-4xl text-retro-muted mx-auto" />
+                            <p className="text-xxs font-righteous text-retro-muted mt-auto">
+                                {jackpotCountdown ?? (
+                                    <CgSpinner className="animate-spin text-retro-muted mx-auto text-lg" />
+                                )}
                             </p>
                         </>
                     )}
@@ -134,8 +147,9 @@ export default function UserDashboardBadge({
 
             {showJackpot && (
                 <JackpotModal
-                    month="mars"
+                    month={format(new Date(), 'MMMM', { locale: fr })}
                     onClose={() => setShowJackpot(false)}
+                    onClaimed={onTokensClaimed}
                 />
             )}
         </>

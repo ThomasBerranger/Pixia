@@ -28,8 +28,7 @@ export default function UserDashboardHeader({
         <>
             <section className="lg:flex justify-between card-primary px-3 py-4 sm:p-5 sm:pt-4">
                 {user ? (
-                    <>
-                        <div className="flex items-center sm:flex-1">
+                    <div className="flex items-center sm:flex-1">
                             <div
                                 className="cursor-pointer hover:opacity-80 relative h-28 w-28 flex-shrink-0"
                                 onClick={() =>
@@ -74,7 +73,8 @@ export default function UserDashboardHeader({
                                             }
                                             className="hidden sm:inline-flex items-center gap-1.5 btn-ghost py-1.5 px-3 text-xs font-righteous"
                                         >
-                                            <FaCrown className="text-lg" /> Studio
+                                            <FaCrown className="text-lg" />{' '}
+                                            Studio
                                         </Link>
                                     )}
                                 </div>
@@ -83,7 +83,7 @@ export default function UserDashboardHeader({
                                         <p className="font-title text-retro-accent text-xl">
                                             {user?.score}
                                         </p>
-                                        <p className="text-xxs font-righteous text-retro-accent">
+                                        <p className="text-xxs font-righteous tracking-wider text-retro-accent">
                                             Général
                                         </p>
                                     </div>
@@ -94,7 +94,7 @@ export default function UserDashboardHeader({
                                                     currentMonthlyLeaderboard.score
                                                 }
                                             </p>
-                                            <p className="text-xxs font-righteous text-retro-accent capitalize">
+                                            <p className="text-xxs font-righteous tracking-wider text-retro-accent capitalize">
                                                 {format(
                                                     startOfMonth(
                                                         currentMonthlyLeaderboard.month
@@ -109,14 +109,13 @@ export default function UserDashboardHeader({
                                         <p className="font-title text-green-400 text-xl">
                                             {user?.tokens ?? 0}
                                         </p>
-                                        <p className="text-xxs font-righteous text-green-400">
+                                        <p className="text-xxs font-righteous tracking-wider text-green-400">
                                             Jetons
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </>
+                    </div>
                 ) : (
                     <CgSpinner
                         className="animate-spin text-retro-primary mx-auto"

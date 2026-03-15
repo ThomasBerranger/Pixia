@@ -3,7 +3,7 @@ import { useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import type { UserDashboardType } from '../../../types/User/userDashboardType.ts';
 import type { ContributionType } from '../../../types/Contribution/contributionType.ts';
-import UserDashboardBadge from './UserDashboardBadge.tsx';
+import UserDashboardJackpotAndBadge from './UserDashboardBadge.tsx';
 import UserDashboardGames from './UserDashboardGames.tsx';
 import UserDashboardStatistic from './UserDashboardStatistic.tsx';
 import UserDashboardDangerZone from './UserDashboardDangerZone.tsx';
@@ -113,7 +113,23 @@ function UserDashboard() {
         <section className="md:min-h-[89vh] py-10 px-[7vw]">
             <UserDashboardHeader user={userDashboard?.user} />
 
-            <UserDashboardBadge badges={userDashboard?.user.badges} />
+            <UserDashboardJackpotAndBadge
+                badges={userDashboard?.user.badges}
+                canClaimTokens={userDashboard?.canClaimTokens}
+                onTokensClaimed={(addedTokens) => {
+                    setUserDashboard((prev) => {
+                        if (!prev) return prev;
+                        return {
+                            ...prev,
+                            canClaimTokens: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+                            user: {
+                                ...prev.user,
+                                tokens: (prev.user.tokens ?? 0) + addedTokens,
+                            },
+                        };
+                    });
+                }}
+            />
 
             <UserDashboardGames
                 success={userDashboard?.successCount}
@@ -214,7 +230,7 @@ function UserDashboard() {
                         <p className="text-xs">Parrainer</p>
                     </button>
 
-                    <p className="absolute -bottom-3.5 right-4 badge badge-primary text-xxs w-fit">
+                    <p className="absolute -bottom-3 right-4 badge badge-primary text-xxs w-fit">
                         10 points
                     </p>
                 </div>

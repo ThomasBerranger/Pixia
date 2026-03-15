@@ -1,6 +1,7 @@
 import { URLS } from '../../../constants/routes.ts';
 import { Link } from 'react-router-dom';
 import { BiSolidRightArrow } from 'react-icons/bi';
+import { CgSpinner } from 'react-icons/cg';
 
 interface UserDashboardStatisticProps {
     rank: number | undefined;
@@ -33,10 +34,16 @@ export default function UserDashboardStatistic({
 
                     <div className="flex-1 flex flex-col items-center justify-center">
                         <div className="flex items-baseline text-4xl sm:text-5xl font-title text-retro-primary pt-1">
-                            {rank}
-                            <span className="text-xs sm:text-sm text-retro-muted font-righteous -ml-0.5">
-                                /{playerCount}
-                            </span>
+                            {rank !== undefined ? (
+                                <>
+                                    {rank}
+                                    <span className="text-xs sm:text-sm text-retro-muted font-righteous -ml-0.5">
+                                        /{playerCount}
+                                    </span>
+                                </>
+                            ) : (
+                                <CgSpinner className="animate-spin text-retro-primary text-2xl sm:text-3xl" />
+                            )}
                         </div>
                         <div className="text-retro-muted text-xs uppercase tracking-wide mt-1 text-center">
                             {rank &&
@@ -64,7 +71,11 @@ export default function UserDashboardStatistic({
                     </div>
                     <div className="flex-1 flex flex-col items-center justify-center sm:justify-start sm:flex-none">
                         <div className="text-4xl sm:text-5xl font-title text-retro-primary">
-                            {streak && streak['best']}
+                            {streak ? (
+                                streak['best']
+                            ) : (
+                                <CgSpinner className="animate-spin text-retro-primary text-2xl sm:text-3xl" />
+                            )}
                         </div>
                         <div className="text-retro-muted text-xs text-center uppercase tracking-wide mt-2">
                             {streak && `Série de ${streak['current']} en cours`}

@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { CgSpinner } from 'react-icons/cg';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
+import { BiSolidRightArrow } from 'react-icons/bi';
 
 export default function UserDashboardSuggestion({
     contributions,
@@ -23,6 +24,7 @@ export default function UserDashboardSuggestion({
     const [description, setDescription] = useState('');
     const [loadingSuggestion, setLoadingSuggestion] = useState(false);
     const [loadingBug, setLoadingBug] = useState(false);
+    const [showList, setShowList] = useState(false);
 
     const suggestionPending = contributions.some(
         (c) =>
@@ -70,11 +72,11 @@ export default function UserDashboardSuggestion({
         contributionType: (typeof CONTRIBUTION_TYPES)[keyof typeof CONTRIBUTION_TYPES];
     }) => {
         return (
-            <div className="h-full w-full bg-retro-muted/20 flex items-center text-center text-xxs font-righteous p-1">
+            <div className="w-full bg-retro-muted/20 flex items-center justify-center text-xxs font-righteous p-1.5">
                 {contributionType === CONTRIBUTION_TYPES.GAME_SUGGESTION ? (
-                    <p>Super idée ! On check si elle n'est pas déjà en ligne</p>
+                    <p>Super idée ! On s'en occupe</p>
                 ) : (
-                    <p>Aîe foutu bug ! On vérifie de notre côté</p>
+                    <p>Aîe foutu bug ! On vérifie</p>
                 )}
             </div>
         );
@@ -202,9 +204,21 @@ export default function UserDashboardSuggestion({
                             )}
                         </button>
                     )}
+                    <p
+                        className="hidden sm:flex font-righteous text-retro-accent text-xs whitespace-nowrap items-center cursor-pointer"
+                        onClick={() => setShowList(!showList)}
+                    >
+                        Mes suggestions <BiSolidRightArrow className={`ml-1 transition-transform ${showList ? 'rotate-90' : ''}`} />
+                    </p>
                 </div>
             </div>
-            <ContributionList contributions={contributions} />
+            <div
+                className={`overflow-hidden transition-all duration-500 ease-in-out ${
+                    showList ? 'max-h-[2000px] opacity-100' : 'sm:max-h-0 sm:opacity-0'
+                }`}
+            >
+                <ContributionList contributions={contributions} />
+            </div>
         </>
     );
 }
