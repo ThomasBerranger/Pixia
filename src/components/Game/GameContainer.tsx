@@ -157,7 +157,9 @@ function GameContainer() {
         <>
             <section className="md:h-[89vh] flex px-6 md:px-0">
                 <div className="md:h-[83%] mx-auto flex flex-col md:flex-row md:gap-4">
-                    <WeekGames />
+                    <WeekGames
+                        wonGameId={game?.solution ? game.id : undefined}
+                    />
 
                     <div className="order-first md:order-last">
                         <GameHeader />

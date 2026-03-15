@@ -15,7 +15,11 @@ interface RecentGame {
     won: boolean;
 }
 
-export default function WeekGames() {
+interface WeekGamesProps {
+    wonGameId?: string;
+}
+
+export default function WeekGames({ wonGameId }: WeekGamesProps) {
     const { isAuthenticated } = useAuth();
     const { showAlert } = useAlert();
     const { apiCall } = useApi();
@@ -35,6 +39,15 @@ export default function WeekGames() {
         }
     }, [recentGames]);
 
+    useEffect(() => {
+        if (!wonGameId) return;
+        setRecentGames((prev) =>
+            prev.map((entry) =>
+                entry.game.id === wonGameId ? { ...entry, won: true } : entry
+            )
+        );
+    }, [wonGameId]);
+
     if (recentGames.length === 0) return null;
 
     const handleToutVoir = () => {
@@ -44,7 +57,9 @@ export default function WeekGames() {
             showAlert(
                 'Connexion requise',
                 'Connecte-toi pour voir ton historique',
-                'error'
+                'error',
+                5000,
+                URLS.ME
             );
         }
     };
