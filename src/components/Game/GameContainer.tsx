@@ -6,6 +6,7 @@ import type { UserType } from '../../types/User/userType.ts';
 import type { AnswerResult } from '../../types/answerResultType.ts';
 import GameHeader from './Layouts/GameHeader.tsx';
 import GameContent from './Layouts/GameContent.tsx';
+import WeekGames from './Layouts/WeekGames.tsx';
 import GameFooter from './Layouts/GameFooter.tsx';
 import MonthlyLeaderboard from '../User/Leaderboard/MonthlyLeaderboard.tsx';
 import { ENDPOINTS } from '../../constants/endpoints.ts';
@@ -153,29 +154,33 @@ function GameContainer() {
 
     return (
         <>
-            <section className="md:h-[89vh] flex flex-col px-5">
-                <GameHeader />
+            <section className="md:h-[89vh] flex px-6 sm:px-0">
+                <div className="md:h-[83%] inline-block mx-auto lg:flex lg:gap-4">
+                    <WeekGames game={game} />
 
-                <div className="md:h-[83%] inline-block mx-auto">
-                    <GameContent
-                        game={game}
-                        onGameChange={handleGameChange}
-                        previousGameDate={previousGameDate}
-                        nextGameDate={nextGameDate}
-                        loadingDirection={loadingDirection}
-                        isImageLoading={isImageLoading}
-                        onImageLoadEnd={() => setIsImageLoading(false)}
-                    />
+                    <div>
+                        <GameHeader />
 
-                    <GameFooter
-                        game={game}
-                        onAnswerSubmit={handleAnswerSubmit}
-                        onHintRequest={handleHintRequested}
-                    />
+                        <GameContent
+                            game={game}
+                            onGameChange={handleGameChange}
+                            previousGameDate={previousGameDate}
+                            nextGameDate={nextGameDate}
+                            loadingDirection={loadingDirection}
+                            isImageLoading={isImageLoading}
+                            onImageLoadEnd={() => setIsImageLoading(false)}
+                        />
+
+                        <GameFooter
+                            game={game}
+                            onAnswerSubmit={handleAnswerSubmit}
+                            onHintRequest={handleHintRequested}
+                        />
+                    </div>
                 </div>
             </section>
 
-            <hr className="divider max-w-5xl mx-auto mb-5" />
+            <hr className="divider max-w-5xl mx-auto mt-10 sm:mt-0 mb-5" />
 
             <MonthlyLeaderboard
                 date={date}

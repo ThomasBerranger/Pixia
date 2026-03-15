@@ -92,8 +92,7 @@ function GameContent({
                         to={URLS.USER_SHOW(game.author.slug)}
                         className="absolute hidden md:flex items-center top-2 left-2 z-10 rounded-xl max-w-[25vw]
                         bg-retro-bg/100 backdrop-blur-sm py-1 border-2 border-retro-accent/50 shadow-[0_0_10px_rgba(0,0,0,0.5)]
-                        transition-all duration-300 ease-in-out
-                        group-hover:-translate-x-1 group-hover:-translate-y-1 group-hover:opacity-40 hover:!opacity-100"
+                        transition-all duration-300 ease-in-out group-hover:opacity-40 hover:!opacity-100"
                     >
                         <UserAvatar
                             avatarUrl={game.author.avatarUrl}

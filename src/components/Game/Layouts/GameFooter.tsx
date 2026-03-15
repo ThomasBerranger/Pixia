@@ -113,7 +113,7 @@ function GameFooter({
     };
 
     return (
-        <div className="mb-10 md:mb-0 md:h-[20%] flex items-center">
+        <div className="md:mb-0 md:h-[20%] flex items-center">
             {game && game.solution ? (
                 <div
                     className="w-full py-8 px-6 md:p-6 bg-retro-surface border-[6px] border-retro-secondary
