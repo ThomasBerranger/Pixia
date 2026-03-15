@@ -109,7 +109,7 @@ function List() {
                         </p>
                     </Link>
                 ) : (
-                    <div className="flex flex-col card-retro p-6 ursor-default">
+                    <div className="flex flex-col card-retro p-6 cursor-default">
                         <div className="flex items-center gap-2">
                             <h3 className="text-sm sm:text-base font-righteous text-retro-accent uppercase">
                                 Nouvelle image

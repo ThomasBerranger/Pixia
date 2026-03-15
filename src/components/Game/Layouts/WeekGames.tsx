@@ -1,19 +1,41 @@
-import type { GameType } from '../../../types/Game/gameType.ts';
+import { useEffect, useRef, useState } from 'react';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import { useAlert } from '../../../hooks/useAlert.ts';
-import { useNavigate } from 'react-router-dom';
+import { useApi } from '../../../hooks/useApi.tsx';
+import { Link, useNavigate } from 'react-router-dom';
 import { URLS } from '../../../constants/routes.ts';
+import { ENDPOINTS } from '../../../constants/endpoints.ts';
+import { format, parseISO } from 'date-fns';
+import { fr } from 'date-fns/locale';
+import type { GameType } from '../../../types/Game/gameType.ts';
 
-interface WeekGamesProps {
-    game: GameType | undefined;
+interface RecentGame {
+    game: GameType;
+    won: boolean;
 }
 
-export default function WeekGames({ game }: WeekGamesProps) {
+export default function WeekGames() {
     const { isAuthenticated } = useAuth();
     const { showAlert } = useAlert();
+    const { apiCall } = useApi();
     const navigate = useNavigate();
+    const scrollRef = useRef<HTMLElement>(null);
+    const [recentGames, setRecentGames] = useState<RecentGame[]>([]);
 
-    if (!game?.image) return null;
+    useEffect(() => {
+        apiCall(ENDPOINTS.GAMES_INDEX)
+            .then(setRecentGames)
+            .catch(console.error);
+    }, [apiCall]);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
+        }
+    }, [recentGames]);
+
+    if (recentGames.length === 0) return null;
 
     const handleToutVoir = () => {
         if (isAuthenticated) {
@@ -28,25 +50,65 @@ export default function WeekGames({ game }: WeekGamesProps) {
     };
 
     return (
-        <div className="hidden lg:block">
-            <section className="h-[17%]"></section>
+        <section>
+            <div className="h-7 md:h-[17%]"></div>
 
-            <div className="h-[85%]">
-                <div className="flex flex-col items-center gap-[0.5vh] overflow-y-auto max-h-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-                    {[...Array(7)].map((_, i) => (
-                        <div key={i}>
-                            <img
-                                src={`${import.meta.env.VITE_API_URL}${game.image}`}
-                                alt={`Miniature ${i + 1}`}
-                                className="w-[18vh] object-cover rounded-md border-2 border-retro-primary/30 cursor-pointer"
-                            />
-                            <p className="text-retro-muted font-righteous text-center text-xxs mt-0.5">
-                                02/10/2026
-                            </p>
-                        </div>
-                    ))}
-                </div>
-                <div className="mt-4">
+            <div className="md:h-[80%]">
+                <section
+                    ref={scrollRef}
+                    className="overflow-x-auto md:overflow-x-hidden md:overflow-y-auto md:max-h-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+                >
+                    <div className="flex md:flex-col-reverse items-center gap-2 md:gap-[0.5vh]">
+                        {recentGames
+                            .slice(1)
+                            .reverse()
+                            .map((entry) => (
+                                <div
+                                    key={entry.game.id}
+                                    className="flex-shrink-0 relative"
+                                >
+                                    <div className="absolute flex flex-col items-center top-1 right-1 gap-1">
+                                        <p
+                                            className={`text-xxs rounded-sm ${entry.won ? 'badge-primary-no-border' : 'badge-muted-no-border'}`}
+                                        >
+                                            {entry.won ? (
+                                                <FaCheck />
+                                            ) : (
+                                                <FaTimes />
+                                            )}
+                                        </p>
+                                    </div>
+                                    <Link
+                                        to={URLS.GAME_BY_DATE(
+                                            format(
+                                                parseISO(entry.game.date),
+                                                'yyyy-MM-dd'
+                                            )
+                                        )}
+                                    >
+                                        <img
+                                            src={`${import.meta.env.VITE_API_URL}${entry.game.image}`}
+                                            alt={`Partie du ${entry.game.date}`}
+                                            className="w-32 md:w-[21vh] object-cover rounded-md border-2 border-retro-primary/30 cursor-pointer blur-sm transition-all duration-300"
+                                            onLoad={(e) =>
+                                                e.currentTarget.classList.remove(
+                                                    'blur-sm'
+                                                )
+                                            }
+                                        />
+                                    </Link>
+                                    <p className="text-retro-muted font-righteous text-center text-xxs mt-0.5">
+                                        {format(
+                                            parseISO(entry.game.date),
+                                            'd MMM',
+                                            { locale: fr }
+                                        )}
+                                    </p>
+                                </div>
+                            ))}
+                    </div>
+                </section>
+                <div className="mt-3 md:my-0 md:h-[20%] flex items-center">
                     <button
                         className="btn-ghost w-full py-0.5 text-xxs"
                         onClick={handleToutVoir}
@@ -55,6 +117,6 @@ export default function WeekGames({ game }: WeekGamesProps) {
                     </button>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }

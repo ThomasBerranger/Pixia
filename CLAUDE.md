@@ -52,13 +52,13 @@ Les jetons se gagnent en jouant (autant que de points marqués). Ils se dépense
 Remboursement de 150 jetons si la notoriété des films est trop basse (< 50%). Minimum 1000 jetons requis pour lancer une création.
 
 ## Points par difficulté
-| Difficulté | Points |
-|------------|--------|
-| SIMPLE | 10 |
-| VICIEUX | 10 |
-| TORDU | 25 |
-| DIABOLIQUE | 50 |
-| IMPOSSIBLE | 50 |
+| Difficulté | Points | Avec indice |
+|------------|--------|-------------|
+| SIMPLE | 10 | 5 |
+| VICIEUX | 15 | 10 |
+| TORDU | 25 | 15 |
+| DIABOLIQUE | 50 | 25 |
+| IMPOSSIBLE | 80 | 50 |
 
 ## Stack
 - React 19 + TypeScript 5.8 + Vite 7

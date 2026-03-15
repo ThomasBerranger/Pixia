@@ -49,6 +49,7 @@ export const ENDPOINTS = {
     // GAME
     DAILY: (date?: string) =>
         date ? `games/daily?date=${date}` : 'games/daily',
+    GAMES_INDEX: 'games',
     GAME_HINT: (id: string) => `games/${id}/hint`,
     GAME_SOLUTION: (id: string) => `games/${id}/solution`,
 

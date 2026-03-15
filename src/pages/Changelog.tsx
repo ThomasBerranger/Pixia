@@ -13,6 +13,24 @@ function Changelog() {
             </h2>
 
             <div className="font-righteous mb-10">
+                <p className="text-lg mb-1">🎰 Le Jackpot est là !</p>
+                <p className="text-sm mb-7">
+                    Tous les 5 jours, un coffre apparaît sur ton profil.
+                    Ouvre-le pour récupérer des jetons bonus !
+                </p>
+                <p className="text-lg mb-1">Refonte visuelle du profil ✨</p>
+                <p className="text-sm">
+                    Ton espace perso a été entièrement repensé : nouveau header,
+                    badges compacts, historique avec graphique de tes derniers
+                    jours et galerie de tes parties créées.
+                </p>
+            </div>
+
+            <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
+                ● Version 3.0.0
+            </h2>
+
+            <div className="font-righteous mb-10">
                 <p className="text-lg mb-1">🪙 Les jetons débarquent</p>
                 <p className="text-sm mb-7">
                     Chaque point gagné en jouant te rapporte un jeton.

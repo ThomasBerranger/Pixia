@@ -41,6 +41,8 @@ function GameContainer() {
     const [player, setPlayer] = useState<UserType>();
 
     useEffect(() => {
+        setIsImageLoading(true);
+
         const fetchData = async () => {
             if (date) {
                 const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
@@ -81,7 +83,6 @@ function GameContainer() {
     const handleGameChange = useCallback(
         async (newDate: string, isPrevious: boolean) => {
             setLoadingDirection(isPrevious ? 'prev' : 'next');
-            setIsImageLoading(true);
             navigate(URLS.GAME_BY_DATE(newDate));
         },
         [navigate]
@@ -154,11 +155,11 @@ function GameContainer() {
 
     return (
         <>
-            <section className="md:h-[89vh] flex px-6 sm:px-0">
-                <div className="md:h-[83%] inline-block mx-auto lg:flex lg:gap-4">
-                    <WeekGames game={game} />
+            <section className="md:h-[89vh] flex px-6 md:px-0">
+                <div className="md:h-[83%] mx-auto flex flex-col md:flex-row md:gap-4">
+                    <WeekGames />
 
-                    <div>
+                    <div className="order-first md:order-last">
                         <GameHeader />
 
                         <GameContent

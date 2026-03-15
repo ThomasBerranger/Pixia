@@ -50,7 +50,7 @@ function UserDashboard() {
                 url: `${import.meta.env.VITE_URL}${URLS.USER_SHOW(user.slug)}`,
             });
         } catch (error) {
-            console.log(error);
+            console.error(error);
             await navigator.clipboard.writeText(
                 `${import.meta.env.VITE_URL}${URLS.USER_SHOW(user.slug)}`
             );
@@ -69,7 +69,7 @@ function UserDashboard() {
                 url: `${import.meta.env.VITE_URL}${URLS.USER_SPONSOR(user.slug)}`,
             });
         } catch (error) {
-            console.log(error);
+            console.error(error);
             await navigator.clipboard.writeText(
                 `${import.meta.env.VITE_URL}${URLS.USER_SPONSOR(user.slug)}`
             );

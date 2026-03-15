@@ -100,6 +100,13 @@ function Header({ isSidebarOpen, setIsSidebarOpen }: HeaderProps) {
                         Le concept
                     </button>
 
+                    <Link
+                        to={URLS.CHANGELOG}
+                        className="flex items-center text-white"
+                    >
+                        Version {__APP_VERSION__}
+                    </Link>
+
                     <Link to={URLS.ME}>
                         <button className="btn-primary text-xs sm:text-md px-4 py-2 sm:px-6 sm:py-2.5">
                             {isAuthenticated ? 'MON COMPTE' : 'CONNEXION'}
