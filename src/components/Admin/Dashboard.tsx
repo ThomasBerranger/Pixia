@@ -24,6 +24,8 @@ import { ENDPOINTS } from '../../constants/endpoints.ts';
 import type { GameType } from '../../types/Game/gameType.ts';
 import { useApi } from '../../hooks/useApi.tsx';
 import { getHiddenText } from '../../constants/hiddenTexts.ts';
+import { IoArrowBack } from 'react-icons/io5';
+import UserAvatar from '../../atoms/UserAvatar.tsx';
 import { GAME_STATUSES } from '../../types/Game/gameStatuses.ts';
 import JackpotModal from './JackpotModal.tsx';
 
@@ -119,6 +121,13 @@ function Dashboard() {
                     )}
                 </div>
             </article>
+            <Link
+                to={URLS.ME}
+                className="btn-ghost px-3 py-1.5 text-sm inline-flex items-center gap-1 mt-2"
+            >
+                <IoArrowBack />
+                Mon compte
+            </Link>
 
             <article className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-4 mt-10">
                 <div className="card-primary-hover w-full text-center">
@@ -259,12 +268,13 @@ function Dashboard() {
                                         {game.author.username ===
                                         game.supervisor?.username ? (
                                             <div className="hidden sm:flex items-center gap-1">
-                                                <img
-                                                    src={
-                                                        game.author.avatarUrl ??
-                                                        `${import.meta.env.VITE_DICE_URL}${game.author.username}`
+                                                <UserAvatar
+                                                    avatarUrl={
+                                                        game.author.avatarUrl
                                                     }
-                                                    alt="Avatar"
+                                                    username={
+                                                        game.author.username
+                                                    }
                                                     className="h-10"
                                                 />
                                                 <p className="flex flex-col font-righteous text-sm">
@@ -277,13 +287,14 @@ function Dashboard() {
                                         ) : (
                                             <>
                                                 <div className="hidden sm:flex items-center gap-1">
-                                                    <img
-                                                        src={
+                                                    <UserAvatar
+                                                        avatarUrl={
                                                             game.author
-                                                                .avatarUrl ??
-                                                            `${import.meta.env.VITE_DICE_URL}${game.author.username}`
+                                                                .avatarUrl
                                                         }
-                                                        alt="Avatar"
+                                                        username={
+                                                            game.author.username
+                                                        }
                                                         className="h-10"
                                                     />
                                                     <p className="flex flex-col font-righteous text-sm">
@@ -295,13 +306,15 @@ function Dashboard() {
                                                 </div>
                                                 {game.supervisor && (
                                                     <div className="hidden sm:flex items-center gap-1">
-                                                        <img
-                                                            src={
+                                                        <UserAvatar
+                                                            avatarUrl={
                                                                 game.supervisor
-                                                                    .avatarUrl ??
-                                                                `${import.meta.env.VITE_DICE_URL}${game.supervisor.username}`
+                                                                    .avatarUrl
                                                             }
-                                                            alt="Avatar"
+                                                            username={
+                                                                game.supervisor
+                                                                    .username
+                                                            }
                                                             className="h-10"
                                                         />
                                                         <p className="flex flex-col font-righteous text-sm">
@@ -349,7 +362,9 @@ function Dashboard() {
                 <JackpotModal
                     month={format(now, 'MMMM', { locale: fr })}
                     onClose={() => setShowJackpot(false)}
-                    onClaimed={() => { setCanClaim(false); }}
+                    onClaimed={() => {
+                        setCanClaim(false);
+                    }}
                     isAdminClaim
                 />
             )}

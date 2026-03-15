@@ -5,7 +5,10 @@ interface HistoryChartProps {
     maxHeight?: number;
 }
 
-export default function HistoryChart({ history, maxHeight = 100 }: HistoryChartProps) {
+export default function HistoryChart({
+    history,
+    maxHeight = 100,
+}: HistoryChartProps) {
     const maxPts = Math.max(...history.map((d) => d.points), 1);
     const barZone = 20;
     const h = barZone;

@@ -51,7 +51,7 @@ function GameContent({
                     <UserAvatar
                         avatarUrl={game.author.avatarUrl}
                         username={game.author.username}
-                        className="w-10 h-10 rounded-full flex-shrink-0"
+                        className="w-10 h-10 flex-shrink-0"
                     />
                     <div className="flex flex-col font-righteous overflow-hidden">
                         <span className="text-xxs text-retro-muted">
@@ -98,7 +98,7 @@ function GameContent({
                         <UserAvatar
                             avatarUrl={game.author.avatarUrl}
                             username={game.author.username}
-                            className="w-12 h-12 rounded-full flex-shrink-0"
+                            className="w-12 h-12 flex-shrink-0"
                         />
                         <div className="flex flex-col font-righteous min-w-0">
                             <span className="text-xs text-retro-muted mr-2">

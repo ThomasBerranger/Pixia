@@ -39,7 +39,7 @@ function UserEditForm({ user, onSave }: UserEditFormProps) {
                     <UserAvatar
                         avatarUrl={user.avatarUrl}
                         username={user.username}
-                        className="h-14 rounded-full"
+                        className="h-14"
                     />
                     <div>
                         <p className="text-lg text-retro-accent">

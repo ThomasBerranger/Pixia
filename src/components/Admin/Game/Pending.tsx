@@ -193,7 +193,7 @@ function Pending() {
                                                     `${import.meta.env.VITE_DICE_URL}${game.author.username}`
                                                 }
                                                 alt="Avatar"
-                                                className="h-8 rounded-full"
+                                                className="h-8"
                                             />
                                             <p className="font-righteous text-xs sm:text-sm text-retro-muted truncate">
                                                 {game.author.username}
@@ -209,7 +209,7 @@ function Pending() {
                                                         `${import.meta.env.VITE_DICE_URL}${game.supervisor.username}`
                                                     }
                                                     alt="Avatar"
-                                                    className="h-8 rounded-full"
+                                                    className="h-8"
                                                 />
                                                 <p className="font-righteous text-xs sm:text-sm text-retro-accent truncate">
                                                     {game.supervisor.username}

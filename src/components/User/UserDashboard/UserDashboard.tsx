@@ -121,7 +121,9 @@ function UserDashboard() {
                         if (!prev) return prev;
                         return {
                             ...prev,
-                            canClaimTokens: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
+                            canClaimTokens: new Date(
+                                Date.now() + 5 * 24 * 60 * 60 * 1000
+                            ).toISOString(),
                             user: {
                                 ...prev.user,
                                 tokens: (prev.user.tokens ?? 0) + addedTokens,

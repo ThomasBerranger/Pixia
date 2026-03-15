@@ -23,7 +23,8 @@ export function ProgressBar({
 }: ProgressBarProps) {
     const percentage = max > 0 ? Math.min((value / max) * 100, 100) : 0;
     const { height, text } = SIZE_CONFIG[size];
-    const bgColor = color === 'success' ? 'bg-retro-success' : 'bg-retro-primary';
+    const bgColor =
+        color === 'success' ? 'bg-retro-success' : 'bg-retro-primary';
     const textColor = color === 'success' ? 'text-retro-bg' : 'text-white';
 
     return (
@@ -32,7 +33,9 @@ export function ProgressBar({
                 isActive ? 'opacity-100' : 'opacity-40'
             }`}
         >
-            <div className={`h-full flex items-center px-3 shrink-0 ${bgColor}`}>
+            <div
+                className={`h-full flex items-center px-3 shrink-0 ${bgColor}`}
+            >
                 <span
                     className={`font-righteous uppercase tracking-wider whitespace-nowrap ${textColor} ${text}`}
                 >

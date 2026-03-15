@@ -208,13 +208,18 @@ export default function UserDashboardSuggestion({
                         className="hidden sm:flex font-righteous text-retro-accent text-xs whitespace-nowrap items-center cursor-pointer"
                         onClick={() => setShowList(!showList)}
                     >
-                        Mes suggestions <BiSolidRightArrow className={`ml-1 transition-transform ${showList ? 'rotate-90' : ''}`} />
+                        Mes suggestions{' '}
+                        <BiSolidRightArrow
+                            className={`ml-1 transition-transform ${showList ? 'rotate-90' : ''}`}
+                        />
                     </p>
                 </div>
             </div>
             <div
                 className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                    showList ? 'max-h-[2000px] opacity-100' : 'sm:max-h-0 sm:opacity-0'
+                    showList
+                        ? 'max-h-[2000px] opacity-100'
+                        : 'sm:max-h-0 sm:opacity-0'
                 }`}
             >
                 <ContributionList contributions={contributions} />

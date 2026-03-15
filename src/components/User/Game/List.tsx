@@ -3,6 +3,9 @@ import { useEffect, useState } from 'react';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import type { UserGamesStats } from '../../../types/Game/userGamesStats.ts';
 import { CgSpinner } from 'react-icons/cg';
+import { IoArrowBack } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import { URLS } from '../../../constants/routes.ts';
 import { ProgressBar } from '../../../atoms/ProgressBar.tsx';
 import { GameMonthAccordion } from '../../Game/GameMonthAccordion.tsx';
 import {
@@ -86,6 +89,13 @@ function List() {
                     )}
                 </div>
             </section>
+            <Link
+                to={URLS.ME}
+                className="btn-ghost px-3 py-1.5 text-sm inline-flex items-center gap-1 mt-2"
+            >
+                <IoArrowBack />
+                Mon compte
+            </Link>
 
             <section className="mt-6 sm:mt-10">
                 {!userGamesStats ? (

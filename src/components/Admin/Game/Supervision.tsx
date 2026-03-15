@@ -236,7 +236,7 @@ function Supervision() {
                                     `${import.meta.env.VITE_DICE_URL}${game.author.username}`
                                 }
                                 alt="Avatar"
-                                className="h-12 rounded-full"
+                                className="h-12"
                             />
                             <p className="font-righteous text-lg sm:text-2xl text-white">
                                 {game.author.username}
