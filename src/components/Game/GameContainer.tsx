@@ -15,11 +15,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { URLS } from '../../constants/routes.ts';
 import { useNotificationStore } from '../../stores/notificationStore.ts';
 import { useAuth } from '../../contexts/authContext.tsx';
-import {
-    getParisTodayKey,
-    msUntilNextParisMidnight,
-    toDateKey,
-} from '../../utils/date.ts';
+import { toDateKey } from '../../utils/date.ts';
 
 function GameContainer() {
     const navigate = useNavigate();
@@ -40,30 +36,9 @@ function GameContainer() {
     const [loadingDirection, setLoadingDirection] = useState<
         'prev' | 'next' | null
     >(null);
-    const [parisDayKey, setParisDayKey] = useState<string>(() =>
-        getParisTodayKey()
-    );
 
     const [leaderboard, setLeaderboard] = useState<LeaderboardUserType[]>([]);
     const [player, setPlayer] = useState<UserType>();
-
-    // À minuit Paris, on bump parisDayKey pour relancer le fetch et basculer
-    // automatiquement sur la nouvelle partie du jour (utile pour les
-    // utilisateurs qui laissent l'onglet ouvert).
-    useEffect(() => {
-        let timeoutId: ReturnType<typeof setTimeout>;
-
-        const scheduleMidnight = () => {
-            timeoutId = setTimeout(() => {
-                setParisDayKey(getParisTodayKey());
-                scheduleMidnight();
-            }, msUntilNextParisMidnight());
-        };
-
-        scheduleMidnight();
-
-        return () => clearTimeout(timeoutId);
-    }, []);
 
     useEffect(() => {
         setIsImageLoading(true);
@@ -103,7 +78,7 @@ function GameContainer() {
         };
 
         fetchData();
-    }, [apiCall, date, navigate, parisDayKey]);
+    }, [apiCall, date, navigate]);
 
     const handleGameChange = useCallback(
         async (newDate: string, isPrevious: boolean) => {
