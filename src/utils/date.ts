@@ -1,16 +1,26 @@
+const PARIS_TZ = 'Europe/Paris';
+
+const parisDateFormatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: PARIS_TZ,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+});
+
 export function formatDateFr(date: string): string {
     return new Date(date).toLocaleDateString('fr-FR', {
+        timeZone: PARIS_TZ,
         day: 'numeric',
         month: 'long',
     });
 }
 
 export function toDateKey(date: Date | string): string {
-    const d = typeof date === 'string' ? new Date(date) : date;
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+    if (typeof date === 'string') {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return date;
+        return parisDateFormatter.format(new Date(date));
+    }
+    return parisDateFormatter.format(date);
 }
 
 export function findFirstAvailableDate(
