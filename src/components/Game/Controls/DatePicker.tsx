@@ -56,7 +56,7 @@ export function DatePicker({
         const firstDay = new Date(year, month, 1);
         const lastDay = new Date(year, month + 1, 0);
         const daysInMonth = lastDay.getDate();
-        const startingDayOfWeek = firstDay.getDay();
+        const startingDayOfWeek = (firstDay.getDay() + 6) % 7;
         const prevMonthLastDay = new Date(year, month, 0).getDate();
 
         const days: { day: number; month: number; year: number }[] = [];
@@ -186,7 +186,7 @@ export function DatePicker({
 
                     {/* Jours de la semaine */}
                     <div className="grid grid-cols-7 gap-1 mb-2">
-                        {['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'].map(
+                        {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map(
                             (day) => (
                                 <div
                                     key={day}
