@@ -14,4 +14,6 @@ export interface GameType {
     createdAt: string;
     supervisor?: UserType | null;
     status: keyof typeof GAME_STATUSES;
+    attempts?: number;
+    winnerCount?: number;
 }
