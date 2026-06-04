@@ -53,6 +53,12 @@ export const ENDPOINTS = {
     GAME_HINT: (id: string) => `games/${id}/hint`,
     GAME_SOLUTION: (id: string) => `games/${id}/solution`,
 
+    // ACTIVITY
+    ACTIVITY_INDEX: (page: number, search?: string) =>
+        search
+            ? `activities?page=${page}&search=${encodeURIComponent(search.slice(0, 255))}`
+            : `activities?page=${page}`,
+
     // CONTRIBUTION
     CONTRIBUTION: 'contributions',
 

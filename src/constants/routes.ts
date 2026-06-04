@@ -27,6 +27,7 @@ export const PATHS = {
     SUPER_ADMIN_GAMES: 'game-dashboard',
     SUPER_ADMIN_CONTRIBUTIONS: 'contributions',
     SUPER_ADMIN_GENERATOR: 'game-generator',
+    SUPER_ADMIN_ACTIVITY: 'activity',
     // Static
     CHANGELOG: '/changelog',
     CGU: '/cgu',
@@ -62,6 +63,7 @@ export const URLS = {
     SUPER_ADMIN_GAMES: '/super-admin/game-dashboard',
     SUPER_ADMIN_CONTRIBUTIONS: '/super-admin/contributions',
     SUPER_ADMIN_GENERATOR: '/super-admin/game-generator',
+    SUPER_ADMIN_ACTIVITY: '/super-admin/activity',
     // Static
     CHANGELOG: '/changelog',
     CGU: '/cgu',

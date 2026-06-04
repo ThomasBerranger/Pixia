@@ -63,6 +63,9 @@ const SuperAdminContributions = lazy(
 const SuperAdminGameDashboard = lazy(
     () => import('./components/SuperAdmin/Games.tsx')
 );
+const SuperAdminActivity = lazy(
+    () => import('./components/SuperAdmin/Activity/Activity.tsx')
+);
 
 // Lazy — static
 const Changelog = lazy(() => import('./pages/Changelog.tsx'));
@@ -232,6 +235,10 @@ function App() {
                                 <Route
                                     path={PATHS.SUPER_ADMIN_GENERATOR}
                                     element={<AdminGameGenerator />}
+                                />
+                                <Route
+                                    path={PATHS.SUPER_ADMIN_ACTIVITY}
+                                    element={<SuperAdminActivity />}
                                 />
                             </Route>
 

@@ -46,7 +46,7 @@ function Dashboard() {
                 <p className="font-righteous whitespace-nowrap">Espace admin</p>
             </Link>
             <Link
-                to={URLS.ADMIN}
+                to={URLS.SUPER_ADMIN_ACTIVITY}
                 className="card-primary-hover flex flex-col items-center justify-center"
             >
                 <LuActivity className="mx-auto mb-2" size={30} />
