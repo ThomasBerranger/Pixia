@@ -8,9 +8,14 @@ export interface ApiError extends Error {
     violations?: Record<string, string>;
 }
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+export function buildAssetUrl(path?: string): string {
+    return `${API_URL}${path ?? ''}`;
+}
+
 export function useApi() {
     const { token } = useAuth();
-    const apiUrl = import.meta.env.VITE_API_URL;
 
     const apiCall = useCallback(
         async (
@@ -18,7 +23,7 @@ export function useApi() {
             options: RequestInit = {},
             hasContentType: boolean = true
         ) => {
-            const response = await fetch(`${apiUrl}${endpoint}`, {
+            const response = await fetch(`${API_URL}${endpoint}`, {
                 method: 'GET',
                 ...options,
                 headers: {
@@ -47,7 +52,7 @@ export function useApi() {
 
             return response.json();
         },
-        [token, apiUrl]
+        [token]
     );
 
     return { apiCall };

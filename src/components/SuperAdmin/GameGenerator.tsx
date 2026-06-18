@@ -8,6 +8,7 @@ import {
     DIFFICULTIES,
     type Difficulty,
 } from '../../constants/difficultyPoints.ts';
+import { GAME_TYPES, type GameTypeKey } from '../../constants/gameTypes.ts';
 import { CgSpinner } from 'react-icons/cg';
 
 interface GameCreateForm {
@@ -15,6 +16,7 @@ interface GameCreateForm {
     englishSolution: string;
     hint: string;
     difficulty: Difficulty;
+    type: GameTypeKey;
 }
 
 function GameGenerator() {
@@ -28,6 +30,7 @@ function GameGenerator() {
         englishSolution: '',
         hint: '',
         difficulty: 'SIMPLE',
+        type: GAME_TYPES.MULTIVERS,
     });
 
     function updateField(field: Partial<GameCreateForm>) {
@@ -125,6 +128,29 @@ function GameGenerator() {
                                     className="input-retro p-2 text-center"
                                 >
                                     {Object.keys(DIFFICULTIES).map((key) => (
+                                        <option key={key} value={key}>
+                                            {key}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div>
+                                <label htmlFor="type" className="label-retro">
+                                    Type
+                                </label>
+                                <select
+                                    id="type"
+                                    value={game.type}
+                                    onChange={(e) =>
+                                        updateField({
+                                            type: e.target
+                                                .value as GameTypeKey,
+                                        })
+                                    }
+                                    className="input-retro p-2 text-center"
+                                >
+                                    {Object.keys(GAME_TYPES).map((key) => (
                                         <option key={key} value={key}>
                                             {key}
                                         </option>

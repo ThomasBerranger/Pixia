@@ -162,7 +162,7 @@ function GameContainer() {
                     />
 
                     <div className="order-first md:order-last">
-                        <GameHeader />
+                        <GameHeader type={game?.type} />
 
                         <GameContent
                             game={game}

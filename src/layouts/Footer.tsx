@@ -19,17 +19,20 @@ function Footer() {
                             'Le concept',
                             <div className="text-white font-righteous">
                                 <p className="mb-4">
-                                    Pixia, c'est un jeu où tu dois deviner les 2
-                                    films qui ont servi à créer l'image du jour.
+                                    Chaque jour, une nouvelle image mystère cache
+                                    une ou plusieurs œuvres à reconnaître.
                                 </p>
                                 <p className="underline mb-1">
                                     Ta mission, si tu l'acceptes :
                                 </p>
                                 <p className="mb-4">
-                                    Tous les jours, une nouvelle image apparaît.
-                                    Trouve quels films se cachent derrière. Crée
-                                    un compte pour débloquer des récompenses et
+                                    Selon le mode du jour, le défi change. Devine
+                                    ce qui se cache derrière l'image, et crée un
+                                    compte pour débloquer des récompenses et
                                     suivre tes stats.
+                                </p>
+                                <p className="underline mb-2">
+                                    Les difficultés :
                                 </p>
                                 <div className="mb-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
                                     <div className="flex items-center">
@@ -63,6 +66,28 @@ function Footer() {
                                         80 points
                                     </div>
                                 </div>
+                                <p className="underline mb-1">
+                                    Les modes de jeu :
+                                </p>
+                                <ul className="mb-4 list-disc pl-5 space-y-1">
+                                    <li>
+                                        Multivers — 2 films fusionnés en une
+                                        seule image : retrouve les deux.
+                                    </li>
+                                    <li>
+                                        Kawaii — un personnage redessiné en
+                                        version kawaii : reconnais-le.
+                                    </li>
+                                    <li>
+                                        Polychrome — un film résumé en
+                                        illustration minimaliste : devine
+                                        lequel.
+                                    </li>
+                                    <li>
+                                        Convergence — plusieurs indices d'un même
+                                        film réunis : devine le film.
+                                    </li>
+                                </ul>
                                 <p>Bon chance.</p>
                             </div>
                         )

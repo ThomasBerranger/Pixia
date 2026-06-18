@@ -13,6 +13,19 @@ function Changelog() {
             </h2>
 
             <div className="font-righteous mb-10">
+                <p className="text-lg mb-1">🎭 De nouveaux modes de jeu</p>
+                <p className="text-sm">
+                    Pixia ne se limite plus aux fusions de films ! Découvre les
+                    modes Kawaii, Polychrome et Convergence — chacun avec son
+                    propre défi pour tester ta culture ciné.
+                </p>
+            </div>
+
+            <h2 className="font-righteous text-retro-accent text-2xl tracking-wide text-left mb-7">
+                ● Version 3.2.1
+            </h2>
+
+            <div className="font-righteous mb-10">
                 <p className="text-lg mb-1">🎰 Le Jackpot est là !</p>
                 <p className="text-sm mb-7">
                     Tous les 5 jours, un coffre apparaît sur ton profil.

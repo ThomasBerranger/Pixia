@@ -9,6 +9,7 @@ import { FaCheck } from 'react-icons/fa';
 import { useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { useNavigate } from 'react-router-dom';
+import { getGameTypeContent } from '../../../utils/gameType.ts';
 
 function GameFooter({
     game,
@@ -159,7 +160,9 @@ function GameFooter({
                         <div className="col-span-full sm:col-span-7 order-1">
                             <input
                                 type="text"
-                                placeholder="Exemple : Titanic et Spider-Man"
+                                placeholder={
+                                    getGameTypeContent(game?.type).placeholder
+                                }
                                 autoComplete="off"
                                 value={answer}
                                 onChange={(e) => setAnswer(e.target.value)}

@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FaCheck, FaTimes } from 'react-icons/fa';
 import { useAuth } from '../../../contexts/authContext.tsx';
 import { useAlert } from '../../../hooks/useAlert.ts';
-import { useApi } from '../../../hooks/useApi.tsx';
+import { buildAssetUrl, useApi } from '../../../hooks/useApi.tsx';
 import { Link, useNavigate } from 'react-router-dom';
 import { URLS } from '../../../constants/routes.ts';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
@@ -19,7 +19,7 @@ interface WeekGamesProps {
     wonGameId?: string;
 }
 
-export default function WeekGames({ wonGameId }: WeekGamesProps) {
+function WeekGames({ wonGameId }: WeekGamesProps) {
     const { isAuthenticated } = useAuth();
     const { showAlert } = useAlert();
     const { apiCall } = useApi();
@@ -102,7 +102,7 @@ export default function WeekGames({ wonGameId }: WeekGamesProps) {
                                         )}
                                     >
                                         <img
-                                            src={`${import.meta.env.VITE_API_URL}${entry.game.image}`}
+                                            src={buildAssetUrl(entry.game.image)}
                                             alt={`Partie du ${entry.game.date}`}
                                             className="w-32 md:w-[21vh] object-cover rounded-md border-2 border-retro-primary/30 cursor-pointer blur-sm transition-all duration-300"
                                             onLoad={(e) =>
@@ -135,3 +135,5 @@ export default function WeekGames({ wonGameId }: WeekGamesProps) {
         </section>
     );
 }
+
+export default WeekGames;

@@ -24,9 +24,20 @@
 
 ## 3. Concept & règles du jeu
 
-- **Type de jeu actuel** : MULTIVERSE (seul type disponible) — fusion de 2 films en une image IA
 - **Rythme** : 1 Pixia publié par jour
 - **Accès** : connecté ou non connecté (la partie est jouable anonymement)
+
+### Types de jeu (gametype)
+Le super admin choisit le type à la création du game. Chaque type adapte le titre, la consigne et le placeholder côté joueur (`GAME_TYPE_CONTENT` dans `src/constants/gameTypes.ts`).
+
+| Clé (backend) | Titre | Concept |
+|---------------|-------|---------|
+| `MULTIVERS` | Multivers | 2 films fusionnés en une seule image — retrouve les deux |
+| `KAWAII` | Kawaii | Un personnage redessiné en version kawaii — reconnais-le |
+| `POLYCHROME` | Polychrome | Un film résumé en illustration minimaliste — devine lequel |
+| `CONVERGENCE` | Convergence | Plusieurs indices d'un même film réunis — devine le film |
+
+> ⚠️ La clé backend est `MULTIVERS` (orthographe FR, sans « e »), pas `MULTIVERSE`.
 
 ### Réponse
 - Nombre de tentatives : illimité

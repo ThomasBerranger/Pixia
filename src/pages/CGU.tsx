@@ -19,9 +19,10 @@ function Cgu() {
             </h2>
             <div className="font-righteous text-sm mb-10">
                 <p>
-                    Pixia est un jeu gratuit où chaque jour, une nouvelle image
-                    est générée. Ta mission : deviner les 2 films qui ont
-                    inspiré cette image. Tu peux jouer sans compte, mais en
+                    Pixia est un jeu gratuit qui met ta culture ciné à
+                    l'épreuve : chaque jour, une nouvelle image mystère apparaît.
+                    Ta mission : retrouver la ou les œuvres qu'elle dissimule,
+                    selon le mode du jour. Tu peux jouer sans compte, mais en
                     créer un te donne accès aux stats, badges, classements et
                     indices.
                 </p>
