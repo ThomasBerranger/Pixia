@@ -10,7 +10,7 @@ export default defineConfig({
     plugins: [
         react(),
         VitePWA({
-            registerType: 'autoUpdate',
+            registerType: 'prompt',
             includeAssets: ['favicon.png', 'icons/*.png'],
             manifest: {
                 name: 'Pixia',
@@ -64,8 +64,6 @@ export default defineConfig({
                 ],
             },
             workbox: {
-                skipWaiting: true,
-                clientsClaim: true,
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
                 navigateFallbackDenylist: [/^\/api/],
                 runtimeCaching: [
