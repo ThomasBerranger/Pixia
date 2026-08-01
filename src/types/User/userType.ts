@@ -18,4 +18,5 @@ export interface UserType {
     rank?: number;
     roles?: [];
     tokens?: number;
+    emailConsent?: boolean;
 }

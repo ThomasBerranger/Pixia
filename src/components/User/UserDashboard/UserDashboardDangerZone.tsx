@@ -1,10 +1,12 @@
 import { useAuth } from '../../../contexts/authContext.tsx';
 import type { UserType } from '../../../types/User/userType.ts';
-import React, { useState } from 'react';
-import { type ApiError, useApi } from '../../../hooks/useApi.tsx';
+import React, { useEffect, useState } from 'react';
+import { useApi } from '../../../hooks/useApi.tsx';
 import { ENDPOINTS } from '../../../constants/endpoints.ts';
 import { CgSpinner } from 'react-icons/cg';
 import { useAlert } from '../../../hooks/useAlert.ts';
+import Toggle from '../../../atoms/Toggle.tsx';
+import { getApiErrorMessage } from '../../../utils/apiError.ts';
 
 export default function UserDashboardDangerZone({
     user,
@@ -18,6 +20,52 @@ export default function UserDashboardDangerZone({
     const [username, setUsername] = useState<string | undefined>();
     const [email, setEmail] = useState<string | undefined>();
     const [updateLoading, setUpdateLoading] = useState<boolean>(false);
+
+    const userEmailConsent = user?.emailConsent;
+
+    const [emailConsent, setEmailConsent] = useState<boolean>(
+        userEmailConsent ?? true
+    );
+    const [emailConsentLoading, setEmailConsentLoading] =
+        useState<boolean>(false);
+
+    useEffect(() => {
+        if (userEmailConsent !== undefined) {
+            setEmailConsent(userEmailConsent);
+        }
+    }, [userEmailConsent]);
+
+    async function handleEmailConsentChange(next: boolean): Promise<void> {
+        if (emailConsentLoading) {
+            return;
+        }
+
+        setEmailConsent(next);
+        setEmailConsentLoading(true);
+
+        try {
+            const response = await apiCall(ENDPOINTS.USER_UPDATE, {
+                method: 'PATCH',
+                body: JSON.stringify({ emailConsent: next }),
+            });
+
+            login(response.token);
+
+            showAlert(
+                'Préférence enregistrée',
+                next
+                    ? 'Tu recevras désormais les emails de Pixia.'
+                    : 'Tu ne recevras plus les emails de Pixia.',
+                'success'
+            );
+        } catch (error) {
+            setEmailConsent(!next);
+
+            showAlert('Problème rencontré', getApiErrorMessage(error), 'error');
+        } finally {
+            setEmailConsentLoading(false);
+        }
+    }
 
     async function handleUpdate(e?: React.FormEvent): Promise<void> {
         e?.preventDefault();
@@ -45,15 +93,7 @@ export default function UserDashboardDangerZone({
             setUsername('');
             setEmail('');
         } catch (error) {
-            const apiError = error as ApiError;
-
-            showAlert(
-                'Problème rencontré',
-                apiError.violations
-                    ? Object.values(apiError.violations).join(' ')
-                    : 'Une erreur est survenue',
-                'error'
-            );
+            showAlert('Problème rencontré', getApiErrorMessage(error), 'error');
         } finally {
             setUpdateLoading(false);
         }
@@ -119,6 +159,23 @@ export default function UserDashboardDangerZone({
                 </form>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-6">
+                    <div>
+                        <h3 className="font-righteous text-retro-accent text-sm uppercase mb-2">
+                            Recevoir les emails
+                        </h3>
+                        <div className="flex items-center gap-3">
+                            <Toggle
+                                checked={emailConsent}
+                                onChange={handleEmailConsentChange}
+                            />
+                            {emailConsentLoading && (
+                                <CgSpinner
+                                    className="animate-spin text-retro-muted"
+                                    size={20}
+                                />
+                            )}
+                        </div>
+                    </div>
                     <div>
                         <h3 className="font-righteous text-retro-primary text-sm uppercase mb-2">
                             Se déconnecter
