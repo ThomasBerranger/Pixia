@@ -1,5 +1,6 @@
 import { useAuth } from '../contexts/authContext';
 import { useCallback } from 'react';
+import { useAppUpdateStore } from '../stores/appUpdateStore.ts';
 
 export interface ApiError extends Error {
     status: number;
@@ -30,10 +31,19 @@ export function useApi() {
                     ...(hasContentType && {
                         'Content-Type': 'application/json',
                     }),
+                    'X-App-Version': __APP_VERSION__,
                     ...(token && { Authorization: `Bearer ${token}` }),
                     ...options.headers,
                 },
             });
+
+            // Le back signale que ce front est trop ancien pour son contrat API.
+            // La modale bloquante prend le relais (reload imminent) : on ne
+            // résout jamais, pour éviter une erreur parasite chez l'appelant.
+            if (response.status === 426) {
+                useAppUpdateStore.getState().setOutdated(true);
+                return new Promise<never>(() => {});
+            }
 
             if (!response.ok) {
                 const errorData = await response.json().catch(() => ({}));
