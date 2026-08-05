@@ -27,15 +27,28 @@ export default function AppOutdatedModal() {
 
     return (
         <div className="fixed inset-0 z-[100] bg-retro-bg/80 flex items-center justify-center px-4">
-            <div className="max-w-md w-full p-8 bg-retro-surface border-[3px] border-retro-primary text-center">
-                <h2 className="font-title text-2xl text-retro-primary mb-4 uppercase">
+            <div
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="app-outdated-title"
+                aria-describedby="app-outdated-desc"
+                className="max-w-md w-full p-8 bg-retro-surface border-[3px] border-retro-primary text-center"
+            >
+                <h2
+                    id="app-outdated-title"
+                    className="font-title text-2xl text-retro-primary mb-4 uppercase"
+                >
                     Mise à jour requise
                 </h2>
-                <p className="font-righteous text-white/90 text-sm mb-6 leading-relaxed">
+                <p
+                    id="app-outdated-desc"
+                    className="font-righteous text-white/90 text-sm mb-6 leading-relaxed"
+                >
                     Une nouvelle version de Pixia est nécessaire pour continuer à
                     jouer. Recharge la page pour la récupérer.
                 </p>
                 <button
+                    autoFocus
                     onClick={() => void reload()}
                     className="btn-pixel w-full py-3"
                 >
