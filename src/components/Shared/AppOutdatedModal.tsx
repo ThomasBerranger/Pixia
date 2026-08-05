@@ -26,7 +26,7 @@ export default function AppOutdatedModal() {
     }
 
     return (
-        <div className="fixed inset-0 z-[100] bg-retro-bg/95 flex items-center justify-center px-4">
+        <div className="fixed inset-0 z-[100] bg-retro-bg/80 flex items-center justify-center px-4">
             <div className="max-w-md w-full p-8 bg-retro-surface border-[3px] border-retro-primary text-center">
                 <h2 className="font-title text-2xl text-retro-primary mb-4 uppercase">
                     Mise à jour requise
