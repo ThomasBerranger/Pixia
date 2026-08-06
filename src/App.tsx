@@ -6,6 +6,7 @@ import Modal from './components/Shared/Modal.tsx';
 import Alert from './components/Shared/Alert.tsx';
 import ScrollToTop from './layouts/ScrollToTop.tsx';
 import InstallPWA from './layouts/InstallPWA.tsx';
+import AppUpdateManager from './components/Shared/AppUpdateManager.tsx';
 import ImpersonateBanner from './layouts/ImpersonateBanner.tsx';
 import NotificationWatcher from './components/Shared/NotificationWatcher.tsx';
 import UrlAlertWatcher from './components/Shared/UrlAlertWatcher.tsx';
@@ -93,6 +94,7 @@ function App() {
 
                 <ScrollToTop />
                 <InstallPWA />
+                <AppUpdateManager />
                 <ImpersonateBanner />
                 <NotificationWatcher />
                 <UrlAlertWatcher />
