@@ -42,7 +42,7 @@ function GameFooter({
     async function handleSolutionRequest(e: React.FormEvent): Promise<void> {
         e.preventDefault();
 
-        if (answer.length <= 5) {
+        if (answer.length < 2) {
             showErrorBriefly();
             return;
         }
