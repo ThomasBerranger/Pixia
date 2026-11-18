@@ -372,26 +372,6 @@ pnpm test         # mode watch local
 
 ---
 
-## 19. Points à adresser (TODO)
-
-- [ ] `console.log` résiduel dans `InstallPWA.tsx` — supprimer
-- [ ] `DEBUG_MODE = false` hardcodé dans `InstallPWA.tsx` — risque de commit à `true`
-- [ ] JWT dans `localStorage` — vulnérabilité XSS, envisager httpOnly cookie
-- [ ] `import.meta.env.VITE_API_URL` utilisé directement dans certains composants — tout passer par `useApi`
-- [ ] Pas d'`ErrorBoundary` React — les crashs inattendus ne sont pas interceptés
-- [ ] Pas de refresh token — pas de renouvellement silencieux avant expiration JWT
-- [ ] Vitest non installé en devDependency malgré le script `test`
-- [ ] Pas d'état async unifié — implémenter `AsyncState<T>` systématiquement
-- [ ] Gestion d'erreur non centralisée dans `useApi`
-- [ ] Pas de skeleton loaders — remplacer les spinners génériques
-- [ ] Pas d'`EmptyState` atom
-- [ ] `eslint-disable` sur `useEffect` dans `Supervision.tsx` — corriger
-- [ ] `pnpm audit` à ajouter dans le CI
-- [ ] Pre-commit hooks — `husky` + `lint-staged`
-- [ ] Auditer les classes CSS custom — supprimer les inutilisées (candidat : `btn-3d`)
-
----
-
 ## Réponses attendues
 
 - Code concis, lisible, typé — respecter les patterns existants du projet
