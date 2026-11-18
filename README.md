@@ -1,20 +1,25 @@
 # Pixia
 
-> Chaque jour, une image générée par IA cache **deux films mélangés**. À toi de les retrouver.
+> Chaque jour, une image générée par IA cache un film, un personnage ou deux univers mélangés. À toi de les retrouver.
 
 ![Démo de Pixia](docs/media/demo.gif)
 
 ## Le concept
 
-Pixia publie **une image par jour**, jouable par tous, connecté ou non. Dans le mode actuel, **Multivers**, l'image fusionne deux films en une seule scène : il faut identifier les deux titres.
+Pixia publie **une image par jour**, jouable par tous, connecté ou non. Le type de jeu varie d'un jour à l'autre :
+
+| Mode | L'image montre | À deviner |
+|---|---|---|
+| **Multivers** | deux films fusionnés en une seule scène | les deux films |
+| **Kawaii** | un personnage redessiné en version kawaii | le personnage |
+| **Polychrome** | un film résumé en illustration minimaliste | le film |
+| **Convergence** | plusieurs éléments d'un même film réunis | le film |
 
 - **Tentatives illimitées**, avec une reconnaissance tolérante : accents, ordre des mots, fautes de frappe, titres FR ou EN.
 - **Un indice** par partie pour les joueurs connectés, au prix d'environ la moitié des points.
 - **Des points selon la difficulté** (de *Simple* à *Impossible*), convertis en jetons.
 - **Un classement mensuel**, des badges et des statistiques de jeu.
-- **Les joueurs créent aussi des parties** : ils décrivent leur idée, l'IA l'analyse et génère l'image, puis les admins modèrent avant publication.
-
-D'autres modes sont en préparation : Kawaii, Polychrome et Convergence.
+- **Les joueurs créent aussi des parties Multivers** : ils décrivent leur idée, l'IA l'analyse et génère l'image, puis les admins modèrent avant publication.
 
 ## Aperçu
 
